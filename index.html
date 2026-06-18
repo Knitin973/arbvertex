@@ -781,7 +781,7 @@ footer p{color:var(--muted);font-size:0.82rem;}
     <button class="back-btn" onclick="showPage('home')">← Back to Home</button>
     <div class="section-tag">// LIVE ARBITRAGE SCANNER</div>
     <h2>Real-Time Price Scanner</h2>
-    <p class="page-desc">Live price comparison across 6 exchanges — Binance, Bybit, Gate.io, Bitget, KuCoin & MEXC. Data fetched every 15 seconds. Opportunities with 2%+ spread highlighted.</p>
+    <p class="page-desc">Live price comparison across 6 exchanges — Binance, Bybit, Gate.io, Bitget, KuCoin & MEXC. Tracking 700+ coins, refreshed every 30 seconds. Opportunities with 2%+ spread highlighted.</p>
 
     <!-- EXCHANGE FILTER -->
     <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.2rem;">
@@ -801,7 +801,7 @@ footer p{color:var(--muted);font-size:0.82rem;}
         <span id="scanner-status" style="font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--muted);">Connecting to exchanges...</span>
       </div>
       <div style="display:flex;align-items:center;gap:1.5rem;">
-        <span style="font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--muted);">Next refresh: <span id="countdown" style="color:var(--accent);">15s</span></span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--muted);">Next refresh: <span id="countdown" style="color:var(--accent);">30s</span></span>
         <button onclick="fetchAllPrices()" style="background:none;border:1px solid var(--border);color:var(--accent);padding:0.3rem 0.8rem;border-radius:4px;font-size:0.78rem;cursor:pointer;font-family:'JetBrains Mono',monospace;">↻ Refresh Now</button>
       </div>
     </div>
@@ -904,15 +904,11 @@ document.querySelectorAll('.feat-card,.profit-card,.risk-card,.info-card,.step')
 });
 
 // ── SCANNER ──
-const PAIRS = [
-  'BTCUSDT','ETHUSDT','SOLUSDT','BNBUSDT','XRPUSDT',
-  'DOGEUSDT','ADAUSDT','AVAXUSDT','LINKUSDT','DOTUSDT',
-  'LTCUSDT','TRXUSDT','UNIUSDT','ATOMUSDT','NEARUSDT',
-  'APTUSDT','ARBUSDT','OPUSDT','INJUSDT','SUIUSDT'
-];
+const PAIRS = []; // populated dynamically from Binance (700+ USDT pairs)
+const MAX_PAIRS = 700;
 
 let countdownInterval = null;
-let countdownVal = 15;
+let countdownVal = 30;
 let activeFilter = 'all';
 let lastResults = [];
 
@@ -928,30 +924,59 @@ function setFilter(f) {
   renderTable(lastResults);
 }
 
+// ── LOAD ALL USDT PAIRS (700+) FROM BINANCE ──
+async function loadAllPairs() {
+  try {
+    const r = await fetch('https://api.binance.com/api/v3/exchangeInfo');
+    const d = await r.json();
+    const usdtPairs = d.symbols
+      .filter(s => s.symbol.endsWith('USDT') && s.status === 'TRADING' && s.isSpotTradingAllowed)
+      .map(s => s.symbol)
+      .slice(0, MAX_PAIRS);
+    PAIRS.length = 0;
+    PAIRS.push(...usdtPairs);
+  } catch(e) {
+    console.warn('Failed to load full pair list, using fallback:', e);
+    PAIRS.length = 0;
+    PAIRS.push('BTCUSDT','ETHUSDT','SOLUSDT','BNBUSDT','XRPUSDT','DOGEUSDT','ADAUSDT','AVAXUSDT','LINKUSDT','DOTUSDT','LTCUSDT','TRXUSDT','UNIUSDT','ATOMUSDT','NEARUSDT','APTUSDT','ARBUSDT','OPUSDT','INJUSDT','SUIUSDT');
+  }
+}
+
 // ── FETCH FUNCTIONS ──
+// Binance ticker endpoint has a URL length limit, so we batch requests for 700+ symbols
 async function fetchBinance() {
-  const url = `https://api.binance.com/api/v3/ticker/price?symbols=[${PAIRS.map(p=>`"${p}"`).join(',')}]`;
-  const r = await fetch(url); const d = await r.json();
-  const m = {}; d.forEach(x => m[x.symbol] = parseFloat(x.price)); return m;
+  const m = {};
+  const BATCH = 100;
+  for (let i = 0; i < PAIRS.length; i += BATCH) {
+    const batch = PAIRS.slice(i, i + BATCH);
+    const url = `https://api.binance.com/api/v3/ticker/price?symbols=[${batch.map(p=>`"${p}"`).join(',')}]`;
+    try {
+      const r = await fetch(url); const d = await r.json();
+      if (Array.isArray(d)) d.forEach(x => m[x.symbol] = parseFloat(x.price));
+    } catch(e) { console.warn('Binance batch failed:', e); }
+  }
+  return m;
 }
 
 async function fetchBybit() {
   const m = {};
+  const pairSet = new Set(PAIRS);
   const r = await fetch('https://api.bybit.com/v5/market/tickers?category=spot');
   const d = await r.json();
-  if(d.result?.list) d.result.list.forEach(x => { if(PAIRS.includes(x.symbol)) m[x.symbol]=parseFloat(x.lastPrice); });
+  if(d.result?.list) d.result.list.forEach(x => { if(pairSet.has(x.symbol)) m[x.symbol]=parseFloat(x.lastPrice); });
   return m;
 }
 
 async function fetchGate() {
   const m = {};
+  const pairSet = new Set(PAIRS);
   try {
     const url = 'https://api.gateio.ws/api/v4/spot/tickers';
     const r = await fetch('https://api.allorigins.win/raw?url=' + encodeURIComponent(url));
     const d = await r.json();
     d.forEach(x => {
       const sym = x.currency_pair?.replace('_','');
-      if(PAIRS.includes(sym)) m[sym] = parseFloat(x.last);
+      if(pairSet.has(sym)) m[sym] = parseFloat(x.last);
     });
   } catch(e) { console.warn('Gate failed:', e); }
   return m;
@@ -959,24 +984,26 @@ async function fetchGate() {
 
 async function fetchBitget() {
   const m = {};
+  const pairSet = new Set(PAIRS);
   const r = await fetch('https://api.bitget.com/api/v2/spot/market/tickers');
   const d = await r.json();
   if(d.data) d.data.forEach(x => {
     const sym = x.symbol?.replace('USDT','') + 'USDT';
-    if(PAIRS.includes(sym)) m[sym] = parseFloat(x.lastPr);
+    if(pairSet.has(sym)) m[sym] = parseFloat(x.lastPr);
   });
   return m;
 }
 
 async function fetchKucoin() {
   const m = {};
+  const pairSet = new Set(PAIRS);
   try {
     const url = 'https://api.kucoin.com/api/v1/market/allTickers';
     const r = await fetch('https://api.allorigins.win/raw?url=' + encodeURIComponent(url));
     const d = await r.json();
     if(d.data?.ticker) d.data.ticker.forEach(x => {
       const sym = x.symbol?.replace('-','');
-      if(PAIRS.includes(sym)) m[sym] = parseFloat(x.last);
+      if(pairSet.has(sym)) m[sym] = parseFloat(x.last);
     });
   } catch(e) { console.warn('KuCoin failed:', e); }
   return m;
@@ -984,11 +1011,12 @@ async function fetchKucoin() {
 
 async function fetchMexc() {
   const m = {};
+  const pairSet = new Set(PAIRS);
   try {
     const url = 'https://api.mexc.com/api/v3/ticker/price';
     const r = await fetch('https://api.allorigins.win/raw?url=' + encodeURIComponent(url));
     const d = await r.json();
-    d.forEach(x => { if(PAIRS.includes(x.symbol)) m[x.symbol]=parseFloat(x.price); });
+    d.forEach(x => { if(pairSet.has(x.symbol)) m[x.symbol]=parseFloat(x.price); });
   } catch(e) { console.warn('MEXC failed:', e); }
   return m;
 }
@@ -1089,7 +1117,13 @@ async function fetchAllPrices() {
   const status = document.getElementById('scanner-status');
   dot.style.background = '#ffa040';
   dot.style.animation = 'none';
-  status.textContent = 'Fetching from 6 exchanges...';
+
+  if (PAIRS.length === 0) {
+    status.textContent = 'Loading full coin list (700+)...';
+    await loadAllPairs();
+  }
+
+  status.textContent = `Fetching ${PAIRS.length} pairs from 6 exchanges...`;
 
   const safeF = async (fn, name) => { try { return await fn(); } catch(e) { console.warn(name+' failed:', e); return {}; } };
 
@@ -1124,14 +1158,14 @@ async function fetchAllPrices() {
   dot.style.background = 'var(--accent2)';
   dot.style.animation = 'pulse 2s infinite';
   status.textContent = `Live · ${activeExchanges.join(', ')} · ${new Date().toLocaleTimeString()}`;
-  countdownVal = 15;
+  countdownVal = 30;
 
   renderTable(results);
 }
 
 function startCountdown() {
   if(countdownInterval) clearInterval(countdownInterval);
-  countdownVal = 15;
+  countdownVal = 30;
   countdownInterval = setInterval(() => {
     countdownVal--;
     const el = document.getElementById('countdown');
