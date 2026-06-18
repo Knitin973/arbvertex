@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CFA Signals | Crypto Futures Arbitrage</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #050a0f;
+  --surface: #0d1a24;
+  --accent: #00e5ff;
+  --accent2: #00ff88;
+  --text: #e8f4f8;
+  --muted: #6a8fa8;
+  --border: #1a3a52;
+  --red: #ff5555;
+  --glow: 0 0 30px rgba(0,229,255,0.15);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;line-height:1.6;overflow-x:hidden;}
+
+/* ── HEADER ── */
+header{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(5,10,15,0.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 5%;}
+nav{display:flex;align-items:center;justify-content:space-between;height:64px;}
+.logo{font-family:'JetBrains Mono',monospace;font-size:1.1rem;color:var(--accent);text-decoration:none;}
+.logo span{color:var(--accent2);}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.9rem;font-weight:500;transition:color 0.2s;cursor:pointer;}
+.nav-links a:hover{color:var(--accent);}
+.nav-cta{background:var(--accent)!important;color:var(--bg)!important;padding:0.4rem 1.1rem;border-radius:4px;font-weight:700!important;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{display:block;width:24px;height:2px;background:var(--accent);border-radius:2px;}
+
+/* ── PAGES ── */
+.page{display:none;min-height:100vh;padding-top:64px;}
+.page.active{display:block;}
+
+/* ── HERO ── */
+#page-home{background:var(--bg);}
+.hero{min-height:calc(100vh - 64px);display:flex;align-items:center;padding:60px 5%;position:relative;overflow:hidden;}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,229,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;}
+.hero-glow{position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(0,229,255,0.07) 0%,transparent 65%);top:40%;left:50%;transform:translate(-50%,-50%);pointer-events:none;}
+.hero-content{max-width:760px;position:relative;z-index:1;}
+.badge{display:inline-flex;align-items:center;gap:0.5rem;background:var(--surface);border:1px solid var(--border);color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:0.75rem;padding:0.35rem 0.8rem;border-radius:2px;margin-bottom:1.5rem;letter-spacing:0.08em;}
+.badge::before{content:'';width:6px;height:6px;background:var(--accent2);border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+h1{font-size:clamp(2.2rem,5vw,3.8rem);font-weight:700;line-height:1.1;letter-spacing:-0.02em;margin-bottom:1.2rem;}
+h1 .c1{color:var(--accent);}
+h1 .c2{color:var(--accent2);}
+.hero-sub{font-size:1.05rem;color:var(--muted);max-width:520px;margin-bottom:2.2rem;line-height:1.7;}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;}
+.btn-primary{background:var(--accent);color:var(--bg);padding:0.75rem 1.8rem;border-radius:4px;font-weight:700;font-size:0.95rem;text-decoration:none;cursor:pointer;border:none;font-family:'Space Grotesk',sans-serif;transition:transform 0.2s,box-shadow 0.2s;box-shadow:var(--glow);display:inline-block;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 40px rgba(0,229,255,0.3);}
+.btn-outline{border:1px solid var(--border);color:var(--text);padding:0.75rem 1.8rem;border-radius:4px;font-weight:500;font-size:0.95rem;text-decoration:none;cursor:pointer;background:none;font-family:'Space Grotesk',sans-serif;transition:border-color 0.2s,color 0.2s;display:inline-block;}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent);}
+.hero-stats{display:flex;gap:2.5rem;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border);flex-wrap:wrap;}
+.stat-num{font-family:'JetBrains Mono',monospace;font-size:1.8rem;color:var(--accent);}
+.stat-label{font-size:0.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;}
+
+/* ── FEATURE CARDS on HOME ── */
+.features{padding:80px 5%;background:var(--surface);border-top:1px solid var(--border);}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem;margin-top:2.5rem;}
+.feat-card{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:1.8rem;cursor:pointer;transition:border-color 0.3s,transform 0.3s;}
+.feat-card:hover{border-color:var(--accent);transform:translateY(-4px);}
+.feat-icon{font-size:2rem;margin-bottom:1rem;}
+.feat-card h3{font-size:1rem;font-weight:600;margin-bottom:0.5rem;}
+.feat-card p{color:var(--muted);font-size:0.87rem;line-height:1.65;margin-bottom:1rem;}
+.feat-link{color:var(--accent);font-size:0.82rem;font-weight:600;font-family:'JetBrains Mono',monospace;}
+
+/* ── INNER PAGE LAYOUT ── */
+.inner-page{padding:60px 5% 80px;}
+.section-tag{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--accent);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.75rem;}
+h2{font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:700;letter-spacing:-0.02em;margin-bottom:1rem;}
+.page-desc{color:var(--muted);font-size:1rem;max-width:600px;line-height:1.75;margin-bottom:3rem;}
+.back-btn{display:inline-flex;align-items:center;gap:0.5rem;color:var(--muted);font-size:0.85rem;cursor:pointer;margin-bottom:2rem;transition:color 0.2s;background:none;border:none;font-family:'Space Grotesk',sans-serif;}
+.back-btn:hover{color:var(--accent);}
+
+/* ── WHAT IS ARBITRAGE PAGE ── */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;}
+.info-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.8rem;margin-bottom:1rem;}
+.info-card h3{font-size:1rem;color:var(--accent);font-family:'JetBrains Mono',monospace;margin-bottom:0.6rem;}
+.info-card p{color:var(--muted);font-size:0.9rem;line-height:1.7;}
+.body-text{color:var(--muted);font-size:0.95rem;line-height:1.8;margin-bottom:1.2rem;}
+
+/* ── HOW IT WORKS PAGE ── */
+.steps{display:flex;flex-direction:column;gap:1.5rem;max-width:700px;}
+.step{display:flex;gap:1.5rem;align-items:flex-start;}
+.step-num-box{width:48px;height:48px;background:var(--surface);border:1px solid var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:1.1rem;color:var(--accent);flex-shrink:0;}
+.step-body h3{font-size:1rem;font-weight:600;margin-bottom:0.4rem;}
+.step-body p{color:var(--muted);font-size:0.9rem;line-height:1.65;}
+.step-connector{width:2px;height:24px;background:var(--border);margin-left:23px;}
+
+/* ── GENERATE PROFIT PAGE ── */
+.profit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem;margin-bottom:3rem;}
+.profit-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.8rem;transition:border-color 0.3s;}
+.profit-card:hover{border-color:var(--accent2);}
+.profit-card .icon{font-size:1.8rem;margin-bottom:0.8rem;}
+.profit-card h3{font-size:0.97rem;font-weight:600;margin-bottom:0.5rem;}
+.profit-card p{color:var(--muted);font-size:0.87rem;line-height:1.65;}
+.profit-card .tag{display:inline-block;background:rgba(0,255,136,0.1);color:var(--accent2);font-family:'JetBrains Mono',monospace;font-size:0.68rem;padding:0.2rem 0.5rem;border-radius:2px;margin-bottom:0.6rem;}
+
+/* ── RISKS PAGE ── */
+.warning-banner{background:rgba(255,85,85,0.07);border:1px solid rgba(255,85,85,0.3);border-radius:8px;padding:1.2rem 1.5rem;display:flex;align-items:flex-start;gap:1rem;margin-bottom:2.5rem;}
+.warning-banner p{color:#ff9090;font-size:0.9rem;line-height:1.65;}
+.risk-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem;}
+.risk-card{background:var(--surface);border:1px solid rgba(255,85,85,0.2);border-radius:8px;padding:1.6rem;transition:border-color 0.3s;}
+.risk-card:hover{border-color:rgba(255,85,85,0.5);}
+.risk-level{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.68rem;padding:0.2rem 0.5rem;border-radius:2px;margin-bottom:0.7rem;letter-spacing:0.06em;}
+.risk-high{background:rgba(255,85,85,0.15);color:#ff7070;}
+.risk-med{background:rgba(255,165,0,0.12);color:#ffa040;}
+.risk-low{background:rgba(0,229,255,0.1);color:var(--accent);}
+.risk-card h3{font-size:0.95rem;font-weight:600;margin-bottom:0.5rem;}
+.risk-card p{color:var(--muted);font-size:0.87rem;line-height:1.65;}
+
+/* ── PRICING PAGE ── */
+.pricing-wrap{display:flex;flex-direction:column;align-items:center;}
+.single-plan{background:var(--surface);border:2px solid var(--accent);border-radius:12px;padding:2.5rem;max-width:460px;width:100%;position:relative;box-shadow:var(--glow);}
+.plan-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--accent);color:var(--bg);font-size:0.75rem;font-weight:700;padding:0.3rem 1rem;border-radius:20px;white-space:nowrap;letter-spacing:0.05em;}
+.plan-name-tag{font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem;}
+.plan-price{font-size:3rem;font-weight:700;color:var(--text);line-height:1;margin-bottom:0.3rem;}
+.plan-price span{font-size:1rem;color:var(--muted);font-weight:400;}
+.plan-tagline{color:var(--muted);font-size:0.9rem;margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border);}
+.plan-features{list-style:none;display:flex;flex-direction:column;gap:0.8rem;margin-bottom:2rem;}
+.plan-features li{display:flex;align-items:flex-start;gap:0.6rem;font-size:0.92rem;color:var(--text);}
+.plan-features li::before{content:'✓';color:var(--accent2);font-weight:700;flex-shrink:0;}
+.plan-note{color:var(--muted);font-size:0.8rem;text-align:center;margin-top:1rem;line-height:1.6;}
+.pricing-faq{margin-top:3rem;max-width:600px;width:100%;}
+.pricing-faq h3{font-size:1.1rem;margin-bottom:1.2rem;color:var(--text);}
+.faq-item{border-bottom:1px solid var(--border);padding:1rem 0;}
+.faq-q{font-size:0.92rem;font-weight:600;margin-bottom:0.4rem;}
+.faq-a{color:var(--muted);font-size:0.87rem;line-height:1.65;}
+
+/* ── TELEGRAM PAGE ── */
+.tg-layout{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
+.tg-text p{color:var(--muted);font-size:0.95rem;line-height:1.75;margin-bottom:1rem;}
+.tg-features{list-style:none;margin:1.5rem 0 2rem;display:flex;flex-direction:column;gap:0.7rem;}
+.tg-features li{display:flex;align-items:center;gap:0.6rem;font-size:0.9rem;color:var(--text);}
+.tg-features li::before{content:'✅';font-size:0.85rem;}
+.tg-btn{display:inline-flex;align-items:center;gap:0.6rem;background:#229ED9;color:#fff;padding:0.9rem 2rem;border-radius:5px;font-weight:700;font-size:0.95rem;text-decoration:none;transition:opacity 0.2s,transform 0.2s;box-shadow:0 0 30px rgba(34,158,217,0.2);}
+.tg-btn:hover{opacity:0.88;transform:translateY(-2px);}
+.tg-preview{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.tg-header{background:#229ED9;padding:1rem 1.2rem;display:flex;align-items:center;gap:0.8rem;}
+.tg-avatar{width:40px;height:40px;background:rgba(255,255,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;}
+.tg-chan-name{font-weight:700;color:#fff;font-size:0.95rem;}
+.tg-members{color:rgba(255,255,255,0.75);font-size:0.78rem;}
+.tg-messages{padding:1.2rem;display:flex;flex-direction:column;gap:0.8rem;}
+.tg-msg{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:0.9rem 1rem;}
+.tg-msg-tag{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--accent);margin-bottom:0.35rem;}
+.tg-msg p{font-size:0.83rem;line-height:1.6;}
+.tg-msg .profit{color:var(--accent2);font-weight:600;}
+.tg-msg .warn{color:#ffa040;}
+.tg-msg .time{color:var(--muted);font-size:0.72rem;margin-top:0.35rem;}
+
+/* ── ABOUT PAGE ── */
+.about-layout{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
+.about-text p{color:var(--muted);font-size:0.95rem;line-height:1.8;margin-bottom:1rem;}
+.trust-list{list-style:none;margin-top:1.5rem;display:flex;flex-direction:column;gap:0.7rem;}
+.trust-list li{display:flex;align-items:center;gap:0.6rem;font-size:0.9rem;color:var(--muted);}
+.trust-list li::before{content:'✓';color:var(--accent2);font-weight:700;}
+.spread-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.5rem;}
+.spread-title{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--muted);letter-spacing:0.1em;margin-bottom:1rem;}
+.ticker-row{display:flex;justify-content:space-between;align-items:center;padding:0.65rem 0;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:0.83rem;}
+.ticker-row:last-child{border-bottom:none;}
+.t-pair{color:var(--text);}
+.t-exch{color:var(--muted);font-size:0.72rem;}
+.t-spread{color:var(--accent2);}
+
+/* ── CONTACT PAGE ── */
+.contact-layout{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
+.contact-form{display:flex;flex-direction:column;gap:1rem;}
+.form-group{display:flex;flex-direction:column;gap:0.4rem;}
+label{font-size:0.8rem;color:var(--muted);font-weight:500;text-transform:uppercase;letter-spacing:0.06em;}
+input,textarea,select{background:var(--bg);border:1px solid var(--border);color:var(--text);padding:0.75rem 1rem;border-radius:4px;font-family:'Space Grotesk',sans-serif;font-size:0.92rem;outline:none;transition:border-color 0.2s;width:100%;}
+input:focus,textarea:focus{border-color:var(--accent);}
+textarea{resize:vertical;min-height:120px;}
+.submit-btn{background:var(--accent);color:var(--bg);border:none;padding:0.85rem;border-radius:4px;font-weight:700;font-size:0.95rem;font-family:'Space Grotesk',sans-serif;cursor:pointer;transition:opacity 0.2s;margin-top:0.5rem;}
+.submit-btn:hover{opacity:0.85;}
+.contact-info h3{font-size:1.1rem;margin-bottom:0.75rem;}
+.contact-info p{color:var(--muted);font-size:0.92rem;line-height:1.7;margin-bottom:1.5rem;}
+.c-links{display:flex;flex-direction:column;gap:0.75rem;}
+.c-link{display:flex;align-items:center;gap:0.75rem;color:var(--muted);text-decoration:none;font-size:0.9rem;transition:color 0.2s;}
+.c-link:hover{color:var(--accent);}
+.c-icon{width:36px;height:36px;background:var(--surface);border:1px solid var(--border);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:1rem;}
+
+/* ── FOOTER ── */
+footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+footer p{color:var(--muted);font-size:0.82rem;}
+.footer-links{display:flex;gap:1.5rem;}
+.footer-links a{color:var(--muted);text-decoration:none;font-size:0.82rem;cursor:pointer;transition:color 0.2s;}
+.footer-links a:hover{color:var(--accent);}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  .nav-links.open{display:flex;flex-direction:column;position:fixed;top:64px;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--border);padding:1.5rem 5%;gap:1.5rem;z-index:199;}
+  .two-col,.tg-layout,.about-layout,.contact-layout{grid-template-columns:1fr;gap:2rem;}
+  .hero-stats{gap:1.5rem;}
+  footer{flex-direction:column;text-align:center;}
+  .single-plan{padding:2rem 1.5rem;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a class="logo" onclick="showPage('home')">CFA<span>.</span>signals</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a onclick="showPage('home')">Home</a></li>
+      <li><a onclick="showPage('what-is')">What is Arbitrage</a></li>
+      <li><a onclick="showPage('how-it-works')">How It Works</a></li>
+      <li><a onclick="showPage('profit')">Generate Profit</a></li>
+      <li><a onclick="showPage('risks')">Risks</a></li>
+      <li><a onclick="showPage('pricing')">Pricing</a></li>
+      <li><a onclick="showPage('about')">About</a></li>
+      <li><a onclick="showPage('contact')" class="nav-cta">Join Now</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </nav>
+</header>
+
+<!-- ══════════════════════════════════════════
+     HOME PAGE
+══════════════════════════════════════════ -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <div class="badge">LIVE ARBITRAGE SIGNALS</div>
+      <h1>Profit Without<br><span class="c1">Predicting</span> the<br><span class="c2">Market.</span></h1>
+      <p class="hero-sub">Get daily Crypto Futures Arbitrage signals on Telegram. Market-neutral strategy — earn from price differences, not market direction.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="showPage('pricing')">Get Signals — $10/mo</button>
+        <button class="btn-outline" onclick="showPage('how-it-works')">How It Works</button>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-num">$10</div><div class="stat-label">Per Month</div></div>
+        <div><div class="stat-num">Daily</div><div class="stat-label">Signals Sent</div></div>
+        <div><div class="stat-num">24/7</div><div class="stat-label">Market Monitored</div></div>
+        <div><div class="stat-num">15+</div><div class="stat-label">Exchanges Tracked</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="features">
+    <div class="section-tag">// EXPLORE</div>
+    <h2>Everything You Need to Know</h2>
+    <div class="features-grid">
+      <div class="feat-card" onclick="showPage('what-is')">
+        <div class="feat-icon">🔍</div>
+        <h3>What is Futures Arbitrage?</h3>
+        <p>Understand how price gaps between exchanges create risk-free profit opportunities in crypto futures markets.</p>
+        <div class="feat-link">Learn more →</div>
+      </div>
+      <div class="feat-card" onclick="showPage('how-it-works')">
+        <div class="feat-icon">⚙️</div>
+        <h3>How Does It Work?</h3>
+        <p>A step-by-step breakdown of how we detect, validate, and signal arbitrage opportunities before they close.</p>
+        <div class="feat-link">See the process →</div>
+      </div>
+      <div class="feat-card" onclick="showPage('profit')">
+        <div class="feat-icon">💰</div>
+        <h3>Generate Profit</h3>
+        <p>Explore the 5 arbitrage strategies we use — from funding rate arb to cash-and-carry trades.</p>
+        <div class="feat-link">View strategies →</div>
+      </div>
+      <div class="feat-card" onclick="showPage('risks')">
+        <div class="feat-icon">⚠️</div>
+        <h3>Risks & Precautions</h3>
+        <p>Arbitrage is low-risk — but not zero risk. Understand funding fee reversals, slippage, and exchange risk.</p>
+        <div class="feat-link">Read warnings →</div>
+      </div>
+      <div class="feat-card" onclick="showPage('telegram')">
+        <div class="feat-icon">✈️</div>
+        <h3>Telegram Signal Bot</h3>
+        <p>Every signal lands directly on your Telegram. Entry, target, stop loss — everything in one message.</p>
+        <div class="feat-link">See how →</div>
+      </div>
+      <div class="feat-card" onclick="showPage('pricing')">
+        <div class="feat-icon">💳</div>
+        <h3>Simple $10/Month Plan</h3>
+        <p>One plan. No hidden fees. Full access to all signals, alerts, and Telegram channel from day one.</p>
+        <div class="feat-link">Get started →</div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <p>© 2026 CFA.signals · All rights reserved</p>
+    <div class="footer-links">
+      <a onclick="showPage('home')">Home</a>
+      <a onclick="showPage('risks')">Risk Disclaimer</a>
+      <a onclick="showPage('contact')">Contact</a>
+    </div>
+    <p style="font-size:0.75rem;">Not financial advice. Trading involves risk.</p>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════════
+     WHAT IS ARBITRAGE PAGE
+══════════════════════════════════════════ -->
+<div class="page" id="page-what-is">
+  <div class="inner-page">
+    <button class="back-btn" onclick="showPage('home')">← Back to Home</button>
+    <div class="section-tag">// CONCEPT</div>
+    <h2>What is Futures Arbitrage?</h2>
+    <p class="page-desc">Arbitrage is the practice of profiting from price differences of the same asset across different markets — simultaneously buying low and selling high.</p>
+    <div class="two-col">
+      <div>
+        <p class="body-text">When Bitcoin trades at $68,400 on Binance but $68,750 on Bybit — that $350 gap is an opportunity. An arbitrageur buys on the cheaper exchange and simultaneously sells on the expensive one, locking in profit before the gap closes.</p>
+        <p class="body-text">Futures arbitrage adds another layer: the difference between a coin's <strong style="color:var(--text)">spot price</strong> and its <strong style="color:var(--text)">futures contract price</strong> — called the "basis." This basis is predictable, measurable, and exploitable.</p>
+        <p class="body-text">The key insight: <span style="color:var(--accent)">you don't need to predict where the market goes.</span> You only need a price gap to exist — and you profit when it closes.</p>
+      </div>
+      <div>
+        <div class="info-card">
+          <h3>// Spot vs Futures</h3>
+          <p>Buy on spot market, short the futures contract. When both prices converge at expiry, you collect the spread as profit — regardless of market direction.</p>
+        </div>
+        <div class="info-card">
+          <h3>// Cross-Exchange</h3>
+          <p>Same asset, two exchanges, different prices. Detect the gap, execute both legs simultaneously, close for guaranteed spread profit.</p>
+        </div>
+        <div class="info-card">
+          <h3>// Funding Rate</h3>
+          <p>Perpetual futures pay or charge funding every 8 hours. When funding is high, hold spot and short the perp — collect funding as passive income.</p>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:3rem;text-align:center;">
+      <button class="btn-primary" onclick="showPage('how-it-works')">See How It Works →</button>
+    </div>
+  </div>
+  <footer><p>© 2026 CFA.signals</p><div class="footer-links"><a onclick="showPage('home')">Home</a><a onclick="showPage('contact')">Contact</a></div><p style="font-size:0.75rem;">Not financial advice.</p></footer>
+</div>
+
+<!-- ══════════════════════════════════════════
+     HOW IT WORKS PAGE
+══════════════════════════════════════════ -->
+<div class="page" id="page-how-it-works">
+  <div class="inner-page">
+    <button class="back-btn" onclick="showPage('home')">← Back to Home</button>
+    <div class="section-tag">// PROCESS</div>
+    <h2>How Does It Work?</h2>
+    <p class="page-desc">From detecting the opportunity to delivering the signal to your Telegram — here's the full process.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num-box">01</div>
+        <div class="step-body">
+          <h3>Scan 15+ Exchanges Simultaneously</h3>
+          <p>Our system monitors price feeds on Binance, Bybit, OKX, Gate, Kraken, and more — in real time. We track 200+ trading pairs for spot-futures basis gaps and cross-exchange spreads.</p>
+        </div>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step">
+        <div class="step-num-box">02</div>
+        <div class="step-body">
+          <h3>Validate the Opportunity</h3>
+          <p>Raw gaps don't mean profit. We filter for trading fees, withdrawal costs, slippage, and liquidity. Only opportunities where net profit exceeds 0.2% pass through.</p>
+        </div>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step">
+        <div class="step-num-box">03</div>
+        <div class="step-body">
+          <h3>Risk Assessment</h3>
+          <p>We assign a risk level (Low / Medium / High) based on funding rate stability, exchange liquidity, and execution complexity. High-risk signals are clearly labeled.</p>
+        </div>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step">
+        <div class="step-num-box">04</div>
+        <div class="step-body">
+          <h3>Signal Sent to Telegram</h3>
+          <p>A formatted signal is instantly sent to our Telegram channel — with entry price, target, stop loss, leverage (if applicable), and funding rate data.</p>
+        </div>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step">
+        <div class="step-num-box">05</div>
+        <div class="step-body">
+          <h3>Close & Collect</h3>
+          <p>When the spread converges, we send a close signal. You exit both legs and realize the profit. The cycle repeats — multiple signals per day.</p>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:3rem;">
+      <button class="btn-primary" onclick="showPage('profit')">View Profit Strategies →</button>
+    </div>
+  </div>
+  <footer><p>© 2026 CFA.signals</p><div class="footer-links"><a onclick="showPage('home')">Home</a><a onclick="showPage('contact')">Contact</a></div><p style="font-size:0.75rem;">Not financial advice.</p></footer>
+</div>
+
+<!-- ══════════════════════════════════════════
+     GENERATE PROFIT PAGE
+══════════════════════════════════════════ -->
+<div class="page" id="page-profit">
+  <div class="inner-page">
+    <button class="back-btn" onclick="showPage('home')">← Back to Home</button>
+    <div class="section-tag">// STRATEGIES</div>
+    <h2>Generate Profit Through Arbitrage</h2>
+    <p class="page-desc">We use 5 market-neutral strategies — each targeting a different type of price inefficiency. You don't need to predict price direction for any of them.</p>
+    <div class="profit-grid">
+      <div class="profit-card">
+        <div class="icon">⚡</div>
+        <div class="tag">PASSIVE INCOME</div>
+        <h3>Funding Rate Arbitrage</h3>
+        <p>Perpetual futures pay funding every 8 hours. When funding is positive and high, short the perp and hold spot — collect funding fees as income while your position stays hedged.</p>
+      </div>
+      <div class="profit-card">
+        <div class="icon">📈</div>
+        <div class="tag">15–40% APR</div>
+        <h3>Cash-and-Carry Trade</h3>
+        <p>Buy spot, short quarterly futures at a premium. At expiry, both prices converge. The premium becomes your yield — predictable, structured, and market-neutral.</p>
+      </div>
+      <div class="profit-card">
+        <div class="icon">🔄</div>
+        <div class="tag">SINGLE EXCHANGE</div>
+        <h3>Triangular Arbitrage</h3>
+        <p>Exploit mispricing across three pairs on one exchange. BTC → ETH → USDT → BTC — if the loop returns more than you started with, it's profit. No cross-exchange transfer needed.</p>
+      </div>
+      <div class="profit-card">
+        <div class="icon">🌐</div>
+        <div class="tag">CROSS-EXCHANGE</div>
+        <h3>Spot-Futures Basis Trade</h3>
+        <p>Same asset, different prices across exchanges. Buy on the cheaper leg, sell on the expensive leg simultaneously. Profit is locked the moment both orders fill.</p>
+      </div>
+      <div class="profit-card">
+        <div class="icon">🔒</div>
+        <div class="tag">ZERO DIRECTION RISK</div>
+        <h3>Market-Neutral Returns</h3>
+        <p>All our strategies are fully hedged. Whether Bitcoin goes up 20% or down 20% — your position is protected. Profit comes from the spread, not price movement.</p>
+      </div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.5rem;max-width:600px;">
+      <p style="color:var(--muted);font-size:0.9rem;line-height:1.7;"><strong style="color:var(--accent);">⚠️ Important:</strong> These strategies carry real risks — especially funding rate reversals. Always read our <span style="color:var(--accent);cursor:pointer;" onclick="showPage('risks')">Risks & Precautions page</span> before trading.</p>
+    </div>
+    <div style="margin-top:2rem;">
+      <button class="btn-primary" onclick="showPage('pricing')">Subscribe for $10/month →</button>
+    </div>
+  </div>
+  <footer><p>© 2026 CFA.signals</p><div class="footer-links"><a onclick="showPage('home')">Home</a><a onclick="showPage('contact')">Contact</a></div><p style="font-size:0.75rem;">Not financial advice.</p></footer>
+</div>
+
+<!-- ══════════════════════════════════════════
+     RISKS PAGE
+══════════════════════════════════════════ -->
+<div class="page" id="page-risks">
+  <div class="inner-page">
+    <button class="back-btn" onclick="showPage('home')">← Back to Home</button>
+    <div class="section-tag">// RISK WARNING</div>
+    <h2>Risks & Precautions</h2>
+    <p class="page-desc">Arbitrage is lower risk than directional trading — but it is NOT risk-free. Read this carefully before you start.</p>
+    <div class="warning-banner">
+      <div style="font-size:1.5rem;flex-shrink:0;">⚠️</div>
+      <p><strong>Funding Rate Warning:</strong> The funding rate can flip negative at any time. If you are holding a long perp position and funding turns negative — you pay instead of receive. This can turn a profitable setup into a loss within 8 hours. Always monitor funding before entering a position.</p>
+    </div>
+    <div class="risk-grid">
+      <div class="risk-card">
+        <div class="risk-level risk-high">HIGH RISK</div>
+        <h3>Negative Funding Rate Reversal</h3>
+        <p>Funding rates change every 8 hours. If you entered expecting positive funding and it reverses to negative, you lose money on the funding leg. Exit immediately when funding drops near zero.</p>
+      </div>
+      <div class="risk-card">
+        <div class="risk-level risk-high">HIGH RISK</div>
+        <h3>Execution Risk (Partial Fills)</h3>
+        <p>If only one leg of your trade fills (buy without sell, or vice versa), you have unhedged directional exposure. A fast market move can cause significant loss. Always use limit orders and verify both fills.</p>
+      </div>
+      <div class="risk-card">
+        <div class="risk-level risk-med">MEDIUM RISK</div>
+        <h3>Slippage & Trading Fees</h3>
+        <p>On low-liquidity pairs, you may get filled at a worse price than expected. Combined with taker fees (0.05–0.1%) on both legs, small spreads can disappear entirely. Only trade when net spread > 0.25%.</p>
+      </div>
+      <div class="risk-card">
+        <div class="risk-level risk-med">MEDIUM RISK</div>
+        <h3>Exchange Risk</h3>
+        <p>Exchanges can freeze withdrawals, get hacked, or become insolvent (see: FTX 2022). Never keep more capital on an exchange than you need for active trades. Distribute across 2–3 exchanges.</p>
+      </div>
+      <div class="risk-card">
+        <div class="risk-level risk-med">MEDIUM RISK</div>
+        <h3>Spread Compression</h3>
+        <p>When many traders exploit the same opportunity, the spread shrinks. A signal that showed 0.5% profit may only yield 0.1% by the time you execute. Speed matters — delayed execution kills profit.</p>
+      </div>
+      <div class="risk-card">
+        <div class="risk-level risk-low">LOW RISK</div>
+        <h3>Regulatory & Tax Risk</h3>
+        <p>Crypto regulations vary by country. Profits from arbitrage may be taxable. Consult a local tax advisor. Some exchanges may restrict access based on your country of residence.</p>
+      </div>
+    </div>
+    <div style="margin-top:2.5rem;background:rgba(0,229,255,0.05);border:1px solid var(--border);border-radius:8px;padding:1.5rem;max-width:600px;">
+      <p style="color:var(--muted);font-size:0.9rem;line-height:1.75;"><strong style="color:var(--text);">Our signals include a risk level label</strong> (Low / Medium / High) on every trade. We also send real-time <span style="color:var(--accent);">funding rate alerts</span> when conditions change. We cannot guarantee profits — no one can. Trade only what you can afford to lose.</p>
+    </div>
+    <div style="margin-top:2rem;">
+      <button class="btn-primary" onclick="showPage('pricing')">I Understand — Subscribe →</button>
+    </div>
+  </div>
+  <footer><p>© 2026 CFA.signals</p><div class="footer-links"><a onclick="showPage('home')">Home</a><a onclick="showPage('contact')">Contact</a></div><p style="font-size:0.75rem;">Not financial advice.</p></footer>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PRICING PAGE
+══════════════════════════════════════════ -->
+<div class="page" id="page-pricing">
+  <div class="inner-page">
+    <button class="back-btn" onclick="showPage('home')">← Back to Home</button>
+    <div class="section-tag">// SUBSCRIPTION</div>
+    <h2>Simple, Honest Pricing</h2>
+    <p class="page-desc">One plan. Everything included. No upsells, no hidden tiers, no lock-in.</p>
+    <div class="pricing-wrap">
+      <div class="single-plan">
+        <div class="plan-badge">✦ FULL ACCESS PLAN</div>
+        <div class="plan-name-tag">// Monthly</div>
+        <div class="plan-price">$10 <span>/ month</span></div>
+        <p class="plan-tagline">Cancel anytime. No contracts.</p>
+        <ul class="plan-features">
+          <li>Daily Futures Arbitrage signals (5–8/week)</li>
+          <li>Entry price, target & stop loss on every signal</li>
+          <li>Risk level label (Low / Medium / High)</li>
+          <li>Real-time funding rate alerts via Telegram bot</li>
+          <li>Instant Telegram channel + bot access</li>
+          <li>Strategy explanation with each signal</li>
+          <li>Email support within 48 hours</li>
+        </ul>
+        <a href="https://t.me/YOUR_BOT" target="_blank" class="btn-primary" style="display:block;text-align:center;width:100%;">Subscribe via Telegram →</a>
+        <p class="plan-note">Click above to open Telegram and start subscription. Payment via UPI / Crypto / PayPal accepted.</p>
+      </div>
+
+      <div class="pricing-faq">
+        <h3>Frequently Asked Questions</h3>
+        <div class="faq-item">
+          <div class="faq-q">How do I receive signals?</div>
+          <div class="faq-a">After subscribing, our Telegram bot adds you to the private channel automatically. Every signal appears as a Telegram message — nothing to install.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">What exchanges do I need?</div>
+          <div class="faq-a">Most signals work on Binance, Bybit, or OKX. A free account on any of these is enough to get started. You don't need all three.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">How much capital do I need?</div>
+          <div class="faq-a">You can start with as little as $100. Larger capital means larger absolute returns, but the percentage is the same regardless of size.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Can I cancel anytime?</div>
+          <div class="faq-a">Yes. Just message our support on Telegram and your subscription is cancelled immediately. No questions asked.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Do you guarantee profits?</div>
+          <div class="faq-a">No. No one can guarantee trading profits. We provide signals based on our analysis — execution, timing, and risk management are your responsibility. Always read our <span style="color:var(--accent);cursor:pointer;" onclick="showPage('risks')">Risks page</span>.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer><p>© 2026 CFA.signals</p><div class="footer-links"><a onclick="showPage('home')">Home</a><a onclick="showPage('contact')">Contact</a></div><p style="font-size:0.75rem;">Not financial advice.</p></footer>
+</div>
+
+<!-- ══════════════════════════════════════════
+     TELEGRAM PAGE
+══════════════════════════════════════════ -->
+<div class="page" id="page-telegram">
+  <div class="inner-page">
+    <button class="back-btn" onclick="showPage('home')">← Back to Home</button>
+    <div class="section-tag">// TELEGRAM BOT</div>
+    <h2>Signals Straight to Your Phone</h2>
+    <p class="page-desc">Our Python-powered bot delivers every signal directly to Telegram — formatted, clear, and instant.</p>
+    <div class="tg-layout">
+      <div class="tg-text">
+        <p>No apps to install. No website to check. The moment an arbitrage opportunity is validated, your phone buzzes with everything you need:</p>
+        <ul class="tg-features">
+          <li>Asset pair + which exchanges to use</li>
+          <li>Entry price for both legs</li>
+          <li>Profit target and stop loss</li>
+          <li>Current funding rate</li>
+          <li>Risk level (Low / Medium / High)</li>
+          <li>Close signal when trade is complete</li>
+          <li>Funding rate reversal warnings</li>
+        </ul>
+        <a href="https://t.me/YOUR_CHANNEL" target="_blank" class="tg-btn">✈ Join the Channel</a>
+      </div>
+      <div class="tg-preview">
+        <div class="tg-header">
+          <div class="tg-avatar">📊</div>
+          <div>
+            <div class="tg-chan-name">CFA Signals 🔥</div>
+            <div class="tg-members">1,240 subscribers</div>
+          </div>
+        </div>
+        <div class="tg-messages">
+          <div class="tg-msg">
+            <div class="tg-msg-tag">// SIGNAL #142 · BTC/USDT · LOW RISK</div>
+            <p>📍 Entry: $68,200 (Binance Spot)<br>🔁 Short: $68,750 (Bybit Perp)<br>🎯 Target spread: 0.80%<br>🛑 Stop loss: $67,900<br>⚡ Funding: +0.041%</p>
+            <div class="time">Today · 10:32 AM UTC</div>
+          </div>
+          <div class="tg-msg">
+            <div class="tg-msg-tag">// CLOSED ✅ · SIGNAL #142</div>
+            <p>BTC/USDT target hit — <span class="profit">+0.76% net profit</span><br>Both legs closed. Duration: 3h 42m</p>
+            <div class="time">Today · 2:14 PM UTC</div>
+          </div>
+          <div class="tg-msg">
+            <div class="tg-msg-tag">// ⚠️ FUNDING ALERT</div>
+            <p><span class="warn">ETH-PERP funding rate turned negative (−0.018%)</span><br>Avoid new long perp positions on ETH. Close open longs if possible.</p>
+            <div class="time">Today · 4:00 PM UTC</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:3rem;padding:1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;max-width:600px;">
+      <p style="color:var(--muted);font-size:0.88rem;line-height:1.75;">Our bot is built in <strong style="color:var(--accent);">Python</strong> using the Telegram Bot API. It monitors market data 24/7, filters valid opportunities, and pushes formatted signals directly to our private channel. Subscribers are added automatically upon payment.</p>
+    </div>
+  </div>
+  <footer><p>© 2026 CFA.signals</p><div class="footer-links"><a onclick="showPage('home')">Home</a><a onclick="showPage('contact')">Contact</a></div><p style="font-size:0.75rem;">Not financial advice.</p></footer>
+</div>
+
+<!-- ══════════════════════════════════════════
+     ABOUT PAGE
+══════════════════════════════════════════ -->
+<div class="page" id="page-about">
+  <div class="inner-page">
+    <button class="back-btn" onclick="showPage('home')">← Back to Home</button>
+    <div class="section-tag">// ABOUT US</div>
+    <h2>Who We Are</h2>
+    <p class="page-desc">A quantitative trading team focused exclusively on crypto futures arbitrage — market-neutral, data-driven, and fully transparent.</p>
+    <div class="about-layout">
+      <div class="about-text">
+        <p>We are a team of algorithmic traders and developers who have been running live arbitrage strategies since 2021. Our systems monitor 200+ trading pairs across 15+ exchanges in real time — identifying and signaling opportunities before they close.</p>
+        <p>We don't sell predictions. We don't claim to know where Bitcoin is going. We exploit price inefficiencies — a fundamentally different, lower-risk approach to generating consistent returns from crypto markets.</p>
+        <p>Our Python-powered signal bot runs 24/7, filtering thousands of data points down to the few opportunities per day that meet our strict criteria for net profitability after all fees.</p>
+        <ul class="trust-list">
+          <li>Fully hedged — zero directional market exposure</li>
+          <li>Every signal includes risk level and funding data</li>
+          <li>Live on Binance, Bybit, OKX, Gate & more</li>
+          <li>Transparent: we label every signal with a risk rating</li>
+          <li>We send funding rate warnings proactively</li>
+          <li>No lock-in — cancel your subscription anytime</li>
+        </ul>
+      </div>
+      <div>
+        <div class="spread-box">
+          <div class="spread-title">// Live Spread Monitor (Demo)</div>
+          <div class="ticker-row"><span class="t-pair">BTC-PERP</span><span class="t-exch">Binance → Bybit</span><span class="t-spread">+0.41%</span></div>
+          <div class="ticker-row"><span class="t-pair">ETH-PERP</span><span class="t-exch">OKX → Binance</span><span class="t-spread">+0.27%</span></div>
+          <div class="ticker-row"><span class="t-pair">SOL-PERP</span><span class="t-exch">Bybit → OKX</span><span class="t-spread">+0.63%</span></div>
+          <div class="ticker-row"><span class="t-pair">BNB-PERP</span><span class="t-exch">Gate → Binance</span><span class="t-spread">+0.18%</span></div>
+          <div class="ticker-row"><span class="t-pair">XRP-PERP</span><span class="t-exch">Binance → Kraken</span><span class="t-spread">+0.35%</span></div>
+          <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--muted);">DEMO DATA · Updated for illustration</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer><p>© 2026 CFA.signals</p><div class="footer-links"><a onclick="showPage('home')">Home</a><a onclick="showPage('contact')">Contact</a></div><p style="font-size:0.75rem;">Not financial advice.</p></footer>
+</div>
+
+<!-- ══════════════════════════════════════════
+     CONTACT PAGE
+══════════════════════════════════════════ -->
+<div class="page" id="page-contact">
+  <div class="inner-page">
+    <button class="back-btn" onclick="showPage('home')">← Back to Home</button>
+    <div class="section-tag">// CONTACT</div>
+    <h2>Get in Touch</h2>
+    <p class="page-desc">Questions about signals, subscriptions, or our strategy? We respond within 48 hours.</p>
+    <div class="contact-layout">
+      <div class="contact-form">
+        <div class="form-group"><label>Full Name</label><input type="text" placeholder="Your name"></div>
+        <div class="form-group"><label>Email</label><input type="email" placeholder="you@email.com"></div>
+        <div class="form-group">
+          <label>Topic</label>
+          <select>
+            <option>Subscription & Payments</option>
+            <option>Signal Questions</option>
+            <option>Strategy Consultation</option>
+            <option>Partnership</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Message</label><textarea placeholder="What would you like to know?"></textarea></div>
+        <button class="submit-btn">Send Message →</button>
+      </div>
+      <div class="contact-info">
+        <h3>Fastest way to reach us</h3>
+        <p>For subscription and signal questions, Telegram is the fastest channel — we monitor it daily.</p>
+        <div class="c-links">
+          <a href="https://t.me/YOUR_BOT" class="c-link" target="_blank"><div class="c-icon">✈</div>Telegram: @YOUR_BOT</a>
+          <a href="mailto:hello@cfasignals.com" class="c-link"><div class="c-icon">✉</div>hello@cfasignals.com</a>
+          <a href="#" class="c-link"><div class="c-icon">🐦</div>Twitter: @cfasignals</a>
+        </div>
+        <div style="margin-top:2rem;padding:1.2rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;">
+          <p style="color:var(--muted);font-size:0.85rem;line-height:1.7;">Ready to start?<br><span style="color:var(--accent);cursor:pointer;font-weight:600;" onclick="showPage('pricing')">Subscribe for $10/month →</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer><p>© 2026 CFA.signals</p><div class="footer-links"><a onclick="showPage('home')">Home</a><a onclick="showPage('risks')">Risk Disclaimer</a></div><p style="font-size:0.75rem;">Not financial advice.</p></footer>
+</div>
+
+<script>
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const target = document.getElementById('page-' + name);
+  if (target) {
+    target.classList.add('active');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+  document.getElementById('navLinks').classList.remove('open');
+}
+
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('navLinks').classList.toggle('open');
+});
+
+// Animate cards on page show
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, {threshold: 0.08});
+
+document.querySelectorAll('.feat-card,.profit-card,.risk-card,.info-card,.step').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(18px)';
+  el.style.transition = 'opacity 0.45s ease, transform 0.45s ease, border-color 0.3s';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
