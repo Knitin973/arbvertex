@@ -540,7 +540,7 @@ footer p{color:var(--muted);font-size:0.82rem;}
           <li>Strategy explanation with each signal</li>
           <li>Live support — respond within hours, not days</li>
         </ul>
-        <a href="https://t.me/YOUR_BOT" target="_blank" class="btn-primary" style="display:block;text-align:center;width:100%;">Subscribe via Telegram →</a>
+        <a href="https://t.me/+mPUzF2lmDqllNGE1" target="_blank" class="btn-primary" style="display:block;text-align:center;width:100%;">Subscribe via Telegram →</a>
         <p class="plan-note">Click above to open Telegram and start subscription. Payment via UPI / Crypto / PayPal accepted.</p>
       </div>
 
@@ -738,12 +738,14 @@ footer p{color:var(--muted);font-size:0.82rem;}
     <h2>Get in Touch</h2>
     <p class="page-desc">Questions about signals, subscriptions, or our strategy? We respond within 48 hours.</p>
     <div class="contact-layout">
-      <div class="contact-form">
-        <div class="form-group"><label>Full Name</label><input type="text" placeholder="Your name"></div>
-        <div class="form-group"><label>Email</label><input type="email" placeholder="you@email.com"></div>
+      <form class="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="handleFormSubmit(event)">
+        <input type="hidden" name="form-name" value="contact">
+        <p style="display:none;"><input name="bot-field"></p>
+        <div class="form-group"><label>Full Name</label><input type="text" name="name" placeholder="Your name" required></div>
+        <div class="form-group"><label>Email</label><input type="email" name="email" placeholder="you@email.com" required></div>
         <div class="form-group">
           <label>Topic</label>
-          <select>
+          <select name="topic">
             <option>Subscription & Payments</option>
             <option>Signal Questions</option>
             <option>Strategy Consultation</option>
@@ -751,16 +753,16 @@ footer p{color:var(--muted);font-size:0.82rem;}
             <option>Other</option>
           </select>
         </div>
-        <div class="form-group"><label>Message</label><textarea placeholder="What would you like to know?"></textarea></div>
-        <button class="submit-btn">Send Message →</button>
-      </div>
+        <div class="form-group"><label>Message</label><textarea name="message" placeholder="What would you like to know?" required></textarea></div>
+        <button type="submit" class="submit-btn">Send Message →</button>
+        <div id="form-success" style="display:none;background:rgba(0,255,136,0.1);border:1px solid var(--accent2);border-radius:6px;padding:1rem;color:var(--accent2);font-size:0.9rem;margin-top:0.5rem;">✅ Message sent! We'll respond within 48 hours.</div>
+      </form>
       <div class="contact-info">
         <h3>Fastest way to reach us</h3>
         <p>For subscription and signal questions, Telegram is the fastest channel — we monitor it daily.</p>
         <div class="c-links">
-          <a href="https://t.me/YOUR_BOT" class="c-link" target="_blank"><div class="c-icon">✈</div>Telegram: @YOUR_BOT</a>
-          <a href="mailto:hello@cfasignals.com" class="c-link"><div class="c-icon">✉</div>hello@cfasignals.com</a>
-          <a href="#" class="c-link"><div class="c-icon">🐦</div>Twitter: @cfasignals</a>
+          <a href="https://t.me/+mPUzF2lmDqllNGE1" class="c-link" target="_blank"><div class="c-icon">✈</div>Join our Telegram Channel</a>
+          <a href="https://www.facebook.com/profile.php?id=61570689080835&mibextid=ZbWKwLop" class="c-link" target="_blank"><div class="c-icon">📘</div>Facebook Page</a>
         </div>
         <div style="margin-top:2rem;padding:1.2rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;">
           <p style="color:var(--muted);font-size:0.85rem;line-height:1.7;">Ready to start?<br><span style="color:var(--accent);cursor:pointer;font-weight:600;" onclick="showPage('pricing')">Subscribe for $5/month →</span></p>
@@ -867,6 +869,20 @@ footer p{color:var(--muted);font-size:0.82rem;}
 </div>
 
 <script>
+// ── CONTACT FORM ──
+function handleFormSubmit(e) {
+  e.preventDefault();
+  const form = e.target;
+  const data = new FormData(form);
+  fetch('/', { method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'}, body: new URLSearchParams(data).toString() })
+    .then(() => {
+      form.reset();
+      document.getElementById('form-success').style.display = 'block';
+      setTimeout(() => { document.getElementById('form-success').style.display = 'none'; }, 5000);
+    })
+    .catch(() => alert('Error sending message. Please try Telegram instead.'));
+}
+
 // ── NAV ──
 function showPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -929,12 +945,15 @@ async function fetchBybit() {
 
 async function fetchGate() {
   const m = {};
-  const r = await fetch('https://api.gateio.ws/api/v4/spot/tickers');
-  const d = await r.json();
-  d.forEach(x => {
-    const sym = x.currency_pair?.replace('_','');
-    if(PAIRS.includes(sym)) m[sym] = parseFloat(x.last);
-  });
+  try {
+    const url = 'https://api.gateio.ws/api/v4/spot/tickers';
+    const r = await fetch('https://api.allorigins.win/raw?url=' + encodeURIComponent(url));
+    const d = await r.json();
+    d.forEach(x => {
+      const sym = x.currency_pair?.replace('_','');
+      if(PAIRS.includes(sym)) m[sym] = parseFloat(x.last);
+    });
+  } catch(e) { console.warn('Gate failed:', e); }
   return m;
 }
 
@@ -951,20 +970,26 @@ async function fetchBitget() {
 
 async function fetchKucoin() {
   const m = {};
-  const r = await fetch('https://api.kucoin.com/api/v1/market/allTickers');
-  const d = await r.json();
-  if(d.data?.ticker) d.data.ticker.forEach(x => {
-    const sym = x.symbol?.replace('-','');
-    if(PAIRS.includes(sym)) m[sym] = parseFloat(x.last);
-  });
+  try {
+    const url = 'https://api.kucoin.com/api/v1/market/allTickers';
+    const r = await fetch('https://api.allorigins.win/raw?url=' + encodeURIComponent(url));
+    const d = await r.json();
+    if(d.data?.ticker) d.data.ticker.forEach(x => {
+      const sym = x.symbol?.replace('-','');
+      if(PAIRS.includes(sym)) m[sym] = parseFloat(x.last);
+    });
+  } catch(e) { console.warn('KuCoin failed:', e); }
   return m;
 }
 
 async function fetchMexc() {
   const m = {};
-  const r = await fetch('https://api.mexc.com/api/v3/ticker/price');
-  const d = await r.json();
-  d.forEach(x => { if(PAIRS.includes(x.symbol)) m[x.symbol]=parseFloat(x.price); });
+  try {
+    const url = 'https://api.mexc.com/api/v3/ticker/price';
+    const r = await fetch('https://api.allorigins.win/raw?url=' + encodeURIComponent(url));
+    const d = await r.json();
+    d.forEach(x => { if(PAIRS.includes(x.symbol)) m[x.symbol]=parseFloat(x.price); });
+  } catch(e) { console.warn('MEXC failed:', e); }
   return m;
 }
 
