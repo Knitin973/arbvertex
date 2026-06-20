@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arbitrage Signal Blog | ArbVertex</title>
+<meta name="description" content="Step-by-step guides on crypto arbitrage — from beginner basics to advanced strategies.">
+<meta name="keywords" content="crypto futures arbitrage signals, bitcoin arbitrage telegram, crypto arbitrage bot, funding rate arbitrage, cross exchange arbitrage, bybit binance arbitrage, crypto signals telegram, arbitrage trading signals">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://arbvertex.com/blog.html">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Arbitrage Signal Blog | ArbVertex">
+<meta property="og:description" content="Step-by-step guides on crypto arbitrage — from beginner basics to advanced strategies.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://arbvertex.com/blog.html">
+<meta property="og:image" content="https://arbvertex.com/og-image.png">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Arbitrage Signal Blog | ArbVertex">
+<meta name="twitter:description" content="Step-by-step guides on crypto arbitrage — from beginner basics to advanced strategies.">
+
+<!-- Schema: WebSite -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "ArbVertex",
+  "url": "https://arbvertex.com/",
+  "description": "Daily Crypto Futures Arbitrage Signals on Telegram with 2%+ net price gap after all fees.",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://arbvertex.com/?s={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+<!-- Schema: Service -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Crypto Futures Arbitrage Signals",
+  "description": "Daily arbitrage trading signals delivered via Telegram. We detect 2%+ price gaps across 10+ crypto exchanges after all fees — funding rate arb, cross-exchange arb, cash-and-carry trades.",
+  "provider": {
+    "@type": "Organization",
+    "name": "ArbVertex",
+    "url": "https://arbvertex.com/"
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "5",
+    "priceCurrency": "USD",
+    "description": "Monthly subscription — unlimited signals, Telegram access, live support",
+    "billingIncrement": "P1M"
+  },
+  "serviceType": "Cryptocurrency Trading Signals",
+  "areaServed": "Worldwide"
+}
+</script>
+
+<!-- Schema: FAQPage -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I receive crypto arbitrage signals?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "After subscribing, our Telegram bot adds you to the private channel automatically. Every signal appears as a Telegram message — nothing to install."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What exchanges do I need for crypto futures arbitrage?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most signals work on Binance, Bybit, MEXC, Gate.io, KuCoin, or Bitget. A free account on any two of these is enough. We recommend Binance + Bybit for beginners."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much capital do I need to start arbitrage trading?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You can start with as little as $100. Larger capital means larger absolute returns, but the percentage is the same regardless of size."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is crypto futures arbitrage?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Crypto futures arbitrage is the practice of profiting from price differences of the same asset across different exchanges or between spot and futures markets. You buy on the cheaper exchange and simultaneously sell on the expensive one, locking in profit when the gap closes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is funding rate arbitrage?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Funding rate arbitrage involves holding a spot position and shorting the perpetual futures when the funding rate is high and positive. You collect the funding fee every 8 hours as passive income while your position stays market-neutral."
+      }
+    }
+  ]
+}
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #050a0f;
+  --surface: #0d1a24;
+  --accent: #00e5ff;
+  --accent2: #00ff88;
+  --text: #e8f4f8;
+  --muted: #6a8fa8;
+  --border: #1a3a52;
+  --red: #ff5555;
+  --glow: 0 0 30px rgba(0,229,255,0.15);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;line-height:1.6;overflow-x:hidden;}
+
+/* ── HEADER ── */
+header{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(5,10,15,0.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 5%;}
+nav{display:flex;align-items:center;justify-content:space-between;height:64px;}
+.logo{font-family:'JetBrains Mono',monospace;font-size:1.1rem;color:var(--accent);text-decoration:none;}
+.logo span{color:var(--accent2);}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.9rem;font-weight:500;transition:color 0.2s;cursor:pointer;}
+.nav-links a:hover{color:var(--accent);}
+.nav-cta{background:var(--accent)!important;color:var(--bg)!important;padding:0.4rem 1.1rem;border-radius:4px;font-weight:700!important;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{display:block;width:24px;height:2px;background:var(--accent);border-radius:2px;}
+
+/* ── PAGES ── */
+.page{display:none;min-height:100vh;padding-top:64px;}
+.page.active{display:block;}
+
+/* ── HERO ── */
+#page-home{background:var(--bg);}
+.hero{min-height:calc(100vh - 64px);display:flex;align-items:center;padding:60px 5%;position:relative;overflow:hidden;}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,229,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;}
+.hero-glow{position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(0,229,255,0.07) 0%,transparent 65%);top:40%;left:50%;transform:translate(-50%,-50%);pointer-events:none;}
+.hero-content{max-width:760px;position:relative;z-index:1;}
+.badge{display:inline-flex;align-items:center;gap:0.5rem;background:var(--surface);border:1px solid var(--border);color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:0.75rem;padding:0.35rem 0.8rem;border-radius:2px;margin-bottom:1.5rem;letter-spacing:0.08em;}
+.badge::before{content:'';width:6px;height:6px;background:var(--accent2);border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+h1{font-size:clamp(2.2rem,5vw,3.8rem);font-weight:700;line-height:1.1;letter-spacing:-0.02em;margin-bottom:1.2rem;}
+h1 .c1{color:var(--accent);}
+h1 .c2{color:var(--accent2);}
+.hero-sub{font-size:1.05rem;color:var(--muted);max-width:520px;margin-bottom:2.2rem;line-height:1.7;}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;}
+.btn-primary{background:var(--accent);color:var(--bg);padding:0.75rem 1.8rem;border-radius:4px;font-weight:700;font-size:0.95rem;text-decoration:none;cursor:pointer;border:none;font-family:'Space Grotesk',sans-serif;transition:transform 0.2s,box-shadow 0.2s;box-shadow:var(--glow);display:inline-block;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 40px rgba(0,229,255,0.3);}
+.btn-outline{border:1px solid var(--border);color:var(--text);padding:0.75rem 1.8rem;border-radius:4px;font-weight:500;font-size:0.95rem;text-decoration:none;cursor:pointer;background:none;font-family:'Space Grotesk',sans-serif;transition:border-color 0.2s,color 0.2s;display:inline-block;}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent);}
+.hero-stats{display:flex;gap:2.5rem;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border);flex-wrap:wrap;}
+.stat-num{font-family:'JetBrains Mono',monospace;font-size:1.8rem;color:var(--accent);}
+.stat-label{font-size:0.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;}
+
+/* ── FEATURE CARDS on HOME ── */
+.features{padding:80px 5%;background:var(--surface);border-top:1px solid var(--border);}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem;margin-top:2.5rem;}
+.feat-card{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:1.8rem;cursor:pointer;transition:border-color 0.3s,transform 0.3s;}
+.feat-card:hover{border-color:var(--accent);transform:translateY(-4px);}
+.feat-icon{font-size:2rem;margin-bottom:1rem;}
+.feat-card h3{font-size:1rem;font-weight:600;margin-bottom:0.5rem;}
+.feat-card p{color:var(--muted);font-size:0.87rem;line-height:1.65;margin-bottom:1rem;}
+.feat-link{color:var(--accent);font-size:0.82rem;font-weight:600;font-family:'JetBrains Mono',monospace;}
+
+/* ── INNER PAGE LAYOUT ── */
+.inner-page{padding:60px 5% 80px;}
+.section-tag{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--accent);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.75rem;}
+h2{font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:700;letter-spacing:-0.02em;margin-bottom:1rem;}
+.page-desc{color:var(--muted);font-size:1rem;max-width:600px;line-height:1.75;margin-bottom:3rem;}
+.back-btn{display:inline-flex;align-items:center;gap:0.5rem;color:var(--muted);font-size:0.85rem;cursor:pointer;margin-bottom:2rem;transition:color 0.2s;background:none;border:none;font-family:'Space Grotesk',sans-serif;}
+.back-btn:hover{color:var(--accent);}
+
+/* ── WHAT IS ARBITRAGE PAGE ── */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;}
+.info-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.8rem;margin-bottom:1rem;}
+.info-card h3{font-size:1rem;color:var(--accent);font-family:'JetBrains Mono',monospace;margin-bottom:0.6rem;}
+.info-card p{color:var(--muted);font-size:0.9rem;line-height:1.7;}
+.body-text{color:var(--muted);font-size:0.95rem;line-height:1.8;margin-bottom:1.2rem;}
+
+/* ── HOW IT WORKS PAGE ── */
+.steps{display:flex;flex-direction:column;gap:1.5rem;max-width:700px;}
+.step{display:flex;gap:1.5rem;align-items:flex-start;}
+.step-num-box{width:48px;height:48px;background:var(--surface);border:1px solid var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:1.1rem;color:var(--accent);flex-shrink:0;}
+.step-body h3{font-size:1rem;font-weight:600;margin-bottom:0.4rem;}
+.step-body p{color:var(--muted);font-size:0.9rem;line-height:1.65;}
+.step-connector{width:2px;height:24px;background:var(--border);margin-left:23px;}
+
+/* ── GENERATE PROFIT PAGE ── */
+.profit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem;margin-bottom:3rem;}
+.profit-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.8rem;transition:border-color 0.3s;}
+.profit-card:hover{border-color:var(--accent2);}
+.profit-card .icon{font-size:1.8rem;margin-bottom:0.8rem;}
+.profit-card h3{font-size:0.97rem;font-weight:600;margin-bottom:0.5rem;}
+.profit-card p{color:var(--muted);font-size:0.87rem;line-height:1.65;}
+.profit-card .tag{display:inline-block;background:rgba(0,255,136,0.1);color:var(--accent2);font-family:'JetBrains Mono',monospace;font-size:0.68rem;padding:0.2rem 0.5rem;border-radius:2px;margin-bottom:0.6rem;}
+
+/* ── RISKS PAGE ── */
+.warning-banner{background:rgba(255,85,85,0.07);border:1px solid rgba(255,85,85,0.3);border-radius:8px;padding:1.2rem 1.5rem;display:flex;align-items:flex-start;gap:1rem;margin-bottom:2.5rem;}
+.warning-banner p{color:#ff9090;font-size:0.9rem;line-height:1.65;}
+.risk-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem;}
+.risk-card{background:var(--surface);border:1px solid rgba(255,85,85,0.2);border-radius:8px;padding:1.6rem;transition:border-color 0.3s;}
+.risk-card:hover{border-color:rgba(255,85,85,0.5);}
+.risk-level{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.68rem;padding:0.2rem 0.5rem;border-radius:2px;margin-bottom:0.7rem;letter-spacing:0.06em;}
+.risk-high{background:rgba(255,85,85,0.15);color:#ff7070;}
+.risk-med{background:rgba(255,165,0,0.12);color:#ffa040;}
+.risk-low{background:rgba(0,229,255,0.1);color:var(--accent);}
+.risk-card h3{font-size:0.95rem;font-weight:600;margin-bottom:0.5rem;}
+.risk-card p{color:var(--muted);font-size:0.87rem;line-height:1.65;}
+
+/* ── PRICING PAGE ── */
+.pricing-wrap{display:flex;flex-direction:column;align-items:center;}
+.single-plan{background:var(--surface);border:2px solid var(--accent);border-radius:12px;padding:2.5rem;max-width:460px;width:100%;position:relative;box-shadow:var(--glow);}
+.plan-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--accent);color:var(--bg);font-size:0.75rem;font-weight:700;padding:0.3rem 1rem;border-radius:20px;white-space:nowrap;letter-spacing:0.05em;}
+.plan-name-tag{font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem;}
+.plan-price{font-size:3rem;font-weight:700;color:var(--text);line-height:1;margin-bottom:0.3rem;}
+.plan-price span{font-size:1rem;color:var(--muted);font-weight:400;}
+.plan-tagline{color:var(--muted);font-size:0.9rem;margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border);}
+.plan-features{list-style:none;display:flex;flex-direction:column;gap:0.8rem;margin-bottom:2rem;}
+.plan-features li{display:flex;align-items:flex-start;gap:0.6rem;font-size:0.92rem;color:var(--text);}
+.plan-features li::before{content:'✓';color:var(--accent2);font-weight:700;flex-shrink:0;}
+.plan-note{color:var(--muted);font-size:0.8rem;text-align:center;margin-top:1rem;line-height:1.6;}
+.pricing-faq{margin-top:3rem;max-width:600px;width:100%;}
+.pricing-faq h3{font-size:1.1rem;margin-bottom:1.2rem;color:var(--text);}
+.faq-item{border-bottom:1px solid var(--border);padding:1rem 0;}
+.faq-q{font-size:0.92rem;font-weight:600;margin-bottom:0.4rem;}
+.faq-a{color:var(--muted);font-size:0.87rem;line-height:1.65;}
+
+/* ── TELEGRAM PAGE ── */
+.tg-layout{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
+.tg-text p{color:var(--muted);font-size:0.95rem;line-height:1.75;margin-bottom:1rem;}
+.tg-features{list-style:none;margin:1.5rem 0 2rem;display:flex;flex-direction:column;gap:0.7rem;}
+.tg-features li{display:flex;align-items:center;gap:0.6rem;font-size:0.9rem;color:var(--text);}
+.tg-features li::before{content:'✅';font-size:0.85rem;}
+.tg-btn{display:inline-flex;align-items:center;gap:0.6rem;background:#229ED9;color:#fff;padding:0.9rem 2rem;border-radius:5px;font-weight:700;font-size:0.95rem;text-decoration:none;transition:opacity 0.2s,transform 0.2s;box-shadow:0 0 30px rgba(34,158,217,0.2);}
+.tg-btn:hover{opacity:0.88;transform:translateY(-2px);}
+.tg-preview{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.tg-header{background:#229ED9;padding:1rem 1.2rem;display:flex;align-items:center;gap:0.8rem;}
+.tg-avatar{width:40px;height:40px;background:rgba(255,255,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;}
+.tg-chan-name{font-weight:700;color:#fff;font-size:0.95rem;}
+.tg-members{color:rgba(255,255,255,0.75);font-size:0.78rem;}
+.tg-messages{padding:1.2rem;display:flex;flex-direction:column;gap:0.8rem;}
+.tg-msg{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:0.9rem 1rem;}
+.tg-msg-tag{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--accent);margin-bottom:0.35rem;}
+.tg-msg p{font-size:0.83rem;line-height:1.6;}
+.tg-msg .profit{color:var(--accent2);font-weight:600;}
+.tg-msg .warn{color:#ffa040;}
+.tg-msg .time{color:var(--muted);font-size:0.72rem;margin-top:0.35rem;}
+
+/* ── ABOUT PAGE ── */
+.about-layout{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
+.about-text p{color:var(--muted);font-size:0.95rem;line-height:1.8;margin-bottom:1rem;}
+.trust-list{list-style:none;margin-top:1.5rem;display:flex;flex-direction:column;gap:0.7rem;}
+.trust-list li{display:flex;align-items:center;gap:0.6rem;font-size:0.9rem;color:var(--muted);}
+.trust-list li::before{content:'✓';color:var(--accent2);font-weight:700;}
+.spread-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.5rem;}
+.spread-title{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--muted);letter-spacing:0.1em;margin-bottom:1rem;}
+.ticker-row{display:flex;justify-content:space-between;align-items:center;padding:0.65rem 0;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:0.83rem;}
+.ticker-row:last-child{border-bottom:none;}
+.t-pair{color:var(--text);}
+.t-exch{color:var(--muted);font-size:0.72rem;}
+.t-spread{color:var(--accent2);}
+
+/* ── CONTACT PAGE ── */
+.contact-layout{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
+.contact-form{display:flex;flex-direction:column;gap:1rem;}
+.form-group{display:flex;flex-direction:column;gap:0.4rem;}
+label{font-size:0.8rem;color:var(--muted);font-weight:500;text-transform:uppercase;letter-spacing:0.06em;}
+input,textarea,select{background:var(--bg);border:1px solid var(--border);color:var(--text);padding:0.75rem 1rem;border-radius:4px;font-family:'Space Grotesk',sans-serif;font-size:0.92rem;outline:none;transition:border-color 0.2s;width:100%;}
+input:focus,textarea:focus{border-color:var(--accent);}
+textarea{resize:vertical;min-height:120px;}
+.submit-btn{background:var(--accent);color:var(--bg);border:none;padding:0.85rem;border-radius:4px;font-weight:700;font-size:0.95rem;font-family:'Space Grotesk',sans-serif;cursor:pointer;transition:opacity 0.2s;margin-top:0.5rem;}
+.submit-btn:hover{opacity:0.85;}
+.contact-info h3{font-size:1.1rem;margin-bottom:0.75rem;}
+.contact-info p{color:var(--muted);font-size:0.92rem;line-height:1.7;margin-bottom:1.5rem;}
+.c-links{display:flex;flex-direction:column;gap:0.75rem;}
+.c-link{display:flex;align-items:center;gap:0.75rem;color:var(--muted);text-decoration:none;font-size:0.9rem;transition:color 0.2s;}
+.c-link:hover{color:var(--accent);}
+.c-icon{width:36px;height:36px;background:var(--surface);border:1px solid var(--border);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:1rem;}
+
+/* ── FOOTER ── */
+footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+footer p{color:var(--muted);font-size:0.82rem;}
+.footer-links{display:flex;gap:1.5rem;}
+.footer-links a{color:var(--muted);text-decoration:none;font-size:0.82rem;cursor:pointer;transition:color 0.2s;}
+.footer-links a:hover{color:var(--accent);}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  .nav-links.open{display:flex;flex-direction:column;position:fixed;top:64px;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--border);padding:1.5rem 5%;gap:1.5rem;z-index:199;}
+  .two-col,.tg-layout,.about-layout,.contact-layout{grid-template-columns:1fr;gap:2rem;}
+  .hero-stats{gap:1.5rem;}
+  footer{flex-direction:column;text-align:center;}
+  .single-plan{padding:2rem 1.5rem;}
+}
+</style>
+</head>
+<body data-page="blog">
+
+<header>
+  <nav>
+    <a class="logo" onclick="showPage('home')">Arb<span>Vertex</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a onclick="showPage('home')">Home</a></li>
+      <li><a onclick="showPage('what-is')">What is Arbitrage</a></li>
+      <li><a onclick="showPage('how-it-works')">How It Works</a></li>
+      <li><a onclick="showPage('profit')">Generate Profit</a></li>
+      <li><a onclick="showPage('risks')">Risks</a></li>
+      <li><a onclick="showPage('about')">About</a></li>
+      <li><a onclick="showPage('contact')">Contact</a></li>
+      <li><a onclick="showPage('scanner')" style="color:var(--accent2)!important;">🔍 Live Scanner</a></li>
+      <li><a onclick="showPage('blog')">Blog</a></li>
+      <li><a onclick="showPage('pricing')" class="nav-cta">Join Now</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </nav>
+</header>
+
+<div class="page active" id="page-blog">
+  <div class="inner-page">
+    <button class="back-btn" onclick="showPage('home')">← Back to Home</button>
+    <div class="section-tag">// LEARN</div>
+    <h2>ArbVertex Arbitrage Signal Blog</h2>
+    <p class="page-desc">Step-by-step guides on crypto arbitrage — from beginner basics to advanced strategies. Read in order for best results.</p>
+
+    <!-- Category Legend -->
+    <div style="display:flex;flex-wrap:wrap;gap:0.6rem;margin-bottom:2rem;">
+      <span style="background:rgba(0,229,255,0.08);border:1px solid rgba(0,229,255,0.2);color:var(--accent);font-size:0.72rem;padding:0.3rem 0.8rem;border-radius:20px;font-family:'JetBrains Mono',monospace;">🟦 Beginner</span>
+      <span style="background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.2);color:var(--accent2);font-size:0.72rem;padding:0.3rem 0.8rem;border-radius:20px;font-family:'JetBrains Mono',monospace;">🟩 Strategy</span>
+      <span style="background:rgba(255,160,64,0.08);border:1px solid rgba(255,160,64,0.2);color:#ffa040;font-size:0.72rem;padding:0.3rem 0.8rem;border-radius:20px;font-family:'JetBrains Mono',monospace;">🟧 Exchange</span>
+      <span style="background:rgba(255,85,85,0.08);border:1px solid rgba(255,85,85,0.2);color:var(--red);font-size:0.72rem;padding:0.3rem 0.8rem;border-radius:20px;font-family:'JetBrains Mono',monospace;">🟥 Risk & Tools</span>
+    </div>
+
+    <!-- Article Cards Grid -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.2rem;margin-bottom:3rem;">
+
+      <!-- Card 1 -->
+      <div onclick="showPage('article-1')" style="cursor:pointer;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.4rem;transition:border-color 0.3s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.7rem;">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;background:rgba(0,229,255,0.1);color:var(--accent);padding:0.2rem 0.5rem;border-radius:3px;">STEP 1</span>
+          <span style="font-size:0.65rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">🟦 BEGINNER</span>
+        </div>
+        <h3 style="font-size:0.95rem;font-weight:700;margin-bottom:0.5rem;line-height:1.4;">What is Crypto Arbitrage? Complete Beginner Guide 2026</h3>
+        <p style="color:var(--muted);font-size:0.82rem;line-height:1.6;margin-bottom:0.8rem;">Learn what arbitrage is, how price gaps form, and 3 types of crypto arbitrage explained simply.</p>
+        <span style="color:var(--accent);font-size:0.82rem;font-weight:600;">Read Article →</span>
+      </div>
+
+      <!-- Card 2 -->
+      <div onclick="showPage('article-2')" style="cursor:pointer;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.4rem;transition:border-color 0.3s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.7rem;">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;background:rgba(0,229,255,0.1);color:var(--accent);padding:0.2rem 0.5rem;border-radius:3px;">STEP 2</span>
+          <span style="font-size:0.65rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">🟦 BEGINNER</span>
+        </div>
+        <h3 style="font-size:0.95rem;font-weight:700;margin-bottom:0.5rem;line-height:1.4;">Spot vs Futures Arbitrage: Which Is Better for Beginners?</h3>
+        <p style="color:var(--muted);font-size:0.82rem;line-height:1.6;margin-bottom:0.8rem;">Key differences, capital requirements, speed, and which type ArbVertex signals focus on.</p>
+        <span style="color:var(--accent);font-size:0.82rem;font-weight:600;">Read Article →</span>
+      </div>
+
+      <!-- Card 3 -->
+      <div onclick="showPage('article-3')" style="cursor:pointer;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.4rem;transition:border-color 0.3s;" onmouseover="this.style.borderColor='var(--accent2)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.7rem;">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;background:rgba(0,255,136,0.1);color:var(--accent2);padding:0.2rem 0.5rem;border-radius:3px;">STEP 3</span>
+          <span style="font-size:0.65rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">🟩 STRATEGY</span>
+        </div>
+        <h3 style="font-size:0.95rem;font-weight:700;margin-bottom:0.5rem;line-height:1.4;">Funding Rate Arbitrage: Earn Passive Crypto Income Without Price Risk</h3>
+        <p style="color:var(--muted);font-size:0.82rem;line-height:1.6;margin-bottom:0.8rem;">How funding rates work, entry/exit rules, and realistic APR calculations with real numbers.</p>
+        <span style="color:var(--accent2);font-size:0.82rem;font-weight:600;">Read Article →</span>
+      </div>
+
+      <!-- Card 4 -->
+      <div onclick="showPage('article-4')" style="cursor:pointer;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.4rem;transition:border-color 0.3s;" onmouseover="this.style.borderColor='var(--accent2)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.7rem;">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;background:rgba(0,255,136,0.1);color:var(--accent2);padding:0.2rem 0.5rem;border-radius:3px;">STEP 4</span>
+          <span style="font-size:0.65rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">🟩 STRATEGY</span>
+        </div>
+        <h3 style="font-size:0.95rem;font-weight:700;margin-bottom:0.5rem;line-height:1.4;">Triangular Arbitrage Explained: Profit from 3-Pair Price Loops in Crypto</h3>
+        <p style="color:var(--muted);font-size:0.82rem;line-height:1.6;margin-bottom:0.8rem;">How triangular arb works on a single exchange, with a step-by-step example and profit calculation.</p>
+        <span style="color:var(--accent2);font-size:0.82rem;font-weight:600;">Read Article →</span>
+      </div>
+
+      <!-- Card 5 -->
+      <div onclick="showPage('article-5')" style="cursor:pointer;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.4rem;transition:border-color 0.3s;" onmouseover="this.style.borderColor='#ffa040'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.7rem;">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;background:rgba(255,160,64,0.1);color:#ffa040;padding:0.2rem 0.5rem;border-radius:3px;">STEP 5</span>
+          <span style="font-size:0.65rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">🟧 EXCHANGE</span>
+        </div>
+        <h3 style="font-size:0.95rem;font-weight:700;margin-bottom:0.5rem;line-height:1.4;">Best Crypto Arbitrage Exchanges 2026: Binance vs Bybit vs MEXC vs Gate.io</h3>
+        <p style="color:var(--muted);font-size:0.82rem;line-height:1.6;margin-bottom:0.8rem;">Fee comparison table, liquidity, withdrawal speed — with beginner recommendation.</p>
+        <span style="color:#ffa040;font-size:0.82rem;font-weight:600;">Read Article →</span>
+      </div>
+
+      <!-- Card 6 -->
+      <div onclick="showPage('article-6')" style="cursor:pointer;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.4rem;transition:border-color 0.3s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.7rem;">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;background:rgba(0,229,255,0.1);color:var(--accent);padding:0.2rem 0.5rem;border-radius:3px;">STEP 6</span>
+          <span style="font-size:0.65rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">🟩 STRATEGY</span>
+        </div>
+        <h3 style="font-size:0.95rem;font-weight:700;margin-bottom:0.5rem;line-height:1.4;">Cross-Exchange Arbitrage: Execute Both Legs on Binance & Bybit (2026 Guide)</h3>
+        <p style="color:var(--muted);font-size:0.82rem;line-height:1.6;margin-bottom:0.8rem;">5-step execution guide, fee math example, and minimum viable gap rules.</p>
+        <span style="color:var(--accent);font-size:0.82rem;font-weight:600;">Read Article →</span>
+      </div>
+
+      <!-- Card 7 -->
+      <div onclick="showPage('article-7')" style="cursor:pointer;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.4rem;transition:border-color 0.3s;" onmouseover="this.style.borderColor='var(--red)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.7rem;">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;background:rgba(255,85,85,0.1);color:var(--red);padding:0.2rem 0.5rem;border-radius:3px;">STEP 7</span>
+          <span style="font-size:0.65rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">🟥 RISK</span>
+        </div>
+        <h3 style="font-size:0.95rem;font-weight:700;margin-bottom:0.5rem;line-height:1.4;">Crypto Arbitrage Risks You Must Know Before Starting in 2026</h3>
+        <p style="color:var(--muted);font-size:0.82rem;line-height:1.6;margin-bottom:0.8rem;">Slippage, execution lag, funding reversal, exchange risk — and how to protect capital.</p>
+        <span style="color:var(--red);font-size:0.82rem;font-weight:600;">Read Article →</span>
+      </div>
+
+      <!-- Card 8 -->
+      <div onclick="showPage('article-8')" style="cursor:pointer;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.4rem;transition:border-color 0.3s;" onmouseover="this.style.borderColor='#ffa040'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.7rem;">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;background:rgba(255,160,64,0.1);color:#ffa040;padding:0.2rem 0.5rem;border-radius:3px;">STEP 8</span>
+          <span style="font-size:0.65rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">🟥 TOOLS</span>
+        </div>
+        <h3 style="font-size:0.95rem;font-weight:700;margin-bottom:0.5rem;line-height:1.4;">Arbitrage Calculator Guide: How to Calculate Net Profit After All Fees</h3>
+        <p style="color:var(--muted);font-size:0.82rem;line-height:1.6;margin-bottom:0.8rem;">The exact profit formula — raw gap minus taker fees, slippage, and withdrawal costs.</p>
+        <span style="color:#ffa040;font-size:0.82rem;font-weight:600;">Read Article →</span>
+      </div>
+
+      <!-- Card 9 -->
+      <div onclick="showPage('article-9')" style="cursor:pointer;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.4rem;transition:border-color 0.3s;" onmouseover="this.style.borderColor='#ffa040'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.7rem;">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;background:rgba(255,160,64,0.1);color:#ffa040;padding:0.2rem 0.5rem;border-radius:3px;">STEP 9</span>
+          <span style="font-size:0.65rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">🟥 TOOLS</span>
+        </div>
+        <h3 style="font-size:0.95rem;font-weight:700;margin-bottom:0.5rem;line-height:1.4;">Arbitrage Trading Fees Explained: Maker, Taker, Withdrawal & Slippage Costs 2026</h3>
+        <p style="color:var(--muted);font-size:0.82rem;line-height:1.6;margin-bottom:0.8rem;">All 4 types of fees that eat into arbitrage profit — and how to minimize each one.</p>
+        <span style="color:#ffa040;font-size:0.82rem;font-weight:600;">Read Article →</span>
+      </div>
+
+      <!-- Card 10 -->
+      <div onclick="showPage('article-10')" style="cursor:pointer;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.4rem;transition:border-color 0.3s;" onmouseover="this.style.borderColor='var(--accent2)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.7rem;">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;background:rgba(0,255,136,0.1);color:var(--accent2);padding:0.2rem 0.5rem;border-radius:3px;">STEP 10</span>
+          <span style="font-size:0.65rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">🟩 STRATEGY</span>
+        </div>
+        <h3 style="font-size:0.95rem;font-weight:700;margin-bottom:0.5rem;line-height:1.4;">Best Crypto Arbitrage Tools 2026: Scanners, Signal Services & Passive Income</h3>
+        <p style="color:var(--muted);font-size:0.82rem;line-height:1.6;margin-bottom:0.8rem;">Top tools ranked — from free scanners to ArbVertex signals — with realistic income tables.</p>
+        <span style="color:var(--accent2);font-size:0.82rem;font-weight:600;">Read Article →</span>
+      </div>
+
+    </div>
+
+    <div style="text-align:center;margin-top:1rem;">
+      <p style="color:var(--muted);font-size:0.9rem;margin-bottom:1.2rem;">Ready to start earning? Get 2%+ validated arbitrage signals on Telegram.</p>
+      <button class="btn-primary" onclick="showPage('pricing')">View Plans &amp; Subscribe →</button>
+    </div>
+  </div>
+  <footer><p>© 2026 ArbVertex</p><div class="footer-links"><a onclick="showPage('home')">Home</a><a onclick="showPage('blog')">Blog</a><a onclick="showPage('contact')">Contact</a></div><p style="font-size:0.75rem;">Not financial advice.</p></footer>
+</div>
+
+<script>
+// ── CONTACT FORM ──
+function handleFormSubmit(e) {
+  e.preventDefault();
+  const form = e.target;
+  const data = new FormData(form);
+  fetch('/', { method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'}, body: new URLSearchParams(data).toString() })
+    .then(() => {
+      form.reset();
+      document.getElementById('form-success').style.display = 'block';
+      setTimeout(() => { document.getElementById('form-success').style.display = 'none'; }, 5000);
+    })
+    .catch(() => alert('Error sending message. Please try Telegram instead.'));
+}
+
+const PAGE_URL_MAP = {
+  'home': 'index.html',
+  'what-is': 'what-is-arbitrage.html',
+  'how-it-works': 'how-it-works.html',
+  'profit': 'generate-profit.html',
+  'risks': 'risks.html',
+  'pricing': 'pricing.html',
+  'telegram': 'telegram-bot.html',
+  'about': 'about.html',
+  'contact': 'contact.html',
+  'scanner': 'live-scanner.html',
+  'blog': 'blog.html',
+  'article-1': 'article-1.html',
+  'article-2': 'article-2.html',
+  'article-3': 'article-3.html',
+  'article-4': 'article-4.html',
+  'article-5': 'article-5.html',
+  'article-6': 'article-6.html',
+  'article-7': 'article-7.html',
+  'article-8': 'article-8.html',
+  'article-9': 'article-9.html',
+  'article-10': 'article-10.html'
+};
+// ── NAV ──
+function showPage(name) {
+  const url = PAGE_URL_MAP[name] || (name + '.html');
+  if (window.location.pathname.endsWith(url) || (url === 'index.html' && (window.location.pathname === '/' || window.location.pathname.endsWith('index.html')))) {
+    window.scrollTo({top:0,behavior:'smooth'});
+    document.getElementById('navLinks').classList.remove('open');
+    return;
+  }
+  window.location.href = url;
+}
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('navLinks').classList.toggle('open');
+});
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';} });
+},{threshold:0.08});
+document.querySelectorAll('.feat-card,.profit-card,.risk-card,.info-card,.step').forEach(el => {
+  el.style.opacity='0'; el.style.transform='translateY(18px)';
+  el.style.transition='opacity 0.45s ease, transform 0.45s ease, border-color 0.3s';
+  observer.observe(el);
+});
+
+// ── SCANNER ──
+const PAIRS = []; // populated dynamically from Binance (700+ USDT pairs)
+const MAX_PAIRS = 700;
+
+let countdownInterval = null;
+let countdownVal = 30;
+let activeFilter = 'all';
+let lastResults = [];
+
+function setFilter(f) {
+  activeFilter = f;
+  document.querySelectorAll('[id^="filter-"]').forEach(b => {
+    b.style.background = 'var(--surface)';
+    b.style.color = 'var(--muted)';
+    b.style.border = '1px solid var(--border)';
+  });
+  const el = document.getElementById('filter-' + f);
+  if (el) { el.style.background = 'var(--accent)'; el.style.color = 'var(--bg)'; el.style.border = 'none'; }
+  renderTable(lastResults);
+}
+
+// ── LOAD ALL USDT PAIRS (700+) FROM BINANCE ──
+async function loadAllPairs() {
+  try {
+    const r = await fetch('https://api.binance.com/api/v3/exchangeInfo');
+    const d = await r.json();
+    const usdtPairs = d.symbols
+      .filter(s => s.symbol.endsWith('USDT') && s.status === 'TRADING' && s.isSpotTradingAllowed)
+      .map(s => s.symbol)
+      .slice(0, MAX_PAIRS);
+    PAIRS.length = 0;
+    PAIRS.push(...usdtPairs);
+  } catch(e) {
+    console.warn('Failed to load full pair list, using fallback:', e);
+    PAIRS.length = 0;
+    PAIRS.push('BTCUSDT','ETHUSDT','SOLUSDT','BNBUSDT','XRPUSDT','DOGEUSDT','ADAUSDT','AVAXUSDT','LINKUSDT','DOTUSDT','LTCUSDT','TRXUSDT','UNIUSDT','ATOMUSDT','NEARUSDT','APTUSDT','ARBUSDT','OPUSDT','INJUSDT','SUIUSDT');
+  }
+}
+
+// ── FETCH FUNCTIONS ──
+// Binance ticker endpoint has a URL length limit, so we batch requests for 700+ symbols
+async function fetchBinance() {
+  const m = {};
+  const BATCH = 100;
+  for (let i = 0; i < PAIRS.length; i += BATCH) {
+    const batch = PAIRS.slice(i, i + BATCH);
+    const url = `https://api.binance.com/api/v3/ticker/price?symbols=[${batch.map(p=>`"${p}"`).join(',')}]`;
+    try {
+      const r = await fetch(url); const d = await r.json();
+      if (Array.isArray(d)) d.forEach(x => m[x.symbol] = parseFloat(x.price));
+    } catch(e) { console.warn('Binance batch failed:', e); }
+  }
+  return m;
+}
+
+async function fetchBybit() {
+  const m = {};
+  const pairSet = new Set(PAIRS);
+  const r = await fetch('https://api.bybit.com/v5/market/tickers?category=spot');
+  const d = await r.json();
+  if(d.result?.list) d.result.list.forEach(x => { if(pairSet.has(x.symbol)) m[x.symbol]=parseFloat(x.lastPrice); });
+  return m;
+}
+
+async function fetchGate() {
+  const m = {};
+  const pairSet = new Set(PAIRS);
+  try {
+    const url = 'https://api.gateio.ws/api/v4/spot/tickers';
+    const r = await fetch('https://api.allorigins.win/raw?url=' + encodeURIComponent(url));
+    const d = await r.json();
+    d.forEach(x => {
+      const sym = x.currency_pair?.replace('_','');
+      if(pairSet.has(sym)) m[sym] = parseFloat(x.last);
+    });
+  } catch(e) { console.warn('Gate failed:', e); }
+  return m;
+}
+
+async function fetchBitget() {
+  const m = {};
+  const pairSet = new Set(PAIRS);
+  const r = await fetch('https://api.bitget.com/api/v2/spot/market/tickers');
+  const d = await r.json();
+  if(d.data) d.data.forEach(x => {
+    const sym = x.symbol?.replace('USDT','') + 'USDT';
+    if(pairSet.has(sym)) m[sym] = parseFloat(x.lastPr);
+  });
+  return m;
+}
+
+async function fetchKucoin() {
+  const m = {};
+  const pairSet = new Set(PAIRS);
+  try {
+    const url = 'https://api.kucoin.com/api/v1/market/allTickers';
+    const r = await fetch('https://api.allorigins.win/raw?url=' + encodeURIComponent(url));
+    const d = await r.json();
+    if(d.data?.ticker) d.data.ticker.forEach(x => {
+      const sym = x.symbol?.replace('-','');
+      if(pairSet.has(sym)) m[sym] = parseFloat(x.last);
+    });
+  } catch(e) { console.warn('KuCoin failed:', e); }
+  return m;
+}
+
+async function fetchMexc() {
+  const m = {};
+  const pairSet = new Set(PAIRS);
+  try {
+    const url = 'https://api.mexc.com/api/v3/ticker/price';
+    const r = await fetch('https://api.allorigins.win/raw?url=' + encodeURIComponent(url));
+    const d = await r.json();
+    d.forEach(x => { if(pairSet.has(x.symbol)) m[x.symbol]=parseFloat(x.price); });
+  } catch(e) { console.warn('MEXC failed:', e); }
+  return m;
+}
+
+function fp(price) {
+  if(!price || isNaN(price)) return '<span style="color:var(--border);">—</span>';
+  if(price>=1000) return '$'+price.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+  if(price>=1) return '$'+price.toFixed(4);
+  return '$'+price.toFixed(6);
+}
+
+function badge(spread) {
+  const a = Math.abs(spread);
+  if(a>=2) return `<span style="background:rgba(0,255,136,0.15);color:var(--accent2);font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.2rem 0.7rem;border-radius:3px;font-weight:700;white-space:nowrap;">🔥 ${spread>0?'+':''}${spread.toFixed(2)}%</span>`;
+  if(a>=1) return `<span style="background:rgba(0,229,255,0.1);color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.2rem 0.7rem;border-radius:3px;white-space:nowrap;">⚡ ${spread>0?'+':''}${spread.toFixed(2)}%</span>`;
+  return `<span style="background:rgba(106,143,168,0.08);color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.2rem 0.7rem;border-radius:3px;white-space:nowrap;">— ${spread>0?'+':''}${spread.toFixed(2)}%</span>`;
+}
+
+function renderTable(results) {
+  lastResults = results;
+  const EXCHANGE_PAIRS = [
+    {k1:'binance',k2:'bybit',  label:'Binance↔Bybit', id:'BN-BB'},
+    {k1:'binance',k2:'gate',   label:'Binance↔Gate',  id:'BN-GT'},
+    {k1:'binance',k2:'mexc',   label:'Binance↔MEXC',  id:'BN-MX'},
+    {k1:'bybit',  k2:'gate',   label:'Bybit↔Gate',    id:'BB-GT'},
+  ];
+
+  // Build rows: each pair × each exchange combination
+  let rows = [];
+  results.forEach(r => {
+    const exPairs = activeFilter === 'all' ? [
+      {k1:'binance',k2:'bybit',  label:'Binance → Bybit'},
+      {k1:'binance',k2:'gate',   label:'Binance → Gate'},
+      {k1:'binance',k2:'bitget', label:'Binance → Bitget'},
+      {k1:'binance',k2:'kucoin', label:'Binance → KuCoin'},
+      {k1:'binance',k2:'mexc',   label:'Binance → MEXC'},
+      {k1:'bybit',  k2:'gate',   label:'Bybit → Gate'},
+      {k1:'bybit',  k2:'bitget', label:'Bybit → Bitget'},
+      {k1:'bybit',  k2:'mexc',   label:'Bybit → MEXC'},
+      {k1:'gate',   k2:'mexc',   label:'Gate → MEXC'},
+      {k1:'kucoin', k2:'mexc',   label:'KuCoin → MEXC'},
+    ] : activeFilter === '2pct' ? [
+      {k1:'binance',k2:'bybit',label:'Binance↔Bybit'},{k1:'binance',k2:'gate',label:'Binance↔Gate'},
+      {k1:'binance',k2:'bitget',label:'Binance↔Bitget'},{k1:'binance',k2:'kucoin',label:'Binance↔KuCoin'},
+      {k1:'binance',k2:'mexc',label:'Binance↔MEXC'},{k1:'bybit',k2:'gate',label:'Bybit↔Gate'},
+      {k1:'bybit',k2:'bitget',label:'Bybit↔Bitget'},{k1:'bybit',k2:'mexc',label:'Bybit↔MEXC'},
+      {k1:'gate',k2:'mexc',label:'Gate↔MEXC'},{k1:'kucoin',k2:'mexc',label:'KuCoin↔MEXC'},
+    ] : [{
+      'BN-BB':{k1:'binance',k2:'bybit',label:'Binance↔Bybit'},
+      'BN-GT':{k1:'binance',k2:'gate', label:'Binance↔Gate'},
+      'BN-MX':{k1:'binance',k2:'mexc', label:'Binance↔MEXC'},
+      'BB-GT':{k1:'bybit',  k2:'gate', label:'Bybit↔Gate'},
+    }[activeFilter]].filter(Boolean);
+
+    exPairs.forEach(ep => {
+      const p1 = r[ep.k1], p2 = r[ep.k2];
+      if(!p1 || !p2) return;
+      const spread = ((p2 - p1) / p1) * 100;
+      if(activeFilter==='2pct' && Math.abs(spread)<2) return;
+      const buyOn = spread>0 ? ep.label.split('→')[0]?.split('↔')[0]?.trim() : ep.label.split('→')[1]?.split('↔')[1]?.trim() || ep.label;
+      rows.push({symbol:r.symbol, p1, p2, spread, buyOn, pair:ep.label, k1:ep.k1, k2:ep.k2, ...r});
+    });
+  });
+
+  rows.sort((a,b) => Math.abs(b.spread)-Math.abs(a.spread));
+
+  const opps = rows.filter(r=>Math.abs(r.spread)>=2).length;
+  const best = rows.length>0 ? Math.abs(rows[0].spread).toFixed(2)+'%' : '—';
+  document.getElementById('stat-opportunities').textContent = opps;
+  document.getElementById('stat-best').textContent = best;
+  document.getElementById('stat-pairs').textContent = results.length;
+
+  const tbody = document.getElementById('scanner-tbody');
+  if(rows.length===0){
+    tbody.innerHTML=`<tr><td colspan="9" style="text-align:center;padding:3rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">No opportunities found for selected filter.</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = rows.slice(0,60).map((r,i) => {
+    const sc = Math.abs(r.spread)>=2?'var(--accent2)':Math.abs(r.spread)>=1?'var(--accent)':'var(--muted)';
+    const rowBg = Math.abs(r.spread)>=2?'rgba(0,255,136,0.03)':i%2===0?'transparent':'rgba(255,255,255,0.01)';
+    return `<tr style="background:${rowBg};border-bottom:1px solid var(--border);" onmouseover="this.style.background='rgba(0,229,255,0.04)'" onmouseout="this.style.background='${rowBg}'">
+      <td style="padding:0.7rem 0.8rem;font-family:'JetBrains Mono',monospace;font-weight:600;color:var(--text);white-space:nowrap;">${r.symbol.replace('USDT','')}<span style="color:var(--muted);font-weight:400;">/USDT</span></td>
+      <td style="padding:0.7rem 0.8rem;text-align:right;font-family:'JetBrains Mono',monospace;font-size:0.82rem;color:${r.binance?'var(--text)':'var(--border)'};">${fp(r.binance)}</td>
+      <td style="padding:0.7rem 0.8rem;text-align:right;font-family:'JetBrains Mono',monospace;font-size:0.82rem;color:${r.bybit?'var(--text)':'var(--border)'};">${fp(r.bybit)}</td>
+      <td style="padding:0.7rem 0.8rem;text-align:right;font-family:'JetBrains Mono',monospace;font-size:0.82rem;color:${r.gate?'var(--text)':'var(--border)'};">${fp(r.gate)}</td>
+      <td style="padding:0.7rem 0.8rem;text-align:right;font-family:'JetBrains Mono',monospace;font-size:0.82rem;color:${r.bitget?'var(--text)':'var(--border)'};">${fp(r.bitget)}</td>
+      <td style="padding:0.7rem 0.8rem;text-align:right;font-family:'JetBrains Mono',monospace;font-size:0.82rem;color:${r.kucoin?'var(--text)':'var(--border)'};">${fp(r.kucoin)}</td>
+      <td style="padding:0.7rem 0.8rem;text-align:right;font-family:'JetBrains Mono',monospace;font-size:0.82rem;color:${r.mexc?'var(--text)':'var(--border)'};">${fp(r.mexc)}</td>
+      <td style="padding:0.7rem 0.8rem;text-align:right;font-family:'JetBrains Mono',monospace;font-weight:700;color:${sc};white-space:nowrap;">${r.spread>=0?'+':''}${r.spread.toFixed(3)}%<br><span style="font-size:0.65rem;color:var(--muted);font-weight:400;">${r.pair}</span></td>
+      <td style="padding:0.7rem 0.8rem;text-align:center;">${badge(r.spread)}</td>
+    </tr>`;
+  }).join('');
+}
+
+async function fetchAllPrices() {
+  const dot = document.getElementById('scanner-dot');
+  const status = document.getElementById('scanner-status');
+  dot.style.background = '#ffa040';
+  dot.style.animation = 'none';
+
+  if (PAIRS.length === 0) {
+    status.textContent = 'Loading full coin list (700+)...';
+    await loadAllPairs();
+  }
+
+  status.textContent = `Fetching ${PAIRS.length} pairs from 6 exchanges...`;
+
+  const safeF = async (fn, name) => { try { return await fn(); } catch(e) { console.warn(name+' failed:', e); return {}; } };
+
+  const [binance, bybit, gate, bitget, kucoin, mexc] = await Promise.all([
+    safeF(fetchBinance,'Binance'),
+    safeF(fetchBybit,'Bybit'),
+    safeF(fetchGate,'Gate'),
+    safeF(fetchBitget,'Bitget'),
+    safeF(fetchKucoin,'KuCoin'),
+    safeF(fetchMexc,'MEXC'),
+  ]);
+
+  const results = PAIRS.map(sym => ({
+    symbol: sym,
+    binance: binance[sym] || null,
+    bybit:   bybit[sym]   || null,
+    gate:    gate[sym]    || null,
+    bitget:  bitget[sym]  || null,
+    kucoin:  kucoin[sym]  || null,
+    mexc:    mexc[sym]    || null,
+  })).filter(r => r.binance || r.bybit || r.gate);
+
+  const activeExchanges = [
+    Object.keys(binance).length > 0 ? 'Binance' : null,
+    Object.keys(bybit).length > 0 ? 'Bybit' : null,
+    Object.keys(gate).length > 0 ? 'Gate' : null,
+    Object.keys(bitget).length > 0 ? 'Bitget' : null,
+    Object.keys(kucoin).length > 0 ? 'KuCoin' : null,
+    Object.keys(mexc).length > 0 ? 'MEXC' : null,
+  ].filter(Boolean);
+
+  dot.style.background = 'var(--accent2)';
+  dot.style.animation = 'pulse 2s infinite';
+  status.textContent = `Live · ${activeExchanges.join(', ')} · ${new Date().toLocaleTimeString()}`;
+  countdownVal = 30;
+
+  renderTable(results);
+}
+
+function startCountdown() {
+  if(countdownInterval) clearInterval(countdownInterval);
+  countdownVal = 30;
+  countdownInterval = setInterval(() => {
+    countdownVal--;
+    const el = document.getElementById('countdown');
+    if(el) el.textContent = countdownVal + 's';
+    if(countdownVal<=0) { countdownVal=15; fetchAllPrices(); }
+  },1000);
+}
+
+// Auto-init page-specific behavior on direct load
+document.addEventListener('DOMContentLoaded', () => {
+  if (document.body.dataset.page === 'scanner') { fetchAllPrices(); startCountdown(); }
+});
+</script>
+</body>
+</html>
