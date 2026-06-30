@@ -547,30 +547,70 @@ async function fetchBybit() {
   return m;
 }
 
+// ============================================
+// REPLACE the existing fetchGate, fetchBitget, fetchKucoin, fetchMexc
+// functions in live-scanner.html with these versions.
+// Strategy: try DIRECT api call first (many exchanges allow CORS now),
+// and only fall back to a proxy if the direct call fails.
+// Also uses TWO proxy options instead of one, so if allorigins is down
+// corsproxy.io is tried next.
+// ============================================
+
+async function fetchWithFallback(directUrl) {
+  // 1) Try direct call first
+  try {
+    const r = await fetch(directUrl);
+    if (r.ok) return await r.json();
+  } catch (e) {
+    // direct call blocked by CORS or network — fall through to proxy
+  }
+
+  // 2) Try proxy #1 — allorigins
+  try {
+    const r = await fetch('https://api.allorigins.win/raw?url=' + encodeURIComponent(directUrl));
+    if (r.ok) return await r.json();
+  } catch (e) {}
+
+  // 3) Try proxy #2 — corsproxy.io
+  try {
+    const r = await fetch('https://corsproxy.io/?url=' + encodeURIComponent(directUrl));
+    if (r.ok) return await r.json();
+  } catch (e) {}
+
+  // 4) Try proxy #3 — thingproxy
+  try {
+    const r = await fetch('https://thingproxy.freeboard.io/fetch/' + directUrl);
+    if (r.ok) return await r.json();
+  } catch (e) {}
+
+  throw new Error('All fetch attempts failed for ' + directUrl);
+}
+
 async function fetchGate() {
   const m = {};
   const pairSet = new Set(PAIRS);
   try {
     const url = 'https://api.gateio.ws/api/v4/spot/tickers';
-    const r = await fetch('https://api.allorigins.win/raw?url=' + encodeURIComponent(url));
-    const d = await r.json();
+    const d = await fetchWithFallback(url);
     d.forEach(x => {
-      const sym = x.currency_pair?.replace('_','');
-      if(pairSet.has(sym)) m[sym] = parseFloat(x.last);
+      const sym = x.currency_pair?.replace('_', '');
+      if (pairSet.has(sym)) m[sym] = parseFloat(x.last);
     });
-  } catch(e) { console.warn('Gate failed:', e); }
+  } catch (e) { console.warn('Gate failed completely:', e); }
   return m;
 }
 
 async function fetchBitget() {
   const m = {};
   const pairSet = new Set(PAIRS);
-  const r = await fetch('https://api.bitget.com/api/v2/spot/market/tickers');
-  const d = await r.json();
-  if(d.data) d.data.forEach(x => {
-    const sym = x.symbol?.replace('USDT','') + 'USDT';
-    if(pairSet.has(sym)) m[sym] = parseFloat(x.lastPr);
-  });
+  try {
+    const url = 'https://api.bitget.com/api/v2/spot/market/tickers';
+    const d = await fetchWithFallback(url);
+    if (d.data) d.data.forEach(x => {
+      const sym = x.symbol?.replace('USDT', '') + 'USDT';
+      if (pairSet.has(sym)) m[sym] = parseFloat(x.lastPr);
+    });
+  } catch (e) { console.warn('Bitget failed completely:', e); }
   return m;
 }
 
@@ -579,13 +619,12 @@ async function fetchKucoin() {
   const pairSet = new Set(PAIRS);
   try {
     const url = 'https://api.kucoin.com/api/v1/market/allTickers';
-    const r = await fetch('https://api.allorigins.win/raw?url=' + encodeURIComponent(url));
-    const d = await r.json();
-    if(d.data?.ticker) d.data.ticker.forEach(x => {
-      const sym = x.symbol?.replace('-','');
-      if(pairSet.has(sym)) m[sym] = parseFloat(x.last);
+    const d = await fetchWithFallback(url);
+    if (d.data?.ticker) d.data.ticker.forEach(x => {
+      const sym = x.symbol?.replace('-', '');
+      if (pairSet.has(sym)) m[sym] = parseFloat(x.last);
     });
-  } catch(e) { console.warn('KuCoin failed:', e); }
+  } catch (e) { console.warn('KuCoin failed completely:', e); }
   return m;
 }
 
@@ -594,13 +633,11 @@ async function fetchMexc() {
   const pairSet = new Set(PAIRS);
   try {
     const url = 'https://api.mexc.com/api/v3/ticker/price';
-    const r = await fetch('https://api.allorigins.win/raw?url=' + encodeURIComponent(url));
-    const d = await r.json();
-    d.forEach(x => { if(pairSet.has(x.symbol)) m[x.symbol]=parseFloat(x.price); });
-  } catch(e) { console.warn('MEXC failed:', e); }
+    const d = await fetchWithFallback(url);
+    d.forEach(x => { if (pairSet.has(x.symbol)) m[x.symbol] = parseFloat(x.price); });
+  } catch (e) { console.warn('MEXC failed completely:', e); }
   return m;
 }
-
 function fp(price) {
   if(!price || isNaN(price)) return '<span style="color:var(--border);">—</span>';
   if(price>=1000) return '$'+price.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
