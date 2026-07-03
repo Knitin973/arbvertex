@@ -130,8 +130,164 @@
     header h1{ font-size:1.6rem; }
   }
 </style>
+<style>
+/* ══════════════════════════════════════════════════
+   ArbVertex Mega Nav — self-contained (av- prefixed)
+   Add new pages: find the right topic block below and
+   copy an <a class="av-mega-link"> line, change href/icon/text.
+   ══════════════════════════════════════════════════ */
+.av-nav-wrap{
+  --av-bg:#050a0f; --av-surface:#0d1a24; --av-accent:#00e5ff; --av-accent2:#00ff88;
+  --av-text:#e8f4f8; --av-muted:#8fb0c4; --av-border:#1a3a52;
+  position:fixed; top:0; left:0; right:0; z-index:999;
+  background:rgba(5,10,15,0.95); backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--av-border);
+  font-family:'Space Grotesk',sans-serif;
+}
+.av-nav-inner{
+  max-width:1400px; margin:0 auto; height:64px;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 5%; gap:1rem;
+}
+.av-logo{
+  font-family:'JetBrains Mono',monospace; font-size:1.05rem; font-weight:700;
+  color:var(--av-accent); text-decoration:none; letter-spacing:-0.02em; flex-shrink:0;
+}
+.av-logo span{ color:var(--av-accent2); }
+.av-nav-links{
+  display:flex; align-items:center; gap:0.15rem; list-style:none; margin:0; padding:0;
+}
+.av-nav-links > li{ position:relative; }
+.av-top-link{
+  display:inline-flex; align-items:center; gap:0.3rem;
+  color:var(--av-muted); text-decoration:none; font-size:0.85rem; font-weight:500;
+  background:none; border:none; cursor:pointer; font-family:inherit;
+  padding:0.55rem 0.65rem; border-radius:6px; transition:color .2s, background .2s;
+  white-space:nowrap;
+}
+.av-top-link:hover{ color:var(--av-text); background:rgba(255,255,255,0.05); }
+.av-caret{ font-size:0.6rem; opacity:0.65; transition:transform .2s; margin-left:1px; }
+.av-dropdown:hover .av-caret,
+.av-dropdown.av-open .av-caret{ transform:rotate(180deg); }
+
+/* Mega dropdown panel */
+.av-mega-panel{
+  position:absolute; top:calc(100% + 10px); left:50%;
+  transform:translateX(-50%) translateY(6px);
+  background:var(--av-surface); border:1px solid var(--av-border); border-radius:10px;
+  padding:0.55rem; min-width:290px;
+  display:grid; gap:0.1rem;
+  opacity:0; visibility:hidden; pointer-events:none;
+  transition:opacity .16s ease, transform .16s ease;
+  box-shadow:0 24px 48px rgba(0,0,0,0.45);
+}
+.av-dropdown:hover .av-mega-panel,
+.av-dropdown.av-open .av-mega-panel{
+  opacity:1; visibility:visible; pointer-events:auto; transform:translateX(-50%) translateY(0);
+}
+.av-mega-link{
+  display:flex; align-items:flex-start; gap:0.65rem;
+  padding:0.55rem 0.65rem; border-radius:7px;
+  color:var(--av-text); text-decoration:none; font-size:0.84rem; font-weight:600;
+  transition:background .15s;
+}
+.av-mega-link:hover{ background:rgba(0,229,255,0.08); }
+.av-icon{ font-size:1rem; line-height:1.35; flex-shrink:0; }
+.av-desc{
+  display:block; color:var(--av-muted); font-size:0.72rem; font-weight:400;
+  margin-top:0.15rem; line-height:1.4;
+}
+
+.av-scanner-link{ color:var(--av-accent2)!important; font-weight:600!important; }
+.av-cta{
+  background:var(--av-accent)!important; color:var(--av-bg)!important; text-decoration:none;
+  padding:0.5rem 1.1rem!important; border-radius:6px; font-weight:700!important;
+  font-size:0.85rem!important; white-space:nowrap;
+}
+
+.av-hamburger{
+  display:none; flex-direction:column; gap:5px; background:none; border:none;
+  cursor:pointer; padding:4px; flex-shrink:0;
+}
+.av-hamburger span{ display:block; width:22px; height:2px; background:var(--av-accent); border-radius:2px; }
+
+@media(max-width:980px){
+  .av-nav-links{
+    display:none; position:fixed; top:64px; left:0; right:0; bottom:0;
+    background:var(--av-bg); flex-direction:column; align-items:stretch;
+    padding:1.2rem 5% 2rem; overflow-y:auto; gap:0.2rem; z-index:998;
+    border-top:1px solid var(--av-border);
+  }
+  .av-nav-links.av-mobile-open{ display:flex; }
+  .av-top-link{ width:100%; justify-content:space-between; padding:0.9rem 0.6rem; font-size:0.95rem; }
+  .av-mega-panel{
+    position:static; transform:none; opacity:1; visibility:visible; pointer-events:auto;
+    display:none; box-shadow:none; border:none; background:rgba(255,255,255,0.02);
+    margin-bottom:0.4rem; min-width:0;
+  }
+  .av-dropdown.av-open .av-mega-panel{ display:grid; }
+  .av-cta{ display:block; text-align:center; margin-top:0.6rem; }
+  .av-hamburger{ display:flex; }
+}
+</style>
+
+<style>body{padding-top:66px;}</style>
 </head>
 <body>
+<div class="av-nav-wrap">
+  <div class="av-nav-inner">
+    <a href="index.html" class="av-logo">Arb<span>Vertex</span></a>
+    <ul class="av-nav-links" id="avNavLinks">
+      <li><a href="index.html" class="av-top-link">Home</a></li>
+
+      <li class="av-dropdown">
+        <button type="button" class="av-top-link av-drop-trigger">Learn <span class="av-caret">▾</span></button>
+        <div class="av-mega-panel">
+          <a class="av-mega-link" href="what-is-arbitrage.html"><span class="av-icon">📘</span><span>What is Arbitrage<span class="av-desc">Core concept explained</span></span></a>
+          <a class="av-mega-link" href="how-it-works.html"><span class="av-icon">⚙️</span><span>How It Works<span class="av-desc">Step-by-step process</span></span></a>
+          <a class="av-mega-link" href="generate-profit.html"><span class="av-icon">💰</span><span>Generate Profit<span class="av-desc">Ways arbitrage earns</span></span></a>
+          <a class="av-mega-link" href="risks.html"><span class="av-icon">⚠️</span><span>Risks &amp; Safety<span class="av-desc">What to watch for</span></span></a>
+          <a class="av-mega-link" href="delisting-arbitrage-risks.html"><span class="av-icon">🚨</span><span>Delisting Risks<span class="av-desc">Avoid this trap</span></span></a>
+          <a class="av-mega-link" href="rethink-traditional-trading.html"><span class="av-icon">🔄</span><span>Rethink Trading<span class="av-desc">Why arbitrage wins</span></span></a>
+          <a class="av-mega-link" href="arbitrage-portfolio-growth.html"><span class="av-icon">📈</span><span>Portfolio Growth<span class="av-desc">Long-term strategy</span></span></a>
+        </div>
+      </li>
+
+      <li class="av-dropdown">
+        <button type="button" class="av-top-link av-drop-trigger">Tools <span class="av-caret">▾</span></button>
+        <div class="av-mega-panel">
+          <a class="av-mega-link" href="live-scanner.html"><span class="av-icon">🔍</span><span>Live Scanner<span class="av-desc">Real-time price gaps</span></span></a>
+          <a class="av-mega-link" href="arbitrage-calculator.html"><span class="av-icon">🧮</span><span>Profit Calculator<span class="av-desc">Calculate net gains</span></span></a>
+        </div>
+      </li>
+
+      <li><a href="blog.html" class="av-top-link">Blog</a></li>
+
+      <li class="av-dropdown">
+        <button type="button" class="av-top-link av-drop-trigger">Signals <span class="av-caret">▾</span></button>
+        <div class="av-mega-panel">
+          <a class="av-mega-link" href="telegram-bot.html"><span class="av-icon">✈️</span><span>Telegram Bot<span class="av-desc">Get instant signals</span></span></a>
+          <a class="av-mega-link" href="pricing.html"><span class="av-icon">💳</span><span>Pricing<span class="av-desc">$5/month plans</span></span></a>
+        </div>
+      </li>
+
+      <li class="av-dropdown">
+        <button type="button" class="av-top-link av-drop-trigger">Company <span class="av-caret">▾</span></button>
+        <div class="av-mega-panel">
+          <a class="av-mega-link" href="about.html"><span class="av-icon">🏢</span><span>About Us<span class="av-desc">Our story</span></span></a>
+          <a class="av-mega-link" href="contact.html"><span class="av-icon">✉️</span><span>Contact<span class="av-desc">Get in touch</span></span></a>
+        </div>
+      </li>
+
+      <li><a href="live-scanner.html" class="av-top-link av-scanner-link">🔍 Live Scanner</a></li>
+      <li><a href="pricing.html" class="av-top-link av-cta">Join Now</a></li>
+    </ul>
+    <button class="av-hamburger" id="avHamburger" type="button" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</div>
+
 
 <header>
   <span class="tag">ArbVertex Insights</span>
@@ -236,6 +392,32 @@
 <footer>
   © 2026 ArbVertex — Educational content. Not financial advice.
 </footer>
+
+<script>
+(function(){
+  var hamburger = document.getElementById('avHamburger');
+  var navLinks  = document.getElementById('avNavLinks');
+  if(hamburger && navLinks){
+    hamburger.addEventListener('click', function(){
+      navLinks.classList.toggle('av-mobile-open');
+    });
+  }
+  document.querySelectorAll('.av-drop-trigger').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      var parent  = btn.closest('.av-dropdown');
+      var wasOpen = parent.classList.contains('av-open');
+      document.querySelectorAll('.av-dropdown.av-open').forEach(function(d){ d.classList.remove('av-open'); });
+      if(!wasOpen){ parent.classList.add('av-open'); }
+    });
+  });
+  document.addEventListener('click', function(e){
+    if(!e.target.closest('.av-nav-wrap')){
+      document.querySelectorAll('.av-dropdown.av-open').forEach(function(d){ d.classList.remove('av-open'); });
+    }
+  });
+})();
+</script>
 
 </body>
 </html>
