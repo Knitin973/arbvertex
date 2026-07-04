@@ -5,9 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Arbitrage Signal Blog | ArbVertex</title>
 <meta name="description" content="Step-by-step guides on crypto arbitrage — from beginner basics to advanced strategies.">
-<meta name="keywords" content="crypto futures arbitrage signals, bitcoin arbitrage telegram, crypto arbitrage bot, funding rate arbitrage, cross exchange arbitrage, bybit binance arbitrage, crypto signals telegram, arbitrage trading signals">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://arbvertex.com/blog.html">
+<meta name="keywords" content="crypto futures arbitrage signals, bitcoin arbitrage telegram, crypto arbitrage bot, funding rate arbitrage, cross exchange arbitrage">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -19,44 +17,48 @@
 --muted: #6a8fa8;
 --border: #1a3a52;
 --red: #ff5555;
---glow: 0 0 30px rgba(0,229,255,0.15);
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;line-height:1.6;overflow-x:hidden;}
 header{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(5,10,15,0.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 5%;}
 nav{display:flex;align-items:center;justify-content:space-between;height:64px;}
-.logo{font-family:'JetBrains Mono',monospace;font-size:1.1rem;color:var(--accent);text-decoration:none;cursor:pointer;}
+.logo{font-family:'JetBrains Mono',monospace;font-size:1.1rem;color:var(--accent);text-decoration:none;}
 .logo span{color:var(--accent2);}
 .nav-links{display:flex;gap:2rem;list-style:none;}
-.nav-links a{color:var(--muted);text-decoration:none;font-size:0.9rem;font-weight:500;transition:color 0.2s;cursor:pointer;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.9rem;font-weight:500;transition:color 0.2s;}
 .nav-links a:hover{color:var(--accent);}
 .nav-cta{background:var(--accent)!important;color:var(--bg)!important;padding:0.4rem 1.1rem;border-radius:4px;font-weight:700!important;}
 .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
 .hamburger span{display:block;width:24px;height:2px;background:var(--accent);border-radius:2px;}
-.inner-page{padding:60px 5% 80px;}
+.nav-links.open{display:flex;flex-direction:column;position:fixed;top:64px;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--border);padding:1.5rem 5%;gap:1.5rem;z-index:199;}
+.inner-page{padding:60px 5% 80px;max-width:1200px;margin:0 auto;}
 .section-tag{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--accent);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.75rem;}
 h2{font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:700;letter-spacing:-0.02em;margin-bottom:1rem;}
 .page-desc{color:var(--muted);font-size:1rem;max-width:600px;line-height:1.75;margin-bottom:3rem;}
-.back-btn{display:inline-flex;align-items:center;gap:0.5rem;color:var(--muted);font-size:0.85rem;cursor:pointer;margin-bottom:2rem;transition:color 0.2s;background:none;border:none;font-family:'Space Grotesk',sans-serif;}
+.back-btn{display:inline-flex;align-items:center;gap:0.5rem;color:var(--muted);font-size:0.85rem;cursor:pointer;margin-bottom:2rem;transition:color 0.2s;background:none;border:none;font-family:'Space Grotesk',sans-serif;text-decoration:none;}
 .back-btn:hover{color:var(--accent);}
-.btn-primary{background:var(--accent);color:var(--bg);padding:0.75rem 1.8rem;border-radius:4px;font-weight:700;font-size:0.95rem;text-decoration:none;cursor:pointer;border:none;font-family:'Space Grotesk',sans-serif;transition:transform 0.2s,box-shadow 0.2s;box-shadow:var(--glow);display:inline-block;}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 40px rgba(0,229,255,0.3);}
 .articles-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.2rem;margin-bottom:3rem;}
-.article-card{cursor:pointer;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.4rem;transition:border-color 0.3s;}
-.article-card:hover{border-color:var(--accent);}
-.article-card h3{font-size:0.95rem;font-weight:700;margin-bottom:0.5rem;line-height:1.4;}
+.article-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.4rem;transition:border-color 0.3s,transform 0.3s;text-decoration:none;color:inherit;display:flex;flex-direction:column;}
+.article-card:hover{border-color:var(--accent);transform:translateY(-4px);}
+.article-meta-top{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.7rem;}
+.step-badge{font-family:'JetBrains Mono',monospace;font-size:0.65rem;background:rgba(0,229,255,0.1);color:var(--accent);padding:0.2rem 0.5rem;border-radius:3px;}
+.type-badge{font-size:0.65rem;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+.article-card h3{font-size:0.95rem;font-weight:700;margin-bottom:0.5rem;line-height:1.4;flex-grow:1;}
 .article-card p{color:var(--muted);font-size:0.82rem;line-height:1.6;margin-bottom:0.8rem;}
 .article-link{color:var(--accent);font-size:0.82rem;font-weight:600;}
+.btn-primary{background:var(--accent);color:var(--bg);padding:0.75rem 1.8rem;border-radius:4px;font-weight:700;font-size:0.95rem;text-decoration:none;cursor:pointer;border:none;font-family:'Space Grotesk',sans-serif;transition:transform 0.2s,box-shadow 0.2s;display:inline-block;}
+.btn-primary:hover{transform:translateY(-2px);}
+.cta-section{text-align:center;margin-top:3rem;}
+.cta-section p{color:var(--muted);font-size:0.9rem;margin-bottom:1.2rem;}
 footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
 footer p{color:var(--muted);font-size:0.82rem;}
 .footer-links{display:flex;gap:1.5rem;}
-.footer-links a{color:var(--muted);text-decoration:none;font-size:0.82rem;cursor:pointer;transition:color 0.2s;}
+.footer-links a{color:var(--muted);text-decoration:none;font-size:0.82rem;transition:color 0.2s;}
 .footer-links a:hover{color:var(--accent);}
 @media(max-width:768px){
 .nav-links{display:none;}
 .hamburger{display:flex;}
-.nav-links.open{display:flex;flex-direction:column;position:fixed;top:64px;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--border);padding:1.5rem 5%;gap:1.5rem;z-index:199;}
 footer{flex-direction:column;text-align:center;}
 }
 </style>
@@ -64,214 +66,210 @@ footer{flex-direction:column;text-align:center;}
 <body>
 <header>
 <nav>
-<a class="logo" onclick="showPage('home')">Arb<span>Vertex</span></a>
+<a class="logo" href="index.html">Arb<span>Vertex</span></a>
 <ul class="nav-links" id="navLinks">
-<li><a onclick="showPage('home')">Home</a></li>
-<li><a onclick="showPage('blog')">Blog</a></li>
-<li><a onclick="showPage('pricing')" class="nav-cta">Join Now</a></li>
+<li><a href="index.html">Home</a></li>
+<li><a href="blog.html">Blog</a></li>
+<li><a href="pricing.html" class="nav-cta">Join Now</a></li>
 </ul>
 <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
 </nav>
 </header>
 
 <div class="inner-page">
-<button class="back-btn" onclick="showPage('home')">← Back to Home</button>
+<a href="index.html" class="back-btn">← Back to Home</a>
 <div class="section-tag">// LEARN</div>
 <h2>ArbVertex Arbitrage Signal Blog</h2>
 <p class="page-desc">Step-by-step guides on crypto arbitrage — from beginner basics to advanced strategies. Read in order for best results.</p>
 
 <div class="articles-grid">
 
-<div onclick="showPage('article-1')" class="article-card">
-<div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.7rem;">
-<span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;background:rgba(0,229,255,0.1);color:var(--accent);padding:0.2rem 0.5rem;border-radius:3px;">STEP 1</span>
-<span style="font-size:0.65rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">🟦 BEGINNER</span>
+<!-- ARTICLE 1 -->
+<a href="what-is-crypto-arbitrage.html" class="article-card">
+<div class="article-meta-top">
+<span class="step-badge">STEP 1</span>
+<span class="type-badge">🟦 BEGINNER</span>
 </div>
 <h3>What is Crypto Arbitrage? Complete Beginner Guide 2026</h3>
 <p>Learn what arbitrage is, how price gaps form, and 3 types of crypto arbitrage explained simply.</p>
 <span class="article-link">Read Article →</span>
-</div>
+</a>
 
-<div onclick="showPage('article-2')" class="article-card">
-<div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.7rem;">
-<span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;background:rgba(0,229,255,0.1);color:var(--accent);padding:0.2rem 0.5rem;border-radius:3px;">STEP 2</span>
-<span style="font-size:0.65rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">🟦 BEGINNER</span>
+<!-- ARTICLE 2 -->
+<a href="spot-vs-futures-arbitrage.html" class="article-card">
+<div class="article-meta-top">
+<span class="step-badge">STEP 2</span>
+<span class="type-badge">🟦 BEGINNER</span>
 </div>
 <h3>Spot vs Futures Arbitrage: Which Is Better for Beginners?</h3>
 <p>Key differences, capital requirements, speed, and which type ArbVertex signals focus on.</p>
 <span class="article-link">Read Article →</span>
-</div>
+</a>
 
-<div onclick="showPage('article-3')" class="article-card">
-<div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.7rem;">
-<span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;background:rgba(0,255,136,0.1);color:var(--accent2);padding:0.2rem 0.5rem;border-radius:3px;">STEP 3</span>
-<span style="font-size:0.65rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">🟩 STRATEGY</span>
+<!-- ARTICLE 3 -->
+<a href="funding-rate-arbitrage.html" class="article-card">
+<div class="article-meta-top">
+<span class="step-badge">STEP 3</span>
+<span class="type-badge">🟩 STRATEGY</span>
 </div>
 <h3>Funding Rate Arbitrage: Earn Passive Crypto Income Without Price Risk</h3>
 <p>How funding rates work, entry/exit rules, and realistic APR calculations with real numbers.</p>
 <span class="article-link">Read Article →</span>
-</div>
+</a>
 
-<div onclick="showPage('article-4')" class="article-card">
-<div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.7rem;">
-<span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;background:rgba(0,255,136,0.1);color:var(--accent2);padding:0.2rem 0.5rem;border-radius:3px;">STEP 4</span>
-<span style="font-size:0.65rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">🟩 STRATEGY</span>
+<!-- ARTICLE 4 -->
+<a href="triangular-arbitrage-explained.html" class="article-card">
+<div class="article-meta-top">
+<span class="step-badge">STEP 4</span>
+<span class="type-badge">🟩 STRATEGY</span>
 </div>
 <h3>Triangular Arbitrage Explained: Profit from 3-Pair Price Loops in Crypto</h3>
 <p>How triangular arb works on a single exchange, with a step-by-step example and profit calculation.</p>
 <span class="article-link">Read Article →</span>
-</div>
+</a>
 
-<div onclick="showPage('article-5')" class="article-card">
-<div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.7rem;">
-<span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;background:rgba(255,160,64,0.1);color:#ffa040;padding:0.2rem 0.5rem;border-radius:3px;">STEP 5</span>
-<span style="font-size:0.65rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">🟧 EXCHANGE</span>
+<!-- ARTICLE 5 -->
+<a href="best-crypto-arbitrage-exchanges.html" class="article-card">
+<div class="article-meta-top">
+<span class="step-badge">STEP 5</span>
+<span class="type-badge">🟧 EXCHANGE</span>
 </div>
 <h3>Best Crypto Arbitrage Exchanges 2026: Binance vs Bybit vs MEXC vs Gate.io</h3>
 <p>Fee comparison table, liquidity, withdrawal speed — with beginner recommendation.</p>
 <span class="article-link">Read Article →</span>
-</div>
+</a>
 
-<div onclick="showPage('article-6')" class="article-card">
-<div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.7rem;">
-<span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;background:rgba(0,229,255,0.1);color:var(--accent);padding:0.2rem 0.5rem;border-radius:3px;">STEP 6</span>
-<span style="font-size:0.65rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">🟩 STRATEGY</span>
+<!-- ARTICLE 6 -->
+<a href="cross-exchange-arbitrage-guide.html" class="article-card">
+<div class="article-meta-top">
+<span class="step-badge">STEP 6</span>
+<span class="type-badge">🟩 STRATEGY</span>
 </div>
 <h3>Cross-Exchange Arbitrage: Execute Both Legs on Binance & Bybit (2026 Guide)</h3>
 <p>5-step execution guide, fee math example, and minimum viable gap rules.</p>
 <span class="article-link">Read Article →</span>
-</div>
+</a>
 
-<div onclick="showPage('article-7')" class="article-card">
-<div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.7rem;">
-<span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;background:rgba(255,85,85,0.1);color:var(--red);padding:0.2rem 0.5rem;border-radius:3px;">STEP 7</span>
-<span style="font-size:0.65rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">🟥 RISK</span>
+<!-- ARTICLE 7 -->
+<a href="crypto-arbitrage-risks.html" class="article-card">
+<div class="article-meta-top">
+<span class="step-badge">STEP 7</span>
+<span class="type-badge">🟥 RISK</span>
 </div>
 <h3>Crypto Arbitrage Risks You Must Know Before Starting in 2026</h3>
 <p>Slippage, execution lag, funding reversal, exchange risk — and how to protect capital.</p>
 <span class="article-link">Read Article →</span>
-</div>
+</a>
 
-<div onclick="showPage('article-8')" class="article-card">
-<div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.7rem;">
-<span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;background:rgba(255,160,64,0.1);color:#ffa040;padding:0.2rem 0.5rem;border-radius:3px;">STEP 8</span>
-<span style="font-size:0.65rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">🟥 TOOLS</span>
+<!-- ARTICLE 8 -->
+<a href="arbitrage-profit-calculator-guide.html" class="article-card">
+<div class="article-meta-top">
+<span class="step-badge">STEP 8</span>
+<span class="type-badge">🟥 TOOLS</span>
 </div>
 <h3>Arbitrage Calculator Guide: How to Calculate Net Profit After All Fees</h3>
 <p>The exact profit formula — raw gap minus taker fees, slippage, and withdrawal costs.</p>
 <span class="article-link">Read Article →</span>
-</div>
+</a>
 
-<div onclick="showPage('article-9')" class="article-card">
-<div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.7rem;">
-<span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;background:rgba(255,160,64,0.1);color:#ffa040;padding:0.2rem 0.5rem;border-radius:3px;">STEP 9</span>
-<span style="font-size:0.65rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">🟥 TOOLS</span>
+<!-- ARTICLE 9 -->
+<a href="arbitrage-trading-fees-explained.html" class="article-card">
+<div class="article-meta-top">
+<span class="step-badge">STEP 9</span>
+<span class="type-badge">🟥 TOOLS</span>
 </div>
 <h3>Arbitrage Trading Fees Explained: Maker, Taker, Withdrawal & Slippage Costs 2026</h3>
 <p>All 4 types of fees that eat into arbitrage profit — and how to minimize each one.</p>
 <span class="article-link">Read Article →</span>
-</div>
+</a>
 
-<div onclick="showPage('article-10')" class="article-card">
-<div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.7rem;">
-<span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;background:rgba(0,255,136,0.1);color:var(--accent2);padding:0.2rem 0.5rem;border-radius:3px;">STEP 10</span>
-<span style="font-size:0.65rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">🟩 STRATEGY</span>
+<!-- ARTICLE 10 -->
+<a href="best-crypto-arbitrage-tools.html" class="article-card">
+<div class="article-meta-top">
+<span class="step-badge">STEP 10</span>
+<span class="type-badge">🟩 STRATEGY</span>
 </div>
 <h3>Best Crypto Arbitrage Tools 2026: Scanners, Signal Services & Passive Income</h3>
 <p>Top tools ranked — from free scanners to ArbVertex signals — with realistic income tables.</p>
 <span class="article-link">Read Article →</span>
-</div>
+</a>
 
-<div onclick="showPage('article-11')" class="article-card">
-<div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.7rem;">
-<span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;background:rgba(255,85,85,0.1);color:var(--red);padding:0.2rem 0.5rem;border-radius:3px;">STEP 11</span>
-<span style="font-size:0.65rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">🟥 RISK</span>
+<!-- ARTICLE 11 -->
+<a href="delisting-arbitrage-risks.html" class="article-card">
+<div class="article-meta-top">
+<span class="step-badge">STEP 11</span>
+<span class="type-badge">🟥 RISK</span>
 </div>
 <h3>When to Avoid Arbitrage Trading: The Risks of Delisting Events</h3>
 <p>Why large spreads during coin delistings can be deceptive — and how to spot fake arbitrage opportunities.</p>
 <span class="article-link">Read Article →</span>
-</div>
+</a>
 
-<div onclick="showPage('article-12')" class="article-card">
-<div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.7rem;">
-<span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;background:rgba(0,255,136,0.1);color:var(--accent2);padding:0.2rem 0.5rem;border-radius:3px;">STEP 12</span>
-<span style="font-size:0.65rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">🟩 STRATEGY</span>
+<!-- ARTICLE 12 -->
+<a href="arbitrage-trading-portfolio-growth.html" class="article-card">
+<div class="article-meta-top">
+<span class="step-badge">STEP 12</span>
+<span class="type-badge">🟩 STRATEGY</span>
 </div>
 <h3>How Arbitrage Trading Can Grow Your Portfolio</h3>
 <p>How compounding, diversification, and disciplined arbitrage trading support long-term financial goals.</p>
 <span class="article-link">Read Article →</span>
-</div>
+</a>
 
-<div onclick="showPage('article-13')" class="article-card">
-<div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.7rem;">
-<span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;background:rgba(0,229,255,0.1);color:var(--accent);padding:0.2rem 0.5rem;border-radius:3px;">STEP 13</span>
-<span style="font-size:0.65rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">🟦 BEGINNER</span>
+<!-- ARTICLE 13 -->
+<a href="rethink-traditional-trading.html" class="article-card">
+<div class="article-meta-top">
+<span class="step-badge">STEP 13</span>
+<span class="type-badge">🟦 BEGINNER</span>
 </div>
 <h3>Losing Money in Trading? Rethink the Traditional Approach</h3>
 <p>Why predicting market direction fails — and how arbitrage offers a data-driven alternative.</p>
 <span class="article-link">Read Article →</span>
-</div>
+</a>
 
-<div onclick="showPage('market-inefficiencies')" class="article-card">
-<div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.7rem;">
-<span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;background:rgba(0,255,136,0.1);color:var(--accent2);padding:0.2rem 0.5rem;border-radius:3px;">STEP 14</span>
-<span style="font-size:0.65rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">🟩 STRATEGY</span>
+<!-- ARTICLE 14 -->
+<a href="crypto-arbitrage-trading-consistent-income.html" class="article-card">
+<div class="article-meta-top">
+<span class="step-badge">STEP 14</span>
+<span class="type-badge">🟩 STRATEGY</span>
 </div>
 <h3>How Crypto Arbitrage Trading Turns Market Inefficiencies into Consistent Income</h3>
 <p>Why price and funding rate gaps between exchanges form, and how to turn them into market-neutral income.</p>
 <span class="article-link">Read Article →</span>
-</div>
+</a>
 
-<div onclick="showPage('why-arbvertex')" class="article-card">
-<div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.7rem;">
-<span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;background:rgba(255,160,64,0.1);color:#ffa040;padding:0.2rem 0.5rem;border-radius:3px;">STEP 15</span>
-<span style="font-size:0.65rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">🟧 EXCHANGE</span>
+<!-- ARTICLE 15 -->
+<a href="why-choose-arbvertex-over-other-arbitrage-platforms.html" class="article-card">
+<div class="article-meta-top">
+<span class="step-badge">STEP 15</span>
+<span class="type-badge">🟧 EXCHANGE</span>
 </div>
 <h3>Why Choose ArbVertex Over Other Arbitrage Platforms?</h3>
 <p>Human-verified signals, manual filtering, and profitability-focused analysis — what sets ArbVertex apart.</p>
 <span class="article-link">Read Article →</span>
-</div>
+</a>
 
 </div>
 
-<div style="text-align:center;margin-top:1rem;">
-<p style="color:var(--muted);font-size:0.9rem;margin-bottom:1.2rem;">Ready to start earning? Get 2%+ validated arbitrage signals on Telegram.</p>
-<button class="btn-primary" onclick="showPage('pricing')">View Plans &amp; Subscribe →</button>
+<div class="cta-section">
+<p>Ready to start earning? Get 2%+ validated arbitrage signals on Telegram.</p>
+<a href="pricing.html" class="btn-primary">View Plans &amp; Subscribe →</a>
 </div>
 </div>
 
-<footer><p>© 2026 ArbVertex</p><div class="footer-links"><a onclick="showPage('home')">Home</a><a onclick="showPage('blog')">Blog</a><a onclick="showPage('contact')">Contact</a></div><p style="font-size:0.75rem;">Not financial advice.</p></footer>
+<footer>
+<p>© 2026 ArbVertex</p>
+<div class="footer-links">
+<a href="index.html">Home</a>
+<a href="blog.html">Blog</a>
+<a href="contact.html">Contact</a>
+</div>
+<p style="font-size:0.75rem;">Not financial advice.</p>
+</footer>
 
 <script>
-const PAGE_URL_MAP = {
-'home': 'index.html',
-'blog': 'blog.html',
-'article-1': 'what-is-crypto-arbitrage.html',
-'article-2': 'spot-vs-futures-arbitrage.html',
-'article-3': 'funding-rate-arbitrage.html',
-'article-4': 'triangular-arbitrage-explained.html',
-'article-5': 'best-crypto-arbitrage-exchanges.html',
-'article-6': 'cross-exchange-arbitrage-guide.html',
-'article-7': 'crypto-arbitrage-risks.html',
-'article-8': 'arbitrage-profit-calculator-guide.html',
-'article-9': 'arbitrage-trading-fees-explained.html',
-'article-10': 'best-crypto-arbitrage-tools.html',
-'article-11': 'delisting-arbitrage-risks.html',
-'article-12': 'arbitrage-trading-portfolio-growth.html',
-'article-13': 'rethink-traditional-trading.html',
-'market-inefficiencies': 'crypto-arbitrage-trading-consistent-income.html',
-'why-arbvertex': 'why-choose-arbvertex-over-other-arbitrage-platforms.html',
-'pricing': 'pricing.html',
-'contact': 'contact.html'
-};
-
-function showPage(name) {
-const url = PAGE_URL_MAP[name] || (name + '.html');
-window.location.href = url;
-}
-
-document.getElementById('hamburger').addEventListener('click', () => {
-document.getElementById('navLinks').classList.toggle('open');
+document.getElementById('hamburger')?.addEventListener('click', () => {
+  document.getElementById('navLinks').classList.toggle('open');
 });
 </script>
 </body>
