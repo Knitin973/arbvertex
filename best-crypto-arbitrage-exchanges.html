@@ -96,18 +96,35 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;line-height:1.6;overflow-x:hidden;}
-/* NAV */
-header{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(5,10,15,0.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:0 5%;}
-nav{display:flex;align-items:center;justify-content:space-between;height:64px;}
-.logo{font-family:'JetBrains Mono',monospace;font-size:1.1rem;color:var(--accent);text-decoration:none;}
-.logo span{color:var(--accent2);}
-.nav-links{display:flex;gap:2rem;list-style:none;}
-.nav-links a{color:var(--muted);text-decoration:none;font-size:0.9rem;font-weight:500;transition:color .2s;}
-.nav-links a:hover{color:var(--accent);}
-.nav-cta{background:var(--accent)!important;color:var(--bg)!important;padding:0.4rem 1.1rem;border-radius:4px;font-weight:700!important;}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
-.hamburger span{display:block;width:24px;height:2px;background:var(--accent);border-radius:2px;}
-.nav-links.open{display:flex;flex-direction:column;position:fixed;top:64px;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--border);padding:1.5rem 5%;gap:1.5rem;z-index:199;}
+/* MEGA NAV */
+.av-nav-wrap{position:fixed;top:0;left:0;right:0;z-index:999;background:rgba(5,10,15,0.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);font-family:'Space Grotesk',sans-serif;}
+.av-nav-inner{max-width:1400px;margin:0 auto;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;gap:1rem;}
+.av-logo{font-family:'JetBrains Mono',monospace;font-size:1.05rem;font-weight:700;color:var(--accent);text-decoration:none;flex-shrink:0;}
+.av-logo span{color:var(--accent2);}
+.av-nav-links{display:flex;align-items:center;gap:0.15rem;list-style:none;margin:0;padding:0;}
+.av-nav-links>li{position:relative;}
+.av-top-link{display:inline-flex;align-items:center;gap:0.3rem;color:#8fb0c4;text-decoration:none;font-size:0.85rem;font-weight:500;background:none;border:none;cursor:pointer;font-family:inherit;padding:0.55rem 0.65rem;border-radius:6px;transition:color .2s,background .2s;white-space:nowrap;}
+.av-top-link:hover{color:var(--text);background:rgba(255,255,255,0.05);}
+.av-caret{font-size:0.6rem;opacity:0.65;transition:transform .2s;margin-left:1px;}
+.av-dropdown.av-open .av-caret{transform:rotate(180deg);}
+.av-mega-panel{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(6px);background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:0.55rem;min-width:290px;display:grid;gap:0.1rem;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .16s ease,transform .16s ease;box-shadow:0 24px 48px rgba(0,0,0,0.45);}
+.av-dropdown:hover .av-mega-panel,.av-dropdown.av-open .av-mega-panel{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0);}
+.av-mega-link{display:flex;align-items:flex-start;gap:0.65rem;padding:0.55rem 0.65rem;border-radius:7px;color:var(--text);text-decoration:none;font-size:0.84rem;font-weight:600;transition:background .15s;}
+.av-mega-link:hover{background:rgba(0,229,255,0.08);}
+.av-icon{font-size:1rem;line-height:1.35;flex-shrink:0;}
+.av-desc{display:block;color:#8fb0c4;font-size:0.72rem;font-weight:400;margin-top:0.15rem;line-height:1.4;}
+.av-cta{background:var(--accent)!important;color:var(--bg)!important;text-decoration:none;padding:0.5rem 1.1rem!important;border-radius:6px;font-weight:700!important;font-size:0.85rem!important;white-space:nowrap;}
+.av-hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;flex-shrink:0;}
+.av-hamburger span{display:block;width:22px;height:2px;background:var(--accent);border-radius:2px;}
+@media(max-width:980px){
+  .av-nav-links{display:none!important;position:fixed;top:64px;left:0;right:0;height:calc(100vh - 64px);background:var(--bg);flex-direction:column;align-items:stretch;padding:1.2rem 5% 2rem;overflow-y:auto;gap:0.2rem;z-index:9999;border-top:1px solid var(--border);}
+  .av-nav-links.av-mobile-open{display:flex!important;}
+  .av-top-link{width:100%;justify-content:space-between;padding:0.9rem 0.6rem;font-size:0.95rem;}
+  .av-mega-panel{position:static;transform:none;opacity:1;visibility:visible;pointer-events:auto;display:none;box-shadow:none;border:none;background:rgba(255,255,255,0.02);min-width:0;}
+  .av-dropdown.av-open .av-mega-panel{display:grid;}
+  .av-cta{display:block;text-align:center;margin-top:0.6rem;}
+  .av-hamburger{display:flex;}
+}
 /* LAYOUT */
 .wrap{max-width:860px;margin:0 auto;padding:90px 5% 80px;}
 .breadcrumb{display:flex;gap:0.4rem;font-size:0.78rem;color:var(--muted);margin-bottom:1.5rem;flex-wrap:wrap;}
@@ -220,18 +237,54 @@ footer{flex-direction:column;text-align:center;}
 </style>
 </head>
 <body>
-<header>
-<nav>
-<a class="logo" href="index.html">Arb<span>Vertex</span></a>
-<ul class="nav-links" id="navLinks">
-<li><a href="index.html">Home</a></li>
-<li><a href="blog.html">Blog</a></li>
-<li><a href="live-scanner.html">Live Scanner</a></li>
-<li><a href="pricing.html" class="nav-cta">Join Now</a></li>
-</ul>
-<button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
-</nav>
-</header>
+<!-- MEGA NAV -->
+<div class="av-nav-wrap">
+  <div class="av-nav-inner">
+    <a href="index.html" class="av-logo">Arb<span>Vertex</span></a>
+    <ul class="av-nav-links" id="avNavLinks">
+      <li><a href="index.html" class="av-top-link">Home</a></li>
+      <li class="av-dropdown">
+        <button type="button" class="av-top-link av-drop-trigger">Learn <span class="av-caret">▾</span></button>
+        <div class="av-mega-panel">
+          <a class="av-mega-link" href="what-is-arbitrage.html"><span class="av-icon">📘</span><span>What is Arbitrage<span class="av-desc">Core concept explained</span></span></a>
+          <a class="av-mega-link" href="how-it-works.html"><span class="av-icon">⚙️</span><span>How It Works<span class="av-desc">Step-by-step process</span></span></a>
+          <a class="av-mega-link" href="generate-profit.html"><span class="av-icon">💰</span><span>Generate Profit<span class="av-desc">Ways arbitrage earns</span></span></a>
+          <a class="av-mega-link" href="risks.html"><span class="av-icon">⚠️</span><span>Risks &amp; Safety<span class="av-desc">What to watch for</span></span></a>
+          <a class="av-mega-link" href="delisting-arbitrage-risks.html"><span class="av-icon">🚨</span><span>Delisting Risks<span class="av-desc">Avoid this trap</span></span></a>
+          <a class="av-mega-link" href="rethink-traditional-trading.html"><span class="av-icon">🔄</span><span>Rethink Trading<span class="av-desc">Why arbitrage wins</span></span></a>
+          <a class="av-mega-link" href="arbitrage-trading-portfolio-growth.html"><span class="av-icon">📈</span><span>Portfolio Growth<span class="av-desc">Long-term strategy</span></span></a>
+        </div>
+      </li>
+      <li class="av-dropdown">
+        <button type="button" class="av-top-link av-drop-trigger">Tools <span class="av-caret">▾</span></button>
+        <div class="av-mega-panel">
+          <a class="av-mega-link" href="live-scanner.html"><span class="av-icon">🔍</span><span>Live Scanner<span class="av-desc">Real-time price gaps</span></span></a>
+          <a class="av-mega-link" href="arbitrage-calculator.html"><span class="av-icon">🧮</span><span>Profit Calculator<span class="av-desc">Calculate net gains</span></span></a>
+        </div>
+      </li>
+      <li><a href="blog.html" class="av-top-link">Blog</a></li>
+      <li class="av-dropdown">
+        <button type="button" class="av-top-link av-drop-trigger">Signals <span class="av-caret">▾</span></button>
+        <div class="av-mega-panel">
+          <a class="av-mega-link" href="telegram-bot.html"><span class="av-icon">✈️</span><span>Telegram Bot<span class="av-desc">Get instant signals</span></span></a>
+          <a class="av-mega-link" href="pricing.html"><span class="av-icon">💳</span><span>Pricing<span class="av-desc">$5/month plans</span></span></a>
+        </div>
+      </li>
+      <li class="av-dropdown">
+        <button type="button" class="av-top-link av-drop-trigger">Company <span class="av-caret">▾</span></button>
+        <div class="av-mega-panel">
+          <a class="av-mega-link" href="about.html"><span class="av-icon">🏢</span><span>About Us<span class="av-desc">Our story</span></span></a>
+          <a class="av-mega-link" href="contact.html"><span class="av-icon">✉️</span><span>Contact<span class="av-desc">Get in touch</span></span></a>
+        </div>
+      </li>
+      <li><a href="live-scanner.html" class="av-top-link" style="color:var(--accent2)!important;">🔍 Live Scanner</a></li>
+      <li><a href="pricing.html" class="av-top-link av-cta">Join Now</a></li>
+    </ul>
+    <button class="av-hamburger" id="avHamburger" type="button" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</div>
 
 <div class="wrap">
 
@@ -573,9 +626,29 @@ footer{flex-direction:column;text-align:center;}
 </footer>
 
 <script>
-document.getElementById('hamburger')?.addEventListener('click',()=>{
-document.getElementById('navLinks').classList.toggle('open');
-});
+(function(){
+  var hamburger = document.getElementById('avHamburger');
+  var navLinks  = document.getElementById('avNavLinks');
+  if(hamburger && navLinks){
+    hamburger.addEventListener('click', function(){
+      navLinks.classList.toggle('av-mobile-open');
+    });
+  }
+  document.querySelectorAll('.av-drop-trigger').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      var parent  = btn.closest('.av-dropdown');
+      var wasOpen = parent.classList.contains('av-open');
+      document.querySelectorAll('.av-dropdown.av-open').forEach(function(d){ d.classList.remove('av-open'); });
+      if(!wasOpen){ parent.classList.add('av-open'); }
+    });
+  });
+  document.addEventListener('click', function(e){
+    if(!e.target.closest('.av-nav-wrap')){
+      document.querySelectorAll('.av-dropdown.av-open').forEach(function(d){ d.classList.remove('av-open'); });
+    }
+  });
+})();
 </script>
 </body>
 </html>
