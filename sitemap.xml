@@ -1,70 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <url>
-    <loc>https://arbitrage.signals/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
+<url><loc>https://arbvertex.com/</loc></url>
+<url><loc>https://arbvertex.com/about.html</loc></url>
+<url><loc>https://arbvertex.com/blog.html</loc></url>
+<url><loc>https://arbvertex.com/contact.html</loc></url>
+<url><loc>https://arbvertex.com/how-it-works.html</loc></url>
+<url><loc>https://arbvertex.com/live-scanner.html</loc></url>
+<url><loc>https://arbvertex.com/pricing.html</loc></url>
+<url><loc>https://arbvertex.com/risks.html</loc></url>
+<url><loc>https://arbvertex.com/what-is-arbitrage.html</loc></url>
+<url><loc>https://arbvertex.com/arbitrage-calculator.html</loc></url>
+<url><loc>https://arbvertex.com/arbitrage-portfolio-growth.html</loc></url>
+<url><loc>https://arbvertex.com/generate-profit.html</loc></url>
+<url><loc>https://arbvertex.com/delisting-arbitrage-risks.html</loc></url>
+<url><loc>https://arbvertex.com/rethink-traditional-trading.html</loc></url>
+<url><loc>https://arbvertex.com/telegram-bot.html</loc></url>
 
-  <url>
-    <loc>https://arbitrage.signals/#what-is</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://arbitrage.signals/#how-it-works</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://arbitrage.signals/#profit</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>https://arbitrage.signals/#risks</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>https://arbitrage.signals/#pricing</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://arbitrage.signals/#telegram</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>https://arbitrage.signals/#about</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <url>
-    <loc>https://arbitrage.signals/#contact</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <url>
-    <loc>https://arbitrage.signals/#scanner</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://arbitrage.signals/#blog</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
+<url><loc>https://arbvertex.com/article-1.html</loc></url>
+<url><loc>https://arbvertex.com/article-2.html</loc></url>
+<url><loc>https://arbvertex.com/article-3.html</loc></url>
+<url><loc>https://arbvertex.com/article-4.html</loc></url>
+<url><loc>https://arbvertex.com/article-5.html</loc></url>
+<url><loc>https://arbvertex.com/article-6.html</loc></url>
+<url><loc>https://arbvertex.com/article-7.html</loc></url>
+<url><loc>https://arbvertex.com/article-8.html</loc></url>
+<url><loc>https://arbvertex.com/article-9.html</loc></url>
+<url><loc>https://arbvertex.com/article-10.html</loc></url>
+<url><loc>https://arbvertex.com/article-11.html</loc></url>
+<url><loc>https://arbvertex.com/article-12.html</loc></url>
 
 </urlset>
