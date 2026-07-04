@@ -3,126 +3,102 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blog | ArbVertex</title>
+<title>Blog | ArbVertex — Crypto Arbitrage Guides</title>
+<meta name="description" content="Step-by-step crypto arbitrage guides from beginner to advanced. Learn funding rate arb, cross-exchange arb, and more.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://arbvertex.com/blog.html">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-body { background:#050a0f; color:#e8f4f8; font-family:Arial,sans-serif; margin:0; padding:20px; }
-header { padding:20px 0; border-bottom:1px solid #1a3a52; margin-bottom:30px; }
-header a { color:#00e5ff; text-decoration:none; font-size:18px; font-weight:bold; }
-header a:hover { opacity:0.8; }
-.back-link { display:inline-block; margin-bottom:20px; color:#6a8fa8; text-decoration:none; }
-.back-link:hover { color:#00e5ff; }
-h1 { font-size:32px; margin:0 0 10px 0; }
-.description { color:#6a8fa8; margin-bottom:30px; font-size:16px; }
-.grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:20px; margin-bottom:40px; }
-.card { background:#0d1a24; border:1px solid #1a3a52; border-radius:8px; padding:20px; text-decoration:none; color:inherit; display:block; transition:all 0.3s; }
-.card:hover { border-color:#00e5ff; transform:translateY(-4px); }
-.card h3 { margin:10px 0; font-size:16px; }
-.card p { margin:10px 0 0 0; color:#6a8fa8; font-size:14px; line-height:1.6; }
-.badge { display:inline-block; background:#00e5ff; color:#050a0f; padding:4px 8px; border-radius:3px; font-size:12px; font-weight:bold; margin-bottom:8px; }
-.badge.strategy { background:#00ff88; }
-.badge.risk { background:#ff5555; }
-.badge.exchange { background:#ffa040; }
-.cta { text-align:center; margin-top:40px; padding:30px; background:#0d1a24; border-radius:8px; }
-.btn { background:#00e5ff; color:#050a0f; padding:12px 24px; border-radius:4px; text-decoration:none; font-weight:bold; display:inline-block; transition:opacity 0.2s; }
-.btn:hover { opacity:0.8; }
-footer { border-top:1px solid #1a3a52; margin-top:40px; padding-top:20px; color:#6a8fa8; font-size:12px; text-align:center; }
-@media(max-width:768px) { .grid { grid-template-columns:1fr; } h1 { font-size:24px; } }
-.av-nav-wrap{
-  --av-bg:#050a0f; --av-surface:#0d1a24; --av-accent:#00e5ff; --av-accent2:#00ff88;
-  --av-text:#e8f4f8; --av-muted:#8fb0c4; --av-border:#1a3a52;
-  position:fixed; top:0; left:0; right:0; z-index:999;
-  background:rgba(5,10,15,0.95); backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--av-border);
-  font-family:'Space Grotesk',sans-serif;
-}
-.av-nav-inner{
-  max-width:1400px; margin:0 auto; height:64px;
-  display:flex; align-items:center; justify-content:space-between;
-  padding:0 5%; gap:1rem;
-}
-.av-logo{
-  font-family:'JetBrains Mono',monospace; font-size:1.05rem; font-weight:700;
-  color:var(--av-accent); text-decoration:none; letter-spacing:-0.02em; flex-shrink:0;
-}
-.av-logo span{ color:var(--av-accent2); }
-.av-nav-links{
-  display:flex; align-items:center; gap:0.15rem; list-style:none; margin:0; padding:0;
-}
-.av-nav-links > li{ position:relative; }
-.av-top-link{
-  display:inline-flex; align-items:center; gap:0.3rem;
-  color:var(--av-muted); text-decoration:none; font-size:0.85rem; font-weight:500;
-  background:none; border:none; cursor:pointer; font-family:inherit;
-  padding:0.55rem 0.65rem; border-radius:6px; transition:color .2s, background .2s;
-  white-space:nowrap;
-}
-.av-top-link:hover{ color:var(--av-text); background:rgba(255,255,255,0.05); }
-.av-caret{ font-size:0.6rem; opacity:0.65; transition:transform .2s; margin-left:1px; }
-.av-dropdown:hover .av-caret,
-.av-dropdown.av-open .av-caret{ transform:rotate(180deg); }
+:root{--bg:#050a0f;--surface:#0d1a24;--accent:#00e5ff;--accent2:#00ff88;--text:#e8f4f8;--muted:#6a8fa8;--border:#1a3a52;--orange:#f97316;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;line-height:1.6;overflow-x:hidden;}
 
-/* Mega dropdown panel */
-.av-mega-panel{
-  position:absolute; top:calc(100% + 10px); left:50%;
-  transform:translateX(-50%) translateY(6px);
-  background:var(--av-surface); border:1px solid var(--av-border); border-radius:10px;
-  padding:0.55rem; min-width:290px;
-  display:grid; gap:0.1rem;
-  opacity:0; visibility:hidden; pointer-events:none;
-  transition:opacity .16s ease, transform .16s ease;
-  box-shadow:0 24px 48px rgba(0,0,0,0.45);
-}
-.av-dropdown:hover .av-mega-panel,
-.av-dropdown.av-open .av-mega-panel{
-  opacity:1; visibility:visible; pointer-events:auto; transform:translateX(-50%) translateY(0);
-}
-.av-mega-link{
-  display:flex; align-items:flex-start; gap:0.65rem;
-  padding:0.55rem 0.65rem; border-radius:7px;
-  color:var(--av-text); text-decoration:none; font-size:0.84rem; font-weight:600;
-  transition:background .15s;
-}
-.av-mega-link:hover{ background:rgba(0,229,255,0.08); }
-.av-icon{ font-size:1rem; line-height:1.35; flex-shrink:0; }
-.av-desc{
-  display:block; color:var(--av-muted); font-size:0.72rem; font-weight:400;
-  margin-top:0.15rem; line-height:1.4;
-}
-
-.av-scanner-link{ color:var(--av-accent2)!important; font-weight:600!important; }
-.av-cta{
-  background:var(--av-accent)!important; color:var(--av-bg)!important; text-decoration:none;
-  padding:0.5rem 1.1rem!important; border-radius:6px; font-weight:700!important;
-  font-size:0.85rem!important; white-space:nowrap;
-}
-
-.av-hamburger{
-  display:none; flex-direction:column; gap:5px; background:none; border:none;
-  cursor:pointer; padding:4px; flex-shrink:0;
-}
-.av-hamburger span{ display:block; width:22px; height:2px; background:var(--av-accent); border-radius:2px; }
+/* NAV */
+.av-nav-wrap{position:fixed;top:0;left:0;right:0;z-index:999;background:rgba(5,10,15,0.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);font-family:'Space Grotesk',sans-serif;}
+.av-nav-inner{max-width:1400px;margin:0 auto;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;gap:1rem;}
+.av-logo{font-family:'JetBrains Mono',monospace;font-size:1.05rem;font-weight:700;color:var(--accent);text-decoration:none;letter-spacing:-0.02em;flex-shrink:0;}
+.av-logo span{color:var(--accent2);}
+.av-nav-links{display:flex;align-items:center;gap:0.15rem;list-style:none;}
+.av-top-link{display:inline-flex;align-items:center;gap:0.3rem;color:var(--muted);text-decoration:none;font-size:0.85rem;font-weight:500;background:none;border:none;cursor:pointer;font-family:inherit;padding:0.55rem 0.65rem;border-radius:6px;transition:color .2s,background .2s;white-space:nowrap;}
+.av-top-link:hover{color:var(--text);background:rgba(255,255,255,0.05);}
+.av-caret{font-size:0.6rem;opacity:0.65;transition:transform .2s;margin-left:1px;}
+.av-dropdown:hover .av-caret,.av-dropdown.av-open .av-caret{transform:rotate(180deg);}
+.av-mega-panel{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(6px);background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:0.55rem;min-width:290px;display:grid;gap:0.1rem;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .16s ease,transform .16s ease;box-shadow:0 24px 48px rgba(0,0,0,0.45);}
+.av-dropdown{position:relative;}
+.av-dropdown:hover .av-mega-panel,.av-dropdown.av-open .av-mega-panel{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0);}
+.av-mega-link{display:flex;align-items:flex-start;gap:0.65rem;padding:0.55rem 0.65rem;border-radius:7px;color:var(--text);text-decoration:none;font-size:0.84rem;font-weight:600;transition:background .15s;}
+.av-mega-link:hover{background:rgba(0,229,255,0.08);}
+.av-icon{font-size:1rem;line-height:1.35;flex-shrink:0;}
+.av-desc{display:block;color:var(--muted);font-size:0.72rem;font-weight:400;margin-top:0.15rem;line-height:1.4;}
+.av-scanner-link{color:var(--accent2)!important;font-weight:600!important;}
+.av-cta{background:var(--accent)!important;color:#050a0f!important;text-decoration:none;padding:0.5rem 1.1rem!important;border-radius:6px;font-weight:700!important;font-size:0.85rem!important;white-space:nowrap;}
+.av-hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;flex-shrink:0;}
+.av-hamburger span{display:block;width:22px;height:2px;background:var(--accent);border-radius:2px;}
 
 @media(max-width:980px){
-.av-nav-links{
-    display:none !important; position:fixed; top:64px; left:0; right:0;
-    height:calc(100vh - 64px); height:calc(100dvh - 64px);
-    background:var(--av-bg); flex-direction:column; align-items:stretch;
-    padding:1.2rem 5% 2rem; overflow-y:auto; -webkit-overflow-scrolling:touch;
-    gap:0.2rem; z-index:9999; border-top:1px solid var(--av-border);
-  }
-  .av-nav-links.av-mobile-open{ display:flex !important; }
-  .av-top-link{ width:100%; justify-content:space-between; padding:0.9rem 0.6rem; font-size:0.95rem; }
-  .av-mega-panel{
-    position:static; transform:none; opacity:1; visibility:visible; pointer-events:auto;
-    display:none; box-shadow:none; border:none; background:rgba(255,255,255,0.02);
-    margin-bottom:0.4rem; min-width:0;
-  }
-  .av-dropdown.av-open .av-mega-panel{ display:grid; }
-  .av-cta{ display:block; text-align:center; margin-top:0.6rem; }
-  .av-hamburger{ display:flex; }
+  .av-nav-links{display:none!important;position:fixed;top:64px;left:0;right:0;height:calc(100vh - 64px);background:var(--bg);flex-direction:column;align-items:stretch;padding:1.2rem 5% 2rem;overflow-y:auto;gap:0.2rem;z-index:9999;border-top:1px solid var(--border);}
+  .av-nav-links.av-mobile-open{display:flex!important;}
+  .av-top-link{width:100%;justify-content:space-between;padding:0.9rem 0.6rem;font-size:0.95rem;}
+  .av-mega-panel{position:static;transform:none;opacity:1;visibility:visible;pointer-events:auto;display:none;box-shadow:none;border:none;background:rgba(255,255,255,0.02);margin-bottom:0.4rem;min-width:0;}
+  .av-dropdown.av-open .av-mega-panel{display:grid;}
+  .av-cta{display:block;text-align:center;margin-top:0.6rem;}
+  .av-hamburger{display:flex;}
+}
+
+/* BLOG PAGE */
+.blog-wrap{max-width:1200px;margin:0 auto;padding:90px 5% 80px;}
+
+.blog-hero{text-align:center;padding:40px 0 50px;}
+.blog-tag{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--accent);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.75rem;}
+.blog-hero h1{font-size:clamp(2rem,4vw,2.8rem);font-weight:700;letter-spacing:-0.02em;margin-bottom:1rem;}
+.blog-hero p{color:var(--muted);font-size:1rem;max-width:500px;margin:0 auto;}
+
+/* FILTER TABS */
+.blog-filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:36px;justify-content:center;}
+.filter-btn{padding:7px 18px;border-radius:20px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:0.82rem;cursor:pointer;font-weight:500;font-family:inherit;transition:all 0.2s;}
+.filter-btn:hover,.filter-btn.active{background:var(--accent);border-color:var(--accent);color:#050a0f;font-weight:700;}
+.filter-btn.strategy.active{background:var(--accent2);border-color:var(--accent2);}
+.filter-btn.exchange.active{background:var(--orange);border-color:var(--orange);}
+.filter-btn.risk.active{background:#ff5555;border-color:#ff5555;}
+
+/* GRID */
+.blog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;}
+
+.blog-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:22px;text-decoration:none;color:inherit;display:block;transition:all 0.3s;}
+.blog-card:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:0 8px 30px rgba(0,229,255,0.08);}
+
+.card-top{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.step-badge{font-family:'JetBrains Mono',monospace;font-size:0.68rem;font-weight:700;padding:3px 8px;border-radius:3px;letter-spacing:0.05em;}
+.step-badge.beginner{background:rgba(0,229,255,0.15);color:var(--accent);}
+.step-badge.strategy{background:rgba(0,255,136,0.15);color:var(--accent2);}
+.step-badge.exchange{background:rgba(249,115,22,0.15);color:var(--orange);}
+.step-badge.risk{background:rgba(255,85,85,0.15);color:#ff7070;}
+.step-badge.tools{background:rgba(139,92,246,0.15);color:#a78bfa;}
+
+.cat-badge{font-size:0.68rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);}
+
+.blog-card h3{font-size:0.95rem;font-weight:700;margin-bottom:10px;line-height:1.4;color:var(--text);}
+.blog-card p{color:var(--muted);font-size:0.83rem;line-height:1.65;margin-bottom:14px;}
+.read-link{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--accent);font-weight:600;}
+
+/* CTA */
+.blog-cta{margin-top:60px;text-align:center;background:linear-gradient(135deg,rgba(0,229,255,0.08),rgba(0,255,136,0.05));border:1px solid var(--accent);border-radius:14px;padding:3rem 2rem;}
+.blog-cta h2{font-size:1.5rem;font-weight:700;margin-bottom:0.75rem;}
+.blog-cta p{color:var(--muted);font-size:0.95rem;margin-bottom:1.5rem;}
+.cta-btn{background:var(--accent);color:#050a0f;padding:0.85rem 2rem;border-radius:6px;font-weight:700;font-size:0.95rem;text-decoration:none;display:inline-block;transition:opacity 0.2s;}
+.cta-btn:hover{opacity:0.85;}
+
+footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+footer p{color:var(--muted);font-size:0.82rem;}
+footer a{color:var(--accent);text-decoration:none;}
+
+@media(max-width:768px){
+  .blog-grid{grid-template-columns:1fr;}
+  .blog-hero h1{font-size:1.8rem;}
+  footer{flex-direction:column;text-align:center;}
 }
 </style>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -131,7 +107,6 @@ footer { border-top:1px solid #1a3a52; margin-top:40px; padding-top:20px; color:
     <a href="index.html" class="av-logo">Arb<span>Vertex</span></a>
     <ul class="av-nav-links" id="avNavLinks">
       <li><a href="index.html" class="av-top-link">Home</a></li>
-
       <li class="av-dropdown">
         <button type="button" class="av-top-link av-drop-trigger">Learn <span class="av-caret">▾</span></button>
         <div class="av-mega-panel">
@@ -139,12 +114,8 @@ footer { border-top:1px solid #1a3a52; margin-top:40px; padding-top:20px; color:
           <a class="av-mega-link" href="how-it-works.html"><span class="av-icon">⚙️</span><span>How It Works<span class="av-desc">Step-by-step process</span></span></a>
           <a class="av-mega-link" href="generate-profit.html"><span class="av-icon">💰</span><span>Generate Profit<span class="av-desc">Ways arbitrage earns</span></span></a>
           <a class="av-mega-link" href="risks.html"><span class="av-icon">⚠️</span><span>Risks &amp; Safety<span class="av-desc">What to watch for</span></span></a>
-          <a class="av-mega-link" href="delisting-arbitrage-risks.html"><span class="av-icon">🚨</span><span>Delisting Risks<span class="av-desc">Avoid this trap</span></span></a>
-          <a class="av-mega-link" href="rethink-traditional-trading.html"><span class="av-icon">🔄</span><span>Rethink Trading<span class="av-desc">Why arbitrage wins</span></span></a>
-          <a class="av-mega-link" href="arbitrage-portfolio-growth.html"><span class="av-icon">📈</span><span>Portfolio Growth<span class="av-desc">Long-term strategy</span></span></a>
         </div>
       </li>
-
       <li class="av-dropdown">
         <button type="button" class="av-top-link av-drop-trigger">Tools <span class="av-caret">▾</span></button>
         <div class="av-mega-panel">
@@ -152,9 +123,7 @@ footer { border-top:1px solid #1a3a52; margin-top:40px; padding-top:20px; color:
           <a class="av-mega-link" href="arbitrage-calculator.html"><span class="av-icon">🧮</span><span>Profit Calculator<span class="av-desc">Calculate net gains</span></span></a>
         </div>
       </li>
-
-      <li><a href="blog.html" class="av-top-link">Blog</a></li>
-
+      <li><a href="blog.html" class="av-top-link" style="color:var(--accent);">Blog</a></li>
       <li class="av-dropdown">
         <button type="button" class="av-top-link av-drop-trigger">Signals <span class="av-caret">▾</span></button>
         <div class="av-mega-panel">
@@ -162,7 +131,6 @@ footer { border-top:1px solid #1a3a52; margin-top:40px; padding-top:20px; color:
           <a class="av-mega-link" href="pricing.html"><span class="av-icon">💳</span><span>Pricing<span class="av-desc">$5/month plans</span></span></a>
         </div>
       </li>
-
       <li class="av-dropdown">
         <button type="button" class="av-top-link av-drop-trigger">Company <span class="av-caret">▾</span></button>
         <div class="av-mega-panel">
@@ -170,7 +138,6 @@ footer { border-top:1px solid #1a3a52; margin-top:40px; padding-top:20px; color:
           <a class="av-mega-link" href="contact.html"><span class="av-icon">✉️</span><span>Contact<span class="av-desc">Get in touch</span></span></a>
         </div>
       </li>
-
       <li><a href="live-scanner.html" class="av-top-link av-scanner-link">🔍 Live Scanner</a></li>
       <li><a href="pricing.html" class="av-top-link av-cta">Join Now</a></li>
     </ul>
@@ -180,113 +147,166 @@ footer { border-top:1px solid #1a3a52; margin-top:40px; padding-top:20px; color:
   </div>
 </div>
 
-<a href="index.html" class="back-link">← Back to Home</a>
+<div class="blog-wrap">
+  <div class="blog-hero">
+    <div class="blog-tag">// LEARN</div>
+    <h1>Crypto Arbitrage <span style="color:var(--accent)">Blog</span></h1>
+    <p>Step-by-step guides from beginner to advanced. Master arbitrage trading.</p>
+  </div>
 
-<h1>ArbVertex Blog</h1>
-<p class="description">Step-by-step guides on crypto arbitrage from beginner to advanced.</p>
+  <div class="blog-filters">
+    <button class="filter-btn active" onclick="filterCards('all',this)">All</button>
+    <button class="filter-btn beginner" onclick="filterCards('beginner',this)">📘 Beginner</button>
+    <button class="filter-btn strategy" onclick="filterCards('strategy',this)">💡 Strategy</button>
+    <button class="filter-btn exchange" onclick="filterCards('exchange',this)">🔄 Exchange</button>
+    <button class="filter-btn risk" onclick="filterCards('risk',this)">⚠️ Risk &amp; Tools</button>
+  </div>
 
-<div class="grid">
+  <div class="blog-grid" id="blogGrid">
 
-<a href="what-is-crypto-arbitrage.html" class="card">
-<span class="badge">STEP 1</span>
-<h3>What is Crypto Arbitrage? Complete Beginner Guide 2026</h3>
-<p>Learn what arbitrage is, how price gaps form, and 3 types explained simply.</p>
-</a>
+    <a href="what-is-crypto-arbitrage.html" class="blog-card" data-cat="beginner">
+      <div class="card-top"><span class="step-badge beginner">STEP 1</span><span class="cat-badge">BEGINNER</span></div>
+      <h3>What is Crypto Arbitrage? Complete Beginner Guide 2026</h3>
+      <p>Learn what arbitrage is, how price gaps form, and 3 types of crypto arbitrage explained simply.</p>
+      <div class="read-link">Read Article →</div>
+    </a>
 
-<a href="spot-vs-futures-arbitrage.html" class="card">
-<span class="badge">STEP 2</span>
-<h3>Spot vs Futures Arbitrage: Which Is Better for Beginners?</h3>
-<p>Key differences, capital requirements, and which type ArbVertex focuses on.</p>
-</a>
+    <a href="spot-vs-futures-arbitrage.html" class="blog-card" data-cat="beginner">
+      <div class="card-top"><span class="step-badge beginner">STEP 2</span><span class="cat-badge">BEGINNER</span></div>
+      <h3>Spot vs Futures Arbitrage: Which Is Better for Beginners?</h3>
+      <p>Key differences, capital requirements, speed, and which type ArbVertex signals focus on.</p>
+      <div class="read-link">Read Article →</div>
+    </a>
 
-<a href="funding-rate-arbitrage.html" class="card">
-<span class="badge strategy">STEP 3</span>
-<h3>Funding Rate Arbitrage: Earn Passive Income Without Price Risk</h3>
-<p>How funding rates work, entry/exit rules, and realistic APR calculations.</p>
-</a>
+    <a href="funding-rate-arbitrage.html" class="blog-card" data-cat="strategy">
+      <div class="card-top"><span class="step-badge strategy">STEP 3</span><span class="cat-badge">STRATEGY</span></div>
+      <h3>Funding Rate Arbitrage: Earn Passive Income Without Price Risk</h3>
+      <p>How funding rates work, entry/exit rules, and realistic APR calculations with real numbers.</p>
+      <div class="read-link">Read Article →</div>
+    </a>
 
-<a href="triangular-arbitrage-explained.html" class="card">
-<span class="badge strategy">STEP 4</span>
-<h3>Triangular Arbitrage Explained: Profit from 3-Pair Price Loops</h3>
-<p>How triangular arb works on a single exchange with step-by-step example.</p>
-</a>
+    <a href="triangular-arbitrage-explained.html" class="blog-card" data-cat="strategy">
+      <div class="card-top"><span class="step-badge strategy">STEP 4</span><span class="cat-badge">STRATEGY</span></div>
+      <h3>Triangular Arbitrage Explained: Profit from 3-Pair Price Loops in Crypto</h3>
+      <p>How triangular arb works on a single exchange, with a step-by-step example and profit calculation.</p>
+      <div class="read-link">Read Article →</div>
+    </a>
 
-<a href="best-crypto-arbitrage-exchanges.html" class="card">
-<span class="badge exchange">STEP 5</span>
-<h3>Best Crypto Arbitrage Exchanges 2026: Binance vs Bybit vs Gate.io</h3>
-<p>Fee comparison, liquidity, withdrawal speed with beginner recommendation.</p>
-</a>
+    <a href="best-crypto-arbitrage-exchanges.html" class="blog-card" data-cat="exchange">
+      <div class="card-top"><span class="step-badge exchange">STEP 5</span><span class="cat-badge">EXCHANGE</span></div>
+      <h3>Best Crypto Arbitrage Exchanges 2026: Binance vs Bybit vs MEXC vs Gate.io</h3>
+      <p>Fee comparison table, liquidity, withdrawal speed — with beginner recommendation.</p>
+      <div class="read-link">Read Article →</div>
+    </a>
 
-<a href="cross-exchange-arbitrage-guide.html" class="card">
-<span class="badge strategy">STEP 6</span>
-<h3>Cross-Exchange Arbitrage: Execute Both Legs on Binance & Bybit</h3>
-<p>5-step execution guide, fee math example, and minimum viable gap rules.</p>
-</a>
+    <a href="cross-exchange-arbitrage-guide.html" class="blog-card" data-cat="strategy">
+      <div class="card-top"><span class="step-badge strategy">STEP 6</span><span class="cat-badge">STRATEGY</span></div>
+      <h3>Cross-Exchange Arbitrage: Execute Both Legs on Binance &amp; Bybit (2026 Guide)</h3>
+      <p>5-step execution guide, fee math example, and minimum viable gap rules.</p>
+      <div class="read-link">Read Article →</div>
+    </a>
 
-<a href="crypto-arbitrage-risks.html" class="card">
-<span class="badge risk">STEP 7</span>
-<h3>Crypto Arbitrage Risks You Must Know Before Starting</h3>
-<p>Slippage, execution lag, funding reversal, and how to protect capital.</p>
-</a>
+    <a href="crypto-arbitrage-risks.html" class="blog-card" data-cat="risk">
+      <div class="card-top"><span class="step-badge risk">STEP 7</span><span class="cat-badge">RISK</span></div>
+      <h3>Crypto Arbitrage Risks You Must Know Before Starting in 2026</h3>
+      <p>Slippage, execution lag, funding reversal, exchange risk — and how to protect capital.</p>
+      <div class="read-link">Read Article →</div>
+    </a>
 
-<a href="arbitrage-profit-calculator-guide.html" class="card">
-<span class="badge risk">STEP 8</span>
-<h3>Arbitrage Calculator Guide: Calculate Net Profit After All Fees</h3>
-<p>The exact profit formula minus taker fees, slippage, and withdrawal costs.</p>
-</a>
+    <a href="arbitrage-profit-calculator-guide.html" class="blog-card" data-cat="risk">
+      <div class="card-top"><span class="step-badge tools">STEP 8</span><span class="cat-badge">TOOLS</span></div>
+      <h3>Arbitrage Calculator Guide: How to Calculate Net Profit After All Fees</h3>
+      <p>The exact profit formula — raw gap minus taker fees, slippage, and withdrawal costs.</p>
+      <div class="read-link">Read Article →</div>
+    </a>
 
-<a href="arbitrage-trading-fees-explained.html" class="card">
-<span class="badge risk">STEP 9</span>
-<h3>Arbitrage Trading Fees Explained: Maker, Taker, Withdrawal & Slippage</h3>
-<p>All 4 types of fees and how to minimize each one.</p>
-</a>
+    <a href="arbitrage-trading-fees-explained.html" class="blog-card" data-cat="risk">
+      <div class="card-top"><span class="step-badge risk">STEP 9</span><span class="cat-badge">RISK</span></div>
+      <h3>Arbitrage Trading Fees Explained: Maker, Taker, Withdrawal &amp; Slippage</h3>
+      <p>All 4 types of fees that eat your profits and how to minimize each one.</p>
+      <div class="read-link">Read Article →</div>
+    </a>
 
-<a href="best-crypto-arbitrage-tools.html" class="card">
-<span class="badge strategy">STEP 10</span>
-<h3>Best Crypto Arbitrage Tools 2026: Scanners, Signal Services & Passive Income</h3>
-<p>Top tools ranked from free scanners to ArbVertex signals with income tables.</p>
-</a>
+    <a href="best-crypto-arbitrage-tools.html" class="blog-card" data-cat="risk">
+      <div class="card-top"><span class="step-badge tools">STEP 10</span><span class="cat-badge">TOOLS</span></div>
+      <h3>Best Crypto Arbitrage Tools 2026: Scanners, Signals &amp; Passive Income</h3>
+      <p>Top tools ranked from free scanners to ArbVertex signals with income tables.</p>
+      <div class="read-link">Read Article →</div>
+    </a>
 
-<a href="delisting-arbitrage-risks.html" class="card">
-<span class="badge risk">STEP 11</span>
-<h3>When to Avoid Arbitrage Trading: Risks of Delisting Events</h3>
-<p>Why large spreads during delistings are deceptive and how to spot fake opportunities.</p>
-</a>
+    <a href="delisting-arbitrage-risks.html" class="blog-card" data-cat="risk">
+      <div class="card-top"><span class="step-badge risk">STEP 11</span><span class="cat-badge">RISK</span></div>
+      <h3>When to Avoid Arbitrage: Risks of Delisting Events</h3>
+      <p>Why large spreads during delistings are deceptive and how to spot fake opportunities.</p>
+      <div class="read-link">Read Article →</div>
+    </a>
 
-<a href="arbitrage-trading-portfolio-growth.html" class="card">
-<span class="badge strategy">STEP 12</span>
-<h3>How Arbitrage Trading Can Grow Your Portfolio</h3>
-<p>How compounding and disciplined trading support long-term financial goals.</p>
-</a>
+    <a href="arbitrage-trading-portfolio-growth.html" class="blog-card" data-cat="strategy">
+      <div class="card-top"><span class="step-badge strategy">STEP 12</span><span class="cat-badge">STRATEGY</span></div>
+      <h3>How Arbitrage Trading Can Grow Your Portfolio</h3>
+      <p>How compounding and disciplined trading support long-term financial goals.</p>
+      <div class="read-link">Read Article →</div>
+    </a>
 
-<a href="rethink-traditional-trading.html" class="card">
-<span class="badge">STEP 13</span>
-<h3>Losing Money in Trading? Rethink the Traditional Approach</h3>
-<p>Why predicting markets fails and how arbitrage offers a data-driven alternative.</p>
-</a>
+    <a href="rethink-traditional-trading.html" class="blog-card" data-cat="beginner">
+      <div class="card-top"><span class="step-badge beginner">STEP 13</span><span class="cat-badge">BEGINNER</span></div>
+      <h3>Losing Money in Trading? Rethink the Traditional Approach</h3>
+      <p>Why predicting markets fails and how arbitrage offers a data-driven alternative.</p>
+      <div class="read-link">Read Article →</div>
+    </a>
 
-<a href="crypto-arbitrage-trading-consistent-income.html" class="card">
-<span class="badge strategy">STEP 14</span>
-<h3>How Crypto Arbitrage Turns Market Inefficiencies into Consistent Income</h3>
-<p>Why price gaps form between exchanges and how to turn them into market-neutral income.</p>
-</a>
+    <a href="crypto-arbitrage-trading-consistent-income.html" class="blog-card" data-cat="strategy">
+      <div class="card-top"><span class="step-badge strategy">STEP 14</span><span class="cat-badge">STRATEGY</span></div>
+      <h3>How Crypto Arbitrage Turns Market Inefficiencies into Consistent Income</h3>
+      <p>Why price gaps form between exchanges and how to turn them into market-neutral income.</p>
+      <div class="read-link">Read Article →</div>
+    </a>
 
-<a href="why-choose-arbvertex-over-other-arbitrage-platforms.html" class="card">
-<span class="badge exchange">STEP 15</span>
-<h3>Why Choose ArbVertex Over Other Arbitrage Platforms?</h3>
-<p>Human-verified signals, manual filtering, and profitability-focused analysis.</p>
-</a>
+    <a href="why-choose-arbvertex-over-other-arbitrage-platforms.html" class="blog-card" data-cat="exchange">
+      <div class="card-top"><span class="step-badge exchange">STEP 15</span><span class="cat-badge">EXCHANGE</span></div>
+      <h3>Why Choose ArbVertex Over Other Arbitrage Platforms?</h3>
+      <p>Human-verified signals, manual filtering, and profitability-focused analysis.</p>
+      <div class="read-link">Read Article →</div>
+    </a>
 
-</div>
+  </div>
 
-<div class="cta">
-<p>Ready to start earning? Get 2%+ validated arbitrage signals on Telegram.</p>
-<a href="pricing.html" class="btn">View Plans & Subscribe</a>
+  <div class="blog-cta">
+    <h2>Ready to Start Earning?</h2>
+    <p>Get 2%+ validated arbitrage signals on Telegram. Only $5/month.</p>
+    <a href="pricing.html" class="cta-btn">View Plans &amp; Subscribe →</a>
+  </div>
 </div>
 
 <footer>
-<p>© 2026 ArbVertex | <a href="index.html" style="color:#00e5ff;">Home</a> | <a href="contact.html" style="color:#00e5ff;">Contact</a> | Not financial advice</p>
+  <p>© 2026 ArbVertex</p>
+  <p><a href="index.html">Home</a> · <a href="contact.html">Contact</a> · Not financial advice.</p>
 </footer>
 
+<script>
+// Filter
+function filterCards(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.blog-card').forEach(card => {
+    if (cat === 'all' || card.dataset.cat === cat) {
+      card.style.display = 'block';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+// Nav hamburger
+document.getElementById('avHamburger').addEventListener('click', () => {
+  document.getElementById('avNavLinks').classList.toggle('av-mobile-open');
+});
+document.querySelectorAll('.av-drop-trigger').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const li = btn.closest('.av-dropdown');
+    li.classList.toggle('av-open');
+  });
+});
+</script>
 </body>
 </html>
