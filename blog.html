@@ -37,17 +37,17 @@ body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-ser
 .av-hamburger span{display:block;width:22px;height:2px;background:var(--accent);border-radius:2px;}
 
 @media(max-width:980px){
-  .av-nav-links{display:none!important;position:fixed;top:64px;left:0;right:0;height:calc(100vh - 64px);background:var(--bg);flex-direction:column;align-items:stretch;padding:1.2rem 5% 2rem;overflow-y:auto;overflow-x:hidden;gap:0.2rem;z-index:9999;border-top:1px solid var(--border);}
-  .av-nav-links.av-mobile-open{display:flex!important;}
-  .av-top-link{width:100%;justify-content:space-between;padding:0.9rem 0.6rem;font-size:0.95rem;}
-  .av-mega-panel{position:static!important;left:auto!important;transform:none!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important;display:none;box-shadow:none;border:none;border-left:2px solid var(--border);background:rgba(255,255,255,0.02);margin:0 0 0.4rem 0.8rem;padding:0.3rem 0;min-width:0;width:auto;}
-  .av-dropdown.av-open .av-mega-panel{display:grid;}
-  .av-mega-link{padding:0.6rem 0.8rem;font-size:0.88rem;}
-  .av-cta{display:block;text-align:center;margin-top:0.6rem;}
-  .av-hamburger{display:flex;}
+ .av-nav-links{display:none!important;position:fixed;top:64px;left:0;right:0;height:calc(100vh - 64px);background:var(--bg);flex-direction:column;align-items:stretch;padding:1.2rem 5% 2rem;overflow-y:auto;overflow-x:hidden;gap:0.2rem;z-index:9999;border-top:1px solid var(--border);}
+ .av-nav-links.av-mobile-open{display:flex!important;}
+ .av-top-link{width:100%;justify-content:space-between;padding:0.9rem 0.6rem;font-size:0.95rem;}
+ .av-mega-panel{position:static!important;left:auto!important;transform:none!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important;display:none;box-shadow:none;border:none;border-left:2px solid var(--border);background:rgba(255,255,255,0.02);margin:0 0 0.4rem 0.8rem;padding:0.3rem 0;min-width:0;width:auto;}
+ .av-dropdown.av-open .av-mega-panel{display:grid;}
+ .av-mega-link{padding:0.6rem 0.8rem;font-size:0.88rem;}
+ .av-cta{display:block;text-align:center;margin-top:0.6rem;}
+ .av-hamburger{display:flex;}
 }
-  .av-cta{display:block;text-align:center;margin-top:0.6rem;}
-  .av-hamburger{display:flex;}
+ .av-cta{display:block;text-align:center;margin-top:0.6rem;}
+ .av-hamburger{display:flex;}
 }
 
 /* BLOG PAGE */
@@ -98,218 +98,218 @@ footer p{color:var(--muted);font-size:0.82rem;}
 footer a{color:var(--accent);text-decoration:none;}
 
 @media(max-width:768px){
-  .blog-grid{grid-template-columns:1fr;}
-  .blog-hero h1{font-size:1.8rem;}
-  footer{flex-direction:column;text-align:center;}
+ .blog-grid{grid-template-columns:1fr;}
+ .blog-hero h1{font-size:1.8rem;}
+ footer{flex-direction:column;text-align:center;}
 }
 </style>
 </head>
 <body>
 
 <div class="av-nav-wrap">
-  <div class="av-nav-inner">
-    <a href="index.html" class="av-logo">Arb<span>Vertex</span></a>
-    <ul class="av-nav-links" id="avNavLinks">
-      <li><a href="index.html" class="av-top-link">Home</a></li>
-      <li class="av-dropdown">
-        <button type="button" class="av-top-link av-drop-trigger">Learn <span class="av-caret">▾</span></button>
-        <div class="av-mega-panel">
-          <a class="av-mega-link" href="what-is-arbitrage.html"><span class="av-icon">📘</span><span>What is Arbitrage<span class="av-desc">Core concept explained</span></span></a>
-          <a class="av-mega-link" href="how-it-works.html"><span class="av-icon">⚙️</span><span>How It Works<span class="av-desc">Step-by-step process</span></span></a>
-          <a class="av-mega-link" href="generate-profit.html"><span class="av-icon">💰</span><span>Generate Profit<span class="av-desc">Ways arbitrage earns</span></span></a>
-          <a class="av-mega-link" href="risks.html"><span class="av-icon">⚠️</span><span>Risks &amp; Safety<span class="av-desc">What to watch for</span></span></a>
-        </div>
-      </li>
-      <li class="av-dropdown">
-        <button type="button" class="av-top-link av-drop-trigger">Tools <span class="av-caret">▾</span></button>
-        <div class="av-mega-panel">
-          <a class="av-mega-link" href="live-scanner.html"><span class="av-icon">🔍</span><span>Live Scanner<span class="av-desc">Real-time price gaps</span></span></a>
-          <a class="av-mega-link" href="arbitrage-calculator.html"><span class="av-icon">🧮</span><span>Profit Calculator<span class="av-desc">Calculate net gains</span></span></a>
-        </div>
-      </li>
-      <li><a href="blog.html" class="av-top-link" style="color:var(--accent);">Blog</a></li>
-      <li class="av-dropdown">
-        <button type="button" class="av-top-link av-drop-trigger">Signals <span class="av-caret">▾</span></button>
-        <div class="av-mega-panel">
-          <a class="av-mega-link" href="telegram-bot.html"><span class="av-icon">✈️</span><span>Telegram Bot<span class="av-desc">Get instant signals</span></span></a>
-          <a class="av-mega-link" href="pricing.html"><span class="av-icon">💳</span><span>Pricing<span class="av-desc">$5/month plans</span></span></a>
-        </div>
-      </li>
-      <li class="av-dropdown">
-        <button type="button" class="av-top-link av-drop-trigger">Company <span class="av-caret">▾</span></button>
-        <div class="av-mega-panel">
-          <a class="av-mega-link" href="about.html"><span class="av-icon">🏢</span><span>About Us<span class="av-desc">Our story</span></span></a>
-          <a class="av-mega-link" href="contact.html"><span class="av-icon">✉️</span><span>Contact<span class="av-desc">Get in touch</span></span></a>
-        </div>
-      </li>
-      <li><a href="live-scanner.html" class="av-top-link av-scanner-link">🔍 Live Scanner</a></li>
-      <li><a href="pricing.html" class="av-top-link av-cta">Join Now</a></li>
-    </ul>
-    <button class="av-hamburger" id="avHamburger" type="button" aria-label="Toggle menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
+ <div class="av-nav-inner">
+ <a href="index.html" class="av-logo">Arb<span>Vertex</span></a>
+ <ul class="av-nav-links" id="avNavLinks">
+ <li><a href="index.html" class="av-top-link">Home</a></li>
+ <li class="av-dropdown">
+ <button type="button" class="av-top-link av-drop-trigger">Learn <span class="av-caret">▾</span></button>
+ <div class="av-mega-panel">
+ <a class="av-mega-link" href="what-is-arbitrage.html"><span class="av-icon">📘</span><span>What is Arbitrage<span class="av-desc">Core concept explained</span></span></a>
+ <a class="av-mega-link" href="how-it-works.html"><span class="av-icon">⚙️</span><span>How It Works<span class="av-desc">Step-by-step process</span></span></a>
+ <a class="av-mega-link" href="generate-profit.html"><span class="av-icon">💰</span><span>Generate Profit<span class="av-desc">Ways arbitrage earns</span></span></a>
+ <a class="av-mega-link" href="risks.html"><span class="av-icon">⚠️</span><span>Risks &amp; Safety<span class="av-desc">What to watch for</span></span></a>
+ </div>
+ </li>
+ <li class="av-dropdown">
+ <button type="button" class="av-top-link av-drop-trigger">Tools <span class="av-caret">▾</span></button>
+ <div class="av-mega-panel">
+ <a class="av-mega-link" href="live-scanner.html"><span class="av-icon">🔍</span><span>Live Scanner<span class="av-desc">Real-time price gaps</span></span></a>
+ <a class="av-mega-link" href="arbitrage-calculator.html"><span class="av-icon">🧮</span><span>Profit Calculator<span class="av-desc">Calculate net gains</span></span></a>
+ </div>
+ </li>
+ <li><a href="blog.html" class="av-top-link" style="color:var(--accent);">Blog</a></li>
+ <li class="av-dropdown">
+ <button type="button" class="av-top-link av-drop-trigger">Signals <span class="av-caret">▾</span></button>
+ <div class="av-mega-panel">
+ <a class="av-mega-link" href="telegram-bot.html"><span class="av-icon">✈️</span><span>Telegram Bot<span class="av-desc">Get instant signals</span></span></a>
+ <a class="av-mega-link" href="pricing.html"><span class="av-icon">💳</span><span>Pricing<span class="av-desc">$5/month plans</span></span></a>
+ </div>
+ </li>
+ <li class="av-dropdown">
+ <button type="button" class="av-top-link av-drop-trigger">Company <span class="av-caret">▾</span></button>
+ <div class="av-mega-panel">
+ <a class="av-mega-link" href="about.html"><span class="av-icon">🏢</span><span>About Us<span class="av-desc">Our story</span></span></a>
+ <a class="av-mega-link" href="contact.html"><span class="av-icon">✉️</span><span>Contact<span class="av-desc">Get in touch</span></span></a>
+ </div>
+ </li>
+ <li><a href="live-scanner.html" class="av-top-link av-scanner-link">🔍 Live Scanner</a></li>
+ <li><a href="pricing.html" class="av-top-link av-cta">Join Now</a></li>
+ </ul>
+ <button class="av-hamburger" id="avHamburger" type="button" aria-label="Toggle menu">
+ <span></span><span></span><span></span>
+ </button>
+ </div>
 </div>
 
 <div class="blog-wrap">
-  <div class="blog-hero">
-    <div class="blog-tag">// LEARN</div>
-    <h1>Crypto Arbitrage <span style="color:var(--accent)">Blog</span></h1>
-    <p>Step-by-step guides from beginner to advanced. Master arbitrage trading.</p>
-  </div>
+ <div class="blog-hero">
+ <div class="blog-tag">// LEARN</div>
+ <h1>Crypto Arbitrage <span style="color:var(--accent)">Blog</span></h1>
+ <p>Step-by-step guides from beginner to advanced. Master arbitrage trading.</p>
+ </div>
 
-  <div class="blog-filters">
-    <button class="filter-btn active" onclick="filterCards('all',this)">All</button>
-    <button class="filter-btn beginner" onclick="filterCards('beginner',this)">📘 Beginner</button>
-    <button class="filter-btn strategy" onclick="filterCards('strategy',this)">💡 Strategy</button>
-    <button class="filter-btn exchange" onclick="filterCards('exchange',this)">🔄 Exchange</button>
-    <button class="filter-btn risk" onclick="filterCards('risk',this)">⚠️ Risk &amp; Tools</button>
-  </div>
+ <div class="blog-filters">
+ <button class="filter-btn active" onclick="filterCards('all',this)">All</button>
+ <button class="filter-btn beginner" onclick="filterCards('beginner',this)">📘 Beginner</button>
+ <button class="filter-btn strategy" onclick="filterCards('strategy',this)">💡 Strategy</button>
+ <button class="filter-btn exchange" onclick="filterCards('exchange',this)">🔄 Exchange</button>
+ <button class="filter-btn risk" onclick="filterCards('risk',this)">⚠️ Risk &amp; Tools</button>
+ </div>
 
-  <div class="blog-grid" id="blogGrid">
+ <div class="blog-grid" id="blogGrid">
 
-    <a href="what-is-crypto-arbitrage.html" class="blog-card" data-cat="beginner">
-      <div class="card-top"><span class="step-badge beginner">STEP 1</span><span class="cat-badge">BEGINNER</span></div>
-      <h3>What is Crypto Arbitrage? Complete Beginner Guide 2026</h3>
-      <p>Learn what arbitrage is, how price gaps form, and 3 types of crypto arbitrage explained simply.</p>
-      <div class="read-link">Read Article →</div>
-    </a>
+ <a href="what-is-crypto-arbitrage.html" class="blog-card" data-cat="beginner">
+ <div class="card-top"><span class="step-badge beginner">STEP 1</span><span class="cat-badge">BEGINNER</span></div>
+ <h3>What is Crypto Arbitrage? Complete Beginner Guide </h3>
+ <p>Learn what arbitrage is, how price gaps form, and 3 types of crypto arbitrage explained simply.</p>
+ <div class="read-link">Read Article →</div>
+ </a>
 
-    <a href="spot-vs-futures-arbitrage.html" class="blog-card" data-cat="beginner">
-      <div class="card-top"><span class="step-badge beginner">STEP 2</span><span class="cat-badge">BEGINNER</span></div>
-      <h3>Spot vs Futures Arbitrage: Which Is Better for Beginners?</h3>
-      <p>Key differences, capital requirements, speed, and which type ArbVertex signals focus on.</p>
-      <div class="read-link">Read Article →</div>
-    </a>
+ <a href="spot-vs-futures-arbitrage.html" class="blog-card" data-cat="beginner">
+ <div class="card-top"><span class="step-badge beginner">STEP 2</span><span class="cat-badge">BEGINNER</span></div>
+ <h3>Spot vs Futures Arbitrage: Which Is Better for Beginners?</h3>
+ <p>Key differences, capital requirements, speed, and which type ArbVertex signals focus on.</p>
+ <div class="read-link">Read Article →</div>
+ </a>
 
-    <a href="funding-rate-arbitrage.html" class="blog-card" data-cat="strategy">
-      <div class="card-top"><span class="step-badge strategy">STEP 3</span><span class="cat-badge">STRATEGY</span></div>
-      <h3>Funding Rate Arbitrage: Earn Passive Income Without Price Risk</h3>
-      <p>How funding rates work, entry/exit rules, and realistic APR calculations with real numbers.</p>
-      <div class="read-link">Read Article →</div>
-    </a>
+ <a href="funding-rate-arbitrage.html" class="blog-card" data-cat="strategy">
+ <div class="card-top"><span class="step-badge strategy">STEP 3</span><span class="cat-badge">STRATEGY</span></div>
+ <h3>Funding Rate Arbitrage: Earn Passive Income Without Price Risk</h3>
+ <p>How funding rates work, entry/exit rules, and realistic APR calculations with real numbers.</p>
+ <div class="read-link">Read Article →</div>
+ </a>
 
-    <a href="triangular-arbitrage-explained.html" class="blog-card" data-cat="strategy">
-      <div class="card-top"><span class="step-badge strategy">STEP 4</span><span class="cat-badge">STRATEGY</span></div>
-      <h3>Triangular Arbitrage Explained: Profit from 3-Pair Price Loops in Crypto</h3>
-      <p>How triangular arb works on a single exchange, with a step-by-step example and profit calculation.</p>
-      <div class="read-link">Read Article →</div>
-    </a>
+ <a href="triangular-arbitrage-explained.html" class="blog-card" data-cat="strategy">
+ <div class="card-top"><span class="step-badge strategy">STEP 4</span><span class="cat-badge">STRATEGY</span></div>
+ <h3>Triangular Arbitrage Explained: Profit from 3-Pair Price Loops in Crypto</h3>
+ <p>How triangular arb works on a single exchange, with a step-by-step example and profit calculation.</p>
+ <div class="read-link">Read Article →</div>
+ </a>
 
-    <a href="best-crypto-arbitrage-exchanges.html" class="blog-card" data-cat="exchange">
-      <div class="card-top"><span class="step-badge exchange">STEP 5</span><span class="cat-badge">EXCHANGE</span></div>
-      <h3>Best Crypto Arbitrage Exchanges 2026: Binance vs Bybit vs MEXC vs Gate.io</h3>
-      <p>Fee comparison table, liquidity, withdrawal speed — with beginner recommendation.</p>
-      <div class="read-link">Read Article →</div>
-    </a>
+ <a href="best-crypto-arbitrage-exchanges.html" class="blog-card" data-cat="exchange">
+ <div class="card-top"><span class="step-badge exchange">STEP 5</span><span class="cat-badge">EXCHANGE</span></div>
+ <h3>Best Crypto Arbitrage Exchanges : Binance vs Bybit vs MEXC vs Gate.io</h3>
+ <p>Fee comparison table, liquidity, withdrawal speed — with beginner recommendation.</p>
+ <div class="read-link">Read Article →</div>
+ </a>
 
-    <a href="cross-exchange-arbitrage-guide.html" class="blog-card" data-cat="strategy">
-      <div class="card-top"><span class="step-badge strategy">STEP 6</span><span class="cat-badge">STRATEGY</span></div>
-      <h3>Cross-Exchange Arbitrage: Execute Both Legs on Binance &amp; Bybit (2026 Guide)</h3>
-      <p>5-step execution guide, fee math example, and minimum viable gap rules.</p>
-      <div class="read-link">Read Article →</div>
-    </a>
+ <a href="cross-exchange-arbitrage-guide.html" class="blog-card" data-cat="strategy">
+ <div class="card-top"><span class="step-badge strategy">STEP 6</span><span class="cat-badge">STRATEGY</span></div>
+ <h3>Cross-Exchange Arbitrage: Execute Both Legs on Binance &amp; Bybit ( Guide)</h3>
+ <p>5-step execution guide, fee math example, and minimum viable gap rules.</p>
+ <div class="read-link">Read Article →</div>
+ </a>
 
-    <a href="crypto-arbitrage-risks.html" class="blog-card" data-cat="risk">
-      <div class="card-top"><span class="step-badge risk">STEP 7</span><span class="cat-badge">RISK</span></div>
-      <h3>Crypto Arbitrage Risks You Must Know Before Starting in 2026</h3>
-      <p>Slippage, execution lag, funding reversal, exchange risk — and how to protect capital.</p>
-      <div class="read-link">Read Article →</div>
-    </a>
+ <a href="crypto-arbitrage-risks.html" class="blog-card" data-cat="risk">
+ <div class="card-top"><span class="step-badge risk">STEP 7</span><span class="cat-badge">RISK</span></div>
+ <h3>Crypto Arbitrage Risks You Must Know Before Starting in </h3>
+ <p>Slippage, execution lag, funding reversal, exchange risk — and how to protect capital.</p>
+ <div class="read-link">Read Article →</div>
+ </a>
 
-    <a href="arbitrage-profit-calculator-guide.html" class="blog-card" data-cat="risk">
-      <div class="card-top"><span class="step-badge tools">STEP 8</span><span class="cat-badge">TOOLS</span></div>
-      <h3>Arbitrage Calculator Guide: How to Calculate Net Profit After All Fees</h3>
-      <p>The exact profit formula — raw gap minus taker fees, slippage, and withdrawal costs.</p>
-      <div class="read-link">Read Article →</div>
-    </a>
+ <a href="arbitrage-profit-calculator-guide.html" class="blog-card" data-cat="risk">
+ <div class="card-top"><span class="step-badge tools">STEP 8</span><span class="cat-badge">TOOLS</span></div>
+ <h3>Arbitrage Calculator Guide: How to Calculate Net Profit After All Fees</h3>
+ <p>The exact profit formula — raw gap minus taker fees, slippage, and withdrawal costs.</p>
+ <div class="read-link">Read Article →</div>
+ </a>
 
-    <a href="arbitrage-trading-fees-explained.html" class="blog-card" data-cat="risk">
-      <div class="card-top"><span class="step-badge risk">STEP 9</span><span class="cat-badge">RISK</span></div>
-      <h3>Arbitrage Trading Fees Explained: Maker, Taker, Withdrawal &amp; Slippage</h3>
-      <p>All 4 types of fees that eat your profits and how to minimize each one.</p>
-      <div class="read-link">Read Article →</div>
-    </a>
+ <a href="arbitrage-trading-fees-explained.html" class="blog-card" data-cat="risk">
+ <div class="card-top"><span class="step-badge risk">STEP 9</span><span class="cat-badge">RISK</span></div>
+ <h3>Arbitrage Trading Fees Explained: Maker, Taker, Withdrawal &amp; Slippage</h3>
+ <p>All 4 types of fees that eat your profits and how to minimize each one.</p>
+ <div class="read-link">Read Article →</div>
+ </a>
 
-    <a href="best-crypto-arbitrage-tools.html" class="blog-card" data-cat="risk">
-      <div class="card-top"><span class="step-badge tools">STEP 10</span><span class="cat-badge">TOOLS</span></div>
-      <h3>Best Crypto Arbitrage Tools 2026: Scanners, Signals &amp; Passive Income</h3>
-      <p>Top tools ranked from free scanners to ArbVertex signals with income tables.</p>
-      <div class="read-link">Read Article →</div>
-    </a>
+ <a href="best-crypto-arbitrage-tools.html" class="blog-card" data-cat="risk">
+ <div class="card-top"><span class="step-badge tools">STEP 10</span><span class="cat-badge">TOOLS</span></div>
+ <h3>Best Crypto Arbitrage Tools : Scanners, Signals &amp; Passive Income</h3>
+ <p>Top tools ranked from free scanners to ArbVertex signals with income tables.</p>
+ <div class="read-link">Read Article →</div>
+ </a>
 
-    <a href="delisting-arbitrage-risks.html" class="blog-card" data-cat="risk">
-      <div class="card-top"><span class="step-badge risk">STEP 11</span><span class="cat-badge">RISK</span></div>
-      <h3>When to Avoid Arbitrage: Risks of Delisting Events</h3>
-      <p>Why large spreads during delistings are deceptive and how to spot fake opportunities.</p>
-      <div class="read-link">Read Article →</div>
-    </a>
+ <a href="delisting-arbitrage-risks.html" class="blog-card" data-cat="risk">
+ <div class="card-top"><span class="step-badge risk">STEP 11</span><span class="cat-badge">RISK</span></div>
+ <h3>When to Avoid Arbitrage: Risks of Delisting Events</h3>
+ <p>Why large spreads during delistings are deceptive and how to spot fake opportunities.</p>
+ <div class="read-link">Read Article →</div>
+ </a>
 
-    <a href="arbitrage-trading-portfolio-growth.html" class="blog-card" data-cat="strategy">
-      <div class="card-top"><span class="step-badge strategy">STEP 12</span><span class="cat-badge">STRATEGY</span></div>
-      <h3>How Arbitrage Trading Can Grow Your Portfolio</h3>
-      <p>How compounding and disciplined trading support long-term financial goals.</p>
-      <div class="read-link">Read Article →</div>
-    </a>
+ <a href="arbitrage-trading-portfolio-growth.html" class="blog-card" data-cat="strategy">
+ <div class="card-top"><span class="step-badge strategy">STEP 12</span><span class="cat-badge">STRATEGY</span></div>
+ <h3>How Arbitrage Trading Can Grow Your Portfolio</h3>
+ <p>How compounding and disciplined trading support long-term financial goals.</p>
+ <div class="read-link">Read Article →</div>
+ </a>
 
-    <a href="rethink-traditional-trading.html" class="blog-card" data-cat="beginner">
-      <div class="card-top"><span class="step-badge beginner">STEP 13</span><span class="cat-badge">BEGINNER</span></div>
-      <h3>Losing Money in Trading? Rethink the Traditional Approach</h3>
-      <p>Why predicting markets fails and how arbitrage offers a data-driven alternative.</p>
-      <div class="read-link">Read Article →</div>
-    </a>
+ <a href="rethink-traditional-trading.html" class="blog-card" data-cat="beginner">
+ <div class="card-top"><span class="step-badge beginner">STEP 13</span><span class="cat-badge">BEGINNER</span></div>
+ <h3>Losing Money in Trading? Rethink the Traditional Approach</h3>
+ <p>Why predicting markets fails and how arbitrage offers a data-driven alternative.</p>
+ <div class="read-link">Read Article →</div>
+ </a>
 
-    <a href="crypto-arbitrage-trading-consistent-income.html" class="blog-card" data-cat="strategy">
-      <div class="card-top"><span class="step-badge strategy">STEP 14</span><span class="cat-badge">STRATEGY</span></div>
-      <h3>How Crypto Arbitrage Turns Market Inefficiencies into Consistent Income</h3>
-      <p>Why price gaps form between exchanges and how to turn them into market-neutral income.</p>
-      <div class="read-link">Read Article →</div>
-    </a>
+ <a href="crypto-arbitrage-trading-consistent-income.html" class="blog-card" data-cat="strategy">
+ <div class="card-top"><span class="step-badge strategy">STEP 14</span><span class="cat-badge">STRATEGY</span></div>
+ <h3>How Crypto Arbitrage Turns Market Inefficiencies into Consistent Income</h3>
+ <p>Why price gaps form between exchanges and how to turn them into market-neutral income.</p>
+ <div class="read-link">Read Article →</div>
+ </a>
 
-    <a href="why-choose-arbvertex-over-other-arbitrage-platforms.html" class="blog-card" data-cat="exchange">
-      <div class="card-top"><span class="step-badge exchange">STEP 15</span><span class="cat-badge">EXCHANGE</span></div>
-      <h3>Why Choose ArbVertex Over Other Arbitrage Platforms?</h3>
-      <p>Human-verified signals, manual filtering, and profitability-focused analysis.</p>
-      <div class="read-link">Read Article →</div>
-    </a>
+ <a href="why-choose-arbvertex-over-other-arbitrage-platforms.html" class="blog-card" data-cat="exchange">
+ <div class="card-top"><span class="step-badge exchange">STEP 15</span><span class="cat-badge">EXCHANGE</span></div>
+ <h3>Why Choose ArbVertex Over Other Arbitrage Platforms?</h3>
+ <p>Human-verified signals, manual filtering, and profitability-focused analysis.</p>
+ <div class="read-link">Read Article →</div>
+ </a>
 
-  </div>
+ </div>
 
-  <div class="blog-cta">
-    <h2>Ready to Start Earning?</h2>
-    <p>Get 2%+ validated arbitrage signals on Telegram. Only $5/month.</p>
-    <a href="pricing.html" class="cta-btn">View Plans &amp; Subscribe →</a>
-  </div>
+ <div class="blog-cta">
+ <h2>Ready to Start Earning?</h2>
+ <p>Get 2%+ validated arbitrage signals on Telegram. Only $5/month.</p>
+ <a href="pricing.html" class="cta-btn">View Plans &amp; Subscribe →</a>
+ </div>
 </div>
 
 <footer>
-  <p>© 2026 ArbVertex</p>
-  <p><a href="index.html">Home</a> · <a href="contact.html">Contact</a> · Not financial advice.</p>
+ <p>© 2026 ArbVertex</p>
+ <p><a href="index.html">Home</a> · <a href="contact.html">Contact</a> · Not financial advice.</p>
 </footer>
 
 <script>
 // Filter
 function filterCards(cat, btn) {
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.blog-card').forEach(card => {
-    if (cat === 'all' || card.dataset.cat === cat) {
-      card.style.display = 'block';
-    } else {
-      card.style.display = 'none';
-    }
-  });
+ document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+ btn.classList.add('active');
+ document.querySelectorAll('.blog-card').forEach(card => {
+ if (cat === 'all' || card.dataset.cat === cat) {
+ card.style.display = 'block';
+ } else {
+ card.style.display = 'none';
+ }
+ });
 }
 
 // Nav hamburger
 document.getElementById('avHamburger').addEventListener('click', () => {
-  document.getElementById('avNavLinks').classList.toggle('av-mobile-open');
+ document.getElementById('avNavLinks').classList.toggle('av-mobile-open');
 });
 document.querySelectorAll('.av-drop-trigger').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const li = btn.closest('.av-dropdown');
-    li.classList.toggle('av-open');
-  });
+ btn.addEventListener('click', () => {
+ const li = btn.closest('.av-dropdown');
+ li.classList.toggle('av-open');
+ });
 });
 </script>
 </body>

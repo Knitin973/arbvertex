@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Crypto Arbitrage Calculator 2026 — Net Profit After All Fees | ArbVertex</title>
+<title>Crypto Arbitrage Calculator — Net Profit After All Fees | ArbVertex</title>
 <meta name="description" content="Free crypto arbitrage calculator. Calculate exact net profit after trading fees, withdrawal fees, and slippage. Supports Binance, Bybit, MEXC, Gate.io, KuCoin.">
 <meta name="keywords" content="crypto arbitrage calculator, arbitrage profit calculator, binance bybit arbitrage calculator, net profit after fees">
 <link rel="canonical" href="arbitrage-calculator.html">
@@ -76,38 +76,38 @@ footer p{color:var(--muted);font-size:0.82rem;}
 </style>
 <style>
 /* ══════════════════════════════════════════════════
-   ArbVertex Mega Nav — self-contained (av- prefixed)
-   Add new pages: find the right topic block below and
-   copy an <a class="av-mega-link"> line, change href/icon/text.
-   ══════════════════════════════════════════════════ */
+ ArbVertex Mega Nav — self-contained (av- prefixed)
+ Add new pages: find the right topic block below and
+ copy an <a class="av-mega-link"> line, change href/icon/text.
+ ══════════════════════════════════════════════════ */
 .av-nav-wrap{
-  --av-bg:#050a0f; --av-surface:#0d1a24; --av-accent:#00e5ff; --av-accent2:#00ff88;
-  --av-text:#e8f4f8; --av-muted:#8fb0c4; --av-border:#1a3a52;
-  position:fixed; top:0; left:0; right:0; z-index:999;
-  background:rgba(5,10,15,0.95); backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--av-border);
-  font-family:'Space Grotesk',sans-serif;
+ --av-bg:#050a0f; --av-surface:#0d1a24; --av-accent:#00e5ff; --av-accent2:#00ff88;
+ --av-text:#e8f4f8; --av-muted:#8fb0c4; --av-border:#1a3a52;
+ position:fixed; top:0; left:0; right:0; z-index:999;
+ background:rgba(5,10,15,0.95); backdrop-filter:blur(14px);
+ border-bottom:1px solid var(--av-border);
+ font-family:'Space Grotesk',sans-serif;
 }
 .av-nav-inner{
-  max-width:1400px; margin:0 auto; height:64px;
-  display:flex; align-items:center; justify-content:space-between;
-  padding:0 5%; gap:1rem;
+ max-width:1400px; margin:0 auto; height:64px;
+ display:flex; align-items:center; justify-content:space-between;
+ padding:0 5%; gap:1rem;
 }
 .av-logo{
-  font-family:'JetBrains Mono',monospace; font-size:1.05rem; font-weight:700;
-  color:var(--av-accent); text-decoration:none; letter-spacing:-0.02em; flex-shrink:0;
+ font-family:'JetBrains Mono',monospace; font-size:1.05rem; font-weight:700;
+ color:var(--av-accent); text-decoration:none; letter-spacing:-0.02em; flex-shrink:0;
 }
 .av-logo span{ color:var(--av-accent2); }
 .av-nav-links{
-  display:flex; align-items:center; gap:0.15rem; list-style:none; margin:0; padding:0;
+ display:flex; align-items:center; gap:0.15rem; list-style:none; margin:0; padding:0;
 }
 .av-nav-links > li{ position:relative; }
 .av-top-link{
-  display:inline-flex; align-items:center; gap:0.3rem;
-  color:var(--av-muted); text-decoration:none; font-size:0.85rem; font-weight:500;
-  background:none; border:none; cursor:pointer; font-family:inherit;
-  padding:0.55rem 0.65rem; border-radius:6px; transition:color .2s, background .2s;
-  white-space:nowrap;
+ display:inline-flex; align-items:center; gap:0.3rem;
+ color:var(--av-muted); text-decoration:none; font-size:0.85rem; font-weight:500;
+ background:none; border:none; cursor:pointer; font-family:inherit;
+ padding:0.55rem 0.65rem; border-radius:6px; transition:color .2s, background .2s;
+ white-space:nowrap;
 }
 .av-top-link:hover{ color:var(--av-text); background:rgba(255,255,255,0.05); }
 .av-caret{ font-size:0.6rem; opacity:0.65; transition:transform .2s; margin-left:1px; }
@@ -116,114 +116,114 @@ footer p{color:var(--muted);font-size:0.82rem;}
 
 /* Mega dropdown panel */
 .av-mega-panel{
-  position:absolute; top:calc(100% + 10px); left:50%;
-  transform:translateX(-50%) translateY(6px);
-  background:var(--av-surface); border:1px solid var(--av-border); border-radius:10px;
-  padding:0.55rem; min-width:290px;
-  display:grid; gap:0.1rem;
-  opacity:0; visibility:hidden; pointer-events:none;
-  transition:opacity .16s ease, transform .16s ease;
-  box-shadow:0 24px 48px rgba(0,0,0,0.45);
+ position:absolute; top:calc(100% + 10px); left:50%;
+ transform:translateX(-50%) translateY(6px);
+ background:var(--av-surface); border:1px solid var(--av-border); border-radius:10px;
+ padding:0.55rem; min-width:290px;
+ display:grid; gap:0.1rem;
+ opacity:0; visibility:hidden; pointer-events:none;
+ transition:opacity .16s ease, transform .16s ease;
+ box-shadow:0 24px 48px rgba(0,0,0,0.45);
 }
 .av-dropdown:hover .av-mega-panel,
 .av-dropdown.av-open .av-mega-panel{
-  opacity:1; visibility:visible; pointer-events:auto; transform:translateX(-50%) translateY(0);
+ opacity:1; visibility:visible; pointer-events:auto; transform:translateX(-50%) translateY(0);
 }
 .av-mega-link{
-  display:flex; align-items:flex-start; gap:0.65rem;
-  padding:0.55rem 0.65rem; border-radius:7px;
-  color:var(--av-text); text-decoration:none; font-size:0.84rem; font-weight:600;
-  transition:background .15s;
+ display:flex; align-items:flex-start; gap:0.65rem;
+ padding:0.55rem 0.65rem; border-radius:7px;
+ color:var(--av-text); text-decoration:none; font-size:0.84rem; font-weight:600;
+ transition:background .15s;
 }
 .av-mega-link:hover{ background:rgba(0,229,255,0.08); }
 .av-icon{ font-size:1rem; line-height:1.35; flex-shrink:0; }
 .av-desc{
-  display:block; color:var(--av-muted); font-size:0.72rem; font-weight:400;
-  margin-top:0.15rem; line-height:1.4;
+ display:block; color:var(--av-muted); font-size:0.72rem; font-weight:400;
+ margin-top:0.15rem; line-height:1.4;
 }
 
 .av-scanner-link{ color:var(--av-accent2)!important; font-weight:600!important; }
 .av-cta{
-  background:var(--av-accent)!important; color:var(--av-bg)!important; text-decoration:none;
-  padding:0.5rem 1.1rem!important; border-radius:6px; font-weight:700!important;
-  font-size:0.85rem!important; white-space:nowrap;
+ background:var(--av-accent)!important; color:var(--av-bg)!important; text-decoration:none;
+ padding:0.5rem 1.1rem!important; border-radius:6px; font-weight:700!important;
+ font-size:0.85rem!important; white-space:nowrap;
 }
 
 .av-hamburger{
-  display:none; flex-direction:column; gap:5px; background:none; border:none;
-  cursor:pointer; padding:4px; flex-shrink:0;
+ display:none; flex-direction:column; gap:5px; background:none; border:none;
+ cursor:pointer; padding:4px; flex-shrink:0;
 }
 .av-hamburger span{ display:block; width:22px; height:2px; background:var(--av-accent); border-radius:2px; }
 
 @media(max-width:980px){
-  .av-nav-links{display:none!important;position:fixed;top:64px;left:0;right:0;height:calc(100vh - 64px);background:var(--bg);flex-direction:column;align-items:stretch;padding:1.2rem 5% 2rem;overflow-y:auto;overflow-x:hidden;gap:0.2rem;z-index:9999;border-top:1px solid var(--border);}
-  .av-nav-links.av-mobile-open{display:flex!important;}
-  .av-top-link{width:100%;justify-content:space-between;padding:0.9rem 0.6rem;font-size:0.95rem;}
-  .av-mega-panel{position:static!important;left:auto!important;transform:none!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important;display:none;box-shadow:none;border:none;border-left:2px solid var(--border);background:rgba(255,255,255,0.02);margin:0 0 0.4rem 0.8rem;padding:0.3rem 0;min-width:0;width:auto;}
-  .av-dropdown.av-open .av-mega-panel{display:grid;}
-  .av-mega-link{padding:0.6rem 0.8rem;font-size:0.88rem;}
-  .av-cta{display:block;text-align:center;margin-top:0.6rem;}
-  .av-hamburger{display:flex;}
+ .av-nav-links{display:none!important;position:fixed;top:64px;left:0;right:0;height:calc(100vh - 64px);background:var(--bg);flex-direction:column;align-items:stretch;padding:1.2rem 5% 2rem;overflow-y:auto;overflow-x:hidden;gap:0.2rem;z-index:9999;border-top:1px solid var(--border);}
+ .av-nav-links.av-mobile-open{display:flex!important;}
+ .av-top-link{width:100%;justify-content:space-between;padding:0.9rem 0.6rem;font-size:0.95rem;}
+ .av-mega-panel{position:static!important;left:auto!important;transform:none!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important;display:none;box-shadow:none;border:none;border-left:2px solid var(--border);background:rgba(255,255,255,0.02);margin:0 0 0.4rem 0.8rem;padding:0.3rem 0;min-width:0;width:auto;}
+ .av-dropdown.av-open .av-mega-panel{display:grid;}
+ .av-mega-link{padding:0.6rem 0.8rem;font-size:0.88rem;}
+ .av-cta{display:block;text-align:center;margin-top:0.6rem;}
+ .av-hamburger{display:flex;}
 }
-  .av-cta{ display:block; text-align:center; margin-top:0.6rem; }
-  .av-hamburger{ display:flex; }
+ .av-cta{ display:block; text-align:center; margin-top:0.6rem; }
+ .av-hamburger{ display:flex; }
 }
 </style>
 
 </head>
 <body>
 <div class="av-nav-wrap">
-  <div class="av-nav-inner">
-    <a href="index.html" class="av-logo">Arb<span>Vertex</span></a>
-    <ul class="av-nav-links" id="avNavLinks">
-      <li><a href="index.html" class="av-top-link">Home</a></li>
+ <div class="av-nav-inner">
+ <a href="index.html" class="av-logo">Arb<span>Vertex</span></a>
+ <ul class="av-nav-links" id="avNavLinks">
+ <li><a href="index.html" class="av-top-link">Home</a></li>
 
-      <li class="av-dropdown">
-        <button type="button" class="av-top-link av-drop-trigger">Learn <span class="av-caret">▾</span></button>
-        <div class="av-mega-panel">
-          <a class="av-mega-link" href="what-is-arbitrage.html"><span class="av-icon">📘</span><span>What is Arbitrage<span class="av-desc">Core concept explained</span></span></a>
-          <a class="av-mega-link" href="how-it-works.html"><span class="av-icon">⚙️</span><span>How It Works<span class="av-desc">Step-by-step process</span></span></a>
-          <a class="av-mega-link" href="generate-profit.html"><span class="av-icon">💰</span><span>Generate Profit<span class="av-desc">Ways arbitrage earns</span></span></a>
-          <a class="av-mega-link" href="risks.html"><span class="av-icon">⚠️</span><span>Risks &amp; Safety<span class="av-desc">What to watch for</span></span></a>
-          <a class="av-mega-link" href="delisting-arbitrage-risks.html"><span class="av-icon">🚨</span><span>Delisting Risks<span class="av-desc">Avoid this trap</span></span></a>
-          <a class="av-mega-link" href="rethink-traditional-trading.html"><span class="av-icon">🔄</span><span>Rethink Trading<span class="av-desc">Why arbitrage wins</span></span></a>
-          <a class="av-mega-link" href="arbitrage-portfolio-growth.html"><span class="av-icon">📈</span><span>Portfolio Growth<span class="av-desc">Long-term strategy</span></span></a>
-        </div>
-      </li>
+ <li class="av-dropdown">
+ <button type="button" class="av-top-link av-drop-trigger">Learn <span class="av-caret">▾</span></button>
+ <div class="av-mega-panel">
+ <a class="av-mega-link" href="what-is-arbitrage.html"><span class="av-icon">📘</span><span>What is Arbitrage<span class="av-desc">Core concept explained</span></span></a>
+ <a class="av-mega-link" href="how-it-works.html"><span class="av-icon">⚙️</span><span>How It Works<span class="av-desc">Step-by-step process</span></span></a>
+ <a class="av-mega-link" href="generate-profit.html"><span class="av-icon">💰</span><span>Generate Profit<span class="av-desc">Ways arbitrage earns</span></span></a>
+ <a class="av-mega-link" href="risks.html"><span class="av-icon">⚠️</span><span>Risks &amp; Safety<span class="av-desc">What to watch for</span></span></a>
+ <a class="av-mega-link" href="delisting-arbitrage-risks.html"><span class="av-icon">🚨</span><span>Delisting Risks<span class="av-desc">Avoid this trap</span></span></a>
+ <a class="av-mega-link" href="rethink-traditional-trading.html"><span class="av-icon">🔄</span><span>Rethink Trading<span class="av-desc">Why arbitrage wins</span></span></a>
+ <a class="av-mega-link" href="arbitrage-portfolio-growth.html"><span class="av-icon">📈</span><span>Portfolio Growth<span class="av-desc">Long-term strategy</span></span></a>
+ </div>
+ </li>
 
-      <li class="av-dropdown">
-        <button type="button" class="av-top-link av-drop-trigger">Tools <span class="av-caret">▾</span></button>
-        <div class="av-mega-panel">
-          <a class="av-mega-link" href="live-scanner.html"><span class="av-icon">🔍</span><span>Live Scanner<span class="av-desc">Real-time price gaps</span></span></a>
-          <a class="av-mega-link" href="arbitrage-calculator.html"><span class="av-icon">🧮</span><span>Profit Calculator<span class="av-desc">Calculate net gains</span></span></a>
-        </div>
-      </li>
+ <li class="av-dropdown">
+ <button type="button" class="av-top-link av-drop-trigger">Tools <span class="av-caret">▾</span></button>
+ <div class="av-mega-panel">
+ <a class="av-mega-link" href="live-scanner.html"><span class="av-icon">🔍</span><span>Live Scanner<span class="av-desc">Real-time price gaps</span></span></a>
+ <a class="av-mega-link" href="arbitrage-calculator.html"><span class="av-icon">🧮</span><span>Profit Calculator<span class="av-desc">Calculate net gains</span></span></a>
+ </div>
+ </li>
 
-      <li><a href="blog.html" class="av-top-link">Blog</a></li>
+ <li><a href="blog.html" class="av-top-link">Blog</a></li>
 
-      <li class="av-dropdown">
-        <button type="button" class="av-top-link av-drop-trigger">Signals <span class="av-caret">▾</span></button>
-        <div class="av-mega-panel">
-          <a class="av-mega-link" href="telegram-bot.html"><span class="av-icon">✈️</span><span>Telegram Bot<span class="av-desc">Get instant signals</span></span></a>
-          <a class="av-mega-link" href="pricing.html"><span class="av-icon">💳</span><span>Pricing<span class="av-desc">$5/month plans</span></span></a>
-        </div>
-      </li>
+ <li class="av-dropdown">
+ <button type="button" class="av-top-link av-drop-trigger">Signals <span class="av-caret">▾</span></button>
+ <div class="av-mega-panel">
+ <a class="av-mega-link" href="telegram-bot.html"><span class="av-icon">✈️</span><span>Telegram Bot<span class="av-desc">Get instant signals</span></span></a>
+ <a class="av-mega-link" href="pricing.html"><span class="av-icon">💳</span><span>Pricing<span class="av-desc">$5/month plans</span></span></a>
+ </div>
+ </li>
 
-      <li class="av-dropdown">
-        <button type="button" class="av-top-link av-drop-trigger">Company <span class="av-caret">▾</span></button>
-        <div class="av-mega-panel">
-          <a class="av-mega-link" href="about.html"><span class="av-icon">🏢</span><span>About Us<span class="av-desc">Our story</span></span></a>
-          <a class="av-mega-link" href="contact.html"><span class="av-icon">✉️</span><span>Contact<span class="av-desc">Get in touch</span></span></a>
-        </div>
-      </li>
+ <li class="av-dropdown">
+ <button type="button" class="av-top-link av-drop-trigger">Company <span class="av-caret">▾</span></button>
+ <div class="av-mega-panel">
+ <a class="av-mega-link" href="about.html"><span class="av-icon">🏢</span><span>About Us<span class="av-desc">Our story</span></span></a>
+ <a class="av-mega-link" href="contact.html"><span class="av-icon">✉️</span><span>Contact<span class="av-desc">Get in touch</span></span></a>
+ </div>
+ </li>
 
-      <li><a href="live-scanner.html" class="av-top-link av-scanner-link">🔍 Live Scanner</a></li>
-      <li><a href="pricing.html" class="av-top-link av-cta">Join Now</a></li>
-    </ul>
-    <button class="av-hamburger" id="avHamburger" type="button" aria-label="Toggle menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
+ <li><a href="live-scanner.html" class="av-top-link av-scanner-link">🔍 Live Scanner</a></li>
+ <li><a href="pricing.html" class="av-top-link av-cta">Join Now</a></li>
+ </ul>
+ <button class="av-hamburger" id="avHamburger" type="button" aria-label="Toggle menu">
+ <span></span><span></span><span></span>
+ </button>
+ </div>
 </div>
 
 
@@ -353,7 +353,7 @@ footer p{color:var(--muted);font-size:0.82rem;}
 <h3>What is a Good Arbitrage Spread?</h3>
 <p>ArbVertex only sends signals with a <strong>2%+ net spread</strong> after all fees. A 1% raw spread almost always turns into a loss after fees. A 3%+ raw spread typically leaves 1.5-2% net profit, which is our target minimum.</p>
 
-<h3>Exchange Fee Comparison 2026</h3>
+<h3>Exchange Fee Comparison </h3>
 <p><strong>Binance:</strong> 0.1% spot (0.075% with BNB) | <strong>Bybit:</strong> 0.1% maker, 0.1% taker | <strong>MEXC:</strong> 0% maker, 0.05% taker (best for arb) | <strong>Gate.io:</strong> 0.2% standard | <strong>KuCoin:</strong> 0.1% standard</p>
 </div>
 </div>
@@ -369,89 +369,89 @@ footer p{color:var(--muted);font-size:0.82rem;}
 
 <script>
 const FEE_PRESETS = {
-  standard: {buy:0.1, sell:0.1, withdraw:1, slip:0.05},
-  bnb:      {buy:0.075, sell:0.075, withdraw:1, slip:0.05},
-  vip:      {buy:0.06, sell:0.06, withdraw:0.5, slip:0.03},
-  zero:     {buy:0, sell:0.05, withdraw:1, slip:0.05},
+ standard: {buy:0.1, sell:0.1, withdraw:1, slip:0.05},
+ bnb: {buy:0.075, sell:0.075, withdraw:1, slip:0.05},
+ vip: {buy:0.06, sell:0.06, withdraw:0.5, slip:0.03},
+ zero: {buy:0, sell:0.05, withdraw:1, slip:0.05},
 };
 
 function applyPreset(preset) {
-  if (!preset) return;
-  document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
-  event && event.target && event.target.classList.add('active');
-  const p = FEE_PRESETS[preset];
-  if (p) {
-    document.getElementById('buy-fee').value = p.buy;
-    document.getElementById('sell-fee').value = p.sell;
-    document.getElementById('withdraw-fee').value = p.withdraw;
-    document.getElementById('slippage').value = p.slip;
-  }
+ if (!preset) return;
+ document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+ event && event.target && event.target.classList.add('active');
+ const p = FEE_PRESETS[preset];
+ if (p) {
+ document.getElementById('buy-fee').value = p.buy;
+ document.getElementById('sell-fee').value = p.sell;
+ document.getElementById('withdraw-fee').value = p.withdraw;
+ document.getElementById('slippage').value = p.slip;
+ }
 }
 
 function fmt(val, prefix='$') {
-  return prefix + Math.abs(val).toFixed(2);
+ return prefix + Math.abs(val).toFixed(2);
 }
 
 function calculate() {
-  const capital     = parseFloat(document.getElementById('capital').value) || 0;
-  const buyPrice    = parseFloat(document.getElementById('buy-price').value) || 0;
-  const sellPrice   = parseFloat(document.getElementById('sell-price').value) || 0;
-  const buyFee      = parseFloat(document.getElementById('buy-fee').value) / 100 || 0;
-  const sellFee     = parseFloat(document.getElementById('sell-fee').value) / 100 || 0;
-  const withdrawFee = parseFloat(document.getElementById('withdraw-fee').value) || 0;
-  const slipPct     = parseFloat(document.getElementById('slippage').value) / 100 || 0;
+ const capital = parseFloat(document.getElementById('capital').value) || 0;
+ const buyPrice = parseFloat(document.getElementById('buy-price').value) || 0;
+ const sellPrice = parseFloat(document.getElementById('sell-price').value) || 0;
+ const buyFee = parseFloat(document.getElementById('buy-fee').value) / 100 || 0;
+ const sellFee = parseFloat(document.getElementById('sell-fee').value) / 100 || 0;
+ const withdrawFee = parseFloat(document.getElementById('withdraw-fee').value) || 0;
+ const slipPct = parseFloat(document.getElementById('slippage').value) / 100 || 0;
 
-  if (!capital || !buyPrice || !sellPrice) return;
+ if (!capital || !buyPrice || !sellPrice) return;
 
-  // Calculations
-  const coins         = capital / buyPrice;
-  const grossRevenue  = coins * sellPrice;
-  const rawSpread     = sellPrice - buyPrice;
-  const rawSpreadPct  = (rawSpread / buyPrice) * 100;
-  const buyFeeCost    = capital * buyFee;
-  const sellFeeCost   = grossRevenue * sellFee;
-  const slippageCost  = capital * slipPct;
-  const totalFees     = buyFeeCost + sellFeeCost + withdrawFee + slippageCost;
-  const netProfit     = grossRevenue - capital - totalFees;
-  const netReturnPct  = (netProfit / capital) * 100;
+ // Calculations
+ const coins = capital / buyPrice;
+ const grossRevenue = coins * sellPrice;
+ const rawSpread = sellPrice - buyPrice;
+ const rawSpreadPct = (rawSpread / buyPrice) * 100;
+ const buyFeeCost = capital * buyFee;
+ const sellFeeCost = grossRevenue * sellFee;
+ const slippageCost = capital * slipPct;
+ const totalFees = buyFeeCost + sellFeeCost + withdrawFee + slippageCost;
+ const netProfit = grossRevenue - capital - totalFees;
+ const netReturnPct = (netProfit / capital) * 100;
 
-  // Update results
-  const color = netProfit >= 0 ? 'var(--accent2)' : 'var(--red)';
-  document.getElementById('net-profit').textContent = (netProfit >= 0 ? '+' : '') + '$' + netProfit.toFixed(2);
-  document.getElementById('net-profit').style.color = color;
-  document.getElementById('net-pct').textContent = (netReturnPct >= 0 ? '+' : '') + netReturnPct.toFixed(3) + '% return';
-  document.getElementById('net-pct').style.color = color;
+ // Update results
+ const color = netProfit >= 0 ? 'var(--accent2)' : 'var(--red)';
+ document.getElementById('net-profit').textContent = (netProfit >= 0 ? '+' : '') + '$' + netProfit.toFixed(2);
+ document.getElementById('net-profit').style.color = color;
+ document.getElementById('net-pct').textContent = (netReturnPct >= 0 ? '+' : '') + netReturnPct.toFixed(3) + '% return';
+ document.getElementById('net-pct').style.color = color;
 
-  document.getElementById('raw-spread').textContent = '$' + rawSpread.toFixed(4);
-  document.getElementById('raw-spread-pct').textContent = rawSpreadPct.toFixed(3) + '%';
-  document.getElementById('coins-bought').textContent = coins.toFixed(6) + ' coins';
-  document.getElementById('gross-revenue').textContent = '$' + grossRevenue.toFixed(2);
-  document.getElementById('buy-fee-cost').textContent = '-$' + buyFeeCost.toFixed(2);
-  document.getElementById('sell-fee-cost').textContent = '-$' + sellFeeCost.toFixed(2);
-  document.getElementById('withdraw-cost').textContent = '-$' + withdrawFee.toFixed(2);
-  document.getElementById('slippage-cost').textContent = '-$' + slippageCost.toFixed(2);
-  document.getElementById('total-fees').textContent = '-$' + totalFees.toFixed(2);
-  document.getElementById('net-profit-bottom').textContent = (netProfit >= 0 ? '+' : '') + '$' + netProfit.toFixed(2);
-  document.getElementById('net-profit-bottom').style.color = color;
-  document.getElementById('net-return-pct').textContent = (netReturnPct >= 0 ? '+' : '') + netReturnPct.toFixed(3) + '%';
-  document.getElementById('net-return-pct').style.color = color;
+ document.getElementById('raw-spread').textContent = '$' + rawSpread.toFixed(4);
+ document.getElementById('raw-spread-pct').textContent = rawSpreadPct.toFixed(3) + '%';
+ document.getElementById('coins-bought').textContent = coins.toFixed(6) + ' coins';
+ document.getElementById('gross-revenue').textContent = '$' + grossRevenue.toFixed(2);
+ document.getElementById('buy-fee-cost').textContent = '-$' + buyFeeCost.toFixed(2);
+ document.getElementById('sell-fee-cost').textContent = '-$' + sellFeeCost.toFixed(2);
+ document.getElementById('withdraw-cost').textContent = '-$' + withdrawFee.toFixed(2);
+ document.getElementById('slippage-cost').textContent = '-$' + slippageCost.toFixed(2);
+ document.getElementById('total-fees').textContent = '-$' + totalFees.toFixed(2);
+ document.getElementById('net-profit-bottom').textContent = (netProfit >= 0 ? '+' : '') + '$' + netProfit.toFixed(2);
+ document.getElementById('net-profit-bottom').style.color = color;
+ document.getElementById('net-return-pct').textContent = (netReturnPct >= 0 ? '+' : '') + netReturnPct.toFixed(3) + '%';
+ document.getElementById('net-return-pct').style.color = color;
 
-  // Verdict
-  const v = document.getElementById('verdict');
-  v.style.display = 'block';
-  if (netProfit <= 0) {
-    v.className = 'verdict nogo';
-    v.textContent = '❌ NOT PROFITABLE — Fees exceed the spread. Do not trade this opportunity.';
-  } else if (netReturnPct < 1) {
-    v.className = 'verdict caution';
-    v.textContent = '⚠️ MARGINAL — Profit is low. Execution risk may wipe gains. Wait for better spread.';
-  } else if (netReturnPct >= 2) {
-    v.className = 'verdict go';
-    v.textContent = '✅ STRONG SIGNAL — 2%+ net return. Good arbitrage opportunity. Execute quickly.';
-  } else {
-    v.className = 'verdict go';
-    v.textContent = '✅ PROFITABLE — Decent spread. Execute if you can move quickly.';
-  }
+ // Verdict
+ const v = document.getElementById('verdict');
+ v.style.display = 'block';
+ if (netProfit <= 0) {
+ v.className = 'verdict nogo';
+ v.textContent = '❌ NOT PROFITABLE — Fees exceed the spread. Do not trade this opportunity.';
+ } else if (netReturnPct < 1) {
+ v.className = 'verdict caution';
+ v.textContent = '⚠️ MARGINAL — Profit is low. Execution risk may wipe gains. Wait for better spread.';
+ } else if (netReturnPct >= 2) {
+ v.className = 'verdict go';
+ v.textContent = '✅ STRONG SIGNAL — 2%+ net return. Good arbitrage opportunity. Execute quickly.';
+ } else {
+ v.className = 'verdict go';
+ v.textContent = '✅ PROFITABLE — Decent spread. Execute if you can move quickly.';
+ }
 }
 
 // Calculate on load
@@ -459,27 +459,27 @@ calculate();
 </script>
 <script>
 (function(){
-  var hamburger = document.getElementById('avHamburger');
-  var navLinks  = document.getElementById('avNavLinks');
-  if(hamburger && navLinks){
-    hamburger.addEventListener('click', function(){
-      navLinks.classList.toggle('av-mobile-open');
-    });
-  }
-  document.querySelectorAll('.av-drop-trigger').forEach(function(btn){
-    btn.addEventListener('click', function(e){
-      e.preventDefault();
-      var parent  = btn.closest('.av-dropdown');
-      var wasOpen = parent.classList.contains('av-open');
-      document.querySelectorAll('.av-dropdown.av-open').forEach(function(d){ d.classList.remove('av-open'); });
-      if(!wasOpen){ parent.classList.add('av-open'); }
-    });
-  });
-  document.addEventListener('click', function(e){
-    if(!e.target.closest('.av-nav-wrap')){
-      document.querySelectorAll('.av-dropdown.av-open').forEach(function(d){ d.classList.remove('av-open'); });
-    }
-  });
+ var hamburger = document.getElementById('avHamburger');
+ var navLinks = document.getElementById('avNavLinks');
+ if(hamburger && navLinks){
+ hamburger.addEventListener('click', function(){
+ navLinks.classList.toggle('av-mobile-open');
+ });
+ }
+ document.querySelectorAll('.av-drop-trigger').forEach(function(btn){
+ btn.addEventListener('click', function(e){
+ e.preventDefault();
+ var parent = btn.closest('.av-dropdown');
+ var wasOpen = parent.classList.contains('av-open');
+ document.querySelectorAll('.av-dropdown.av-open').forEach(function(d){ d.classList.remove('av-open'); });
+ if(!wasOpen){ parent.classList.add('av-open'); }
+ });
+ });
+ document.addEventListener('click', function(e){
+ if(!e.target.closest('.av-nav-wrap')){
+ document.querySelectorAll('.av-dropdown.av-open').forEach(function(d){ d.classList.remove('av-open'); });
+ }
+ });
 })();
 </script>
 

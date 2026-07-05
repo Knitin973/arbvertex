@@ -18,77 +18,77 @@
 <meta name="twitter:description" content="Human-verified signals, manual filtering, and profitability-focused analysis — what sets ArbVertex apart.">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#0b0f14;
-    --card:#121821;
-    --text:#e8edf2;
-    --muted:#9aa7b4;
-    --accent:#ffa040;
-    --accent2:#00ff88;
-    --border:#1f2937;
-  }
-  *{box-sizing:border-box;}
-  body{margin:0;font-family:'Space Grotesk',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
-  header{padding:60px 20px 40px;text-align:center;background:linear-gradient(180deg,#0e1420 0%,var(--bg) 100%);border-bottom:1px solid var(--border);}
-  header .tag{display:inline-block;color:var(--accent);font-size:13px;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;font-family:'JetBrains Mono',monospace;}
-  header h1{font-size:2.1rem;max-width:760px;margin:0 auto;color:#fff;}
-  header p.lead{color:var(--muted);max-width:620px;margin:18px auto 0;font-size:1.05rem;}
-  main{max-width:760px;margin:0 auto;padding:40px 20px 80px;}
-  h2{color:var(--accent);font-size:1.4rem;margin-top:48px;border-left:4px solid var(--accent);padding-left:14px;font-family:'Space Grotesk',sans-serif;}
-  p{color:#c9d3dc;margin-bottom:1rem;}
-  .quote{font-style:italic;color:#fff;background:var(--card);border-left:4px solid var(--accent);padding:16px 22px;border-radius:8px;margin:24px 0;}
-  .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0;}
-  .compare-col{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px;}
-  .compare-col.good{border-top:3px solid var(--accent2);}
-  .compare-col.bad{border-top:3px solid #ff5555;}
-  .compare-col h3{font-size:0.85rem;text-transform:uppercase;letter-spacing:0.1em;font-family:'JetBrains Mono',monospace;margin-bottom:12px;}
-  .compare-col.good h3{color:var(--accent2);}
-  .compare-col.bad h3{color:#ff5555;}
-  .compare-col li{font-size:0.88rem;margin-bottom:7px;color:#c9d3dc;}
-  .feature-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px 22px;margin-bottom:14px;display:flex;gap:16px;align-items:flex-start;}
-  .feature-icon{font-size:1.5rem;flex-shrink:0;margin-top:2px;}
-  .feature-card h3{font-size:0.97rem;font-weight:700;margin-bottom:5px;}
-  .feature-card p{color:var(--muted);font-size:0.87rem;margin:0;line-height:1.6;}
-  .pricing-highlight{background:linear-gradient(135deg,#1a1200,#121821);border:1px solid var(--accent);border-radius:12px;padding:24px 28px;margin:28px 0;text-align:center;}
-  .pricing-highlight .price{font-family:'JetBrains Mono',monospace;font-size:2.5rem;font-weight:700;color:var(--accent);}
-  .pricing-highlight .price span{font-size:1rem;font-weight:400;color:var(--muted);}
-  .pricing-highlight p{color:#f0ddb0;margin:8px 0 0;font-size:0.95rem;}
-  .cta-box{margin-top:50px;padding:28px;background:linear-gradient(135deg,#1a1000,#121821);border:1px solid var(--accent);border-radius:12px;text-align:center;}
-  .cta-box p{color:#f0ddb0;font-size:1.05rem;margin:0 0 16px;}
-  .cta-btn{display:inline-block;background:var(--accent);color:#0b0f14;padding:12px 28px;border-radius:6px;font-weight:700;text-decoration:none;font-size:0.97rem;transition:opacity 0.2s;}
-  .cta-btn:hover{opacity:0.85;}
-  .back-link{display:inline-flex;align-items:center;gap:6px;color:var(--muted);font-size:0.85rem;text-decoration:none;margin-bottom:2rem;transition:color 0.2s;}
-  .back-link:hover{color:var(--accent);}
-  footer{text-align:center;padding:30px 20px;color:var(--muted);font-size:0.85rem;border-top:1px solid var(--border);}
-  @media(max-width:600px){header h1{font-size:1.5rem;}.compare-grid{grid-template-columns:1fr;}}
+ :root{
+ --bg:#0b0f14;
+ --card:#121821;
+ --text:#e8edf2;
+ --muted:#9aa7b4;
+ --accent:#ffa040;
+ --accent2:#00ff88;
+ --border:#1f2937;
+ }
+ *{box-sizing:border-box;}
+ body{margin:0;font-family:'Space Grotesk',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+ header{padding:60px 20px 40px;text-align:center;background:linear-gradient(180deg,#0e1420 0%,var(--bg) 100%);border-bottom:1px solid var(--border);}
+ header .tag{display:inline-block;color:var(--accent);font-size:13px;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;font-family:'JetBrains Mono',monospace;}
+ header h1{font-size:2.1rem;max-width:760px;margin:0 auto;color:#fff;}
+ header p.lead{color:var(--muted);max-width:620px;margin:18px auto 0;font-size:1.05rem;}
+ main{max-width:760px;margin:0 auto;padding:40px 20px 80px;}
+ h2{color:var(--accent);font-size:1.4rem;margin-top:48px;border-left:4px solid var(--accent);padding-left:14px;font-family:'Space Grotesk',sans-serif;}
+ p{color:#c9d3dc;margin-bottom:1rem;}
+ .quote{font-style:italic;color:#fff;background:var(--card);border-left:4px solid var(--accent);padding:16px 22px;border-radius:8px;margin:24px 0;}
+ .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0;}
+ .compare-col{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px;}
+ .compare-col.good{border-top:3px solid var(--accent2);}
+ .compare-col.bad{border-top:3px solid #ff5555;}
+ .compare-col h3{font-size:0.85rem;text-transform:uppercase;letter-spacing:0.1em;font-family:'JetBrains Mono',monospace;margin-bottom:12px;}
+ .compare-col.good h3{color:var(--accent2);}
+ .compare-col.bad h3{color:#ff5555;}
+ .compare-col li{font-size:0.88rem;margin-bottom:7px;color:#c9d3dc;}
+ .feature-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px 22px;margin-bottom:14px;display:flex;gap:16px;align-items:flex-start;}
+ .feature-icon{font-size:1.5rem;flex-shrink:0;margin-top:2px;}
+ .feature-card h3{font-size:0.97rem;font-weight:700;margin-bottom:5px;}
+ .feature-card p{color:var(--muted);font-size:0.87rem;margin:0;line-height:1.6;}
+ .pricing-highlight{background:linear-gradient(135deg,#1a1200,#121821);border:1px solid var(--accent);border-radius:12px;padding:24px 28px;margin:28px 0;text-align:center;}
+ .pricing-highlight .price{font-family:'JetBrains Mono',monospace;font-size:2.5rem;font-weight:700;color:var(--accent);}
+ .pricing-highlight .price span{font-size:1rem;font-weight:400;color:var(--muted);}
+ .pricing-highlight p{color:#f0ddb0;margin:8px 0 0;font-size:0.95rem;}
+ .cta-box{margin-top:50px;padding:28px;background:linear-gradient(135deg,#1a1000,#121821);border:1px solid var(--accent);border-radius:12px;text-align:center;}
+ .cta-box p{color:#f0ddb0;font-size:1.05rem;margin:0 0 16px;}
+ .cta-btn{display:inline-block;background:var(--accent);color:#0b0f14;padding:12px 28px;border-radius:6px;font-weight:700;text-decoration:none;font-size:0.97rem;transition:opacity 0.2s;}
+ .cta-btn:hover{opacity:0.85;}
+ .back-link{display:inline-flex;align-items:center;gap:6px;color:var(--muted);font-size:0.85rem;text-decoration:none;margin-bottom:2rem;transition:color 0.2s;}
+ .back-link:hover{color:var(--accent);}
+ footer{text-align:center;padding:30px 20px;color:var(--muted);font-size:0.85rem;border-top:1px solid var(--border);}
+ @media(max-width:600px){header h1{font-size:1.5rem;}.compare-grid{grid-template-columns:1fr;}}
 .av-nav-wrap{
-  --av-bg:#050a0f; --av-surface:#0d1a24; --av-accent:#00e5ff; --av-accent2:#00ff88;
-  --av-text:#e8f4f8; --av-muted:#8fb0c4; --av-border:#1a3a52;
-  position:fixed; top:0; left:0; right:0; z-index:999;
-  background:rgba(5,10,15,0.95); backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--av-border);
-  font-family:'Space Grotesk',sans-serif;
+ --av-bg:#050a0f; --av-surface:#0d1a24; --av-accent:#00e5ff; --av-accent2:#00ff88;
+ --av-text:#e8f4f8; --av-muted:#8fb0c4; --av-border:#1a3a52;
+ position:fixed; top:0; left:0; right:0; z-index:999;
+ background:rgba(5,10,15,0.95); backdrop-filter:blur(14px);
+ border-bottom:1px solid var(--av-border);
+ font-family:'Space Grotesk',sans-serif;
 }
 .av-nav-inner{
-  max-width:1400px; margin:0 auto; height:64px;
-  display:flex; align-items:center; justify-content:space-between;
-  padding:0 5%; gap:1rem;
+ max-width:1400px; margin:0 auto; height:64px;
+ display:flex; align-items:center; justify-content:space-between;
+ padding:0 5%; gap:1rem;
 }
 .av-logo{
-  font-family:'JetBrains Mono',monospace; font-size:1.05rem; font-weight:700;
-  color:var(--av-accent); text-decoration:none; letter-spacing:-0.02em; flex-shrink:0;
+ font-family:'JetBrains Mono',monospace; font-size:1.05rem; font-weight:700;
+ color:var(--av-accent); text-decoration:none; letter-spacing:-0.02em; flex-shrink:0;
 }
 .av-logo span{ color:var(--av-accent2); }
 .av-nav-links{
-  display:flex; align-items:center; gap:0.15rem; list-style:none; margin:0; padding:0;
+ display:flex; align-items:center; gap:0.15rem; list-style:none; margin:0; padding:0;
 }
 .av-nav-links > li{ position:relative; }
 .av-top-link{
-  display:inline-flex; align-items:center; gap:0.3rem;
-  color:var(--av-muted); text-decoration:none; font-size:0.85rem; font-weight:500;
-  background:none; border:none; cursor:pointer; font-family:inherit;
-  padding:0.55rem 0.65rem; border-radius:6px; transition:color .2s, background .2s;
-  white-space:nowrap;
+ display:inline-flex; align-items:center; gap:0.3rem;
+ color:var(--av-muted); text-decoration:none; font-size:0.85rem; font-weight:500;
+ background:none; border:none; cursor:pointer; font-family:inherit;
+ padding:0.55rem 0.65rem; border-radius:6px; transition:color .2s, background .2s;
+ white-space:nowrap;
 }
 .av-top-link:hover{ color:var(--av-text); background:rgba(255,255,255,0.05); }
 .av-caret{ font-size:0.6rem; opacity:0.65; transition:transform .2s; margin-left:1px; }
@@ -97,236 +97,236 @@
 
 /* Mega dropdown panel */
 .av-mega-panel{
-  position:absolute; top:calc(100% + 10px); left:50%;
-  transform:translateX(-50%) translateY(6px);
-  background:var(--av-surface); border:1px solid var(--av-border); border-radius:10px;
-  padding:0.55rem; min-width:290px;
-  display:grid; gap:0.1rem;
-  opacity:0; visibility:hidden; pointer-events:none;
-  transition:opacity .16s ease, transform .16s ease;
-  box-shadow:0 24px 48px rgba(0,0,0,0.45);
+ position:absolute; top:calc(100% + 10px); left:50%;
+ transform:translateX(-50%) translateY(6px);
+ background:var(--av-surface); border:1px solid var(--av-border); border-radius:10px;
+ padding:0.55rem; min-width:290px;
+ display:grid; gap:0.1rem;
+ opacity:0; visibility:hidden; pointer-events:none;
+ transition:opacity .16s ease, transform .16s ease;
+ box-shadow:0 24px 48px rgba(0,0,0,0.45);
 }
 .av-dropdown:hover .av-mega-panel,
 .av-dropdown.av-open .av-mega-panel{
-  opacity:1; visibility:visible; pointer-events:auto; transform:translateX(-50%) translateY(0);
+ opacity:1; visibility:visible; pointer-events:auto; transform:translateX(-50%) translateY(0);
 }
 .av-mega-link{
-  display:flex; align-items:flex-start; gap:0.65rem;
-  padding:0.55rem 0.65rem; border-radius:7px;
-  color:var(--av-text); text-decoration:none; font-size:0.84rem; font-weight:600;
-  transition:background .15s;
+ display:flex; align-items:flex-start; gap:0.65rem;
+ padding:0.55rem 0.65rem; border-radius:7px;
+ color:var(--av-text); text-decoration:none; font-size:0.84rem; font-weight:600;
+ transition:background .15s;
 }
 .av-mega-link:hover{ background:rgba(0,229,255,0.08); }
 .av-icon{ font-size:1rem; line-height:1.35; flex-shrink:0; }
 .av-desc{
-  display:block; color:var(--av-muted); font-size:0.72rem; font-weight:400;
-  margin-top:0.15rem; line-height:1.4;
+ display:block; color:var(--av-muted); font-size:0.72rem; font-weight:400;
+ margin-top:0.15rem; line-height:1.4;
 }
 
 .av-scanner-link{ color:var(--av-accent2)!important; font-weight:600!important; }
 .av-cta{
-  background:var(--av-accent)!important; color:var(--av-bg)!important; text-decoration:none;
-  padding:0.5rem 1.1rem!important; border-radius:6px; font-weight:700!important;
-  font-size:0.85rem!important; white-space:nowrap;
+ background:var(--av-accent)!important; color:var(--av-bg)!important; text-decoration:none;
+ padding:0.5rem 1.1rem!important; border-radius:6px; font-weight:700!important;
+ font-size:0.85rem!important; white-space:nowrap;
 }
 
 .av-hamburger{
-  display:none; flex-direction:column; gap:5px; background:none; border:none;
-  cursor:pointer; padding:4px; flex-shrink:0;
+ display:none; flex-direction:column; gap:5px; background:none; border:none;
+ cursor:pointer; padding:4px; flex-shrink:0;
 }
 .av-hamburger span{ display:block; width:22px; height:2px; background:var(--av-accent); border-radius:2px; }
 
 @media(max-width:980px){
-  .av-nav-links{display:none!important;position:fixed;top:64px;left:0;right:0;height:calc(100vh - 64px);background:var(--bg);flex-direction:column;align-items:stretch;padding:1.2rem 5% 2rem;overflow-y:auto;overflow-x:hidden;gap:0.2rem;z-index:9999;border-top:1px solid var(--border);}
-  .av-nav-links.av-mobile-open{display:flex!important;}
-  .av-top-link{width:100%;justify-content:space-between;padding:0.9rem 0.6rem;font-size:0.95rem;}
-  .av-mega-panel{position:static!important;left:auto!important;transform:none!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important;display:none;box-shadow:none;border:none;border-left:2px solid var(--border);background:rgba(255,255,255,0.02);margin:0 0 0.4rem 0.8rem;padding:0.3rem 0;min-width:0;width:auto;}
-  .av-dropdown.av-open .av-mega-panel{display:grid;}
-  .av-mega-link{padding:0.6rem 0.8rem;font-size:0.88rem;}
-  .av-cta{display:block;text-align:center;margin-top:0.6rem;}
-  .av-hamburger{display:flex;}
+ .av-nav-links{display:none!important;position:fixed;top:64px;left:0;right:0;height:calc(100vh - 64px);background:var(--bg);flex-direction:column;align-items:stretch;padding:1.2rem 5% 2rem;overflow-y:auto;overflow-x:hidden;gap:0.2rem;z-index:9999;border-top:1px solid var(--border);}
+ .av-nav-links.av-mobile-open{display:flex!important;}
+ .av-top-link{width:100%;justify-content:space-between;padding:0.9rem 0.6rem;font-size:0.95rem;}
+ .av-mega-panel{position:static!important;left:auto!important;transform:none!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important;display:none;box-shadow:none;border:none;border-left:2px solid var(--border);background:rgba(255,255,255,0.02);margin:0 0 0.4rem 0.8rem;padding:0.3rem 0;min-width:0;width:auto;}
+ .av-dropdown.av-open .av-mega-panel{display:grid;}
+ .av-mega-link{padding:0.6rem 0.8rem;font-size:0.88rem;}
+ .av-cta{display:block;text-align:center;margin-top:0.6rem;}
+ .av-hamburger{display:flex;}
 }
-  .av-cta{ display:block; text-align:center; margin-top:0.6rem; }
-  .av-hamburger{ display:flex; }
+ .av-cta{ display:block; text-align:center; margin-top:0.6rem; }
+ .av-hamburger{ display:flex; }
 }
 </style>
 </head>
 <body>
 
 <div class="av-nav-wrap">
-  <div class="av-nav-inner">
-    <a href="index.html" class="av-logo">Arb<span>Vertex</span></a>
-    <ul class="av-nav-links" id="avNavLinks">
-      <li><a href="index.html" class="av-top-link">Home</a></li>
+ <div class="av-nav-inner">
+ <a href="index.html" class="av-logo">Arb<span>Vertex</span></a>
+ <ul class="av-nav-links" id="avNavLinks">
+ <li><a href="index.html" class="av-top-link">Home</a></li>
 
-      <li class="av-dropdown">
-        <button type="button" class="av-top-link av-drop-trigger">Learn <span class="av-caret">▾</span></button>
-        <div class="av-mega-panel">
-          <a class="av-mega-link" href="what-is-arbitrage.html"><span class="av-icon">📘</span><span>What is Arbitrage<span class="av-desc">Core concept explained</span></span></a>
-          <a class="av-mega-link" href="how-it-works.html"><span class="av-icon">⚙️</span><span>How It Works<span class="av-desc">Step-by-step process</span></span></a>
-          <a class="av-mega-link" href="generate-profit.html"><span class="av-icon">💰</span><span>Generate Profit<span class="av-desc">Ways arbitrage earns</span></span></a>
-          <a class="av-mega-link" href="risks.html"><span class="av-icon">⚠️</span><span>Risks &amp; Safety<span class="av-desc">What to watch for</span></span></a>
-          <a class="av-mega-link" href="delisting-arbitrage-risks.html"><span class="av-icon">🚨</span><span>Delisting Risks<span class="av-desc">Avoid this trap</span></span></a>
-          <a class="av-mega-link" href="rethink-traditional-trading.html"><span class="av-icon">🔄</span><span>Rethink Trading<span class="av-desc">Why arbitrage wins</span></span></a>
-          <a class="av-mega-link" href="arbitrage-portfolio-growth.html"><span class="av-icon">📈</span><span>Portfolio Growth<span class="av-desc">Long-term strategy</span></span></a>
-        </div>
-      </li>
+ <li class="av-dropdown">
+ <button type="button" class="av-top-link av-drop-trigger">Learn <span class="av-caret">▾</span></button>
+ <div class="av-mega-panel">
+ <a class="av-mega-link" href="what-is-arbitrage.html"><span class="av-icon">📘</span><span>What is Arbitrage<span class="av-desc">Core concept explained</span></span></a>
+ <a class="av-mega-link" href="how-it-works.html"><span class="av-icon">⚙️</span><span>How It Works<span class="av-desc">Step-by-step process</span></span></a>
+ <a class="av-mega-link" href="generate-profit.html"><span class="av-icon">💰</span><span>Generate Profit<span class="av-desc">Ways arbitrage earns</span></span></a>
+ <a class="av-mega-link" href="risks.html"><span class="av-icon">⚠️</span><span>Risks &amp; Safety<span class="av-desc">What to watch for</span></span></a>
+ <a class="av-mega-link" href="delisting-arbitrage-risks.html"><span class="av-icon">🚨</span><span>Delisting Risks<span class="av-desc">Avoid this trap</span></span></a>
+ <a class="av-mega-link" href="rethink-traditional-trading.html"><span class="av-icon">🔄</span><span>Rethink Trading<span class="av-desc">Why arbitrage wins</span></span></a>
+ <a class="av-mega-link" href="arbitrage-portfolio-growth.html"><span class="av-icon">📈</span><span>Portfolio Growth<span class="av-desc">Long-term strategy</span></span></a>
+ </div>
+ </li>
 
-      <li class="av-dropdown">
-        <button type="button" class="av-top-link av-drop-trigger">Tools <span class="av-caret">▾</span></button>
-        <div class="av-mega-panel">
-          <a class="av-mega-link" href="live-scanner.html"><span class="av-icon">🔍</span><span>Live Scanner<span class="av-desc">Real-time price gaps</span></span></a>
-          <a class="av-mega-link" href="arbitrage-calculator.html"><span class="av-icon">🧮</span><span>Profit Calculator<span class="av-desc">Calculate net gains</span></span></a>
-        </div>
-      </li>
+ <li class="av-dropdown">
+ <button type="button" class="av-top-link av-drop-trigger">Tools <span class="av-caret">▾</span></button>
+ <div class="av-mega-panel">
+ <a class="av-mega-link" href="live-scanner.html"><span class="av-icon">🔍</span><span>Live Scanner<span class="av-desc">Real-time price gaps</span></span></a>
+ <a class="av-mega-link" href="arbitrage-calculator.html"><span class="av-icon">🧮</span><span>Profit Calculator<span class="av-desc">Calculate net gains</span></span></a>
+ </div>
+ </li>
 
-      <li><a href="blog.html" class="av-top-link">Blog</a></li>
+ <li><a href="blog.html" class="av-top-link">Blog</a></li>
 
-      <li class="av-dropdown">
-        <button type="button" class="av-top-link av-drop-trigger">Signals <span class="av-caret">▾</span></button>
-        <div class="av-mega-panel">
-          <a class="av-mega-link" href="telegram-bot.html"><span class="av-icon">✈️</span><span>Telegram Bot<span class="av-desc">Get instant signals</span></span></a>
-          <a class="av-mega-link" href="pricing.html"><span class="av-icon">💳</span><span>Pricing<span class="av-desc">$5/month plans</span></span></a>
-        </div>
-      </li>
+ <li class="av-dropdown">
+ <button type="button" class="av-top-link av-drop-trigger">Signals <span class="av-caret">▾</span></button>
+ <div class="av-mega-panel">
+ <a class="av-mega-link" href="telegram-bot.html"><span class="av-icon">✈️</span><span>Telegram Bot<span class="av-desc">Get instant signals</span></span></a>
+ <a class="av-mega-link" href="pricing.html"><span class="av-icon">💳</span><span>Pricing<span class="av-desc">$5/month plans</span></span></a>
+ </div>
+ </li>
 
-      <li class="av-dropdown">
-        <button type="button" class="av-top-link av-drop-trigger">Company <span class="av-caret">▾</span></button>
-        <div class="av-mega-panel">
-          <a class="av-mega-link" href="about.html"><span class="av-icon">🏢</span><span>About Us<span class="av-desc">Our story</span></span></a>
-          <a class="av-mega-link" href="contact.html"><span class="av-icon">✉️</span><span>Contact<span class="av-desc">Get in touch</span></span></a>
-        </div>
-      </li>
+ <li class="av-dropdown">
+ <button type="button" class="av-top-link av-drop-trigger">Company <span class="av-caret">▾</span></button>
+ <div class="av-mega-panel">
+ <a class="av-mega-link" href="about.html"><span class="av-icon">🏢</span><span>About Us<span class="av-desc">Our story</span></span></a>
+ <a class="av-mega-link" href="contact.html"><span class="av-icon">✉️</span><span>Contact<span class="av-desc">Get in touch</span></span></a>
+ </div>
+ </li>
 
-      <li><a href="live-scanner.html" class="av-top-link av-scanner-link">🔍 Live Scanner</a></li>
-      <li><a href="pricing.html" class="av-top-link av-cta">Join Now</a></li>
-    </ul>
-    <button class="av-hamburger" id="avHamburger" type="button" aria-label="Toggle menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
+ <li><a href="live-scanner.html" class="av-top-link av-scanner-link">🔍 Live Scanner</a></li>
+ <li><a href="pricing.html" class="av-top-link av-cta">Join Now</a></li>
+ </ul>
+ <button class="av-hamburger" id="avHamburger" type="button" aria-label="Toggle menu">
+ <span></span><span></span><span></span>
+ </button>
+ </div>
 </div>
 
 <main>
-  <a href="blog.html" class="back-link">← Back to Blog</a>
+ <a href="blog.html" class="back-link">← Back to Blog</a>
 
-  <p>There are many ways to access crypto arbitrage signals — automated bots, raw scanner dashboards, Telegram groups, and paid signal services. Not all of them are equally useful, and many lose traders money by sending signals that look profitable but are not after fees and slippage.</p>
+ <p>There are many ways to access crypto arbitrage signals — automated bots, raw scanner dashboards, Telegram groups, and paid signal services. Not all of them are equally useful, and many lose traders money by sending signals that look profitable but are not after fees and slippage.</p>
 
-  <p>This article explains the specific design decisions behind ArbVertex signals and why they matter for consistent profitability.</p>
+ <p>This article explains the specific design decisions behind ArbVertex signals and why they matter for consistent profitability.</p>
 
-  <h2>The Problem with Most Arbitrage Signal Services</h2>
+ <h2>The Problem with Most Arbitrage Signal Services</h2>
 
-  <div class="compare-grid">
-    <div class="compare-col bad">
-      <h3>❌ Common Problems</h3>
-      <ul>
-        <li>Signals sent before fee calculation</li>
-        <li>Include delistings & pump traps</li>
-        <li>Too many signals (impossible to execute)</li>
-        <li>No context on why a gap exists</li>
-        <li>Automated — no human review</li>
-        <li>Stale by the time you see them</li>
-      </ul>
-    </div>
-    <div class="compare-col good">
-      <h3>✅ ArbVertex Approach</h3>
-      <ul>
-        <li>Only signals with 2%+ net after fees</li>
-        <li>Delistings manually filtered out</li>
-        <li>2–3 high-quality signals per day</li>
-        <li>Context included with every signal</li>
-        <li>Human review before every alert</li>
-        <li>Delivered via Telegram instantly</li>
-      </ul>
-    </div>
-  </div>
+ <div class="compare-grid">
+ <div class="compare-col bad">
+ <h3>❌ Common Problems</h3>
+ <ul>
+ <li>Signals sent before fee calculation</li>
+ <li>Include delistings & pump traps</li>
+ <li>Too many signals (impossible to execute)</li>
+ <li>No context on why a gap exists</li>
+ <li>Automated — no human review</li>
+ <li>Stale by the time you see them</li>
+ </ul>
+ </div>
+ <div class="compare-col good">
+ <h3>✅ ArbVertex Approach</h3>
+ <ul>
+ <li>Only signals with 2%+ net after fees</li>
+ <li>Delistings manually filtered out</li>
+ <li>2–3 high-quality signals per day</li>
+ <li>Context included with every signal</li>
+ <li>Human review before every alert</li>
+ <li>Delivered via Telegram instantly</li>
+ </ul>
+ </div>
+ </div>
 
-  <h2>What "Human-Verified" Actually Means</h2>
-  <p>Automated scanners detect price gaps across exchanges — but they have no judgment. They will alert you to a 5% spread on a coin being delisted in 6 hours (where withdrawal is blocked), or a gap caused by a single illiquid order that will close the moment you try to fill it.</p>
+ <h2>What "Human-Verified" Actually Means</h2>
+ <p>Automated scanners detect price gaps across exchanges — but they have no judgment. They will alert you to a 5% spread on a coin being delisted in 6 hours (where withdrawal is blocked), or a gap caused by a single illiquid order that will close the moment you try to fill it.</p>
 
-  <p>Every ArbVertex signal goes through a manual check before it is sent:</p>
+ <p>Every ArbVertex signal goes through a manual check before it is sent:</p>
 
-  <div class="feature-card">
-    <span class="feature-icon">🔍</span>
-    <div>
-      <h3>Delisting check</h3>
-      <p>Coins flagged for delisting on either exchange are immediately excluded — these look like arbitrage but the spread often cannot be safely closed.</p>
-    </div>
-  </div>
+ <div class="feature-card">
+ <span class="feature-icon">🔍</span>
+ <div>
+ <h3>Delisting check</h3>
+ <p>Coins flagged for delisting on either exchange are immediately excluded — these look like arbitrage but the spread often cannot be safely closed.</p>
+ </div>
+ </div>
 
-  <div class="feature-card">
-    <span class="feature-icon">💧</span>
-    <div>
-      <h3>Liquidity validation</h3>
-      <p>Thin order books create gaps that vanish on execution. Signals are only sent when enough liquidity exists to fill a real position at the quoted spread.</p>
-    </div>
-  </div>
+ <div class="feature-card">
+ <span class="feature-icon">💧</span>
+ <div>
+ <h3>Liquidity validation</h3>
+ <p>Thin order books create gaps that vanish on execution. Signals are only sent when enough liquidity exists to fill a real position at the quoted spread.</p>
+ </div>
+ </div>
 
-  <div class="feature-card">
-    <span class="feature-icon">🧮</span>
-    <div>
-      <h3>Net fee calculation</h3>
-      <p>Taker fees, withdrawal fees, and typical slippage are subtracted before a signal is sent. The 2%+ figure shown is what you can realistically capture — not the raw spread.</p>
-    </div>
-  </div>
+ <div class="feature-card">
+ <span class="feature-icon">🧮</span>
+ <div>
+ <h3>Net fee calculation</h3>
+ <p>Taker fees, withdrawal fees, and typical slippage are subtracted before a signal is sent. The 2%+ figure shown is what you can realistically capture — not the raw spread.</p>
+ </div>
+ </div>
 
-  <div class="feature-card">
-    <span class="feature-icon">⚡</span>
-    <div>
-      <h3>Speed filtering</h3>
-      <p>Gaps that close in under 30 seconds are excluded. Signals are only sent when execution windows are wide enough for manual traders — not just bots.</p>
-    </div>
-  </div>
+ <div class="feature-card">
+ <span class="feature-icon">⚡</span>
+ <div>
+ <h3>Speed filtering</h3>
+ <p>Gaps that close in under 30 seconds are excluded. Signals are only sent when execution windows are wide enough for manual traders — not just bots.</p>
+ </div>
+ </div>
 
-  <h2>Quality Over Quantity</h2>
+ <h2>Quality Over Quantity</h2>
 
-  <div class="quote">
-    "Sending 50 signals a day that average 0.8% net is worse than sending 3 signals that average 2.5% net. Fewer, better opportunities protect your capital and your time."
-  </div>
+ <div class="quote">
+ "Sending 50 signals a day that average 0.8% net is worse than sending 3 signals that average 2.5% net. Fewer, better opportunities protect your capital and your time."
+ </div>
 
-  <p>Most subscribers report that 2–3 well-chosen signals per day is optimal for manual execution. More signals means more execution risk, more fees, and more cognitive load. ArbVertex is deliberately designed to fit around a normal schedule — not require full-time monitoring.</p>
+ <p>Most subscribers report that 2–3 well-chosen signals per day is optimal for manual execution. More signals means more execution risk, more fees, and more cognitive load. ArbVertex is deliberately designed to fit around a normal schedule — not require full-time monitoring.</p>
 
-  <h2>Transparent Pricing. No Upsells.</h2>
+ <h2>Transparent Pricing. No Upsells.</h2>
 
-  <div class="pricing-highlight">
-    <div class="price">$5 <span>/ month</span></div>
-    <p>All signals. All exchanges. Telegram access. No hidden tiers, no VIP upgrades, no bot required.</p>
-  </div>
+ <div class="pricing-highlight">
+ <div class="price">$5 <span>/ month</span></div>
+ <p>All signals. All exchanges. Telegram access. No hidden tiers, no VIP upgrades, no bot required.</p>
+ </div>
 
-  <p>Many signal services use low entry prices and then charge extra for "premium" alerts, faster delivery, or specific exchange signals. ArbVertex has one plan: everything included, one flat fee.</p>
+ <p>Many signal services use low entry prices and then charge extra for "premium" alerts, faster delivery, or specific exchange signals. ArbVertex has one plan: everything included, one flat fee.</p>
 
-  <h2>Who ArbVertex Is For</h2>
-  <div class="feature-card">
-    <span class="feature-icon">👤</span>
-    <div>
-      <h3>Manual traders with 30–60 minutes per day</h3>
-      <p>You do not need to be online 24/7. Signals come with enough context to execute quickly when you are available.</p>
-    </div>
-  </div>
-  <div class="feature-card">
-    <span class="feature-icon">📚</span>
-    <div>
-      <h3>Beginners learning arbitrage</h3>
-      <p>Every signal includes the exchange pair, entry logic, and fee breakdown — a learning opportunity, not just an alert.</p>
-    </div>
-  </div>
-  <div class="feature-card">
-    <span class="feature-icon">💼</span>
-    <div>
-      <h3>Experienced traders wanting verified deal-flow</h3>
-      <p>Skip the scanning. Focus on execution. ArbVertex filters the noise so you only see opportunities worth acting on.</p>
-    </div>
-  </div>
+ <h2>Who ArbVertex Is For</h2>
+ <div class="feature-card">
+ <span class="feature-icon">👤</span>
+ <div>
+ <h3>Manual traders with 30–60 minutes per day</h3>
+ <p>You do not need to be online 24/7. Signals come with enough context to execute quickly when you are available.</p>
+ </div>
+ </div>
+ <div class="feature-card">
+ <span class="feature-icon">📚</span>
+ <div>
+ <h3>Beginners learning arbitrage</h3>
+ <p>Every signal includes the exchange pair, entry logic, and fee breakdown — a learning opportunity, not just an alert.</p>
+ </div>
+ </div>
+ <div class="feature-card">
+ <span class="feature-icon">💼</span>
+ <div>
+ <h3>Experienced traders wanting verified deal-flow</h3>
+ <p>Skip the scanning. Focus on execution. ArbVertex filters the noise so you only see opportunities worth acting on.</p>
+ </div>
+ </div>
 
-  <div class="cta-box">
-    <p>Ready to start receiving 2%+ verified arbitrage signals on Telegram?</p>
-    <a href="pricing.html" class="cta-btn">View Plans & Subscribe →</a>
-  </div>
+ <div class="cta-box">
+ <p>Ready to start receiving 2%+ verified arbitrage signals on Telegram?</p>
+ <a href="pricing.html" class="cta-btn">View Plans & Subscribe →</a>
+ </div>
 </main>
 
 <footer>
-  <p>© 2026 ArbVertex — Educational content. Not financial advice.</p>
-  <p style="margin-top:8px;"><a href="blog.html" style="color:var(--accent);text-decoration:none;">← Back to Blog</a></p>
+ <p>© 2026 ArbVertex — Educational content. Not financial advice.</p>
+ <p style="margin-top:8px;"><a href="blog.html" style="color:var(--accent);text-decoration:none;">← Back to Blog</a></p>
 </footer>
 
 </body>
