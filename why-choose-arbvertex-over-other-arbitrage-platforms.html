@@ -149,6 +149,11 @@
  .av-cta{ display:block; text-align:center; margin-top:0.6rem; }
  .av-hamburger{ display:flex; }
 }
+.nav-btns{display:flex;gap:1rem;flex-wrap:wrap;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border);}
+.nb-primary{background:var(--accent);color:var(--bg);padding:0.65rem 1.4rem;border-radius:4px;font-weight:700;font-size:0.88rem;text-decoration:none;display:inline-block;transition:opacity .2s;}
+.nb-primary:hover{opacity:0.85;}
+.nb-outline{border:1px solid var(--border);color:var(--text);padding:0.65rem 1.4rem;border-radius:4px;font-weight:500;font-size:0.88rem;text-decoration:none;transition:border-color .2s,color .2s;display:inline-block;}
+.nb-outline:hover{border-color:var(--accent);color:var(--accent);}
 </style>
 </head>
 <body>
@@ -325,10 +330,10 @@
  <p>Ready to start receiving 2%+ verified arbitrage signals on Telegram?</p>
  <a href="pricing.html" class="cta-btn">View Plans & Subscribe →</a>
  </div>
-<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border);">
-  <a href="crypto-arbitrage-trading-consistent-income.html" class="btn-outline">← Prev: Market Inefficiencies</a>
-  <a href="blog.html" style="color:var(--muted);font-size:0.85rem;text-decoration:none;">↑ All Articles</a>
-  
+
+<div class="nav-btns">
+<a href="crypto-arbitrage-trading-consistent-income.html" class="nb-outline">← Prev: Market Inefficiencies</a>
+<a href="pricing.html" class="nb-primary">Get ArbVertex Signals</a>
 </div>
 </main>
 

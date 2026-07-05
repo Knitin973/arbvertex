@@ -121,6 +121,11 @@
  .cards{ grid-template-columns:1fr; }
  header h1{ font-size:1.6rem; }
  }
+.nav-btns{display:flex;gap:1rem;flex-wrap:wrap;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border);}
+.nb-primary{background:var(--accent);color:var(--bg);padding:0.65rem 1.4rem;border-radius:4px;font-weight:700;font-size:0.88rem;text-decoration:none;display:inline-block;transition:opacity .2s;}
+.nb-primary:hover{opacity:0.85;}
+.nb-outline{border:1px solid var(--border);color:var(--text);padding:0.65rem 1.4rem;border-radius:4px;font-weight:500;font-size:0.88rem;text-decoration:none;transition:border-color .2s,color .2s;display:inline-block;}
+.nb-outline:hover{border-color:var(--accent);color:var(--accent);}
 </style>
 <style>
 /* ══════════════════════════════════════════════════
@@ -352,10 +357,10 @@
  <div class="closing">
  <p><strong>Final Thoughts:</strong> Arbitrage trading is not a shortcut to instant wealth, but it can be a powerful tool for portfolio growth when approached with discipline, proper risk management, and realistic expectations. By taking advantage of market inefficiencies, reinvesting profits, and maintaining a long-term mindset, traders can steadily build their portfolios and move closer to their financial goals. Success in arbitrage is not about finding one life-changing trade — it's about consistently capturing opportunities and allowing those gains to compound over time. The journey toward financial freedom begins with smart decisions, disciplined execution, and a commitment to continuous improvement.</p>
  </div>
-<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border);">
-  <a href="delisting-arbitrage-risks.html" class="btn-outline">← Prev: Delisting Risks</a>
-  <a href="blog.html" style="color:var(--muted);font-size:0.85rem;text-decoration:none;">↑ All Articles</a>
-  <a href="rethink-traditional-trading.html" class="btn-primary">Next: Rethink Trading →</a>
+
+<div class="nav-btns">
+<a href="delisting-arbitrage-risks.html" class="nb-outline">← Prev: Delisting Risks</a>
+<a href="rethink-traditional-trading.html" class="nb-primary">Next: Rethink Trading →</a>
 </div>
 </main>
 

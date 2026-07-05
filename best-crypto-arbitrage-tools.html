@@ -308,6 +308,11 @@ footer p{color:var(--muted);font-size:0.82rem;}
  footer{flex-direction:column;text-align:center;}
  .single-plan{padding:2rem 1.5rem;}
 }
+.nav-btns{display:flex;gap:1rem;flex-wrap:wrap;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border);}
+.nb-primary{background:var(--accent);color:var(--bg);padding:0.65rem 1.4rem;border-radius:4px;font-weight:700;font-size:0.88rem;text-decoration:none;display:inline-block;transition:opacity .2s;}
+.nb-primary:hover{opacity:0.85;}
+.nb-outline{border:1px solid var(--border);color:var(--text);padding:0.65rem 1.4rem;border-radius:4px;font-weight:500;font-size:0.88rem;text-decoration:none;transition:border-color .2s,color .2s;display:inline-block;}
+.nb-outline:hover{border-color:var(--accent);color:var(--accent);}
 </style>
 <style>
 /* ══════════════════════════════════════════════════
@@ -494,13 +499,13 @@ footer p{color:var(--muted);font-size:0.82rem;}
  <button class="btn-primary" onclick="showPage('pricing')">View Plans &amp; Subscribe →</button>
  </div>
  <div style="margin-top:1.5rem;">
- <button class="btn-outline" onclick="showPage('article-9')">← Prev: Trading Fees</button>
+ 
  </div>
  </div>
- <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border);">
-  <a href="arbitrage-trading-fees-explained.html" class="btn-outline">← Prev: Trading Fees</a>
-  <a href="blog.html" style="color:var(--muted);font-size:0.85rem;text-decoration:none;">↑ All Articles</a>
-  <a href="delisting-arbitrage-risks.html" class="btn-primary">Next: Delisting Risks →</a>
+ 
+<div class="nav-btns">
+<a href="arbitrage-trading-fees-explained.html" class="nb-outline">← Prev: Trading Fees</a>
+<a href="delisting-arbitrage-risks.html" class="nb-primary">Next: Delisting Risks →</a>
 </div>
 <footer><p>© 2026 ArbVertex</p><div class="footer-links"><a onclick="showPage('blog')">Blog</a><a onclick="showPage('home')">Home</a><a onclick="showPage('contact')">Contact</a></div><p style="font-size:0.75rem;">Not financial advice.</p></footer>
 </div>
