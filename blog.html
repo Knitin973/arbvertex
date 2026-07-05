@@ -102,6 +102,64 @@ footer a{color:var(--accent);text-decoration:none;}
  .blog-hero h1{font-size:1.8rem;}
  footer{flex-direction:column;text-align:center;}
 }
+
+/* ── Roadmap Layout ── */
+.blog-roadmap { display:flex; flex-direction:column; gap:0; }
+.phase-label {
+  font-family:'JetBrains Mono',monospace; font-size:0.72rem; font-weight:700;
+  letter-spacing:0.1em; text-transform:uppercase; padding:0.5rem 1rem;
+  border-radius:4px; margin:2rem 0 1rem; display:inline-block; align-self:flex-start;
+}
+.phase-label.foundation { background:rgba(0,229,255,0.12); color:var(--accent); }
+.phase-label.strategy   { background:rgba(0,255,136,0.12); color:var(--accent2); }
+.phase-label.exchange   { background:rgba(249,115,22,0.12); color:var(--orange); }
+.phase-label.risk       { background:rgba(255,85,85,0.12);  color:#ff7070; }
+
+.phase-row {
+  display:flex; align-items:center; gap:0; margin-bottom:0.5rem; flex-wrap:wrap;
+}
+.phase-row-indent { padding-left:0; margin-top:0.5rem; }
+.phase-arrow {
+  font-size:1.4rem; color:var(--muted); padding:0 0.5rem; flex-shrink:0;
+  align-self:center;
+}
+.phase-row .blog-card {
+  flex:1; min-width:200px; max-width:280px;
+}
+
+/* Phase color accents on cards */
+.phase-row:nth-of-type(1) .blog-card,
+.phase-row:nth-of-type(2) .blog-card { border-top:2px solid var(--accent); }
+.phase-row:nth-of-type(3) .blog-card,
+.phase-row:nth-of-type(4) .blog-card { border-top:2px solid var(--accent2); }
+.phase-row:nth-of-type(5) .blog-card,
+.phase-row:nth-of-type(6) .blog-card { border-top:2px solid var(--orange); }
+.phase-row:nth-of-type(7) .blog-card,
+.phase-row:nth-of-type(8) .blog-card { border-top:2px solid #ff7070; }
+
+/* Legend */
+.phase-legend {
+  display:flex; gap:1.5rem; flex-wrap:wrap; margin-top:2.5rem;
+  padding-top:1.5rem; border-top:1px solid var(--border);
+}
+.legend-item {
+  display:flex; align-items:center; gap:0.5rem;
+  font-size:0.8rem; color:var(--muted);
+}
+.legend-item::before {
+  content:''; width:16px; height:16px; border-radius:4px; flex-shrink:0;
+}
+.legend-item.foundation::before { background:rgba(0,229,255,0.25); }
+.legend-item.strategy::before   { background:rgba(0,255,136,0.25); }
+.legend-item.exchange::before   { background:rgba(249,115,22,0.25); }
+.legend-item.risk::before       { background:rgba(255,85,85,0.25); }
+
+@media(max-width:768px){
+  .phase-row { flex-direction:column; align-items:stretch; }
+  .phase-arrow { transform:rotate(90deg); align-self:center; }
+  .phase-row .blog-card { max-width:100%; }
+  .phase-legend { gap:1rem; }
+}
 </style>
 </head>
 <body>
@@ -166,119 +224,145 @@ footer a{color:var(--accent);text-decoration:none;}
  <button class="filter-btn risk" onclick="filterCards('risk',this)">⚠️ Risk &amp; Tools</button>
  </div>
 
- <div class="blog-grid" id="blogGrid">
+ <div class="blog-roadmap" id="blogGrid">
 
- <a href="what-is-crypto-arbitrage.html" class="blog-card" data-cat="beginner">
- <div class="card-top"><span class="step-badge beginner">STEP 1</span><span class="cat-badge">BEGINNER</span></div>
- <h3>What is Crypto Arbitrage? Complete Beginner Guide </h3>
- <p>Learn what arbitrage is, how price gaps form, and 3 types of crypto arbitrage explained simply.</p>
- <div class="read-link">Read Article →</div>
- </a>
+  <!-- PHASE 1 -->
+  <div class="phase-label foundation">PHASE 1 — FOUNDATION</div>
+  <div class="phase-row">
+    <a href="what-is-crypto-arbitrage.html" class="blog-card" data-cat="beginner">
+      <div class="card-top"><span class="step-badge beginner">STEP 1</span><span class="cat-badge">BEGINNER</span></div>
+      <h3>What is crypto arbitrage</h3>
+      <p>Learn what arbitrage is, how price gaps form, and 3 types explained simply.</p>
+      <div class="read-link">Read Article →</div>
+    </a>
+    <div class="phase-arrow">→</div>
+    <a href="spot-vs-futures-arbitrage.html" class="blog-card" data-cat="beginner">
+      <div class="card-top"><span class="step-badge beginner">STEP 2</span><span class="cat-badge">BEGINNER</span></div>
+      <h3>Spot vs futures arbitrage</h3>
+      <p>Key differences, capital requirements, and which type ArbVertex signals focus on.</p>
+      <div class="read-link">Read Article →</div>
+    </a>
+    <div class="phase-arrow">→</div>
+    <a href="why-choose-arbvertex.html" class="blog-card" data-cat="beginner">
+      <div class="card-top"><span class="step-badge beginner">STEP 3</span><span class="cat-badge">BEGINNER</span></div>
+      <h3>How to start (accounts, capital)</h3>
+      <p>Which exchanges to open, minimum capital needed, device setup, and day-one mistakes to avoid.</p>
+      <div class="read-link">Read Article →</div>
+    </a>
+  </div>
 
- <a href="spot-vs-futures-arbitrage.html" class="blog-card" data-cat="beginner">
- <div class="card-top"><span class="step-badge beginner">STEP 2</span><span class="cat-badge">BEGINNER</span></div>
- <h3>Spot vs Futures Arbitrage: Which Is Better for Beginners?</h3>
- <p>Key differences, capital requirements, speed, and which type ArbVertex signals focus on.</p>
- <div class="read-link">Read Article →</div>
- </a>
+  <!-- PHASE 2 -->
+  <div class="phase-label strategy">PHASE 2 — STRATEGIES</div>
+  <div class="phase-row">
+    <a href="funding-rate-arbitrage.html" class="blog-card" data-cat="strategy">
+      <div class="card-top"><span class="step-badge strategy">STEP 4</span><span class="cat-badge">STRATEGY</span></div>
+      <h3>Funding rate arbitrage</h3>
+      <p>How funding rates work, entry/exit rules, and realistic APR calculations.</p>
+      <div class="read-link">Read Article →</div>
+    </a>
+    <div class="phase-arrow">→</div>
+    <a href="triangular-arbitrage-explained.html" class="blog-card" data-cat="strategy">
+      <div class="card-top"><span class="step-badge strategy">STEP 5</span><span class="cat-badge">STRATEGY</span></div>
+      <h3>Triangular arbitrage</h3>
+      <p>How triangular arb works on a single exchange with step-by-step profit calculation.</p>
+      <div class="read-link">Read Article →</div>
+    </a>
+    <div class="phase-arrow">→</div>
+    <a href="cross-exchange-arbitrage-guide.html" class="blog-card" data-cat="strategy">
+      <div class="card-top"><span class="step-badge strategy">STEP 6</span><span class="cat-badge">STRATEGY</span></div>
+      <h3>Cross-exchange arbitrage</h3>
+      <p>Step-by-step execution guide: placing both orders, timing, and managing slippage.</p>
+      <div class="read-link">Read Article →</div>
+    </a>
+  </div>
 
- <a href="funding-rate-arbitrage.html" class="blog-card" data-cat="strategy">
- <div class="card-top"><span class="step-badge strategy">STEP 3</span><span class="cat-badge">STRATEGY</span></div>
- <h3>Funding Rate Arbitrage: Earn Passive Income Without Price Risk</h3>
- <p>How funding rates work, entry/exit rules, and realistic APR calculations with real numbers.</p>
- <div class="read-link">Read Article →</div>
- </a>
+  <!-- PHASE 3 -->
+  <div class="phase-label exchange">PHASE 3 — EXCHANGES &amp; TOOLS</div>
+  <div class="phase-row">
+    <a href="best-crypto-arbitrage-exchanges.html" class="blog-card" data-cat="exchange">
+      <div class="card-top"><span class="step-badge exchange">STEP 7</span><span class="cat-badge">EXCHANGE</span></div>
+      <h3>Best exchanges 2026</h3>
+      <p>Fee comparison, liquidity, withdrawal speed — with beginner recommendation.</p>
+      <div class="read-link">Read Article →</div>
+    </a>
+    <div class="phase-arrow">→</div>
+    <a href="arbitrage-profit-calculator-guide.html" class="blog-card" data-cat="exchange">
+      <div class="card-top"><span class="step-badge exchange">STEP 8</span><span class="cat-badge">TOOLS</span></div>
+      <h3>Arbitrage calculator guide</h3>
+      <p>Walk through 3 real signal examples using the ArbVertex calculator to check net profit.</p>
+      <div class="read-link">Read Article →</div>
+    </a>
+    <div class="phase-arrow">→</div>
+    <a href="arbitrage-trading-fees-explained.html" class="blog-card" data-cat="exchange">
+      <div class="card-top"><span class="step-badge exchange">STEP 9</span><span class="cat-badge">EXCHANGE</span></div>
+      <h3>Fees explained</h3>
+      <p>Taker vs maker fees, withdrawal costs, and minimum spread needed to stay profitable.</p>
+      <div class="read-link">Read Article →</div>
+    </a>
+  </div>
+  <div class="phase-row phase-row-indent">
+    <a href="best-crypto-arbitrage-tools.html" class="blog-card" data-cat="exchange">
+      <div class="card-top"><span class="step-badge exchange">STEP 10</span><span class="cat-badge">TOOLS</span></div>
+      <h3>Best arbitrage tools</h3>
+      <p>Complete comparison of free and paid arbitrage tools — what works and what to avoid.</p>
+      <div class="read-link">Read Article →</div>
+    </a>
+    <div class="phase-arrow">→</div>
+    <a href="delisting-arbitrage-risks.html" class="blog-card" data-cat="risk">
+      <div class="card-top"><span class="step-badge risk">STEP 11</span><span class="cat-badge">RISK</span></div>
+      <h3>When to avoid arbitrage (delistings)</h3>
+      <p>Why big spreads on delisted coins are a trap and how to avoid this costly mistake.</p>
+      <div class="read-link">Read Article →</div>
+    </a>
+  </div>
 
- <a href="triangular-arbitrage-explained.html" class="blog-card" data-cat="strategy">
- <div class="card-top"><span class="step-badge strategy">STEP 4</span><span class="cat-badge">STRATEGY</span></div>
- <h3>Triangular Arbitrage Explained: Profit from 3-Pair Price Loops in Crypto</h3>
- <p>How triangular arb works on a single exchange, with a step-by-step example and profit calculation.</p>
- <div class="read-link">Read Article →</div>
- </a>
+  <!-- PHASE 4 -->
+  <div class="phase-label risk">PHASE 4 — ADVANCED &amp; MINDSET</div>
+  <div class="phase-row">
+    <a href="crypto-arbitrage-risks.html" class="blog-card" data-cat="risk">
+      <div class="card-top"><span class="step-badge risk">STEP 12</span><span class="cat-badge">RISK</span></div>
+      <h3>Arbitrage risks</h3>
+      <p>The 6 main risks in arbitrage trading and specific tactics to reduce each one.</p>
+      <div class="read-link">Read Article →</div>
+    </a>
+    <div class="phase-arrow">→</div>
+    <a href="arbitrage-trading-portfolio-growth.html" class="blog-card" data-cat="strategy">
+      <div class="card-top"><span class="step-badge strategy">STEP 13</span><span class="cat-badge">STRATEGY</span></div>
+      <h3>Portfolio growth</h3>
+      <p>How to reinvest profits, set position sizing rules, and build consistent monthly returns.</p>
+      <div class="read-link">Read Article →</div>
+    </a>
+    <div class="phase-arrow">→</div>
+    <a href="rethink-traditional-trading.html" class="blog-card" data-cat="strategy">
+      <div class="card-top"><span class="step-badge strategy">STEP 14</span><span class="cat-badge">STRATEGY</span></div>
+      <h3>Rethink traditional trading</h3>
+      <p>Direction-free profits, lower stress, and why arbitrage outperforms speculation.</p>
+      <div class="read-link">Read Article →</div>
+    </a>
+  </div>
+  <div class="phase-row phase-row-indent">
+    <a href="crypto-arbitrage-trading-consistent-income.html" class="blog-card" data-cat="strategy">
+      <div class="card-top"><span class="step-badge strategy">STEP 15</span><span class="cat-badge">STRATEGY</span></div>
+      <h3>Market inefficiencies → income</h3>
+      <p>Building a repeatable process: signal filtering, position sizing, monthly targets.</p>
+      <div class="read-link">Read Article →</div>
+    </a>
+    <div class="phase-arrow">→</div>
+    <a href="why-choose-arbvertex-over-other-arbitrage-platforms.html" class="blog-card" data-cat="exchange">
+      <div class="card-top"><span class="step-badge exchange">STEP 16</span><span class="cat-badge">EXCHANGE</span></div>
+      <h3>Why choose ArbVertex</h3>
+      <p>Human-verified signals, manual filtering, and profitability-focused analysis.</p>
+      <div class="read-link">Read Article →</div>
+    </a>
+  </div>
 
- <a href="best-crypto-arbitrage-exchanges.html" class="blog-card" data-cat="exchange">
- <div class="card-top"><span class="step-badge exchange">STEP 5</span><span class="cat-badge">EXCHANGE</span></div>
- <h3>Best Crypto Arbitrage Exchanges : Binance vs Bybit vs MEXC vs Gate.io</h3>
- <p>Fee comparison table, liquidity, withdrawal speed — with beginner recommendation.</p>
- <div class="read-link">Read Article →</div>
- </a>
-
- <a href="cross-exchange-arbitrage-guide.html" class="blog-card" data-cat="strategy">
- <div class="card-top"><span class="step-badge strategy">STEP 6</span><span class="cat-badge">STRATEGY</span></div>
- <h3>Cross-Exchange Arbitrage: Execute Both Legs on Binance &amp; Bybit ( Guide)</h3>
- <p>5-step execution guide, fee math example, and minimum viable gap rules.</p>
- <div class="read-link">Read Article →</div>
- </a>
-
- <a href="crypto-arbitrage-risks.html" class="blog-card" data-cat="risk">
- <div class="card-top"><span class="step-badge risk">STEP 7</span><span class="cat-badge">RISK</span></div>
- <h3>Crypto Arbitrage Risks You Must Know Before Starting in </h3>
- <p>Slippage, execution lag, funding reversal, exchange risk — and how to protect capital.</p>
- <div class="read-link">Read Article →</div>
- </a>
-
- <a href="arbitrage-profit-calculator-guide.html" class="blog-card" data-cat="risk">
- <div class="card-top"><span class="step-badge tools">STEP 8</span><span class="cat-badge">TOOLS</span></div>
- <h3>Arbitrage Calculator Guide: How to Calculate Net Profit After All Fees</h3>
- <p>The exact profit formula — raw gap minus taker fees, slippage, and withdrawal costs.</p>
- <div class="read-link">Read Article →</div>
- </a>
-
- <a href="arbitrage-trading-fees-explained.html" class="blog-card" data-cat="risk">
- <div class="card-top"><span class="step-badge risk">STEP 9</span><span class="cat-badge">RISK</span></div>
- <h3>Arbitrage Trading Fees Explained: Maker, Taker, Withdrawal &amp; Slippage</h3>
- <p>All 4 types of fees that eat your profits and how to minimize each one.</p>
- <div class="read-link">Read Article →</div>
- </a>
-
- <a href="best-crypto-arbitrage-tools.html" class="blog-card" data-cat="risk">
- <div class="card-top"><span class="step-badge tools">STEP 10</span><span class="cat-badge">TOOLS</span></div>
- <h3>Best Crypto Arbitrage Tools : Scanners, Signals &amp; Passive Income</h3>
- <p>Top tools ranked from free scanners to ArbVertex signals with income tables.</p>
- <div class="read-link">Read Article →</div>
- </a>
-
- <a href="delisting-arbitrage-risks.html" class="blog-card" data-cat="risk">
- <div class="card-top"><span class="step-badge risk">STEP 11</span><span class="cat-badge">RISK</span></div>
- <h3>When to Avoid Arbitrage: Risks of Delisting Events</h3>
- <p>Why large spreads during delistings are deceptive and how to spot fake opportunities.</p>
- <div class="read-link">Read Article →</div>
- </a>
-
- <a href="arbitrage-trading-portfolio-growth.html" class="blog-card" data-cat="strategy">
- <div class="card-top"><span class="step-badge strategy">STEP 12</span><span class="cat-badge">STRATEGY</span></div>
- <h3>How Arbitrage Trading Can Grow Your Portfolio</h3>
- <p>How compounding and disciplined trading support long-term financial goals.</p>
- <div class="read-link">Read Article →</div>
- </a>
-
- <a href="rethink-traditional-trading.html" class="blog-card" data-cat="beginner">
- <div class="card-top"><span class="step-badge beginner">STEP 13</span><span class="cat-badge">BEGINNER</span></div>
- <h3>Losing Money in Trading? Rethink the Traditional Approach</h3>
- <p>Why predicting markets fails and how arbitrage offers a data-driven alternative.</p>
- <div class="read-link">Read Article →</div>
- </a>
-
- <a href="crypto-arbitrage-trading-consistent-income.html" class="blog-card" data-cat="strategy">
- <div class="card-top"><span class="step-badge strategy">STEP 14</span><span class="cat-badge">STRATEGY</span></div>
- <h3>How Crypto Arbitrage Turns Market Inefficiencies into Consistent Income</h3>
- <p>Why price gaps form between exchanges and how to turn them into market-neutral income.</p>
- <div class="read-link">Read Article →</div>
- </a>
-
- <a href="why-choose-arbvertex-over-other-arbitrage-platforms.html" class="blog-card" data-cat="exchange">
- <div class="card-top"><span class="step-badge exchange">STEP 15</span><span class="cat-badge">EXCHANGE</span></div>
- <h3>Why Choose ArbVertex Over Other Arbitrage Platforms?</h3>
- <p>Human-verified signals, manual filtering, and profitability-focused analysis.</p>
- <div class="read-link">Read Article →</div>
- </a>
-
- <a href="why-choose-arbvertex.html" class="blog-card" data-cat="exchange">
- <div class="card-top"><span class="step-badge exchange">STEP 16</span><span class="cat-badge">EXCHANGE</span></div>
- <h3>What You Need to Start Crypto Futures Arbitrage: Accounts, Devices &amp; Capital</h3>
- <p>Complete beginner checklist — which exchanges to open, minimum capital needed, device setup, and mistakes to avoid on day one.</p>
- <div class="read-link">Read Article →</div>
- </a>
+  <!-- Legend -->
+  <div class="phase-legend">
+    <span class="legend-item foundation">Foundation</span>
+    <span class="legend-item strategy">Strategies</span>
+    <span class="legend-item exchange">Exchanges &amp; tools</span>
+    <span class="legend-item risk">Advanced &amp; mindset</span>
+  </div>
 
  </div>
 
