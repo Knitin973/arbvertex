@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://arbitrage.signals/sitemap.xml
+Sitemap: https://arbvertex.com/sitemap.xml
