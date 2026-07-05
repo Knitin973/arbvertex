@@ -195,21 +195,15 @@ footer p{color:var(--muted);font-size:0.82rem;}
 .av-hamburger span{ display:block; width:22px; height:2px; background:var(--av-accent); border-radius:2px; }
 
 @media(max-width:980px){
-.av-nav-links{
-    display:none !important; position:fixed; top:64px; left:0; right:0;
-    height:calc(100vh - 64px); height:calc(100dvh - 64px);
-    background:var(--av-bg); flex-direction:column; align-items:stretch;
-    padding:1.2rem 5% 2rem; overflow-y:auto; -webkit-overflow-scrolling:touch; overflow-x:hidden;
-    gap:0.2rem; z-index:9999; border-top:1px solid var(--av-border);
-  }
-  .av-nav-links.av-mobile-open{ display:flex !important; }
-  .av-top-link{ width:100%; justify-content:space-between; padding:0.9rem 0.6rem; font-size:0.95rem; }
-  .av-mega-panel{
-    position:static; transform:none; opacity:1; visibility:visible; pointer-events:auto;
-    display:none; box-shadow:none; border:none; background:rgba(255,255,255,0.02);
-    margin-bottom:0.4rem; min-width:0;
-  }
-  .av-dropdown.av-open .av-mega-panel{ display:grid; }
+  .av-nav-links{display:none!important;position:fixed;top:64px;left:0;right:0;height:calc(100vh - 64px);background:var(--bg);flex-direction:column;align-items:stretch;padding:1.2rem 5% 2rem;overflow-y:auto;overflow-x:hidden;gap:0.2rem;z-index:9999;border-top:1px solid var(--border);}
+  .av-nav-links.av-mobile-open{display:flex!important;}
+  .av-top-link{width:100%;justify-content:space-between;padding:0.9rem 0.6rem;font-size:0.95rem;}
+  .av-mega-panel{position:static!important;left:auto!important;transform:none!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important;display:none;box-shadow:none;border:none;border-left:2px solid var(--border);background:rgba(255,255,255,0.02);margin:0 0 0.4rem 0.8rem;padding:0.3rem 0;min-width:0;width:auto;}
+  .av-dropdown.av-open .av-mega-panel{display:grid;}
+  .av-mega-link{padding:0.6rem 0.8rem;font-size:0.88rem;}
+  .av-cta{display:block;text-align:center;margin-top:0.6rem;}
+  .av-hamburger{display:flex;}
+}
   .av-cta{ display:block; text-align:center; margin-top:0.6rem; }
   .av-hamburger{ display:flex; }
 }
