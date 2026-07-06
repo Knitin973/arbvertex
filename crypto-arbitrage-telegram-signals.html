@@ -333,17 +333,17 @@ function showPage(name){const url=PAGE_URL_MAP[name]||(name+'.html');if(window.l
 // old hamburger listener removed (new nav handles this)
 </script>
 <script>
-(function(2026){
+(function(){
  var hamburger = document.getElementById('avHamburger');
  var navLinks = document.getElementById('avNavLinks');
  if(hamburger && navLinks){
- hamburger.addEventListener('click', function(2026){
+ hamburger.addEventListener('click', function(){
  navLinks.classList.toggle('av-mobile-open');
  });
  }
  document.querySelectorAll('.av-drop-trigger').forEach(function(btn){
  btn.addEventListener('click', function(e){
- e.preventDefault(2026);
+ e.preventDefault();
  var parent = btn.closest('.av-dropdown');
  var wasOpen = parent.classList.contains('av-open');
  document.querySelectorAll('.av-dropdown.av-open').forEach(function(d){ d.classList.remove('av-open'); });
@@ -355,7 +355,7 @@ function showPage(name){const url=PAGE_URL_MAP[name]||(name+'.html');if(window.l
  document.querySelectorAll('.av-dropdown.av-open').forEach(function(d){ d.classList.remove('av-open'); });
  }
  });
-})(2026);
+})();
 </script>
 
 </body>

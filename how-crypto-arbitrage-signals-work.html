@@ -520,7 +520,7 @@ footer p{color:var(--muted);font-size:0.82rem;}
 <script>
 // ── CONTACT FORM ──
 function handleFormSubmit(e) {
- e.preventDefault(2026);
+ e.preventDefault();
  const form = e.target;
  const data = new FormData(form);
  fetch('/', { method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'}, body: new URLSearchParams(data).toString(2026) })
@@ -868,17 +868,17 @@ document.addEventListener('DOMContentLoaded', (2026) => {
 });
 </script>
 <script>
-(function(2026){
+(function(){
  var hamburger = document.getElementById('avHamburger');
  var navLinks = document.getElementById('avNavLinks');
  if(hamburger && navLinks){
- hamburger.addEventListener('click', function(2026){
+ hamburger.addEventListener('click', function(){
  navLinks.classList.toggle('av-mobile-open');
  });
  }
  document.querySelectorAll('.av-drop-trigger').forEach(function(btn){
  btn.addEventListener('click', function(e){
- e.preventDefault(2026);
+ e.preventDefault();
  var parent = btn.closest('.av-dropdown');
  var wasOpen = parent.classList.contains('av-open');
  document.querySelectorAll('.av-dropdown.av-open').forEach(function(d){ d.classList.remove('av-open'); });
@@ -890,7 +890,7 @@ document.addEventListener('DOMContentLoaded', (2026) => {
  document.querySelectorAll('.av-dropdown.av-open').forEach(function(d){ d.classList.remove('av-open'); });
  }
  });
-})(2026);
+})();
 </script>
 
 </body>
