@@ -469,7 +469,7 @@ footer p{color:var(--muted);font-size:0.82rem;}
  <button class="back-btn" onclick="showPage('home')">← Back to Home</button>
  <div class="section-tag">// LIVE ARBITRAGE SCANNER</div>
  <h2>Real-Time Price Scanner</h2>
- <p class="page-desc">Live price comparison across 6 exchanges — Binance, Bybit, Gate.io, Bitget, KuCoin & MEXC. Tracking 500+ coins, refreshed every 30 seconds. Opportunities with 2%+ spread highlighted.</p>
+ <p class="page-desc">Live price comparison across 6 exchanges — Binance, Bybit, Gate.io, Bitget, KuCoin & MEXC. Top 500 market cap coins (by CoinGecko), refreshed every 30 seconds. Opportunities with 2%+ spread highlighted.</p>
 
  <!-- EXCHANGE FILTER -->
  <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.2rem;">
@@ -651,22 +651,64 @@ function setFilter(f) {
  renderTable(lastResults);
 }
 
-// ── LOAD ALL USDT PAIRS (500) FROM BINANCE ──
+// ── LOAD TOP 500 MARKET CAP COINS (CoinGecko → Binance filter) ──
 async function loadAllPairs() {
- try {
- const r = await fetch('https://api.binance.com/api/v3/exchangeInfo');
- const d = await r.json();
- const usdtPairs = d.symbols
- .filter(s => s.symbol.endsWith('USDT') && s.status === 'TRADING' && s.isSpotTradingAllowed)
- .map(s => s.symbol)
- .slice(0, MAX_PAIRS);
- PAIRS.length = 0;
- PAIRS.push(...usdtPairs);
- } catch(e) {
- console.warn('Failed to load full pair list, using fallback:', e);
- PAIRS.length = 0;
- PAIRS.push('BTCUSDT','ETHUSDT','SOLUSDT','BNBUSDT','XRPUSDT','DOGEUSDT','ADAUSDT','AVAXUSDT','LINKUSDT','DOTUSDT','LTCUSDT','TRXUSDT','UNIUSDT','ATOMUSDT','NEARUSDT','APTUSDT','ARBUSDT','OPUSDT','INJUSDT','SUIUSDT');
- }
+  try {
+    // Step 1: Top 500 by market cap from CoinGecko (free, no key needed)
+    const pages = [1,2,3,4,5];
+    const cgResults = await Promise.all(pages.map(page =>
+      fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=${page}&sparkline=false`)
+        .then(r => r.json()).catch(() => [])
+    ));
+    const ordered = cgResults.flat().filter(c => c && c.symbol);
+
+    // Step 2: Active Binance USDT pairs
+    const bnR = await fetch('https://api.binance.com/api/v3/exchangeInfo');
+    const bnD = await bnR.json();
+    const bnPairs = new Set(
+      bnD.symbols
+        .filter(s => s.symbol.endsWith('USDT') && s.status === 'TRADING' && s.isSpotTradingAllowed)
+        .map(s => s.symbol)
+    );
+
+    // Step 3: Match — keep mcap order, only Binance-listed coins
+    const matched = [];
+    const seen = new Set();
+    ordered.forEach(coin => {
+      const sym = coin.symbol.toUpperCase() + 'USDT';
+      if (bnPairs.has(sym) && !seen.has(sym)) {
+        matched.push(sym);
+        seen.add(sym);
+      }
+    });
+
+    if (matched.length > 0) {
+      PAIRS.length = 0;
+      PAIRS.push(...matched.slice(0, MAX_PAIRS));
+      console.log(`[Pairs] ${PAIRS.length} top mcap coins loaded`);
+    } else {
+      throw new Error('No matches');
+    }
+  } catch(e) {
+    console.warn('CoinGecko failed, using Binance volume fallback:', e);
+    try {
+      // Fallback: sort by 24h volume (best proxy for mcap when CoinGecko is down)
+      const r = await fetch('https://api.binance.com/api/v3/ticker/24hr');
+      const d = await r.json();
+      const stables = new Set(['USDCUSDT','BUSDUSDT','TUSDUSDT','USDPUSDT','FDUSDUSDT','DAIUSDT','USTCUSDT']);
+      const sorted = d
+        .filter(t => t.symbol.endsWith('USDT') && !stables.has(t.symbol))
+        .sort((a,b) => parseFloat(b.quoteVolume) - parseFloat(a.quoteVolume))
+        .map(t => t.symbol)
+        .slice(0, MAX_PAIRS);
+      PAIRS.length = 0;
+      PAIRS.push(...sorted);
+      console.log(`[Pairs] Fallback: ${PAIRS.length} pairs by volume`);
+    } catch(e2) {
+      PAIRS.length = 0;
+      PAIRS.push('BTCUSDT','ETHUSDT','SOLUSDT','BNBUSDT','XRPUSDT','DOGEUSDT','ADAUSDT','AVAXUSDT','LINKUSDT','DOTUSDT','LTCUSDT','TRXUSDT','UNIUSDT','ATOMUSDT','NEARUSDT','APTUSDT','ARBUSDT','OPUSDT','INJUSDT','SUIUSDT');
+    }
+  }
 }
 
 // ── FETCH FUNCTIONS ──
