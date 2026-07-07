@@ -469,7 +469,7 @@ footer p{color:var(--muted);font-size:0.82rem;}
  <button class="back-btn" onclick="showPage('home')">← Back to Home</button>
  <div class="section-tag">// LIVE ARBITRAGE SCANNER</div>
  <h2>Real-Time Price Scanner</h2>
- <p class="page-desc">Live price comparison across 6 exchanges — Binance, Bybit, Gate.io, Bitget, KuCoin 2026& MEXC. Tracking 700+ coins, refreshed every 30 seconds. Opportunities with 2%+ spread highlighted.</p>
+ <p class="page-desc">Live price comparison across 6 exchanges — Binance, Bybit, Gate.io, Bitget, KuCoin & MEXC. Tracking 500+ coins, refreshed every 30 seconds. Opportunities with 2%+ spread highlighted.</p>
 
  <!-- EXCHANGE FILTER -->
  <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.2rem;">
@@ -631,8 +631,8 @@ document.querySelectorAll('.feat-card,.profit-card,.risk-card,.info-card,.step')
 });
 
 // ── SCANNER ──
-const PAIRS = []; // populated dynamically from Binance top 300 movers
-const MAX_PAIRS = 300;
+const PAIRS = []; // populated dynamically from Binance top 500 movers
+const MAX_PAIRS = 500;
 
 let countdownInterval = null;
 let countdownVal = 30;
@@ -651,7 +651,7 @@ function setFilter(f) {
  renderTable(lastResults);
 }
 
-// ── LOAD ALL USDT PAIRS (700+) FROM BINANCE ──
+// ── LOAD ALL USDT PAIRS (500) FROM BINANCE ──
 async function loadAllPairs() {
  try {
  const r = await fetch('https://api.binance.com/api/v3/exchangeInfo');
@@ -670,7 +670,7 @@ async function loadAllPairs() {
 }
 
 // ── FETCH FUNCTIONS ──
-// Binance ticker endpoint has a URL length limit, so we batch requests for 700+ symbols
+// Binance ticker endpoint has a URL length limit, so we batch requests in groups of 100
 async function fetchBinance() {
  const m = {};
  const BATCH = 100;
@@ -694,96 +694,63 @@ async function fetchBybit() {
  return m;
 }
 
-// ============================================
-// REPLACE the existing fetchGate, fetchBitget, fetchKucoin, fetchMexc
-// functions in live-crypto-arbitrage-scanner.html with these versions.
-// Strategy: try DIRECT api call first (many exchanges allow CORS now),
-// and only fall back to a proxy if the direct call fails.
-// Also uses TWO proxy options instead of one, so if allorigins is down
-// corsproxy.io is tried next.
-// ============================================
+// ── CLOUDFLARE WORKER PROXY ──
+// Worker URL — update this after deploying your Cloudflare Worker
+const WORKER_URL = 'https://arbvertex-proxy.knitin973.workers.dev';
 
-async function fetchWithFallback(directUrl) {
- // 1) Try direct call first
- try {
- const r = await fetch(directUrl);
- if (r.ok) return await r.json();
- } catch (e) {
- // direct call blocked by CORS or network — fall through to proxy
- }
-
- // 2) Try proxy #1 — allorigins
- try {
- const r = await fetch('https://api.allorigins.win/raw?url=' + encodeURIComponent(directUrl));
- if (r.ok) return await r.json();
- } catch (e) {}
-
- // 3) Try proxy #2 — corsproxy.io
- try {
- const r = await fetch('https://corsproxy.io/?url=' + encodeURIComponent(directUrl));
- if (r.ok) return await r.json();
- } catch (e) {}
-
- // 4) Try proxy #3 — thingproxy
- try {
- const r = await fetch('https://thingproxy.freeboard.io/fetch/' + directUrl);
- if (r.ok) return await r.json();
- } catch (e) {}
-
- throw new Error('All fetch attempts failed for ' + directUrl);
+async function fetchViaWorker(exchange) {
+  const r = await fetch(`${WORKER_URL}?exchange=${exchange}`);
+  if (!r.ok) throw new Error(`Worker returned ${r.status} for ${exchange}`);
+  return await r.json();
 }
 
 async function fetchGate() {
- const m = {};
- const pairSet = new Set(PAIRS);
- try {
- const url = 'https://api.gateio.ws/api/v4/spot/tickers';
- const d = await fetchWithFallback(url);
- d.forEach(x => {
- const sym = x.currency_pair?.replace('_', '');
- if (pairSet.has(sym)) m[sym] = parseFloat(x.last);
- });
- } catch (e) { console.warn('Gate failed completely:', e); }
- return m;
+  const m = {};
+  const pairSet = new Set(PAIRS);
+  try {
+    const d = await fetchViaWorker('gate');
+    d.forEach(x => {
+      const sym = x.currency_pair?.replace('_', '');
+      if (pairSet.has(sym)) m[sym] = parseFloat(x.last);
+    });
+  } catch (e) { console.warn('Gate failed:', e); }
+  return m;
 }
 
 async function fetchBitget() {
- const m = {};
- const pairSet = new Set(PAIRS);
- try {
- const url = 'https://api.bitget.com/api/v2/spot/market/tickers';
- const d = await fetchWithFallback(url);
- if (d.data) d.data.forEach(x => {
- const sym = x.symbol?.replace('USDT', '') + 'USDT';
- if (pairSet.has(sym)) m[sym] = parseFloat(x.lastPr);
- });
- } catch (e) { console.warn('Bitget failed completely:', e); }
- return m;
+  const m = {};
+  const pairSet = new Set(PAIRS);
+  try {
+    const d = await fetchViaWorker('bitget');
+    if (d.data) d.data.forEach(x => {
+      const sym = x.symbol?.replace('USDT', '') + 'USDT';
+      if (pairSet.has(sym)) m[sym] = parseFloat(x.lastPr);
+    });
+  } catch (e) { console.warn('Bitget failed:', e); }
+  return m;
 }
 
 async function fetchKucoin() {
- const m = {};
- const pairSet = new Set(PAIRS);
- try {
- const url = 'https://api.kucoin.com/api/v1/market/allTickers';
- const d = await fetchWithFallback(url);
- if (d.data?.ticker) d.data.ticker.forEach(x => {
- const sym = x.symbol?.replace('-', '');
- if (pairSet.has(sym)) m[sym] = parseFloat(x.last);
- });
- } catch (e) { console.warn('KuCoin failed completely:', e); }
- return m;
+  const m = {};
+  const pairSet = new Set(PAIRS);
+  try {
+    const d = await fetchViaWorker('kucoin');
+    if (d.data?.ticker) d.data.ticker.forEach(x => {
+      const sym = x.symbol?.replace('-', '');
+      if (pairSet.has(sym)) m[sym] = parseFloat(x.last);
+    });
+  } catch (e) { console.warn('KuCoin failed:', e); }
+  return m;
 }
 
 async function fetchMexc() {
- const m = {};
- const pairSet = new Set(PAIRS);
- try {
- const url = 'https://api.mexc.com/api/v3/ticker/price';
- const d = await fetchWithFallback(url);
- d.forEach(x => { if (pairSet.has(x.symbol)) m[x.symbol] = parseFloat(x.price); });
- } catch (e) { console.warn('MEXC failed completely:', e); }
- return m;
+  const m = {};
+  const pairSet = new Set(PAIRS);
+  try {
+    const d = await fetchViaWorker('mexc');
+    d.forEach(x => { if (pairSet.has(x.symbol)) m[x.symbol] = parseFloat(x.price); });
+  } catch (e) { console.warn('MEXC failed:', e); }
+  return m;
 }
 function fp(price) {
  if(!price || isNaN(price)) return '<span style="color:var(--border);">—</span>';
@@ -883,11 +850,11 @@ async function fetchAllPrices() {
  dot.style.animation = 'none';
 
  if (PAIRS.length === 0) {
- status.textContent = 'Loading top 300 coins...';
+ status.textContent = 'Loading top 500 coins...';
  await loadAllPairs();
  }
 
- status.textContent = `Fetching top 300 coins from 6 exchanges...`;
+ status.textContent = `Fetching top 500 coins from 6 exchanges...`;
 
  const safeF = async (fn, name) => { try { return await fn(); } catch(e) { console.warn(name+' failed:', e); return {}; } };
 
