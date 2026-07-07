@@ -878,7 +878,6 @@ function renderTable(results) {
    if (activeFilter === '2pct' && Math.abs(bestSpread) < 2) return;
    rows.push({symbol: r.symbol, spread: bestSpread, pair: bestPair, ...r});
  });
- });
 
  rows.sort((a,b) => Math.abs(b.spread)-Math.abs(a.spread));
 
