@@ -669,11 +669,15 @@ async function loadAllPairs() {
     );
 
     // Match in mcap order (CoinCap already returns rank 1→500)
+    const stableFilter = new Set(['USDCUSDT','BUSDUSDT','TUSDUSDT','USDPUSDT','FDUSDUSDT','DAIUSDT','USTCUSDT','USDTUSDT','EURUSDT','GBPUSDT','FRAXUSDT','LUSDUSDT','GUSDUSDT','PAXUSDT','SUSDUSDT']);
     const matched = [];
     const seen = new Set();
     d.data.forEach(coin => {
       if (!coin.symbol) return;
       const sym = coin.symbol.toUpperCase() + 'USDT';
+      // Skip stablecoins and very short symbols
+      if (stableFilter.has(sym)) return;
+      if (coin.symbol.length < 2) return;
       if (bnPairs.has(sym) && !seen.has(sym)) {
         matched.push(sym);
         seen.add(sym);
@@ -723,7 +727,7 @@ async function loadAllPairs() {
         // Last resort: Binance 24h volume sort
         const r = await fetch('https://api.binance.com/api/v3/ticker/24hr');
         const d = await r.json();
-        const stables = new Set(['USDCUSDT','BUSDUSDT','TUSDUSDT','USDPUSDT','FDUSDUSDT','DAIUSDT','USTCUSDT']);
+        const stables = new Set(['USDCUSDT','BUSDUSDT','TUSDUSDT','USDPUSDT','FDUSDUSDT','DAIUSDT','USTCUSDT','USDTUSDT','EURUSDT','GBPUSDT','AUDUSDT','SUSDUSDT','FRAXUSDT','LUSDUSDT','GUSDUSDT','PAXUSDT']);
         const sorted = d
           .filter(t => t.symbol.endsWith('USDT') && !stables.has(t.symbol))
           .sort((a,b) => parseFloat(b.quoteVolume) - parseFloat(a.quoteVolume))
@@ -846,40 +850,33 @@ function renderTable(results) {
  {k1:'bybit', k2:'gate', label:'Bybit↔Gate', id:'BB-GT'},
  ];
 
- // Build rows: each pair × each exchange combination
+ // Build rows: ONE row per coin — best spread only (no duplicates)
+ const ALL_EX_PAIRS = [
+   {k1:'binance',k2:'bybit',  label:'Binance→Bybit'},
+   {k1:'binance',k2:'gate',   label:'Binance→Gate'},
+   {k1:'binance',k2:'bitget', label:'Binance→Bitget'},
+   {k1:'binance',k2:'kucoin', label:'Binance→KuCoin'},
+   {k1:'binance',k2:'mexc',   label:'Binance→MEXC'},
+   {k1:'bybit',  k2:'gate',   label:'Bybit→Gate'},
+   {k1:'bybit',  k2:'bitget', label:'Bybit→Bitget'},
+   {k1:'bybit',  k2:'mexc',   label:'Bybit→MEXC'},
+   {k1:'gate',   k2:'mexc',   label:'Gate→MEXC'},
+   {k1:'kucoin', k2:'mexc',   label:'KuCoin→MEXC'},
+ ];
  let rows = [];
  results.forEach(r => {
- const exPairs = activeFilter === 'all' ? [
- {k1:'binance',k2:'bybit', label:'Binance → Bybit'},
- {k1:'binance',k2:'gate', label:'Binance → Gate'},
- {k1:'binance',k2:'bitget', label:'Binance → Bitget'},
- {k1:'binance',k2:'kucoin', label:'Binance → KuCoin'},
- {k1:'binance',k2:'mexc', label:'Binance → MEXC'},
- {k1:'bybit', k2:'gate', label:'Bybit → Gate'},
- {k1:'bybit', k2:'bitget', label:'Bybit → Bitget'},
- {k1:'bybit', k2:'mexc', label:'Bybit → MEXC'},
- {k1:'gate', k2:'mexc', label:'Gate → MEXC'},
- {k1:'kucoin', k2:'mexc', label:'KuCoin → MEXC'},
- ] : activeFilter === '2pct' ? [
- {k1:'binance',k2:'bybit',label:'Binance↔Bybit'},{k1:'binance',k2:'gate',label:'Binance↔Gate'},
- {k1:'binance',k2:'bitget',label:'Binance↔Bitget'},{k1:'binance',k2:'kucoin',label:'Binance↔KuCoin'},
- {k1:'binance',k2:'mexc',label:'Binance↔MEXC'},{k1:'bybit',k2:'gate',label:'Bybit↔Gate'},
- {k1:'bybit',k2:'bitget',label:'Bybit↔Bitget'},{k1:'bybit',k2:'mexc',label:'Bybit↔MEXC'},
- {k1:'gate',k2:'mexc',label:'Gate↔MEXC'},{k1:'kucoin',k2:'mexc',label:'KuCoin↔MEXC'},
- ] : [{
- 'BN-BB':{k1:'binance',k2:'bybit',label:'Binance↔Bybit'},
- 'BN-GT':{k1:'binance',k2:'gate', label:'Binance↔Gate'},
- 'BN-MX':{k1:'binance',k2:'mexc', label:'Binance↔MEXC'},
- 'BB-GT':{k1:'bybit', k2:'gate', label:'Bybit↔Gate'},
- }[activeFilter]].filter(Boolean);
-
- exPairs.forEach(ep => {
- const p1 = r[ep.k1], p2 = r[ep.k2];
- if(!p1 || !p2) return;
- const spread = ((p2 - p1) / p1) * 100;
- if(activeFilter==='2pct' && Math.abs(spread)<2) return;
- const buyOn = spread>0 ? ep.label.split('→')[0]?.split('↔')[0]?.trim() : ep.label.split('→')[1]?.split('↔')[1]?.trim() || ep.label;
- rows.push({symbol:r.symbol, p1, p2, spread, buyOn, pair:ep.label, k1:ep.k1, k2:ep.k2, ...r});
+   let bestSpread = null, bestPair = '';
+   ALL_EX_PAIRS.forEach(ep => {
+     const p1 = r[ep.k1], p2 = r[ep.k2];
+     if (!p1 || !p2) return;
+     const spread = ((p2 - p1) / p1) * 100;
+     if (bestSpread === null || Math.abs(spread) > Math.abs(bestSpread)) {
+       bestSpread = spread; bestPair = ep.label;
+     }
+   });
+   if (bestSpread === null) return;
+   if (activeFilter === '2pct' && Math.abs(bestSpread) < 2) return;
+   rows.push({symbol: r.symbol, spread: bestSpread, pair: bestPair, ...r});
  });
  });
 
@@ -946,7 +943,17 @@ async function fetchAllPrices() {
  bitget: bitget[sym] || null,
  kucoin: kucoin[sym] || null,
  mexc: mexc[sym] || null,
- })).filter(r => r.binance || r.bybit || r.gate);
+ })).filter(r => {
+    // Must have at least Binance price
+    if (!r.binance) return false;
+    // Remove stablecoins and broken/too-short symbols
+    const stableSyms = new Set(['USDCUSDT','BUSDUSDT','TUSDUSDT','USDPUSDT','FDUSDUSDT','DAIUSDT','USTCUSDT','USDTUSDT','EURUSDT','GBPUSDT','FRAXUSDT','LUSDUSDT','GUSDUSDT','PAXUSDT','SUSDUSDT']);
+    if (stableSyms.has(r.symbol)) return false;
+    // Remove symbols shorter than 4 chars before USDT (e.g. "U/USDT")
+    const base = r.symbol.replace('USDT','');
+    if (base.length < 2) return false;
+    return true;
+  });
 
  const activeExchanges = [
  Object.keys(binance).length > 0 ? 'Binance' : null,
