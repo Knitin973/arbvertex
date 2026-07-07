@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Crypto Arbitrage Profit Calculator — Net Profit After All Fees 2026 </title>
-<meta name="description" content="Free crypto arbitrage calculator. Calculate exact net profit after trading fees, withdrawal fees, and slippage. Supports Binance, Bybit, MEXC, Gate.io, KuCoin.">
+<title>Crypto Arbitrage Profit Calculator — Net Profit After Fees</title>
+<meta name="description" content="Free crypto arbitrage calculator. Enter buy price, sell price and fees to calculate exact net profit. Supports Binance, Bybit, Gate.io and MEXC.">
 <meta name="keywords" content="crypto arbitrage calculator, arbitrage profit calculator, binance bybit arbitrage calculator, net profit after fees">
 <link rel="canonical" href="https://arbvertex.com/arbitrage-calculator.html">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -173,6 +173,27 @@ footer p{color:var(--muted);font-size:0.82rem;}
 <meta name="robots" content="index, follow">
 <meta property="og:title" content="Crypto Arbitrage Profit Calculator — Net Profit After All Fees 2026 | ArbVertex">
 <meta property="og:description" content="Free crypto arbitrage calculator. Calculate exact net profit after trading fees, withdrawal fees, and slippage. Supports Binance, Bybit, MEXC, Gate.io, KuCoin.">
+
+<meta property="og:image" content="https://arbvertex.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Crypto Arbitrage Profit Calculator — Net Profit After Fees">
+<meta name="twitter:description" content="Free crypto arbitrage calculator. Calculate exact net profit after trading fees, slippage and withdrawal costs across major exchanges.">
+<meta name="twitter:image" content="https://arbvertex.com/og-image.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Crypto Arbitrage Profit Calculator",
+  "description": "Free online calculator for crypto arbitrage net profit after all fees.",
+  "url": "https://arbvertex.com/arbitrage-calculator.html",
+  "publisher": {
+    "@type": "Organization",
+    "name": "ArbVertex",
+    "url": "https://arbvertex.com"
+  }
+}
+</script>
 </head>
 <body>
 <div class="av-nav-wrap">
@@ -216,12 +237,12 @@ footer p{color:var(--muted);font-size:0.82rem;}
  <button type="button" class="av-top-link av-drop-trigger">Company <span class="av-caret">▾</span></button>
  <div class="av-mega-panel">
  <a class="av-mega-link" href="about-arbvertex-crypto-signals.html"><span class="av-icon">🏢</span><span>About Us<span class="av-desc">Our story</span></span></a>
- <a class="av-mega-link" href="contact-arbvertex.html"><span class="av-icon">✉️</span><span>Contact<span class="av-desc">Get in 2026touch</span></span></a>
+ <a class="av-mega-link" href="contact-arbvertex.html"><span class="av-icon">✉️</span><span>Contact<span class="av-desc">Get in touch</span></span></a>
  </div>
  </li>
 
  <li><a href="live-crypto-arbitrage-scanner.html" class="av-top-link av-scanner-link">🔍 Live Scanner</a></li>
- <li><a href="crypto-arbitrage-signals-pricing.html" class="av-top-link av-cta">Join 2026Now</a></li>
+ <li><a href="crypto-arbitrage-signals-pricing.html" class="av-top-link av-cta">Join Now</a></li>
  </ul>
  <button class="av-hamburger" id="avHamburger" type="button" aria-label="Toggle menu">
  <span></span><span></span><span></span>
@@ -251,7 +272,7 @@ footer p{color:var(--muted);font-size:0.82rem;}
 
 <div class="form-group">
 <label>Buy Exchange</label>
-<select id="buy-exchange" onchange="applyPreset(2026)">
+<select id="buy-exchange" onchange="applyPreset()">
 <option value="binance">Binance</option>
 <option value="bybit">Bybit</option>
 <option value="mexc">MEXC</option>
@@ -269,7 +290,7 @@ footer p{color:var(--muted);font-size:0.82rem;}
 
 <div class="form-group">
 <label>Sell Exchange</label>
-<select id="sell-exchange" onchange="applyPreset(2026)">
+<select id="sell-exchange" onchange="applyPreset()">
 <option value="bybit" selected>Bybit</option>
 <option value="binance">Binance</option>
 <option value="mexc">MEXC</option>
@@ -395,7 +416,7 @@ function fmt(val, prefix='$') {
  return prefix + Math.abs(val).toFixed(2);
 }
 
-function calculate(2026) {
+function calculate() {
  const capital = parseFloat(document.getElementById('capital').value) || 0;
  const buyPrice = parseFloat(document.getElementById('buy-price').value) || 0;
  const sellPrice = parseFloat(document.getElementById('sell-price').value) || 0;
@@ -458,7 +479,7 @@ function calculate(2026) {
 }
 
 // Calculate on load
-calculate(2026);
+calculate();
 </script>
 <script>
 (function(){

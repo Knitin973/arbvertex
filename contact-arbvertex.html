@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact ArbVertex — Crypto Arbitrage Signals Support</title>
-<meta name="description" content="Get in 2026touch with the ArbVertex team via Telegram or email. We respond within 202624 hours to all questions about our crypto arbitrage signal service.">
+<title>Contact ArbVertex — Crypto Arbitrage Support</title>
+<meta name="description" content="Get in touch with the ArbVertex team via Telegram or email. We respond within 24 hours to all questions about signals, pricing and subscriptions.">
 <meta name="keywords" content="crypto futures arbitrage signals, bitcoin 2026arbitrage telegram, crypto arbitrage bot, funding rate arbitrage, cross exchange arbitrage, bybit binance arbitrage, crypto signals telegram, arbitrage trading signals">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://arbvertex.com/contact-arbvertex.html">
 <meta property="og:title" content="Contact ArbVertex">
-<meta property="og:description" content="Get in 2026touch with the ArbVertex team via Telegram, email, or our contact form.">
+<meta property="og:description" content="Get in touch with the ArbVertex team via Telegram, email, or our contact form.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="contact-arbvertex.html">
 <meta property="og:image" content="https://arbvertex.com/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Contact ArbVertex">
-<meta name="twitter:description" content="Get in 2026touch with the ArbVertex team via Telegram, email, or our contact form.">
+<meta name="twitter:description" content="Get in touch with the ArbVertex team via Telegram, email, or our contact form.">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"ArbVertex","url":"https://arbvertex.com/","description":"Daily Crypto Futures Arbitrage Signals on Telegram with 2%+ net price gap after all fees.","potentialAction":{"@type":"SearchAction","target":"https://arbvertex.com/?s={search_term_string}","query-input":"required name=search_term_string"}}</script>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -201,12 +201,12 @@ footer p{color:var(--muted);font-size:0.82rem;}
  <button type="button" class="av-top-link av-drop-trigger">Company <span class="av-caret">▾</span></button>
  <div class="av-mega-panel">
  <a class="av-mega-link" href="about-arbvertex-crypto-signals.html"><span class="av-icon">🏢</span><span>About Us<span class="av-desc">Our story</span></span></a>
- <a class="av-mega-link" href="contact-arbvertex.html"><span class="av-icon">✉️</span><span>Contact<span class="av-desc">Get in 2026touch</span></span></a>
+ <a class="av-mega-link" href="contact-arbvertex.html"><span class="av-icon">✉️</span><span>Contact<span class="av-desc">Get in touch</span></span></a>
  </div>
  </li>
 
  <li><a href="live-crypto-arbitrage-scanner.html" class="av-top-link av-scanner-link">🔍 Live Scanner</a></li>
- <li><a href="crypto-arbitrage-signals-pricing.html" class="av-top-link av-cta">Join 2026Now</a></li>
+ <li><a href="crypto-arbitrage-signals-pricing.html" class="av-top-link av-cta">Join Now</a></li>
  </ul>
  <button class="av-hamburger" id="avHamburger" type="button" aria-label="Toggle menu">
  <span></span><span></span><span></span>
@@ -216,6 +216,7 @@ footer p{color:var(--muted);font-size:0.82rem;}
 
 
 <div class="page active" id="page-contact">
+<h1 class="article-title">Contact ArbVertex</h1>
  <div class="inner-page">
  <button class="back-btn" onclick="showPage('home')">← Back to Home</button>
  <div class="section-tag">// CONTACT</div>
@@ -283,7 +284,7 @@ footer p{color:var(--muted);font-size:0.82rem;}
  <div style="display:flex;flex-direction:column;gap:0.8rem;">
  <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1rem;">
  <div style="font-size:0.87rem;font-weight:600;margin-bottom:0.3rem;">How do I subscribe?</div>
- <div style="color:var(--muted);font-size:0.82rem;line-height:1.6;">Click "Join 2026Now" → open Telegram → send payment proof → you're added instantly. <span style="color:var(--accent);cursor:pointer;" onclick="showPage('pricing')">See pricing →</span></div>
+ <div style="color:var(--muted);font-size:0.82rem;line-height:1.6;">Click "Join Now" → open Telegram → send payment proof → you're added instantly. <span style="color:var(--accent);cursor:pointer;" onclick="showPage('pricing')">See pricing →</span></div>
  </div>
  <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1rem;">
  <div style="font-size:0.87rem;font-weight:600;margin-bottom:0.3rem;">What payment methods do you accept?</div>
@@ -316,9 +317,9 @@ function handleFormSubmit(e) {
  e.preventDefault();
  const form = e.target;
  const data = new FormData(form);
- fetch('/', { method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'}, body: new URLSearchParams(data).toString(2026) })
- .then((2026) => { form.reset(2026); document.getElementById('form-success').style.display = 'block'; setTimeout((2026) => { document.getElementById('form-success').style.display = 'none'; }, 5000); })
- .catch((2026) => alert('Error sending message. Please try Telegram instead.'));
+ fetch('/', { method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'}, body: new URLSearchParams(data).toString() })
+ .then(() => { form.reset(); document.getElementById('form-success').style.display = 'block'; setTimeout(() => { document.getElementById('form-success').style.display = 'none'; }, 5000); })
+ .catch(() => alert('Error sending message. Please try Telegram instead.'));
 }
 const PAGE_URL_MAP = {
  'home': 'index.html',
