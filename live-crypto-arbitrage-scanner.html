@@ -651,94 +651,125 @@ function setFilter(f) {
  renderTable(lastResults);
 }
 
-// ── LOAD TOP 500 MARKET CAP COINS (CoinCap → Binance filter) ──
+// ── LOAD TOP 500 MARKET CAP COINS ──
 async function loadAllPairs() {
-  try {
-    // CoinCap API — free, no key, no rate limit, returns top coins by mcap
-    const r = await fetch('https://api.coincap.io/v2/assets?limit=500');
-    const d = await r.json();
-    if (!d.data || d.data.length === 0) throw new Error('CoinCap empty');
+  const stableFilter = new Set(['USDCUSDT','BUSDUSDT','TUSDUSDT','USDPUSDT','FDUSDUSDT','DAIUSDT','USTCUSDT','USDTUSDT','EURUSDT','GBPUSDT','FRAXUSDT','LUSDUSDT','GUSDUSDT','PAXUSDT','SUSDUSDT','AEURUSDT']);
 
-    // Get Binance active USDT pairs
+  // Get Binance active USDT pairs first (needed for filtering)
+  let bnPairs = new Set();
+  try {
     const bnR = await fetch('https://api.binance.com/api/v3/exchangeInfo');
     const bnD = await bnR.json();
-    const bnPairs = new Set(
-      bnD.symbols
-        .filter(s => s.symbol.endsWith('USDT') && s.status === 'TRADING' && s.isSpotTradingAllowed)
-        .map(s => s.symbol)
-    );
+    bnD.symbols
+      .filter(s => s.symbol.endsWith('USDT') && s.status === 'TRADING' && s.isSpotTradingAllowed)
+      .forEach(s => bnPairs.add(s.symbol));
+    console.log(`[Binance] ${bnPairs.size} active USDT pairs`);
+  } catch(e) {
+    console.warn('Binance exchangeInfo failed:', e);
+  }
 
-    // Match in mcap order (CoinCap already returns rank 1→500)
-    const stableFilter = new Set(['USDCUSDT','BUSDUSDT','TUSDUSDT','USDPUSDT','FDUSDUSDT','DAIUSDT','USTCUSDT','USDTUSDT','EURUSDT','GBPUSDT','FRAXUSDT','LUSDUSDT','GUSDUSDT','PAXUSDT','SUSDUSDT']);
+  // Helper: match coins to Binance pairs in order
+  function matchToBinance(symbolList) {
     const matched = [];
     const seen = new Set();
-    d.data.forEach(coin => {
-      if (!coin.symbol) return;
-      const sym = coin.symbol.toUpperCase() + 'USDT';
-      // Skip stablecoins and very short symbols
-      if (stableFilter.has(sym)) return;
-      if (coin.symbol.length < 2) return;
-      if (bnPairs.has(sym) && !seen.has(sym)) {
-        matched.push(sym);
-        seen.add(sym);
+    symbolList.forEach(sym => {
+      const usdtSym = sym.toUpperCase() + 'USDT';
+      if (bnPairs.has(usdtSym) && !stableFilter.has(usdtSym) && !seen.has(usdtSym) && sym.length >= 2) {
+        matched.push(usdtSym);
+        seen.add(usdtSym);
       }
     });
+    return matched;
+  }
 
-    if (matched.length > 0) {
-      PAIRS.length = 0;
-      PAIRS.push(...matched.slice(0, MAX_PAIRS));
-      console.log(`[Pairs] ${PAIRS.length} top mcap coins loaded (CoinCap)`);
-    } else {
-      throw new Error('No matches found');
+  try {
+    // Strategy: CoinGecko pages 1-5 (250 coins each = up to 1250, need 500 matched)
+    // Fetch pages in parallel with delay to avoid rate limit
+    const cgFetch = async (page) => {
+      try {
+        const r = await fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=${page}&sparkline=false`);
+        if (!r.ok) return [];
+        return await r.json();
+      } catch(e) { return []; }
+    };
+
+    // Fetch page 1 and 2 simultaneously
+    const [pg1, pg2] = await Promise.all([cgFetch(1), cgFetch(2)]);
+    let allCoins = [...pg1, ...pg2];
+    
+    // If we need more, fetch pages 3-5
+    if (allCoins.length > 0) {
+      const [pg3, pg4, pg5] = await Promise.all([cgFetch(3), cgFetch(4), cgFetch(5)]);
+      allCoins = [...allCoins, ...pg3, ...pg4, ...pg5];
     }
-  } catch(e) {
-    console.warn('CoinCap failed, trying CoinGecko:', e);
-    try {
-      // CoinGecko fallback — fetch page 1 only (avoid rate limit)
-      const r = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=false');
-      const d = await r.json();
 
-      const bnR = await fetch('https://api.binance.com/api/v3/exchangeInfo');
-      const bnD = await bnR.json();
-      const bnPairs = new Set(
-        bnD.symbols
-          .filter(s => s.symbol.endsWith('USDT') && s.status === 'TRADING' && s.isSpotTradingAllowed)
-          .map(s => s.symbol)
-      );
+    const cgSymbols = allCoins.filter(c => c && c.symbol).map(c => c.symbol);
+    console.log(`[CoinGecko] ${cgSymbols.length} coins fetched`);
 
-      const matched = [];
-      const seen = new Set();
-      d.forEach(coin => {
-        if (!coin.symbol) return;
-        const sym = coin.symbol.toUpperCase() + 'USDT';
-        if (bnPairs.has(sym) && !seen.has(sym)) { matched.push(sym); seen.add(sym); }
-      });
-
-      if (matched.length > 0) {
+    if (cgSymbols.length > 0) {
+      const matched = matchToBinance(cgSymbols);
+      console.log(`[CoinGecko] ${matched.length} matched on Binance`);
+      
+      if (matched.length >= 100) {
         PAIRS.length = 0;
         PAIRS.push(...matched.slice(0, MAX_PAIRS));
-        console.log(`[Pairs] ${PAIRS.length} coins loaded (CoinGecko fallback)`);
+        console.log(`✅ Loaded ${PAIRS.length} top mcap coins (CoinGecko)`);
         return;
       }
-      throw new Error('CoinGecko also empty');
-    } catch(e2) {
-      console.warn('Both APIs failed, using Binance volume sort:', e2);
+    }
+    throw new Error('CoinGecko insufficient data');
+
+  } catch(cgErr) {
+    console.warn('CoinGecko failed:', cgErr);
+
+    try {
+      // Fallback 1: CoinCap — fetch multiple pages
+      const capFetch = async (offset) => {
+        try {
+          const r = await fetch(`https://api.coincap.io/v2/assets?limit=200&offset=${offset}`);
+          const d = await r.json();
+          return d.data || [];
+        } catch(e) { return []; }
+      };
+
+      const [cap1, cap2, cap3] = await Promise.all([
+        capFetch(0), capFetch(200), capFetch(400)
+      ]);
+      const capCoins = [...cap1, ...cap2, ...cap3];
+      console.log(`[CoinCap] ${capCoins.length} coins fetched`);
+
+      const capSymbols = capCoins.filter(c => c && c.symbol).map(c => c.symbol);
+      const matched = matchToBinance(capSymbols);
+      console.log(`[CoinCap] ${matched.length} matched on Binance`);
+
+      if (matched.length >= 50) {
+        PAIRS.length = 0;
+        PAIRS.push(...matched.slice(0, MAX_PAIRS));
+        console.log(`✅ Loaded ${PAIRS.length} coins (CoinCap fallback)`);
+        return;
+      }
+      throw new Error('CoinCap insufficient');
+
+    } catch(capErr) {
+      console.warn('CoinCap also failed:', capErr);
+
+      // Fallback 2: Binance 24h volume sort (best available proxy for mcap)
       try {
-        // Last resort: Binance 24h volume sort
         const r = await fetch('https://api.binance.com/api/v3/ticker/24hr');
         const d = await r.json();
-        const stables = new Set(['USDCUSDT','BUSDUSDT','TUSDUSDT','USDPUSDT','FDUSDUSDT','DAIUSDT','USTCUSDT','USDTUSDT','EURUSDT','GBPUSDT','AUDUSDT','SUSDUSDT','FRAXUSDT','LUSDUSDT','GUSDUSDT','PAXUSDT']);
         const sorted = d
-          .filter(t => t.symbol.endsWith('USDT') && !stables.has(t.symbol))
+          .filter(t => t.symbol.endsWith('USDT') && !stableFilter.has(t.symbol) && t.symbol.replace('USDT','').length >= 2)
           .sort((a,b) => parseFloat(b.quoteVolume) - parseFloat(a.quoteVolume))
           .map(t => t.symbol)
           .slice(0, MAX_PAIRS);
         PAIRS.length = 0;
         PAIRS.push(...sorted);
-        console.log(`[Pairs] ${PAIRS.length} coins by volume (last resort)`);
-      } catch(e3) {
+        console.log(`✅ Loaded ${PAIRS.length} coins (volume sort fallback)`);
+      } catch(e) {
+        // Last resort hardcoded
         PAIRS.length = 0;
-        PAIRS.push('BTCUSDT','ETHUSDT','SOLUSDT','BNBUSDT','XRPUSDT','DOGEUSDT','ADAUSDT','AVAXUSDT','LINKUSDT','DOTUSDT','LTCUSDT','TRXUSDT','UNIUSDT','ATOMUSDT','NEARUSDT','APTUSDT','ARBUSDT','OPUSDT','INJUSDT','SUIUSDT');
+        PAIRS.push('BTCUSDT','ETHUSDT','BNBUSDT','SOLUSDT','XRPUSDT','DOGEUSDT','ADAUSDT','AVAXUSDT','LINKUSDT','DOTUSDT','LTCUSDT','TRXUSDT','UNIUSDT','ATOMUSDT','NEARUSDT','APTUSDT','ARBUSDT','OPUSDT','INJUSDT','SUIUSDT');
+        console.log('✅ Loaded hardcoded fallback pairs');
       }
     }
   }
