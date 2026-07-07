@@ -651,18 +651,15 @@ function setFilter(f) {
  renderTable(lastResults);
 }
 
-// ── LOAD TOP 500 MARKET CAP COINS (CoinGecko → Binance filter) ──
+// ── LOAD TOP 500 MARKET CAP COINS (CoinCap → Binance filter) ──
 async function loadAllPairs() {
   try {
-    // Step 1: Top 500 by market cap from CoinGecko (free, no key needed)
-    const pages = [1,2,3,4,5];
-    const cgResults = await Promise.all(pages.map(page =>
-      fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=${page}&sparkline=false`)
-        .then(r => r.json()).catch(() => [])
-    ));
-    const ordered = cgResults.flat().filter(c => c && c.symbol);
+    // CoinCap API — free, no key, no rate limit, returns top coins by mcap
+    const r = await fetch('https://api.coincap.io/v2/assets?limit=500');
+    const d = await r.json();
+    if (!d.data || d.data.length === 0) throw new Error('CoinCap empty');
 
-    // Step 2: Active Binance USDT pairs
+    // Get Binance active USDT pairs
     const bnR = await fetch('https://api.binance.com/api/v3/exchangeInfo');
     const bnD = await bnR.json();
     const bnPairs = new Set(
@@ -671,10 +668,11 @@ async function loadAllPairs() {
         .map(s => s.symbol)
     );
 
-    // Step 3: Match — keep mcap order, only Binance-listed coins
+    // Match in mcap order (CoinCap already returns rank 1→500)
     const matched = [];
     const seen = new Set();
-    ordered.forEach(coin => {
+    d.data.forEach(coin => {
+      if (!coin.symbol) return;
       const sym = coin.symbol.toUpperCase() + 'USDT';
       if (bnPairs.has(sym) && !seen.has(sym)) {
         matched.push(sym);
@@ -685,28 +683,59 @@ async function loadAllPairs() {
     if (matched.length > 0) {
       PAIRS.length = 0;
       PAIRS.push(...matched.slice(0, MAX_PAIRS));
-      console.log(`[Pairs] ${PAIRS.length} top mcap coins loaded`);
+      console.log(`[Pairs] ${PAIRS.length} top mcap coins loaded (CoinCap)`);
     } else {
-      throw new Error('No matches');
+      throw new Error('No matches found');
     }
   } catch(e) {
-    console.warn('CoinGecko failed, using Binance volume fallback:', e);
+    console.warn('CoinCap failed, trying CoinGecko:', e);
     try {
-      // Fallback: sort by 24h volume (best proxy for mcap when CoinGecko is down)
-      const r = await fetch('https://api.binance.com/api/v3/ticker/24hr');
+      // CoinGecko fallback — fetch page 1 only (avoid rate limit)
+      const r = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=false');
       const d = await r.json();
-      const stables = new Set(['USDCUSDT','BUSDUSDT','TUSDUSDT','USDPUSDT','FDUSDUSDT','DAIUSDT','USTCUSDT']);
-      const sorted = d
-        .filter(t => t.symbol.endsWith('USDT') && !stables.has(t.symbol))
-        .sort((a,b) => parseFloat(b.quoteVolume) - parseFloat(a.quoteVolume))
-        .map(t => t.symbol)
-        .slice(0, MAX_PAIRS);
-      PAIRS.length = 0;
-      PAIRS.push(...sorted);
-      console.log(`[Pairs] Fallback: ${PAIRS.length} pairs by volume`);
+
+      const bnR = await fetch('https://api.binance.com/api/v3/exchangeInfo');
+      const bnD = await bnR.json();
+      const bnPairs = new Set(
+        bnD.symbols
+          .filter(s => s.symbol.endsWith('USDT') && s.status === 'TRADING' && s.isSpotTradingAllowed)
+          .map(s => s.symbol)
+      );
+
+      const matched = [];
+      const seen = new Set();
+      d.forEach(coin => {
+        if (!coin.symbol) return;
+        const sym = coin.symbol.toUpperCase() + 'USDT';
+        if (bnPairs.has(sym) && !seen.has(sym)) { matched.push(sym); seen.add(sym); }
+      });
+
+      if (matched.length > 0) {
+        PAIRS.length = 0;
+        PAIRS.push(...matched.slice(0, MAX_PAIRS));
+        console.log(`[Pairs] ${PAIRS.length} coins loaded (CoinGecko fallback)`);
+        return;
+      }
+      throw new Error('CoinGecko also empty');
     } catch(e2) {
-      PAIRS.length = 0;
-      PAIRS.push('BTCUSDT','ETHUSDT','SOLUSDT','BNBUSDT','XRPUSDT','DOGEUSDT','ADAUSDT','AVAXUSDT','LINKUSDT','DOTUSDT','LTCUSDT','TRXUSDT','UNIUSDT','ATOMUSDT','NEARUSDT','APTUSDT','ARBUSDT','OPUSDT','INJUSDT','SUIUSDT');
+      console.warn('Both APIs failed, using Binance volume sort:', e2);
+      try {
+        // Last resort: Binance 24h volume sort
+        const r = await fetch('https://api.binance.com/api/v3/ticker/24hr');
+        const d = await r.json();
+        const stables = new Set(['USDCUSDT','BUSDUSDT','TUSDUSDT','USDPUSDT','FDUSDUSDT','DAIUSDT','USTCUSDT']);
+        const sorted = d
+          .filter(t => t.symbol.endsWith('USDT') && !stables.has(t.symbol))
+          .sort((a,b) => parseFloat(b.quoteVolume) - parseFloat(a.quoteVolume))
+          .map(t => t.symbol)
+          .slice(0, MAX_PAIRS);
+        PAIRS.length = 0;
+        PAIRS.push(...sorted);
+        console.log(`[Pairs] ${PAIRS.length} coins by volume (last resort)`);
+      } catch(e3) {
+        PAIRS.length = 0;
+        PAIRS.push('BTCUSDT','ETHUSDT','SOLUSDT','BNBUSDT','XRPUSDT','DOGEUSDT','ADAUSDT','AVAXUSDT','LINKUSDT','DOTUSDT','LTCUSDT','TRXUSDT','UNIUSDT','ATOMUSDT','NEARUSDT','APTUSDT','ARBUSDT','OPUSDT','INJUSDT','SUIUSDT');
+      }
     }
   }
 }
