@@ -3,23 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Live Crypto Arbitrage Scanner — Real-Time Price Gaps</title>
-<meta name="description" content="Real-time cross-exchange crypto price gap scanner. Free to use, updated every 15 seconds across Binance, Bybit, Gate.io, KuCoin and MEXC.">
-<meta name="keywords" content="crypto futures arbitrage signals, bitcoin 2026arbitrage telegram, crypto arbitrage bot, funding rate arbitrage, cross exchange arbitrage, bybit binance arbitrage, crypto signals telegram, arbitrage trading signals">
+<title>Live Crypto Arbitrage Scanner — Real-Time Price Gap Detector | ArbVertex</title>
+<meta name="description" content="Free real-time crypto price gap scanner across 6 exchanges — Binance, Bybit, MEXC, Gate.io, KuCoin, Bitget. 700+ coins tracked, updated every 30 seconds.">
+<meta name="keywords" content="live crypto arbitrage scanner, real time price gap scanner, crypto arbitrage tool, binance bybit price difference, free arbitrage scanner, crypto spread scanner">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://arbvertex.com/live-crypto-arbitrage-scanner.html">
 
 <!-- Open Graph -->
-<meta property="og:title" content="Live Arbitrage Scanner | ArbVertex">
-<meta property="og:description" content="Real-time cross-exchange crypto price gap scanner — free to use, updated every 15 seconds.">
+<meta property="og:title" content="Live Crypto Arbitrage Scanner — Real-Time Price Gap Detector | ArbVertex">
+<meta property="og:description" content="Free real-time crypto price gap scanner across 6 exchanges — Binance, Bybit, MEXC, Gate.io, KuCoin, Bitget. 700+ coins tracked, updated every 30 seconds.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="live-crypto-arbitrage-scanner.html">
 <meta property="og:image" content="https://arbvertex.com/og-image.png">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Live Arbitrage Scanner | ArbVertex">
-<meta name="twitter:description" content="Real-time cross-exchange crypto price gap scanner — free to use, updated every 15 seconds.">
+<meta name="twitter:title" content="Live Crypto Arbitrage Scanner — Real-Time Price Gap Detector | ArbVertex">
+<meta name="twitter:description" content="Free real-time crypto price gap scanner across 6 exchanges — Binance, Bybit, MEXC, Gate.io, KuCoin, Bitget. 700+ coins tracked, updated every 30 seconds.">
 
 <!-- Schema: WebSite -->
 <script type="application/ld+json">
@@ -441,6 +441,7 @@ footer p{color:var(--muted);font-size:0.82rem;}
  <button type="button" class="av-top-link av-drop-trigger">Signals <span class="av-caret">▾</span></button>
  <div class="av-mega-panel">
  <a class="av-mega-link" href="crypto-arbitrage-telegram-signals.html"><span class="av-icon">✈️</span><span>Telegram Bot<span class="av-desc">Get instant signals</span></span></a>
+ <a class="av-mega-link" href="futures-signal-bot.html"><span class="av-icon">🚀</span><span>Free Futures Signal Bot<span class="av-desc">Live pump &amp; liq signals</span></span></a>
  <a class="av-mega-link" href="crypto-arbitrage-signals-pricing.html"><span class="av-icon">💳</span><span>Pricing<span class="av-desc">$5/month plans</span></span></a>
  </div>
  </li>
@@ -653,126 +654,126 @@ function setFilter(f) {
 
 // ── LOAD TOP 500 MARKET CAP COINS ──
 async function loadAllPairs() {
-  const stableFilter = new Set(['USDCUSDT','BUSDUSDT','TUSDUSDT','USDPUSDT','FDUSDUSDT','DAIUSDT','USTCUSDT','USDTUSDT','EURUSDT','GBPUSDT','FRAXUSDT','LUSDUSDT','GUSDUSDT','PAXUSDT','SUSDUSDT','AEURUSDT']);
+ const stableFilter = new Set(['USDCUSDT','BUSDUSDT','TUSDUSDT','USDPUSDT','FDUSDUSDT','DAIUSDT','USTCUSDT','USDTUSDT','EURUSDT','GBPUSDT','FRAXUSDT','LUSDUSDT','GUSDUSDT','PAXUSDT','SUSDUSDT','AEURUSDT']);
 
-  // Get Binance active USDT pairs first (needed for filtering)
-  let bnPairs = new Set();
-  try {
-    const bnR = await fetch('https://api.binance.com/api/v3/exchangeInfo');
-    const bnD = await bnR.json();
-    bnD.symbols
-      .filter(s => s.symbol.endsWith('USDT') && s.status === 'TRADING' && s.isSpotTradingAllowed)
-      .forEach(s => bnPairs.add(s.symbol));
-    console.log(`[Binance] ${bnPairs.size} active USDT pairs`);
-  } catch(e) {
-    console.warn('Binance exchangeInfo failed:', e);
-  }
+ // Get Binance active USDT pairs first (needed for filtering)
+ let bnPairs = new Set();
+ try {
+ const bnR = await fetch('https://api.binance.com/api/v3/exchangeInfo');
+ const bnD = await bnR.json();
+ bnD.symbols
+ .filter(s => s.symbol.endsWith('USDT') && s.status === 'TRADING' && s.isSpotTradingAllowed)
+ .forEach(s => bnPairs.add(s.symbol));
+ console.log(`[Binance] ${bnPairs.size} active USDT pairs`);
+ } catch(e) {
+ console.warn('Binance exchangeInfo failed:', e);
+ }
 
-  // Helper: match coins to Binance pairs in order
-  function matchToBinance(symbolList) {
-    const matched = [];
-    const seen = new Set();
-    symbolList.forEach(sym => {
-      const usdtSym = sym.toUpperCase() + 'USDT';
-      if (bnPairs.has(usdtSym) && !stableFilter.has(usdtSym) && !seen.has(usdtSym) && sym.length >= 2) {
-        matched.push(usdtSym);
-        seen.add(usdtSym);
-      }
-    });
-    return matched;
-  }
+ // Helper: match coins to Binance pairs in order
+ function matchToBinance(symbolList) {
+ const matched = [];
+ const seen = new Set();
+ symbolList.forEach(sym => {
+ const usdtSym = sym.toUpperCase() + 'USDT';
+ if (bnPairs.has(usdtSym) && !stableFilter.has(usdtSym) && !seen.has(usdtSym) && sym.length >= 2) {
+ matched.push(usdtSym);
+ seen.add(usdtSym);
+ }
+ });
+ return matched;
+ }
 
-  try {
-    // Strategy: CoinGecko pages 1-5 (250 coins each = up to 1250, need 500 matched)
-    // Fetch pages in parallel with delay to avoid rate limit
-    const cgFetch = async (page) => {
-      try {
-        const r = await fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=${page}&sparkline=false`);
-        if (!r.ok) return [];
-        return await r.json();
-      } catch(e) { return []; }
-    };
+ try {
+ // Strategy: CoinGecko pages 1-5 (250 coins each = up to 1250, need 500 matched)
+ // Fetch pages in parallel with delay to avoid rate limit
+ const cgFetch = async (page) => {
+ try {
+ const r = await fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=${page}&sparkline=false`);
+ if (!r.ok) return [];
+ return await r.json();
+ } catch(e) { return []; }
+ };
 
-    // Fetch page 1 and 2 simultaneously
-    const [pg1, pg2] = await Promise.all([cgFetch(1), cgFetch(2)]);
-    let allCoins = [...pg1, ...pg2];
-    
-    // If we need more, fetch pages 3-5
-    if (allCoins.length > 0) {
-      const [pg3, pg4, pg5] = await Promise.all([cgFetch(3), cgFetch(4), cgFetch(5)]);
-      allCoins = [...allCoins, ...pg3, ...pg4, ...pg5];
-    }
+ // Fetch page 1 and 2 simultaneously
+ const [pg1, pg2] = await Promise.all([cgFetch(1), cgFetch(2)]);
+ let allCoins = [...pg1, ...pg2];
+ 
+ // If we need more, fetch pages 3-5
+ if (allCoins.length > 0) {
+ const [pg3, pg4, pg5] = await Promise.all([cgFetch(3), cgFetch(4), cgFetch(5)]);
+ allCoins = [...allCoins, ...pg3, ...pg4, ...pg5];
+ }
 
-    const cgSymbols = allCoins.filter(c => c && c.symbol).map(c => c.symbol);
-    console.log(`[CoinGecko] ${cgSymbols.length} coins fetched`);
+ const cgSymbols = allCoins.filter(c => c && c.symbol).map(c => c.symbol);
+ console.log(`[CoinGecko] ${cgSymbols.length} coins fetched`);
 
-    if (cgSymbols.length > 0) {
-      const matched = matchToBinance(cgSymbols);
-      console.log(`[CoinGecko] ${matched.length} matched on Binance`);
-      
-      if (matched.length >= 100) {
-        PAIRS.length = 0;
-        PAIRS.push(...matched.slice(0, MAX_PAIRS));
-        console.log(`✅ Loaded ${PAIRS.length} top mcap coins (CoinGecko)`);
-        return;
-      }
-    }
-    throw new Error('CoinGecko insufficient data');
+ if (cgSymbols.length > 0) {
+ const matched = matchToBinance(cgSymbols);
+ console.log(`[CoinGecko] ${matched.length} matched on Binance`);
+ 
+ if (matched.length >= 100) {
+ PAIRS.length = 0;
+ PAIRS.push(...matched.slice(0, MAX_PAIRS));
+ console.log(`✅ Loaded ${PAIRS.length} top mcap coins (CoinGecko)`);
+ return;
+ }
+ }
+ throw new Error('CoinGecko insufficient data');
 
-  } catch(cgErr) {
-    console.warn('CoinGecko failed:', cgErr);
+ } catch(cgErr) {
+ console.warn('CoinGecko failed:', cgErr);
 
-    try {
-      // Fallback 1: CoinCap — fetch multiple pages
-      const capFetch = async (offset) => {
-        try {
-          const r = await fetch(`https://api.coincap.io/v2/assets?limit=200&offset=${offset}`);
-          const d = await r.json();
-          return d.data || [];
-        } catch(e) { return []; }
-      };
+ try {
+ // Fallback 1: CoinCap — fetch multiple pages
+ const capFetch = async (offset) => {
+ try {
+ const r = await fetch(`https://api.coincap.io/v2/assets?limit=200&offset=${offset}`);
+ const d = await r.json();
+ return d.data || [];
+ } catch(e) { return []; }
+ };
 
-      const [cap1, cap2, cap3] = await Promise.all([
-        capFetch(0), capFetch(200), capFetch(400)
-      ]);
-      const capCoins = [...cap1, ...cap2, ...cap3];
-      console.log(`[CoinCap] ${capCoins.length} coins fetched`);
+ const [cap1, cap2, cap3] = await Promise.all([
+ capFetch(0), capFetch(200), capFetch(400)
+ ]);
+ const capCoins = [...cap1, ...cap2, ...cap3];
+ console.log(`[CoinCap] ${capCoins.length} coins fetched`);
 
-      const capSymbols = capCoins.filter(c => c && c.symbol).map(c => c.symbol);
-      const matched = matchToBinance(capSymbols);
-      console.log(`[CoinCap] ${matched.length} matched on Binance`);
+ const capSymbols = capCoins.filter(c => c && c.symbol).map(c => c.symbol);
+ const matched = matchToBinance(capSymbols);
+ console.log(`[CoinCap] ${matched.length} matched on Binance`);
 
-      if (matched.length >= 50) {
-        PAIRS.length = 0;
-        PAIRS.push(...matched.slice(0, MAX_PAIRS));
-        console.log(`✅ Loaded ${PAIRS.length} coins (CoinCap fallback)`);
-        return;
-      }
-      throw new Error('CoinCap insufficient');
+ if (matched.length >= 50) {
+ PAIRS.length = 0;
+ PAIRS.push(...matched.slice(0, MAX_PAIRS));
+ console.log(`✅ Loaded ${PAIRS.length} coins (CoinCap fallback)`);
+ return;
+ }
+ throw new Error('CoinCap insufficient');
 
-    } catch(capErr) {
-      console.warn('CoinCap also failed:', capErr);
+ } catch(capErr) {
+ console.warn('CoinCap also failed:', capErr);
 
-      // Fallback 2: Binance 24h volume sort (best available proxy for mcap)
-      try {
-        const r = await fetch('https://api.binance.com/api/v3/ticker/24hr');
-        const d = await r.json();
-        const sorted = d
-          .filter(t => t.symbol.endsWith('USDT') && !stableFilter.has(t.symbol) && t.symbol.replace('USDT','').length >= 2)
-          .sort((a,b) => parseFloat(b.quoteVolume) - parseFloat(a.quoteVolume))
-          .map(t => t.symbol)
-          .slice(0, MAX_PAIRS);
-        PAIRS.length = 0;
-        PAIRS.push(...sorted);
-        console.log(`✅ Loaded ${PAIRS.length} coins (volume sort fallback)`);
-      } catch(e) {
-        // Last resort hardcoded
-        PAIRS.length = 0;
-        PAIRS.push('BTCUSDT','ETHUSDT','BNBUSDT','SOLUSDT','XRPUSDT','DOGEUSDT','ADAUSDT','AVAXUSDT','LINKUSDT','DOTUSDT','LTCUSDT','TRXUSDT','UNIUSDT','ATOMUSDT','NEARUSDT','APTUSDT','ARBUSDT','OPUSDT','INJUSDT','SUIUSDT');
-        console.log('✅ Loaded hardcoded fallback pairs');
-      }
-    }
-  }
+ // Fallback 2: Binance 24h volume sort (best available proxy for mcap)
+ try {
+ const r = await fetch('https://api.binance.com/api/v3/ticker/24hr');
+ const d = await r.json();
+ const sorted = d
+ .filter(t => t.symbol.endsWith('USDT') && !stableFilter.has(t.symbol) && t.symbol.replace('USDT','').length >= 2)
+ .sort((a,b) => parseFloat(b.quoteVolume) - parseFloat(a.quoteVolume))
+ .map(t => t.symbol)
+ .slice(0, MAX_PAIRS);
+ PAIRS.length = 0;
+ PAIRS.push(...sorted);
+ console.log(`✅ Loaded ${PAIRS.length} coins (volume sort fallback)`);
+ } catch(e) {
+ // Last resort hardcoded
+ PAIRS.length = 0;
+ PAIRS.push('BTCUSDT','ETHUSDT','BNBUSDT','SOLUSDT','XRPUSDT','DOGEUSDT','ADAUSDT','AVAXUSDT','LINKUSDT','DOTUSDT','LTCUSDT','TRXUSDT','UNIUSDT','ATOMUSDT','NEARUSDT','APTUSDT','ARBUSDT','OPUSDT','INJUSDT','SUIUSDT');
+ console.log('✅ Loaded hardcoded fallback pairs');
+ }
+ }
+ }
 }
 
 // ── FETCH FUNCTIONS ──
@@ -805,58 +806,58 @@ async function fetchBybit() {
 const WORKER_URL = 'https://arbvertex-proxy.knitin973.workers.dev';
 
 async function fetchViaWorker(exchange) {
-  const r = await fetch(`${WORKER_URL}?exchange=${exchange}`);
-  if (!r.ok) throw new Error(`Worker returned ${r.status} for ${exchange}`);
-  return await r.json();
+ const r = await fetch(`${WORKER_URL}?exchange=${exchange}`);
+ if (!r.ok) throw new Error(`Worker returned ${r.status} for ${exchange}`);
+ return await r.json();
 }
 
 async function fetchGate() {
-  const m = {};
-  const pairSet = new Set(PAIRS);
-  try {
-    const d = await fetchViaWorker('gate');
-    d.forEach(x => {
-      const sym = x.currency_pair?.replace('_', '');
-      if (pairSet.has(sym)) m[sym] = parseFloat(x.last);
-    });
-  } catch (e) { console.warn('Gate failed:', e); }
-  return m;
+ const m = {};
+ const pairSet = new Set(PAIRS);
+ try {
+ const d = await fetchViaWorker('gate');
+ d.forEach(x => {
+ const sym = x.currency_pair?.replace('_', '');
+ if (pairSet.has(sym)) m[sym] = parseFloat(x.last);
+ });
+ } catch (e) { console.warn('Gate failed:', e); }
+ return m;
 }
 
 async function fetchBitget() {
-  const m = {};
-  const pairSet = new Set(PAIRS);
-  try {
-    const d = await fetchViaWorker('bitget');
-    if (d.data) d.data.forEach(x => {
-      const sym = x.symbol?.replace('USDT', '') + 'USDT';
-      if (pairSet.has(sym)) m[sym] = parseFloat(x.lastPr);
-    });
-  } catch (e) { console.warn('Bitget failed:', e); }
-  return m;
+ const m = {};
+ const pairSet = new Set(PAIRS);
+ try {
+ const d = await fetchViaWorker('bitget');
+ if (d.data) d.data.forEach(x => {
+ const sym = x.symbol?.replace('USDT', '') + 'USDT';
+ if (pairSet.has(sym)) m[sym] = parseFloat(x.lastPr);
+ });
+ } catch (e) { console.warn('Bitget failed:', e); }
+ return m;
 }
 
 async function fetchKucoin() {
-  const m = {};
-  const pairSet = new Set(PAIRS);
-  try {
-    const d = await fetchViaWorker('kucoin');
-    if (d.data?.ticker) d.data.ticker.forEach(x => {
-      const sym = x.symbol?.replace('-', '');
-      if (pairSet.has(sym)) m[sym] = parseFloat(x.last);
-    });
-  } catch (e) { console.warn('KuCoin failed:', e); }
-  return m;
+ const m = {};
+ const pairSet = new Set(PAIRS);
+ try {
+ const d = await fetchViaWorker('kucoin');
+ if (d.data?.ticker) d.data.ticker.forEach(x => {
+ const sym = x.symbol?.replace('-', '');
+ if (pairSet.has(sym)) m[sym] = parseFloat(x.last);
+ });
+ } catch (e) { console.warn('KuCoin failed:', e); }
+ return m;
 }
 
 async function fetchMexc() {
-  const m = {};
-  const pairSet = new Set(PAIRS);
-  try {
-    const d = await fetchViaWorker('mexc');
-    d.forEach(x => { if (pairSet.has(x.symbol)) m[x.symbol] = parseFloat(x.price); });
-  } catch (e) { console.warn('MEXC failed:', e); }
-  return m;
+ const m = {};
+ const pairSet = new Set(PAIRS);
+ try {
+ const d = await fetchViaWorker('mexc');
+ d.forEach(x => { if (pairSet.has(x.symbol)) m[x.symbol] = parseFloat(x.price); });
+ } catch (e) { console.warn('MEXC failed:', e); }
+ return m;
 }
 function fp(price) {
  if(!price || isNaN(price)) return '<span style="color:var(--border);">—</span>';
@@ -883,31 +884,31 @@ function renderTable(results) {
 
  // Build rows: ONE row per coin — best spread only (no duplicates)
  const ALL_EX_PAIRS = [
-   {k1:'binance',k2:'bybit',  label:'Binance→Bybit'},
-   {k1:'binance',k2:'gate',   label:'Binance→Gate'},
-   {k1:'binance',k2:'bitget', label:'Binance→Bitget'},
-   {k1:'binance',k2:'kucoin', label:'Binance→KuCoin'},
-   {k1:'binance',k2:'mexc',   label:'Binance→MEXC'},
-   {k1:'bybit',  k2:'gate',   label:'Bybit→Gate'},
-   {k1:'bybit',  k2:'bitget', label:'Bybit→Bitget'},
-   {k1:'bybit',  k2:'mexc',   label:'Bybit→MEXC'},
-   {k1:'gate',   k2:'mexc',   label:'Gate→MEXC'},
-   {k1:'kucoin', k2:'mexc',   label:'KuCoin→MEXC'},
+ {k1:'binance',k2:'bybit', label:'Binance→Bybit'},
+ {k1:'binance',k2:'gate', label:'Binance→Gate'},
+ {k1:'binance',k2:'bitget', label:'Binance→Bitget'},
+ {k1:'binance',k2:'kucoin', label:'Binance→KuCoin'},
+ {k1:'binance',k2:'mexc', label:'Binance→MEXC'},
+ {k1:'bybit', k2:'gate', label:'Bybit→Gate'},
+ {k1:'bybit', k2:'bitget', label:'Bybit→Bitget'},
+ {k1:'bybit', k2:'mexc', label:'Bybit→MEXC'},
+ {k1:'gate', k2:'mexc', label:'Gate→MEXC'},
+ {k1:'kucoin', k2:'mexc', label:'KuCoin→MEXC'},
  ];
  let rows = [];
  results.forEach(r => {
-   let bestSpread = null, bestPair = '';
-   ALL_EX_PAIRS.forEach(ep => {
-     const p1 = r[ep.k1], p2 = r[ep.k2];
-     if (!p1 || !p2) return;
-     const spread = ((p2 - p1) / p1) * 100;
-     if (bestSpread === null || Math.abs(spread) > Math.abs(bestSpread)) {
-       bestSpread = spread; bestPair = ep.label;
-     }
-   });
-   if (bestSpread === null) return;
-   if (activeFilter === '2pct' && Math.abs(bestSpread) < 2) return;
-   rows.push({symbol: r.symbol, spread: bestSpread, pair: bestPair, ...r});
+ let bestSpread = null, bestPair = '';
+ ALL_EX_PAIRS.forEach(ep => {
+ const p1 = r[ep.k1], p2 = r[ep.k2];
+ if (!p1 || !p2) return;
+ const spread = ((p2 - p1) / p1) * 100;
+ if (bestSpread === null || Math.abs(spread) > Math.abs(bestSpread)) {
+ bestSpread = spread; bestPair = ep.label;
+ }
+ });
+ if (bestSpread === null) return;
+ if (activeFilter === '2pct' && Math.abs(bestSpread) < 2) return;
+ rows.push({symbol: r.symbol, spread: bestSpread, pair: bestPair, ...r});
  });
 
  rows.sort((a,b) => Math.abs(b.spread)-Math.abs(a.spread));
@@ -974,16 +975,16 @@ async function fetchAllPrices() {
  kucoin: kucoin[sym] || null,
  mexc: mexc[sym] || null,
  })).filter(r => {
-    // Must have at least Binance price
-    if (!r.binance) return false;
-    // Remove stablecoins and broken/too-short symbols
-    const stableSyms = new Set(['USDCUSDT','BUSDUSDT','TUSDUSDT','USDPUSDT','FDUSDUSDT','DAIUSDT','USTCUSDT','USDTUSDT','EURUSDT','GBPUSDT','FRAXUSDT','LUSDUSDT','GUSDUSDT','PAXUSDT','SUSDUSDT']);
-    if (stableSyms.has(r.symbol)) return false;
-    // Remove symbols shorter than 4 chars before USDT (e.g. "U/USDT")
-    const base = r.symbol.replace('USDT','');
-    if (base.length < 2) return false;
-    return true;
-  });
+ // Must have at least Binance price
+ if (!r.binance) return false;
+ // Remove stablecoins and broken/too-short symbols
+ const stableSyms = new Set(['USDCUSDT','BUSDUSDT','TUSDUSDT','USDPUSDT','FDUSDUSDT','DAIUSDT','USTCUSDT','USDTUSDT','EURUSDT','GBPUSDT','FRAXUSDT','LUSDUSDT','GUSDUSDT','PAXUSDT','SUSDUSDT']);
+ if (stableSyms.has(r.symbol)) return false;
+ // Remove symbols shorter than 4 chars before USDT (e.g. "U/USDT")
+ const base = r.symbol.replace('USDT','');
+ if (base.length < 2) return false;
+ return true;
+ });
 
  const activeExchanges = [
  Object.keys(binance).length > 0 ? 'Binance' : null,

@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Crypto Futures Signal Bot — Live Pump & Liquidation Signals | ArbVertex</title>
+<meta name="description" content="Free real-time crypto futures signals — pump detection, short liquidation alerts, OI change, funding rate. Live signals from Binance & Bybit futures markets.">
+<meta name="keywords" content="free crypto futures signals, live pump signals, crypto liquidation signals, binance futures signals, bybit pump detector, short liquidation alert, crypto signal bot free">
+<meta name="robots" content="index, follow">
+<meta name="author" content="ArbVertex">
+<link rel="canonical" href="https://arbvertex.com/futures-signal-bot.html">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Free Crypto Futures Signal Bot — Live Pump & Liquidation Signals | ArbVertex">
+<meta property="og:description" content="Free real-time crypto futures signals — pump detection, short liquidation alerts, OI change, funding rate. Live signals from Binance & Bybit futures markets.">
+<meta property="og:url" content="https://arbvertex.com/futures-signal-bot.html">
+<meta property="og:image" content="https://arbvertex.com/og-image.png">
+<meta property="og:site_name" content="ArbVertex">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Free Crypto Futures Signal Bot — Live Pump & Liquidation Signals | ArbVertex">
+<meta name="twitter:description" content="Free real-time crypto futures signals — pump detection, short liquidation alerts, OI change, funding rate. Live signals from Binance & Bybit futures markets.">
+<meta name="twitter:image" content="https://arbvertex.com/og-image.png">
+
+<!-- Schema -->
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "WebApplication",
+ "name": "ArbVertex Free Futures Signal Bot",
+ "description": "Free real-time crypto futures signal bot — detects pumps, short liquidations, OI spikes across Binance and Bybit futures markets.",
+ "url": "https://arbvertex.com/futures-signal-bot.html",
+ "applicationCategory": "FinanceApplication",
+ "operatingSystem": "Web Browser",
+ "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+ "provider": {"@type": "Organization", "name": "ArbVertex", "url": "https://arbvertex.com/"}
+}
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+ --bg:#060b12;--surface:#0c1520;--surface2:#111d2c;--border:#1a2e44;
+ --accent:#00e5ff;--green:#00ff88;--red:#ff4466;--orange:#ffa040;--purple:#a855f7;
+ --text:#e8f4f8;--muted:#5a7a94;--yellow:#ffd700;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;min-height:100vh;padding-top:64px;}
+
+/* Header */
+.hdr{background:linear-gradient(135deg,#060b12,#0c1a28);border-bottom:1px solid var(--border);padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;}
+.hdr-title{font-family:'JetBrains Mono',monospace;font-size:1.1rem;font-weight:700;color:var(--accent);}
+.hdr-title span{color:var(--green);}
+.hdr-stats{display:flex;gap:1rem;flex-wrap:wrap;}
+.stat-pill{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:0.3rem 0.75rem;font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--muted);}
+.stat-pill b{color:var(--text);}
+.live-dot{width:8px;height:8px;background:var(--green);border-radius:50%;display:inline-block;animation:blink 1.2s infinite;margin-right:6px;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.2;}}
+
+/* Controls */
+.controls{padding:1rem 1.5rem;display:flex;gap:0.75rem;flex-wrap:wrap;align-items:center;border-bottom:1px solid var(--border);}
+.ctrl-btn{background:var(--surface2);border:1px solid var(--border);color:var(--muted);padding:0.45rem 1rem;border-radius:6px;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-size:0.82rem;font-weight:500;transition:all 0.2s;}
+.ctrl-btn:hover,.ctrl-btn.active{background:var(--accent);color:var(--bg);border-color:var(--accent);}
+.ctrl-btn.green.active{background:var(--green);color:var(--bg);border-color:var(--green);}
+.ctrl-btn.red.active{background:var(--red);color:#fff;border-color:var(--red);}
+select{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:0.45rem 0.75rem;border-radius:6px;font-size:0.82rem;cursor:pointer;outline:none;}
+.scan-btn{background:linear-gradient(135deg,var(--accent),var(--green));color:var(--bg);border:none;padding:0.5rem 1.4rem;border-radius:6px;font-weight:700;cursor:pointer;font-size:0.88rem;transition:opacity 0.2s;}
+.scan-btn:hover{opacity:0.85;}
+.scan-btn:disabled{opacity:0.4;cursor:not-allowed;}
+.status-bar{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--muted);}
+
+/* Signal Cards Grid */
+.signals-wrap{padding:1rem 1.5rem;}
+.signals-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;}
+.signals-header h2{font-size:0.85rem;color:var(--muted);font-family:'JetBrains Mono',monospace;letter-spacing:0.08em;}
+.count-badge{background:var(--surface2);border:1px solid var(--border);color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:0.72rem;padding:0.2rem 0.6rem;border-radius:4px;}
+
+.signals-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1rem;}
+
+/* Signal Card */
+.sig-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color 0.2s,transform 0.15s;}
+.sig-card:hover{transform:translateY(-2px);}
+.sig-card.long{border-left:3px solid var(--green);}
+.sig-card.short{border-left:3px solid var(--red);}
+
+.sig-top{padding:0.8rem 1rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);}
+.sig-symbol{font-family:'JetBrains Mono',monospace;font-size:1rem;font-weight:700;}
+.sig-dir{padding:0.25rem 0.7rem;border-radius:4px;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;}
+.sig-dir.long{background:rgba(0,255,136,0.15);color:var(--green);}
+.sig-dir.short{background:rgba(255,68,102,0.15);color:var(--red);}
+.sig-age{font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);}
+.age-dot{width:7px;height:7px;border-radius:50%;display:inline-block;margin-right:4px;}
+.age-fresh{background:var(--green);}
+.age-recent{background:var(--orange);}
+.age-old{background:var(--muted);}
+
+/* Score Bar */
+.score-section{padding:0.7rem 1rem;border-bottom:1px solid var(--border);}
+.score-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.4rem;}
+.score-num{font-family:'JetBrains Mono',monospace;font-size:1.2rem;font-weight:700;}
+.score-label{font-size:0.72rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:4px;}
+.score-strong{color:#000;background:var(--green);}
+.score-medium{color:#000;background:var(--orange);}
+.score-weak{color:#fff;background:#5a7a94;}
+.score-vweak{color:#fff;background:#3a4a5a;}
+.score-bar-bg{height:5px;background:var(--border);border-radius:3px;overflow:hidden;}
+.score-bar-fill{height:100%;border-radius:3px;transition:width 0.5s;}
+
+/* Data Grid */
+.data-grid{padding:0.7rem 1rem;display:grid;grid-template-columns:1fr 1fr;gap:0.4rem;border-bottom:1px solid var(--border);}
+.data-item{display:flex;flex-direction:column;gap:0.1rem;}
+.data-label{font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;}
+.data-val{font-family:'JetBrains Mono',monospace;font-size:0.82rem;font-weight:600;}
+.data-val.up{color:var(--green);}
+.data-val.dn{color:var(--red);}
+.data-val.neu{color:var(--accent);}
+.data-val.warn{color:var(--orange);}
+
+/* Entry/Target/SL */
+.trade-section{padding:0.7rem 1rem;border-bottom:1px solid var(--border);}
+.trade-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.5rem;}
+.trade-box{background:var(--surface2);border-radius:6px;padding:0.5rem 0.6rem;text-align:center;}
+.trade-box-label{font-size:0.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.2rem;}
+.trade-box-val{font-family:'JetBrains Mono',monospace;font-size:0.78rem;font-weight:700;}
+.entry-val{color:var(--accent);}
+.target-val{color:var(--green);}
+.sl-val{color:var(--red);}
+
+/* Score Breakdown */
+.breakdown{padding:0.6rem 1rem;}
+.breakdown-title{font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.4rem;}
+.breakdown-items{display:flex;flex-wrap:wrap;gap:0.3rem;}
+.b-item{font-size:0.68rem;padding:0.2rem 0.5rem;border-radius:4px;font-family:'JetBrains Mono',monospace;}
+.b-item.hit{background:rgba(0,255,136,0.12);color:var(--green);border:1px solid rgba(0,255,136,0.2);}
+.b-item.miss{background:rgba(90,122,148,0.1);color:var(--muted);border:1px solid var(--border);text-decoration:line-through;}
+
+/* Liquidation */
+.liq-section{padding:0.5rem 1rem 0.7rem;}
+.liq-title{font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.4rem;}
+.liq-row{display:flex;gap:0.4rem;flex-wrap:wrap;}
+.liq-pill{font-size:0.68rem;font-family:'JetBrains Mono',monospace;padding:0.2rem 0.5rem;border-radius:4px;border:1px solid;}
+.liq-high-long{background:rgba(255,68,102,0.1);color:var(--red);border-color:rgba(255,68,102,0.3);}
+.liq-high-short{background:rgba(0,255,136,0.1);color:var(--green);border-color:rgba(0,255,136,0.3);}
+.liq-low{background:rgba(90,122,148,0.1);color:var(--muted);border-color:var(--border);}
+
+/* Empty State */
+.empty{text-align:center;padding:4rem 2rem;color:var(--muted);}
+.empty-icon{font-size:3rem;margin-bottom:1rem;opacity:0.4;}
+.empty h3{font-size:1rem;margin-bottom:0.5rem;color:var(--text);}
+.empty p{font-size:0.85rem;line-height:1.6;}
+
+/* Loading */
+.loading{text-align:center;padding:3rem;color:var(--muted);}
+.spinner{width:32px;height:32px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 1rem;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* Legend */
+.legend{padding:0.75rem 1.5rem;border-top:1px solid var(--border);display:flex;gap:1.5rem;flex-wrap:wrap;background:var(--surface);}
+.legend-item{display:flex;align-items:center;gap:0.4rem;font-size:0.75rem;color:var(--muted);}
+.legend-dot{width:8px;height:8px;border-radius:50%;}
+
+@media(max-width:600px){
+ .signals-grid{grid-template-columns:1fr;}
+ .hdr{flex-direction:column;align-items:flex-start;}
+ .controls{gap:0.5rem;}
+ .trade-row{grid-template-columns:1fr 1fr 1fr;}
+}
+
+
+/* ── MEGA NAV ── */
+.av-nav-wrap{
+ --av-bg:#050a0f; --av-surface:#0d1a24; --av-accent:#00e5ff; --av-accent2:#00ff88;
+ --av-text:#e8f4f8; --av-muted:#8fb0c4; --av-border:#1a3a52;
+ position:fixed; top:0; left:0; right:0; z-index:999;
+ background:rgba(5,10,15,0.95); backdrop-filter:blur(14px);
+ border-bottom:1px solid var(--av-border);
+ font-family:'Space Grotesk',sans-serif;
+}
+.av-nav-inner{
+ max-width:1400px; margin:0 auto; height:64px;
+ display:flex; align-items:center; justify-content:space-between;
+ padding:0 5%; gap:1rem;
+}
+.av-logo{
+ font-family:'JetBrains Mono',monospace; font-size:1.05rem; font-weight:700;
+ color:var(--av-accent); text-decoration:none; letter-spacing:-0.02em; flex-shrink:0;
+}
+.av-logo span{ color:var(--av-accent2); }
+.av-nav-links{
+ display:flex; align-items:center; gap:0.15rem; list-style:none; margin:0; padding:0;
+}
+.av-nav-links > li{ position:relative; }
+.av-top-link{
+ display:inline-flex; align-items:center; gap:0.3rem;
+ color:var(--av-muted); text-decoration:none; font-size:0.85rem; font-weight:500;
+ background:none; border:none; cursor:pointer; font-family:inherit;
+ padding:0.55rem 0.65rem; border-radius:6px; transition:color .2s, background .2s;
+ white-space:nowrap;
+}
+.av-top-link:hover{ color:var(--av-text); background:rgba(255,255,255,0.05); }
+.av-caret{ font-size:0.6rem; opacity:0.65; transition:transform .2s; margin-left:1px; }
+.av-dropdown:hover .av-caret,
+.av-dropdown.av-open .av-caret{ transform:rotate(180deg); }
+
+/* Mega dropdown panel */
+.av-mega-panel{
+ position:absolute; top:calc(100% + 10px); left:50%;
+ transform:translateX(-50%) translateY(6px);
+ background:var(--av-surface); border:1px solid var(--av-border); border-radius:10px;
+ padding:0.55rem; min-width:290px;
+ display:grid; gap:0.1rem;
+ opacity:0; visibility:hidden; pointer-events:none;
+ transition:opacity .16s ease, transform .16s ease;
+ box-shadow:0 24px 48px rgba(0,0,0,0.45);
+}
+.av-dropdown:hover .av-mega-panel,
+.av-dropdown.av-open .av-mega-panel{
+ opacity:1; visibility:visible; pointer-events:auto; transform:translateX(-50%) translateY(0);
+}
+.av-mega-link{
+ display:flex; align-items:flex-start; gap:0.65rem;
+ padding:0.55rem 0.65rem; border-radius:7px;
+ color:var(--av-text); text-decoration:none; font-size:0.84rem; font-weight:600;
+ transition:background .15s;
+}
+.av-mega-link:hover{ background:rgba(0,229,255,0.08); }
+.av-icon{ font-size:1rem; line-height:1.35; flex-shrink:0; }
+.av-desc{
+ display:block; color:var(--av-muted); font-size:0.72rem; font-weight:400;
+ margin-top:0.15rem; line-height:1.4;
+}
+
+.av-scanner-link{ color:var(--av-accent2)!important; font-weight:600!important; }
+.av-cta{
+ background:var(--av-accent)!important; color:var(--av-bg)!important; text-decoration:none;
+ padding:0.5rem 1.1rem!important; border-radius:6px; font-weight:700!important;
+ font-size:0.85rem!important; white-space:nowrap;
+}
+
+.av-hamburger{
+ display:none; flex-direction:column; gap:5px; background:none; border:none;
+ cursor:pointer; padding:4px; flex-shrink:0;
+}
+.av-hamburger span{ display:block; width:22px; height:2px; background:var(--av-accent); border-radius:2px; }
+
+@media(max-width:980px){
+ .av-nav-links{display:none!important;position:fixed;top:64px;left:0;right:0;height:calc(100vh - 64px);background:var(--bg);flex-direction:column;align-items:stretch;padding:1.2rem 5% 2rem;overflow-y:auto;overflow-x:hidden;gap:0.2rem;z-index:9999;border-top:1px solid var(--border);}
+ .av-nav-links.av-mobile-open{display:flex!important;}
+ .av-top-link{width:100%;justify-content:space-between;padding:0.9rem 0.6rem;font-size:0.95rem;}
+ .av-mega-panel{position:static!important;left:auto!important;transform:none!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important;display:none;box-shadow:none;border:none;border-left:2px solid var(--border);background:rgba(255,255,255,0.02);margin:0 0 0.4rem 0.8rem;padding:0.3rem 0;min-width:0;width:auto;}
+ .av-dropdown.av-open .av-mega-panel{display:grid;}
+ .av-mega-link{padding:0.6rem 0.8rem;font-size:0.88rem;}
+ .av-cta{display:block;text-align:center;margin-top:0.6rem;}
+ .av-hamburger{display:flex;}
+}
+ .av-cta{ display:block; text-align:center; margin-top:0.6rem; }
+ .av-hamburger{ display:flex; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="av-nav-wrap">
+ <div class="av-nav-inner">
+ <a href="index.html" class="av-logo">Arb<span>Vertex</span></a>
+ <ul class="av-nav-links" id="avNavLinks">
+ <li><a href="index.html" class="av-top-link">Home</a></li>
+
+ <li class="av-dropdown">
+ <button type="button" class="av-top-link av-drop-trigger">Learn <span class="av-caret">▾</span></button>
+ <div class="av-mega-panel">
+ <a class="av-mega-link" href="what-is-crypto-futures-arbitrage.html"><span class="av-icon">📘</span><span>What is Arbitrage<span class="av-desc">Core concept explained</span></span></a>
+ <a class="av-mega-link" href="how-crypto-arbitrage-signals-work.html"><span class="av-icon">⚙️</span><span>How It Works<span class="av-desc">Step-by-step process</span></span></a>
+ <a class="av-mega-link" href="how-to-generate-profit-crypto-arbitrage.html"><span class="av-icon">💰</span><span>Generate Profit<span class="av-desc">Ways arbitrage earns</span></span></a>
+ <a class="av-mega-link" href="crypto-arbitrage-risks-precautions.html"><span class="av-icon">⚠️</span><span>Risks &amp; Safety<span class="av-desc">What to watch for</span></span></a>
+ <a class="av-mega-link" href="delisting-arbitrage-crypto-arbitrage-risks-precautions.html"><span class="av-icon">🚨</span><span>Delisting Risks<span class="av-desc">Avoid this trap</span></span></a>
+ <a class="av-mega-link" href="rethink-traditional-trading.html"><span class="av-icon">🔄</span><span>Rethink Trading<span class="av-desc">Why arbitrage wins</span></span></a>
+ <a class="av-mega-link" href="arbitrage-portfolio-growth.html"><span class="av-icon">📈</span><span>Portfolio Growth<span class="av-desc">Long-term strategy</span></span></a>
+ </div>
+ </li>
+
+ <li class="av-dropdown">
+ <button type="button" class="av-top-link av-drop-trigger">Tools <span class="av-caret">▾</span></button>
+ <div class="av-mega-panel">
+ <a class="av-mega-link" href="live-crypto-arbitrage-scanner.html"><span class="av-icon">🔍</span><span>Live Scanner<span class="av-desc">Real-time price gaps</span></span></a>
+ <a class="av-mega-link" href="arbitrage-calculator.html"><span class="av-icon">🧮</span><span>Profit Calculator<span class="av-desc">Calculate net gains</span></span></a>
+ </div>
+ </li>
+
+ <li><a href="crypto-arbitrage-blog.html" class="av-top-link">Blog</a></li>
+
+ <li class="av-dropdown">
+ <button type="button" class="av-top-link av-drop-trigger">Signals <span class="av-caret">▾</span></button>
+ <div class="av-mega-panel">
+ <a class="av-mega-link" href="crypto-arbitrage-telegram-signals.html"><span class="av-icon">✈️</span><span>Telegram Bot<span class="av-desc">Get instant signals</span></span></a>
+ <a class="av-mega-link" href="futures-signal-bot.html"><span class="av-icon">🚀</span><span>Free Futures Signal Bot<span class="av-desc">Live pump &amp; liq signals</span></span></a>
+ <a class="av-mega-link" href="crypto-arbitrage-signals-pricing.html"><span class="av-icon">💳</span><span>Pricing<span class="av-desc">$5/month plans</span></span></a>
+ </div>
+ </li>
+
+ <li class="av-dropdown">
+ <button type="button" class="av-top-link av-drop-trigger">Company <span class="av-caret">▾</span></button>
+ <div class="av-mega-panel">
+ <a class="av-mega-link" href="about-arbvertex-crypto-signals.html"><span class="av-icon">🏢</span><span>About Us<span class="av-desc">Our story</span></span></a>
+ <a class="av-mega-link" href="contact-arbvertex.html"><span class="av-icon">✉️</span><span>Contact<span class="av-desc">Get in touch</span></span></a>
+ </div>
+ </li>
+
+ <li><a href="live-crypto-arbitrage-scanner.html" class="av-top-link av-scanner-link">🔍 Live Scanner</a></li>
+ <li><a href="crypto-arbitrage-signals-pricing.html" class="av-top-link av-cta">Join Now</a></li>
+ </ul>
+ <button class="av-hamburger" id="avHamburger" type="button" aria-label="Toggle menu">
+ <span></span><span></span><span></span>
+ </button>
+ </div>
+
+
+
+<!-- Header -->
+<div class="hdr">
+ <div>
+ <h1 class="hdr-title" style="font-size:1.1rem;margin:0;">🚀 Free Futures Pump/<span>Liquidation</span> Signal Bot</h1>
+ <div style="font-size:0.72rem;color:var(--muted);margin-top:2px;font-family:'JetBrains Mono',monospace;">Binance Futures · 15m+1h MTF · Top 200 Gainers</div>
+ </div>
+ <div class="hdr-stats">
+ <div class="stat-pill"><span class="live-dot"></span><b id="totalScanned">—</b> scanned</div>
+ <div class="stat-pill">Strong: <b id="strongCount" style="color:var(--green)">—</b></div>
+ <div class="stat-pill">Medium: <b id="medCount" style="color:var(--orange)">—</b></div>
+ <div class="stat-pill">Weak: <b id="weakCount" style="color:var(--muted)">—</b></div>
+ <div class="stat-pill">Updated: <b id="lastUpdate">—</b></div>
+ </div>
+</div>
+
+<!-- Controls -->
+<div class="controls">
+ <button class="ctrl-btn active" id="filter-all" onclick="setFilter('all')">All Signals</button>
+ <button class="ctrl-btn green" id="filter-long" onclick="setFilter('long')">🟢 Long Only</button>
+ <button class="ctrl-btn red" id="filter-short" onclick="setFilter('short')">🔴 Short Only</button>
+ <select id="minScore" onchange="renderSignals()">
+ <option value="40">Min Score: 40+</option>
+ <option value="60">Min Score: 60+</option>
+ <option value="80">Min Score: 80+</option>
+ </select>
+ <select id="sortBy" onchange="renderSignals()">
+ <option value="score">Sort: Score ↓</option>
+ <option value="change">Sort: Price Change ↓</option>
+ <option value="volume">Sort: Volume ↓</option>
+ </select>
+ <button class="scan-btn" id="scanBtn" onclick="startScan()">⚡ Scan Now</button>
+ <div class="status-bar" id="statusBar">Ready to scan</div>
+</div>
+
+<!-- Signals -->
+<div class="signals-wrap">
+ <div class="signals-header">
+ <h2>SIGNALS // <span id="signalCountLabel">0 found</span></h2>
+ <div class="count-badge" id="countBadge">0</div>
+ </div>
+ <div class="signals-grid" id="signalsGrid">
+ <div class="empty">
+ <div class="empty-icon">📡</div>
+ <h3>No signals yet</h3>
+ <p>Click "Scan Now" to fetch top 200 gainers from Binance Futures<br>and analyze for pump/liquidation signals.</p>
+ </div>
+ </div>
+</div>
+
+<!-- Legend -->
+<div class="legend">
+ <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>Fresh (0-15m)</div>
+ <div class="legend-item"><div class="legend-dot" style="background:var(--orange)"></div>Recent (15-60m)</div>
+ <div class="legend-item"><div class="legend-dot" style="background:var(--muted)"></div>Active Trend (1-4h)</div>
+ <div class="legend-item" style="margin-left:auto;font-size:0.7rem;">Score: 80+=Strong · 60-79=Medium · 40-59=Weak · &lt;40=Very Weak</div>
+</div>
+
+<script>
+// ─── CONFIG ───────────────────────────────────────────────────────────────
+const CFG = {
+ minVolume24h: 10_000_000, // $10M minimum 24h volume on Binance Futures
+ priceChangeMin: 1.0, // 1% min 15m price change (fallback: 24h)
+ volumeSpikeMult: 1.5, // 1.5x average volume spike
+ oiChangeMin: 3.0, // OI change > 3%
+ minScore: 40, // minimum score to show signal
+ top200: 200, // top 200 gainers
+};
+
+// Scoring weights from image
+const SCORE_WEIGHTS = {
+ volumeSpike: 20,
+ oiIncrease: 20,
+ macdCross: 15,
+ emaAlign: 15,
+ rsiConfirm: 10,
+ btcTrend: 10,
+ liqConfirm: 10,
+};
+
+let allSignals = [];
+let activeFilter = 'all';
+let scanInterval = null;
+let btcTrend = null;
+
+// ─── FETCH FUNCTIONS ───────────────────────────────────────────────────────
+
+// Get BTC 1h trend
+async function fetchBTCTrend() {
+ try {
+ const r = await fetch('https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=3');
+ const d = await r.json();
+ const closes = d.map(c => parseFloat(c[4]));
+ btcTrend = closes[closes.length-1] > closes[0] ? 'bull' : 'bear';
+ } catch(e) { btcTrend = null; }
+}
+
+// Get top 200 gainers from Binance Futures (24h ticker)
+async function fetchTop200Gainers() {
+ const r = await fetch('https://fapi.binance.com/fapi/v1/ticker/24hr');
+ const d = await r.json();
+ return d
+ .filter(s => s.symbol.endsWith('USDT') && parseFloat(s.quoteVolume) >= CFG.minVolume24h)
+ .sort((a,b) => parseFloat(b.priceChangePercent) - parseFloat(a.priceChangePercent))
+ .slice(0, CFG.top200);
+}
+
+// Get 15m klines for a symbol (last 25 candles for EMA, RSI, MACD, volume spike)
+async function fetchKlines15m(symbol) {
+ const r = await fetch(`https://fapi.binance.com/fapi/v1/klines?symbol=${symbol}&interval=15m&limit=26`);
+ return await r.json();
+}
+
+// Get 1h klines for MTF confirmation
+async function fetchKlines1h(symbol) {
+ const r = await fetch(`https://fapi.binance.com/fapi/v1/klines?symbol=${symbol}&interval=1h&limit=5`);
+ return await r.json();
+}
+
+// Get Open Interest
+async function fetchOI(symbol) {
+ try {
+ const r = await fetch(`https://fapi.binance.com/fapi/v1/openInterest?symbol=${symbol}`);
+ const d = await r.json();
+ return parseFloat(d.openInterest);
+ } catch(e) { return null; }
+}
+
+// Get OI history for change calculation
+async function fetchOIHistory(symbol) {
+ try {
+ const r = await fetch(`https://fapi.binance.com/futures/data/openInterestHist?symbol=${symbol}&period=1h&limit=2`);
+ const d = await r.json();
+ if (d.length >= 2) {
+ const old = parseFloat(d[0].sumOpenInterest);
+ const now = parseFloat(d[d.length-1].sumOpenInterest);
+ return old > 0 ? ((now - old) / old) * 100 : 0;
+ }
+ return 0;
+ } catch(e) { return 0; }
+}
+
+// Get liquidation data from multiple sources
+async function fetchLiquidations(symbol) {
+ const liqs = { longLiq: 0, shortLiq: 0, sources: [] };
+ // Binance forced orders (liquidations)
+ try {
+ const r = await fetch(`https://fapi.binance.com/fapi/v1/allForceOrders?symbol=${symbol}&limit=20`);
+ const d = await r.json();
+ d.forEach(o => {
+ const qty = parseFloat(o.origQty) * parseFloat(o.price);
+ if (o.side === 'SELL') liqs.longLiq += qty; // long liquidation = sell order
+ else liqs.shortLiq += qty;
+ });
+ if (liqs.longLiq > 0 || liqs.shortLiq > 0) liqs.sources.push('Binance');
+ } catch(e) {}
+ return liqs;
+}
+
+// ─── TECHNICAL INDICATORS ─────────────────────────────────────────────────
+
+function calcEMA(data, period) {
+ const k = 2 / (period + 1);
+ let ema = data[0];
+ for (let i = 1; i < data.length; i++) ema = data[i] * k + ema * (1 - k);
+ return ema;
+}
+
+function calcRSI(closes, period=14) {
+ if (closes.length < period + 1) return 50;
+ let gains = 0, losses = 0;
+ for (let i = 1; i <= period; i++) {
+ const diff = closes[i] - closes[i-1];
+ if (diff > 0) gains += diff; else losses -= diff;
+ }
+ const avgGain = gains / period, avgLoss = losses / period;
+ if (avgLoss === 0) return 100;
+ const rs = avgGain / avgLoss;
+ return 100 - (100 / (1 + rs));
+}
+
+function calcMACD(closes) {
+ if (closes.length < 26) return { macd: 0, signal: 0, hist: 0, cross: null };
+ const ema12 = calcEMA(closes.slice(-12), 12);
+ const ema26 = calcEMA(closes.slice(-26), 26);
+ const macdLine = ema12 - ema26;
+ // Simplified signal (9-period EMA of macd would need more history)
+ const prevEma12 = calcEMA(closes.slice(-13,-1), 12);
+ const prevEma26 = calcEMA(closes.slice(-27,-1), 26);
+ const prevMacd = prevEma12 - prevEma26;
+ const cross = macdLine > 0 && prevMacd <= 0 ? 'bull' : macdLine < 0 && prevMacd >= 0 ? 'bear' : null;
+ return { macd: macdLine, prevMacd, cross };
+}
+
+function analyzeKlines(klines) {
+ const closes = klines.map(k => parseFloat(k[4]));
+ const volumes = klines.map(k => parseFloat(k[5]));
+ const highs = klines.map(k => parseFloat(k[2]));
+ const lows = klines.map(k => parseFloat(k[3]));
+
+ const cur = closes[closes.length - 1];
+ const prev = closes[closes.length - 2];
+ const priceChange15m = ((cur - prev) / prev) * 100;
+
+ // Volume spike vs last 20 candles
+ const avgVol = volumes.slice(-21,-1).reduce((a,b)=>a+b,0) / 20;
+ const curVol = volumes[volumes.length - 1];
+ const volSpike = avgVol > 0 ? curVol / avgVol : 1;
+
+ // EMAs
+ const ema20 = calcEMA(closes.slice(-20), 20);
+ const ema50 = calcEMA(closes.slice(-50 < 0 ? 0 : -50) || closes, 50);
+ const ema200 = calcEMA(closes, 200);
+
+ // RSI
+ const rsi = calcRSI(closes.slice(-15));
+
+ // MACD
+ const macd = calcMACD(closes);
+
+ // EMA alignment
+ const emaAlignLong = ema20 > ema50 && ema50 > ema200;
+ const emaAlignShort = ema20 < ema50 && ema50 < ema200;
+
+ return { cur, prev, priceChange15m, volSpike, rsi, macd, ema20, ema50, ema200, emaAlignLong, emaAlignShort };
+}
+
+// ─── SIGNAL SCORING ───────────────────────────────────────────────────────
+
+function scoreSignal(data) {
+ const { k15, k1h, oiChange, liqs, ticker } = data;
+ const isLong = parseFloat(ticker.priceChangePercent) > 0;
+ const dir = isLong ? 'long' : 'short';
+
+ let score = 0;
+ const hits = {};
+
+ // 1. Volume Spike (20pts)
+ if (k15.volSpike >= CFG.volumeSpikeMult) {
+ score += SCORE_WEIGHTS.volumeSpike;
+ hits.volumeSpike = true;
+ }
+
+ // 2. OI Increase (20pts)
+ const oiAbs = Math.abs(oiChange);
+ if (oiAbs >= CFG.oiChangeMin) {
+ score += SCORE_WEIGHTS.oiIncrease;
+ hits.oiIncrease = true;
+ }
+
+ // 3. MACD Crossover (15pts)
+ const macdBull = k15.macd.cross === 'bull' || k15.macd.macd > 0;
+ const macdBear = k15.macd.cross === 'bear' || k15.macd.macd < 0;
+ if ((isLong && macdBull) || (!isLong && macdBear)) {
+ score += SCORE_WEIGHTS.macdCross;
+ hits.macdCross = true;
+ }
+
+ // 4. EMA Alignment (15pts)
+ if ((isLong && k15.emaAlignLong) || (!isLong && k15.emaAlignShort)) {
+ score += SCORE_WEIGHTS.emaAlign;
+ hits.emaAlign = true;
+ }
+
+ // 5. RSI Confirmation (10pts)
+ if ((isLong && k15.rsi > 50) || (!isLong && k15.rsi < 50)) {
+ score += SCORE_WEIGHTS.rsiConfirm;
+ hits.rsiConfirm = true;
+ }
+
+ // 6. BTC Trend (10pts)
+ if ((isLong && btcTrend === 'bull') || (!isLong && btcTrend === 'bear')) {
+ score += SCORE_WEIGHTS.btcTrend;
+ hits.btcTrend = true;
+ }
+
+ // 7. Liquidation Confirm (10pts)
+ const hasLiq = isLong ? liqs.shortLiq > 0 : liqs.longLiq > 0;
+ if (hasLiq) {
+ score += SCORE_WEIGHTS.liqConfirm;
+ hits.liqConfirm = true;
+ }
+
+ // MTF confirmation (1h same direction)
+ let mtfConfirm = false;
+ if (k1h && k1h.length > 1) {
+ const h1Change = ((parseFloat(k1h[k1h.length-1][4]) - parseFloat(k1h[0][4])) / parseFloat(k1h[0][4])) * 100;
+ mtfConfirm = isLong ? h1Change > 0 : h1Change < 0;
+ }
+
+ return { score, hits, dir, mtfConfirm };
+}
+
+// ─── ENTRY/TARGET/SL CALCULATION ──────────────────────────────────────────
+
+function calcLevels(price, dir, k15) {
+ const atr = Math.abs(k15.cur - k15.prev) * 3; // simplified ATR
+ const slPct = dir === 'long' ? 0.015 : 0.015; // 1.5% SL
+ const tp1Pct = dir === 'long' ? 0.02 : 0.02; // 2% TP1
+ const tp2Pct = dir === 'long' ? 0.035 : 0.035; // 3.5% TP2
+
+ const entry = price;
+ let sl, tp1, tp2;
+
+ if (dir === 'long') {
+ sl = entry * (1 - slPct);
+ tp1 = entry * (1 + tp1Pct);
+ tp2 = entry * (1 + tp2Pct);
+ } else {
+ sl = entry * (1 + slPct);
+ tp1 = entry * (1 - tp1Pct);
+ tp2 = entry * (1 - tp2Pct);
+ }
+
+ const rr = tp1Pct / slPct;
+ return { entry, sl, tp1, tp2, rr };
+}
+
+// ─── SCORE LABEL ──────────────────────────────────────────────────────────
+
+function getScoreLabel(score) {
+ if (score >= 80) return { label: 'STRONG', cls: 'score-strong', color: '#00ff88' };
+ if (score >= 60) return { label: 'MEDIUM', cls: 'score-medium', color: '#ffa040' };
+ if (score >= 40) return { label: 'WEAK', cls: 'score-weak', color: '#5a7a94' };
+ return { label: 'VERY WEAK', cls: 'score-vweak', color: '#3a4a5a' };
+}
+
+// ─── RENDER SIGNAL CARD ───────────────────────────────────────────────────
+
+function renderCard(sig) {
+ const { ticker, k15, oiChange, liqs, result, levels, timestamp } = sig;
+ const now = Date.now();
+ const age = (now - timestamp) / 60000; // minutes
+ const ageClass = age < 15 ? 'age-fresh' : age < 60 ? 'age-recent' : 'age-old';
+ const ageLabel = age < 15 ? `Fresh (${Math.round(age)}m ago)` : age < 60 ? `Recent (${Math.round(age)}m ago)` : `${Math.round(age/60)}h ago`;
+
+ const sl = getScoreLabel(result.score);
+ const dir = result.dir;
+ const sym = ticker.symbol;
+ const price = parseFloat(ticker.lastPrice);
+ const chg24h = parseFloat(ticker.priceChangePercent);
+ const vol24h = parseFloat(ticker.quoteVolume);
+ const macdDir = k15.macd.macd > 0 ? 'Bullish Cross' : 'Bearish Cross';
+
+ // Score bar color
+ const barColor = result.score >= 80 ? '#00ff88' : result.score >= 60 ? '#ffa040' : '#5a7a94';
+
+ // Liquidation display
+ const liqHtml = (() => {
+ const parts = [];
+ if (liqs.longLiq > 0) parts.push(`<span class="liq-pill liq-high-long">Long Liq $${(liqs.longLiq/1000).toFixed(0)}K</span>`);
+ if (liqs.shortLiq > 0) parts.push(`<span class="liq-pill liq-high-short">Short Liq $${(liqs.shortLiq/1000).toFixed(0)}K</span>`);
+ if (parts.length === 0) parts.push(`<span class="liq-pill liq-low">No recent liquidations</span>`);
+ return parts.join('');
+ })();
+
+ // Score breakdown
+ const bItems = [
+ { key:'volumeSpike', label:`Vol Spike ${k15.volSpike.toFixed(1)}x (+${SCORE_WEIGHTS.volumeSpike}pts)` },
+ { key:'oiIncrease', label:`OI ${oiChange > 0 ? '+' : ''}${oiChange.toFixed(1)}% (+${SCORE_WEIGHTS.oiIncrease}pts)` },
+ { key:'macdCross', label:`MACD ${macdDir} (+${SCORE_WEIGHTS.macdCross}pts)` },
+ { key:'emaAlign', label:`EMA Align (+${SCORE_WEIGHTS.emaAlign}pts)` },
+ { key:'rsiConfirm', label:`RSI ${k15.rsi.toFixed(0)} (+${SCORE_WEIGHTS.rsiConfirm}pts)` },
+ { key:'btcTrend', label:`BTC ${btcTrend === 'bull' ? 'Bullish' : 'Bearish'} (+${SCORE_WEIGHTS.btcTrend}pts)` },
+ { key:'liqConfirm', label:`Liq Confirm (+${SCORE_WEIGHTS.liqConfirm}pts)` },
+ ].map(b => `<span class="b-item ${result.hits[b.key] ? 'hit' : 'miss'}">${b.label}</span>`).join('');
+
+ return `
+ <div class="sig-card ${dir}">
+ <div class="sig-top">
+ <div>
+ <div class="sig-symbol">${sym.replace('USDT','')}<span style="color:var(--muted);font-size:0.75rem;">/USDT</span></div>
+ <div class="sig-age"><span class="age-dot ${ageClass}"></span>${ageLabel}</div>
+ </div>
+ <div style="text-align:right;">
+ <div class="sig-dir ${dir}">${dir.toUpperCase()}</div>
+ <div style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--muted);margin-top:4px;">${result.mtfConfirm ? '✅ 1h MTF ✓' : '⚠️ 1h MTF ✗'}</div>
+ </div>
+ </div>
+
+ <div class="score-section">
+ <div class="score-row">
+ <div class="score-num" style="color:${barColor}">${result.score}<span style="font-size:0.6em;color:var(--muted)">/100</span></div>
+ <div class="score-label ${sl.cls}">${sl.label} SIGNAL</div>
+ </div>
+ <div class="score-bar-bg">
+ <div class="score-bar-fill" style="width:${result.score}%;background:${barColor}"></div>
+ </div>
+ </div>
+
+ <div class="data-grid">
+ <div class="data-item">
+ <div class="data-label">Price Change 24h</div>
+ <div class="data-val ${chg24h > 0 ? 'up' : 'dn'}">${chg24h > 0 ? '+' : ''}${chg24h.toFixed(2)}%</div>
+ </div>
+ <div class="data-item">
+ <div class="data-label">Vol Spike (15m)</div>
+ <div class="data-val ${k15.volSpike >= 1.5 ? 'up' : 'neu'}">${k15.volSpike.toFixed(2)}x</div>
+ </div>
+ <div class="data-item">
+ <div class="data-label">OI Change (1h)</div>
+ <div class="data-val ${oiChange > 0 ? 'up' : 'dn'}">${oiChange > 0 ? '+' : ''}${oiChange.toFixed(2)}%</div>
+ </div>
+ <div class="data-item">
+ <div class="data-label">RSI (15m)</div>
+ <div class="data-val ${k15.rsi > 70 ? 'warn' : k15.rsi > 50 ? 'up' : 'dn'}">${k15.rsi.toFixed(1)}</div>
+ </div>
+ <div class="data-item">
+ <div class="data-label">MACD (15m)</div>
+ <div class="data-val ${k15.macd.macd > 0 ? 'up' : 'dn'}">${k15.macd.macd > 0 ? 'Bullish' : 'Bearish'}</div>
+ </div>
+ <div class="data-item">
+ <div class="data-label">EMA Trend</div>
+ <div class="data-val ${k15.emaAlignLong ? 'up' : k15.emaAlignShort ? 'dn' : 'neu'}">${k15.emaAlignLong ? 'Bullish' : k15.emaAlignShort ? 'Bearish' : 'Mixed'}</div>
+ </div>
+ <div class="data-item">
+ <div class="data-label">BTC Trend (1h)</div>
+ <div class="data-val ${btcTrend === 'bull' ? 'up' : 'dn'}">${btcTrend === 'bull' ? 'Bullish' : 'Bearish'}</div>
+ </div>
+ <div class="data-item">
+ <div class="data-label">24h Volume</div>
+ <div class="data-val neu">$${(vol24h/1_000_000).toFixed(1)}M</div>
+ </div>
+ </div>
+
+ <div class="trade-section">
+ <div style="font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.4rem;">Entry / Target / Stop Loss</div>
+ <div class="trade-row">
+ <div class="trade-box">
+ <div class="trade-box-label">Entry</div>
+ <div class="trade-box-val entry-val">$${levels.entry < 1 ? levels.entry.toFixed(5) : levels.entry.toFixed(3)}</div>
+ </div>
+ <div class="trade-box">
+ <div class="trade-box-label">TP1 (+2%)</div>
+ <div class="trade-box-val target-val">$${levels.tp1 < 1 ? levels.tp1.toFixed(5) : levels.tp1.toFixed(3)}</div>
+ </div>
+ <div class="trade-box">
+ <div class="trade-box-label">SL (1.5%)</div>
+ <div class="trade-box-val sl-val">$${levels.sl < 1 ? levels.sl.toFixed(5) : levels.sl.toFixed(3)}</div>
+ </div>
+ </div>
+ <div style="margin-top:0.4rem;font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);">
+ TP2: <span style="color:var(--green)">$${levels.tp2 < 1 ? levels.tp2.toFixed(5) : levels.tp2.toFixed(3)}</span> (+3.5%) &nbsp;|&nbsp; R:R = 1:${levels.rr.toFixed(1)}
+ </div>
+ </div>
+
+ <div class="breakdown">
+ <div class="breakdown-title">Score Breakdown</div>
+ <div class="breakdown-items">${bItems}</div>
+ </div>
+
+ <div class="liq-section">
+ <div class="liq-title">Liquidation Data · Binance Futures</div>
+ <div class="liq-row">${liqHtml}</div>
+ </div>
+ </div>`;
+}
+
+// ─── RENDER ALL ────────────────────────────────────────────────────────────
+
+function renderSignals() {
+ const minScore = parseInt(document.getElementById('minScore').value);
+ const sortBy = document.getElementById('sortBy').value;
+
+ let filtered = allSignals.filter(s => {
+ if (s.result.score < minScore) return false;
+ if (activeFilter === 'long' && s.result.dir !== 'long') return false;
+ if (activeFilter === 'short' && s.result.dir !== 'short') return false;
+ return true;
+ });
+
+ filtered.sort((a,b) => {
+ if (sortBy === 'score') return b.result.score - a.result.score;
+ if (sortBy === 'change') return Math.abs(parseFloat(b.ticker.priceChangePercent)) - Math.abs(parseFloat(a.ticker.priceChangePercent));
+ if (sortBy === 'volume') return parseFloat(b.ticker.quoteVolume) - parseFloat(a.ticker.quoteVolume);
+ return 0;
+ });
+
+ const grid = document.getElementById('signalsGrid');
+ if (filtered.length === 0) {
+ grid.innerHTML = `<div class="empty"><div class="empty-icon">🔍</div><h3>No signals match</h3><p>Try lowering the minimum score or changing filters.</p></div>`;
+ } else {
+ grid.innerHTML = filtered.map(renderCard).join('');
+ }
+
+ const strong = allSignals.filter(s=>s.result.score>=80).length;
+ const med = allSignals.filter(s=>s.result.score>=60&&s.result.score<80).length;
+ const weak = allSignals.filter(s=>s.result.score>=40&&s.result.score<60).length;
+
+ document.getElementById('strongCount').textContent = strong;
+ document.getElementById('medCount').textContent = med;
+ document.getElementById('weakCount').textContent = weak;
+ document.getElementById('signalCountLabel').textContent = `${filtered.length} found`;
+ document.getElementById('countBadge').textContent = filtered.length;
+}
+
+// ─── FILTER BUTTONS ────────────────────────────────────────────────────────
+
+function setFilter(f) {
+ activeFilter = f;
+ ['all','long','short'].forEach(id => {
+ const btn = document.getElementById('filter-'+id);
+ btn.classList.remove('active');
+ });
+ document.getElementById('filter-'+f).classList.add('active');
+ renderSignals();
+}
+
+// ─── MAIN SCAN ─────────────────────────────────────────────────────────────
+
+async function startScan() {
+ const btn = document.getElementById('scanBtn');
+ btn.disabled = true;
+ btn.textContent = '⏳ Scanning...';
+ allSignals = [];
+
+ const grid = document.getElementById('signalsGrid');
+ grid.innerHTML = `<div class="loading"><div class="spinner"></div><div>Fetching top 200 gainers from Binance Futures...</div></div>`;
+ document.getElementById('statusBar').textContent = 'Fetching BTC trend...';
+
+ try {
+ // Step 1: BTC Trend
+ await fetchBTCTrend();
+ document.getElementById('statusBar').textContent = 'Fetching top 200 gainers...';
+
+ // Step 2: Top 200 gainers
+ const gainers = await fetchTop200Gainers();
+ document.getElementById('totalScanned').textContent = gainers.length;
+ document.getElementById('statusBar').textContent = `Analyzing ${gainers.length} coins...`;
+
+ // Step 3: Analyze each in batches of 10
+ const BATCH = 10;
+ for (let i = 0; i < gainers.length; i += BATCH) {
+ const batch = gainers.slice(i, i + BATCH);
+ document.getElementById('statusBar').textContent = `Analyzing ${i}–${Math.min(i+BATCH, gainers.length)} of ${gainers.length}...`;
+
+ await Promise.all(batch.map(async (ticker) => {
+ try {
+ const [klines15m, klines1h, oiChange, liqs] = await Promise.all([
+ fetchKlines15m(ticker.symbol),
+ fetchKlines1h(ticker.symbol),
+ fetchOIHistory(ticker.symbol),
+ fetchLiquidations(ticker.symbol),
+ ]);
+
+ const k15 = analyzeKlines(klines15m);
+ const result = scoreSignal({ k15, k1h: klines1h, oiChange, liqs, ticker });
+
+ if (result.score >= 40) {
+ const price = parseFloat(ticker.lastPrice);
+ const levels = calcLevels(price, result.dir, k15);
+ allSignals.push({ ticker, k15, oiChange, liqs, result, levels, timestamp: Date.now() });
+ }
+ } catch(e) {}
+ }));
+
+ // Small delay between batches to avoid rate limit
+ await new Promise(r => setTimeout(r, 300));
+ }
+
+ document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString();
+ document.getElementById('statusBar').textContent = `Done! ${allSignals.length} signals found.`;
+ renderSignals();
+
+ } catch(e) {
+ grid.innerHTML = `<div class="empty"><div class="empty-icon">⚠️</div><h3>Error fetching data</h3><p>${e.message}</p></div>`;
+ document.getElementById('statusBar').textContent = 'Error: ' + e.message;
+ }
+
+ btn.disabled = false;
+ btn.textContent = '⚡ Scan Now';
+}
+</script>
+
+<script>
+(function(){
+ var hamburger = document.getElementById('avHamburger');
+ var navLinks = document.getElementById('avNavLinks');
+ if(hamburger && navLinks){
+ hamburger.addEventListener('click', function(){
+ navLinks.classList.toggle('av-mobile-open');
+ });
+ }
+ document.querySelectorAll('.av-drop-trigger').forEach(function(btn){
+ btn.addEventListener('click', function(e){
+ e.preventDefault();
+ var parent = btn.closest('.av-dropdown');
+ var wasOpen = parent.classList.contains('av-open');
+ document.querySelectorAll('.av-dropdown.av-open').forEach(function(d){ d.classList.remove('av-open'); });
+ if(!wasOpen){ parent.classList.add('av-open'); }
+ });
+ });
+ document.addEventListener('click', function(e){
+ if(!e.target.closest('.av-nav-wrap')){
+ document.querySelectorAll('.av-dropdown.av-open').forEach(function(d){ d.classList.remove('av-open'); });
+ }
+ });
+})();
+</script>
+
+<footer style="background:#050a0f;border-top:1px solid #1a3a52;padding:1.5rem 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-top:2rem;">
+ <p style="color:#6a8fa8;font-size:0.82rem;">© 2026 ArbVertex — Free Futures Signal Bot</p>
+ <div style="display:flex;gap:1.5rem;">
+ <a href="index.html" style="color:#6a8fa8;text-decoration:none;font-size:0.82rem;">Home</a>
+ <a href="crypto-arbitrage-telegram-signals.html" style="color:#6a8fa8;text-decoration:none;font-size:0.82rem;">Premium Signals</a>
+ <a href="live-crypto-arbitrage-scanner.html" style="color:#6a8fa8;text-decoration:none;font-size:0.82rem;">Live Scanner</a>
+ <a href="crypto-arbitrage-signals-pricing.html" style="color:#6a8fa8;text-decoration:none;font-size:0.82rem;">Pricing</a>
+ <a href="crypto-arbitrage-blog.html" style="color:#6a8fa8;text-decoration:none;font-size:0.82rem;">Blog</a>
+ </div>
+ <p style="color:#6a8fa8;font-size:0.75rem;">Not financial advice.</p>
+</footer>
+</body>
+</html>

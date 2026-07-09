@@ -37,4 +37,10 @@
 <url><loc>https://arbvertex.com/arbitrage-calculator-guide.html</loc></url>
 <url><loc>https://arbvertex.com/funding-rate-arbitrage-guide.html</loc></url>
 
+  <url>
+    <loc>https://arbvertex.com/futures-signal-bot.html</loc>
+    <lastmod>2026-07-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
