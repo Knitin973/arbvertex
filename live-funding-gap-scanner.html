@@ -331,7 +331,7 @@ tr:not(.arb):hover td{background:rgba(255,255,255,.02);}
 // ═══════════════════════════════════
 const TAKER_FEE     = 0.00045;
 const SCAN_INTERVAL = 120;
-const CF_PROXY      = '';  // 'https://your-worker.workers.dev'
+const CF_PROXY = 'https://arbvertex-proxy.knitin973.workers.dev';
 
 const EXCHANGES = ['binance','bybit','bitget','gateio','mexc','kucoin','htx','hyperliquid'];
 const EX_NAMES  = {
@@ -424,7 +424,7 @@ async function fetchProxy(path) {
 }
 
 async function fetchBitget() {
-  const d = await fetchProxy('/bitget/funding');
+  const d = await fetchProxy('/funding?exchange=bitget');
   const out = {};
   for (const it of d.data||[]) {
     const raw = it.symbol||it.instId||'';
@@ -437,7 +437,7 @@ async function fetchBitget() {
 }
 
 async function fetchMEXC() {
-  const d = await fetchProxy('/mexc/funding');
+  const d = await fetchProxy('/funding?exchange=mexc');
   const out = {};
   for (const it of (d.data||d.result||[])) {
     const raw = it.symbol||it.contractCode||'';
@@ -450,7 +450,7 @@ async function fetchMEXC() {
 }
 
 async function fetchKucoin() {
-  const d = await fetchProxy('/kucoin/funding');
+  const d = await fetchProxy('/funding?exchange=kucoin');
   const out = {};
   for (const it of (d.data||[])) {
     const raw = it.symbol||'';
@@ -463,7 +463,7 @@ async function fetchKucoin() {
 }
 
 async function fetchHTX() {
-  const d = await fetchProxy('/htx/funding');
+  const d = await fetchProxy('/funding?exchange=htx');
   const out = {};
   for (const it of (d.data||[])) {
     const raw = it.contract_code||it.symbol||'';
