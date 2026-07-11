@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Advanced Crypto Arbitrage Scanner — Price Gap + Funding Rate | ArbVertex</title>
-<meta name="description" content="The most complete free crypto arbitrage scanner. See real-time price differences AND funding rate gaps in one view. Covers Binance, Bybit, Gate.io, Bitget, KuCoin, MEXC & Hyperliquid.">
-<meta name="keywords" content="advanced crypto arbitrage scanner, price gap scanner, funding rate scanner, crypto arbitrage tool, binance bybit arbitrage, cross exchange scanner, funding rate arbitrage, free arbitrage scanner 2026">
+<title>Advanced Crypto Arbitrage Scanner — Live Price Gap & Funding Rate | ArbVertex</title>
+<meta name="description" content="The most complete free crypto arbitrage scanner. Real-time price gaps across 6 spot exchanges AND funding rate gaps across 8 futures exchanges in one tool. Covers Binance, Bybit, Gate.io, Bitget, KuCoin, MEXC & Hyperliquid. No signup needed.">
+<meta name="keywords" content="advanced crypto arbitrage scanner, price gap and funding rate scanner, cross exchange arbitrage tool, binance bybit gate mexc arbitrage, funding rate arbitrage 2026, free crypto scanner, spot futures arbitrage, hyperliquid funding rate">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://arbvertex.com/advanced-arb-scanner.html">
 <meta property="og:title" content="Advanced Crypto Arbitrage Scanner — Price Gap + Funding Rate | ArbVertex">
@@ -335,7 +335,7 @@ footer p{color:var(--muted);font-size:0.82rem;}
 // ═══════════════════════════════════════════
 // PRICE DIFFERENCE SCANNER
 // ═══════════════════════════════════════════
-const WORKER_URL = 'https://arbvertex-proxy.knitin973.workers.dev';
+const WORKER_URL = 'https://arb-proxy-1.knitin973.workers.dev';
 let PAIRS = [];
 let priceResults = [];
 let priceFilter = 'all';
@@ -501,7 +501,7 @@ function startPriceCountdown() {
 // FUNDING RATE SCANNER
 // ═══════════════════════════════════════════
 const TAKER_FEE = 0.00045;
-const CF_PROXY = 'https://arbvertex-proxy.knitin973.workers.dev';
+const CF_PROXY = 'https://arb-proxy-1.knitin973.workers.dev';
 const EXCHANGES = ['binance','bybit','bitget','gateio','mexc','kucoin','htx','hyperliquid'];
 let fundingData = {};
 let fundingRows = [];
