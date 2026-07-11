@@ -220,7 +220,7 @@ footer p{color:var(--muted);font-size:0.82rem;}
      <span class="status-txt" id="p-status">Click Refresh to load live prices</span>
     </div>
     <div style="display:flex;align-items:center;gap:1rem;">
-     <span style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--muted);">Next: <span id="p-countdown" style="color:var(--accent);">30s</span></span>
+     <span style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--muted);">Next: <span id="p-countdown" style="color:var(--accent);">120s</span></span>
      <button class="refresh-btn" onclick="fetchAllPrices()">↻ Refresh</button>
     </div>
    </div>
@@ -339,7 +339,7 @@ const WORKER_URL = 'https://arb-proxy-1.knitin973.workers.dev';
 let PAIRS = [];
 let priceResults = [];
 let priceFilter = 'all';
-let pCountdownVal = 30, pCountdownInterval;
+let pCountdownVal = 120, pCountdownInterval;
 
 async function loadAllPairs() {
   const stableFilter = new Set(['USDCUSDT','BUSDUSDT','TUSDUSDT','USDPUSDT','FDUSDUSDT','DAIUSDT','USTCUSDT','USDTUSDT','EURUSDT','GBPUSDT','FRAXUSDT','LUSDUSDT','GUSDUSDT','PAXUSDT','SUSDUSDT']);
@@ -482,18 +482,18 @@ async function fetchAllPrices() {
     .filter(r=>r.binance&&!stables.has(r.symbol));
   dot.classList.add('live'); dot.style.background='var(--accent2)';
   status.textContent = `Live · Binance, Bybit, Gate, Bitget, KuCoin, MEXC · ${new Date().toLocaleTimeString()}`;
-  pCountdownVal=30;
+  pCountdownVal=120;
   renderPriceTable();
 }
 
 function startPriceCountdown() {
   if(pCountdownInterval) clearInterval(pCountdownInterval);
-  pCountdownVal=30;
+  pCountdownVal=120;
   pCountdownInterval=setInterval(()=>{
     pCountdownVal--;
     const el=document.getElementById('p-countdown');
     if(el) el.textContent=pCountdownVal+'s';
-    if(pCountdownVal<=0){pCountdownVal=30;fetchAllPrices();}
+    if(pCountdownVal<=0){pCountdownVal=120;fetchAllPrices();}
   },1000);
 }
 
