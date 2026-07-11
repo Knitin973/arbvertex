@@ -541,34 +541,34 @@ async function fetchHyperliquidFR(){
 }
 async function fetchBitgetFR(){
   if(!CF_PROXY) return {};
-  const d=await sf(CF_PROXY+'/bitget/funding');
+  const d=await sf(CF_PROXY+'/funding?exchange=bitget');
   if(!d?.data) return {};
   const out={};
-  for(const it of d.data){const raw=it.symbol||it.instId||'';if(!raw.includes('USDT'))continue;const sym=raw.replace('USDT','').replace('_','');const rate=it.fundingRate||it.funding_rate||it.fundRate;if(rate==null)continue;out[sym]={rate:parseFloat(rate)*100,price:parseFloat(it.markPrice||it.mark_price)||null};}
+  for(const it of d.data){const raw=it.symbol||'';if(!raw.includes('USDT'))continue;const sym=raw.replace('USDT','').replace('_','');const rate=it.fundingRate||it.funding_rate||it.fundRate;if(rate==null)continue;out[sym]={rate:parseFloat(rate)*100,price:null};}
   return out;
 }
 async function fetchMEXCFR(){
   if(!CF_PROXY) return {};
-  const d=await sf(CF_PROXY+'/mexc/funding');
+  const d=await sf(CF_PROXY+'/funding?exchange=mexc');
   if(!d?.data&&!d?.result) return {};
   const out={};
-  for(const it of(d.data||d.result||[])){const raw=it.symbol||it.contractCode||'';if(!raw.includes('USDT'))continue;const sym=raw.replace('_USDT','').replace('USDT','');const rate=it.funding_rate||it.fundingRate||it.funding;if(rate==null)continue;out[sym]={rate:parseFloat(rate)*100,price:parseFloat(it.markPrice||it.mark_price)||null};}
+  for(const it of(d.data||d.result||[])){const raw=it.symbol||'';if(!raw.includes('USDT'))continue;const sym=raw.replace('_USDT','').replace('USDT','');const rate=it.funding_rate||it.fundingRate||it.funding;if(rate==null)continue;out[sym]={rate:parseFloat(rate)*100,price:null};}
   return out;
 }
 async function fetchKucoinFR(){
   if(!CF_PROXY) return {};
-  const d=await sf(CF_PROXY+'/kucoin/funding');
+  const d=await sf(CF_PROXY+'/funding?exchange=kucoin');
   if(!d?.data) return {};
   const out={};
-  for(const it of(d.data||[])){const raw=it.symbol||'';if(!raw.includes('USDT'))continue;const sym=raw.replace('USDTM','').replace('USDT','');const rate=it.fundingFeeRate||it.fundingRate;if(rate==null)continue;out[sym]={rate:parseFloat(rate)*100,price:parseFloat(it.markPrice)||null};}
+  for(const it of(d.data||[])){const raw=it.symbol||'';if(!raw.includes('USDT'))continue;const sym=raw.replace('USDTM','').replace('USDT','');const rate=it.fundingFeeRate||it.fundingRate;if(rate==null)continue;out[sym]={rate:parseFloat(rate)*100,price:null};}
   return out;
 }
 async function fetchHTXFR(){
   if(!CF_PROXY) return {};
-  const d=await sf(CF_PROXY+'/htx/funding');
+  const d=await sf(CF_PROXY+'/funding?exchange=htx');
   if(!d?.data) return {};
   const out={};
-  for(const it of d.data){const raw=it.contract_code||it.symbol||'';if(!raw.includes('USDT'))continue;const sym=raw.replace('-USDT','').replace('USDT','');const rate=it.funding_rate||it.estimated_rate;if(rate==null)continue;out[sym]={rate:parseFloat(rate)*100,price:parseFloat(it.mark_price)||null};}
+  for(const it of d.data){const raw=it.contract_code||it.symbol||'';if(!raw.includes('USDT'))continue;const sym=raw.replace('-USDT','').replace('USDT','');const rate=it.funding_rate||it.estimated_rate;if(rate==null)continue;out[sym]={rate:parseFloat(rate)*100,price:null};}
   return out;
 }
 
