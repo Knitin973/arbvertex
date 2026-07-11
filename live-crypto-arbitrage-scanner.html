@@ -492,7 +492,7 @@ footer p{color:var(--muted);font-size:0.82rem;}
  <span id="scanner-status" style="font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--muted);">Connecting to exchanges...</span>
  </div>
  <div style="display:flex;align-items:center;gap:1.5rem;">
- <span style="font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--muted);">Next refresh: <span id="countdown" style="color:var(--accent);">30s</span></span>
+ <span style="font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--muted);">Next refresh: <span id="countdown" style="color:var(--accent);">120s</span></span>
  <button onclick="fetchAllPrices()" style="background:none;border:1px solid var(--border);color:var(--accent);padding:0.3rem 0.8rem;border-radius:4px;font-size:0.78rem;cursor:pointer;font-family:'JetBrains Mono',monospace;">↻ Refresh Now</button>
  </div>
  </div>
@@ -640,7 +640,7 @@ const PAIRS = []; // populated dynamically from Binance top 500 movers
 const MAX_PAIRS = 500;
 
 let countdownInterval = null;
-let countdownVal = 30;
+let countdownVal = 120;
 let activeFilter = 'all';
 let lastResults = [];
 
@@ -1002,14 +1002,14 @@ async function fetchAllPrices() {
  dot.style.background = 'var(--accent2)';
  dot.style.animation = 'pulse 2s infinite';
  status.textContent = `Live · ${activeExchanges.join(', ')} · ${new Date().toLocaleTimeString()}`;
- countdownVal = 30;
+ countdownVal = 120;
 
  renderTable(results);
 }
 
 function startCountdown() {
  if(countdownInterval) clearInterval(countdownInterval);
- countdownVal = 30;
+ countdownVal = 120;
  countdownInterval = setInterval(() => {
  countdownVal--;
  const el = document.getElementById('countdown');
