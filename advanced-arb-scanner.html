@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanced Crypto Arbitrage Scanner — Price Gap + Funding Rate | ArbVertex</title>
+<meta name="description" content="The most complete free crypto arbitrage scanner. See real-time price differences AND funding rate gaps in one view. Covers Binance, Bybit, Gate.io, Bitget, KuCoin, MEXC & Hyperliquid.">
+<meta name="keywords" content="advanced crypto arbitrage scanner, price gap scanner, funding rate scanner, crypto arbitrage tool, binance bybit arbitrage, cross exchange scanner, funding rate arbitrage, free arbitrage scanner 2026">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://arbvertex.com/advanced-arb-scanner.html">
+<meta property="og:title" content="Advanced Crypto Arbitrage Scanner — Price Gap + Funding Rate | ArbVertex">
+<meta property="og:description" content="Free real-time scanner combining price gaps across 6 spot exchanges AND funding rates across 8 futures exchanges. The most complete arbitrage scanner available.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://arbvertex.com/advanced-arb-scanner.html">
+<meta property="og:image" content="https://arbvertex.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Advanced Crypto Arbitrage Scanner — Price Gap + Funding Rate | ArbVertex">
+<meta name="twitter:description" content="Free real-time scanner combining price gaps AND funding rates. The most complete free arbitrage scanner available.">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Advanced Crypto Arbitrage Scanner","url":"https://arbvertex.com/advanced-arb-scanner.html","description":"Free real-time arbitrage scanner showing price differences across 6 spot exchanges and funding rate gaps across 8 futures exchanges simultaneously.","publisher":{"@type":"Organization","name":"ArbVertex","url":"https://arbvertex.com/"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://arbvertex.com/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://arbvertex.com/live-crypto-arbitrage-scanner.html"},{"@type":"ListItem","position":3,"name":"Advanced Live Scanner","item":"https://arbvertex.com/advanced-arb-scanner.html"}]}</script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#050a0f;--surface:#0d1a24;--surface2:#111d2c;--accent:#00e5ff;--accent2:#00ff88;
+  --text:#e8f4f8;--muted:#6a8fa8;--border:#1a3a52;--red:#ff4466;--orange:#ffa040;
+  --glow:0 0 30px rgba(0,229,255,0.15);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;line-height:1.6;overflow-x:hidden;}
+
+/* ── AV NAV ── */
+.av-nav-wrap{--av-bg:#050a0f;--av-surface:#0d1a24;--av-accent:#00e5ff;--av-accent2:#00ff88;--av-text:#e8f4f8;--av-muted:#8fb0c4;--av-border:#1a3a52;position:fixed;top:0;left:0;right:0;z-index:999;background:rgba(5,10,15,0.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--av-border);font-family:'Space Grotesk',sans-serif;}
+.av-nav-inner{max-width:1400px;margin:0 auto;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;gap:1rem;}
+.av-logo{font-family:'JetBrains Mono',monospace;font-size:1.05rem;font-weight:700;color:var(--av-accent);text-decoration:none;letter-spacing:-0.02em;flex-shrink:0;}
+.av-logo span{color:var(--av-accent2);}
+.av-nav-links{display:flex;align-items:center;gap:0.15rem;list-style:none;margin:0;padding:0;}
+.av-nav-links>li{position:relative;}
+.av-top-link{display:inline-flex;align-items:center;gap:0.3rem;color:var(--av-muted);text-decoration:none;font-size:0.85rem;font-weight:500;background:none;border:none;cursor:pointer;font-family:inherit;padding:0.55rem 0.65rem;border-radius:6px;transition:color .2s,background .2s;white-space:nowrap;}
+.av-top-link:hover{color:var(--av-text);background:rgba(255,255,255,0.05);}
+.av-caret{font-size:0.6rem;opacity:0.65;transition:transform .2s;margin-left:1px;}
+.av-dropdown:hover .av-caret,.av-dropdown.av-open .av-caret{transform:rotate(180deg);}
+.av-mega-panel{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(6px);background:var(--av-surface);border:1px solid var(--av-border);border-radius:10px;padding:0.55rem;min-width:290px;display:grid;gap:0.1rem;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .16s ease,transform .16s ease;box-shadow:0 24px 48px rgba(0,0,0,0.45);}
+.av-dropdown:hover .av-mega-panel,.av-dropdown.av-open .av-mega-panel{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0);}
+.av-mega-link{display:flex;align-items:flex-start;gap:0.65rem;padding:0.55rem 0.65rem;border-radius:7px;color:var(--av-text);text-decoration:none;font-size:0.84rem;font-weight:600;transition:background .15s;}
+.av-mega-link:hover{background:rgba(0,229,255,0.08);}
+.av-icon{font-size:1rem;line-height:1.35;flex-shrink:0;}
+.av-desc{display:block;color:var(--av-muted);font-size:0.72rem;font-weight:400;margin-top:0.15rem;line-height:1.4;}
+.av-scanner-link{color:var(--av-accent2)!important;font-weight:600!important;}
+.av-cta{background:var(--av-accent)!important;color:var(--av-bg)!important;text-decoration:none;padding:0.5rem 1.1rem!important;border-radius:6px;font-weight:700!important;font-size:0.85rem!important;white-space:nowrap;}
+.av-hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;flex-shrink:0;}
+.av-hamburger span{display:block;width:22px;height:2px;background:var(--av-accent);border-radius:2px;}
+@media(max-width:980px){
+  .av-nav-links{display:none!important;position:fixed;top:64px;left:0;right:0;height:calc(100vh - 64px);background:var(--bg);flex-direction:column;align-items:stretch;padding:1.2rem 5% 2rem;overflow-y:auto;gap:0.2rem;z-index:9999;border-top:1px solid var(--border);}
+  .av-nav-links.av-mobile-open{display:flex!important;}
+  .av-top-link{width:100%;justify-content:space-between;padding:0.9rem 0.6rem;font-size:0.95rem;}
+  .av-mega-panel{position:static!important;left:auto!important;transform:none!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important;display:none;box-shadow:none;border:none;border-left:2px solid var(--border);background:rgba(255,255,255,0.02);margin:0 0 0.4rem 0.8rem;padding:0.3rem 0;min-width:0;width:auto;}
+  .av-dropdown.av-open .av-mega-panel{display:grid;}
+  .av-mega-link{padding:0.6rem 0.8rem;font-size:0.88rem;}
+  .av-cta{display:block;text-align:center;margin-top:0.6rem;}
+  .av-hamburger{display:flex;}
+}
+
+/* ── PAGE ── */
+.page-wrap{padding-top:64px;min-height:100vh;}
+.inner-page{padding:2.5rem 5% 4rem;max-width:1400px;margin:0 auto;}
+.section-tag{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--accent);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.5rem;}
+.article-title{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:700;letter-spacing:-0.02em;margin-bottom:0.5rem;}
+.page-desc{color:var(--muted);font-size:0.95rem;max-width:700px;line-height:1.75;margin-bottom:1.5rem;}
+
+/* ── TAB SWITCHER ── */
+.tab-bar{display:flex;gap:0.5rem;margin-bottom:1.5rem;border-bottom:1px solid var(--border);padding-bottom:0;}
+.tab-btn{background:none;border:none;color:var(--muted);font-family:'Space Grotesk',sans-serif;font-size:0.88rem;font-weight:600;padding:0.6rem 1.2rem;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .2s,border-color .2s;}
+.tab-btn:hover{color:var(--text);}
+.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+/* ── STATUS BAR ── */
+.status-bar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem;padding:0.9rem 1.2rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;}
+.status-left{display:flex;align-items:center;gap:0.6rem;}
+.status-dot{width:8px;height:8px;border-radius:50%;background:var(--orange);}
+.status-dot.live{background:var(--accent2);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.status-txt{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--muted);}
+.refresh-btn{background:none;border:1px solid var(--border);color:var(--accent);padding:0.3rem 0.8rem;border-radius:4px;font-size:0.78rem;cursor:pointer;font-family:'JetBrains Mono',monospace;transition:border-color .2s;}
+.refresh-btn:hover{border-color:var(--accent);}
+
+/* ── STAT CARDS ── */
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin-bottom:1.5rem;}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1rem;text-align:center;}
+.stat-num{font-family:'JetBrains Mono',monospace;font-size:1.5rem;color:var(--accent);}
+.stat-num.green{color:var(--accent2);}
+.stat-lbl{font-size:0.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-top:2px;}
+
+/* ── FILTER BAR ── */
+.filter-bar{display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:1.2rem;align-items:center;}
+.filter-bar span{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--muted);}
+.fbtn{background:var(--surface);color:var(--muted);border:1px solid var(--border);padding:0.28rem 0.8rem;border-radius:4px;font-size:0.73rem;cursor:pointer;font-family:'JetBrains Mono',monospace;transition:all .2s;}
+.fbtn:hover{color:var(--text);}
+.fbtn.active{background:var(--accent);color:var(--bg);border-color:var(--accent);}
+.fbtn.fire.active{background:var(--accent2);color:var(--bg);border-color:var(--accent2);}
+
+/* ── TABLE ── */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:8px;}
+table{width:100%;border-collapse:collapse;font-size:0.83rem;}
+thead tr{border-bottom:2px solid var(--border);}
+th{padding:0.65rem 0.8rem;font-family:'JetBrains Mono',monospace;font-size:0.66rem;letter-spacing:0.08em;font-weight:500;text-align:right;white-space:nowrap;}
+th:first-child{text-align:left;}
+td{padding:0.6rem 0.8rem;text-align:right;font-family:'JetBrains Mono',monospace;font-size:0.79rem;}
+td:first-child{text-align:left;}
+tbody tr{border-bottom:1px solid var(--border);transition:background .15s;}
+tbody tr:hover{background:rgba(0,229,255,0.04)!important;}
+
+/* ── FUNDING TABLE ── */
+.fr-pos{color:var(--accent2);}
+.fr-neg{color:var(--red);}
+.fr-neu{color:var(--muted);}
+.badge-hot{background:rgba(0,255,136,0.12);color:var(--accent2);font-family:'JetBrains Mono',monospace;font-size:0.68rem;padding:0.18rem 0.55rem;border-radius:3px;font-weight:700;white-space:nowrap;}
+.badge-ok{background:rgba(0,229,255,0.1);color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:0.68rem;padding:0.18rem 0.55rem;border-radius:3px;white-space:nowrap;}
+.badge-low{background:rgba(106,143,168,0.08);color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:0.68rem;padding:0.18rem 0.55rem;border-radius:3px;white-space:nowrap;}
+
+/* ── FOOTER ── */
+footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+footer p{color:var(--muted);font-size:0.82rem;}
+.footer-links{display:flex;gap:1.5rem;}
+.footer-links a{color:var(--muted);text-decoration:none;font-size:0.82rem;transition:color .2s;}
+.footer-links a:hover{color:var(--accent);}
+
+@media(max-width:600px){
+  .tab-btn{padding:0.5rem 0.7rem;font-size:0.8rem;}
+  footer{flex-direction:column;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="av-nav-wrap">
+ <div class="av-nav-inner">
+  <a href="index.html" class="av-logo">Arb<span>Vertex</span></a>
+  <ul class="av-nav-links" id="avNavLinks">
+   <li><a href="index.html" class="av-top-link">Home</a></li>
+   <li class="av-dropdown">
+    <button type="button" class="av-top-link av-drop-trigger">Learn <span class="av-caret">▾</span></button>
+    <div class="av-mega-panel">
+     <a class="av-mega-link" href="what-is-crypto-futures-arbitrage.html"><span class="av-icon">📘</span><span>What is Arbitrage<span class="av-desc">Core concept explained</span></span></a>
+     <a class="av-mega-link" href="how-crypto-arbitrage-signals-work.html"><span class="av-icon">⚙️</span><span>How It Works<span class="av-desc">Step-by-step process</span></span></a>
+     <a class="av-mega-link" href="how-to-generate-profit-crypto-arbitrage.html"><span class="av-icon">💰</span><span>Generate Profit<span class="av-desc">Ways arbitrage earns</span></span></a>
+     <a class="av-mega-link" href="crypto-arbitrage-risks-precautions.html"><span class="av-icon">⚠️</span><span>Risks &amp; Safety<span class="av-desc">What to watch for</span></span></a>
+     <a class="av-mega-link" href="delisting-arbitrage-risks.html"><span class="av-icon">🚨</span><span>Delisting Risks<span class="av-desc">Avoid this trap</span></span></a>
+     <a class="av-mega-link" href="rethink-traditional-trading.html"><span class="av-icon">🔄</span><span>Rethink Trading<span class="av-desc">Why arbitrage wins</span></span></a>
+     <a class="av-mega-link" href="arbitrage-portfolio-growth.html"><span class="av-icon">📈</span><span>Portfolio Growth<span class="av-desc">Long-term strategy</span></span></a>
+    </div>
+   </li>
+   <li class="av-dropdown">
+    <button type="button" class="av-top-link av-drop-trigger">Tools <span class="av-caret">▾</span></button>
+    <div class="av-mega-panel">
+     <a class="av-mega-link" href="live-crypto-arbitrage-scanner.html"><span class="av-icon">📊</span><span>Price Difference Scanner<span class="av-desc">Real-time cross-exchange spot price gaps</span></span></a>
+     <a class="av-mega-link" href="live-funding-gap-scanner.html"><span class="av-icon">💸</span><span>Funding Rate Scanner<span class="av-desc">Compare funding rates across 8 exchanges</span></span></a>
+     <a class="av-mega-link" href="advanced-arb-scanner.html"><span class="av-icon">⚡</span><span>Advanced Live Scanner<span class="av-desc">Price gap + funding rate combined</span></span></a>
+     <a class="av-mega-link" href="arbitrage-calculator.html"><span class="av-icon">🧮</span><span>Futures Arbitrage Calculator<span class="av-desc">Net profit after all fees &amp; slippage</span></span></a>
+    </div>
+   </li>
+   <li><a href="crypto-arbitrage-blog.html" class="av-top-link">Blog</a></li>
+   <li class="av-dropdown">
+    <button type="button" class="av-top-link av-drop-trigger">Signals <span class="av-caret">▾</span></button>
+    <div class="av-mega-panel">
+     <a class="av-mega-link" href="crypto-arbitrage-telegram-signals.html"><span class="av-icon">✈️</span><span>Telegram Bot<span class="av-desc">Get instant signals</span></span></a>
+     <a class="av-mega-link" href="futures-signal-bot.html"><span class="av-icon">🚀</span><span>Free Futures Signal Bot<span class="av-desc">Live pump &amp; liq signals</span></span></a>
+     <a class="av-mega-link" href="crypto-arbitrage-signals-pricing.html"><span class="av-icon">💳</span><span>Pricing<span class="av-desc">$5/month plans</span></span></a>
+    </div>
+   </li>
+   <li class="av-dropdown">
+    <button type="button" class="av-top-link av-drop-trigger">Company <span class="av-caret">▾</span></button>
+    <div class="av-mega-panel">
+     <a class="av-mega-link" href="about-arbvertex-crypto-signals.html"><span class="av-icon">🏢</span><span>About Us<span class="av-desc">Our story</span></span></a>
+     <a class="av-mega-link" href="contact-arbvertex.html"><span class="av-icon">✉️</span><span>Contact<span class="av-desc">Get in touch</span></span></a>
+    </div>
+   </li>
+   <li><a href="advanced-arb-scanner.html" class="av-top-link av-scanner-link">⚡ Live Scanners</a></li>
+   <li><a href="crypto-arbitrage-signals-pricing.html" class="av-top-link av-cta">Join Now</a></li>
+  </ul>
+  <button class="av-hamburger" id="avHamburger" type="button" aria-label="Toggle menu">
+   <span></span><span></span><span></span>
+  </button>
+ </div>
+</div>
+
+<div class="page-wrap">
+ <div class="inner-page">
+  <div class="section-tag">// ADVANCED LIVE SCANNER</div>
+  <h1 class="article-title">Advanced Crypto Arbitrage Scanner</h1>
+  <p class="page-desc">The most complete free arbitrage scanner — real-time <strong>price gaps</strong> across 6 spot exchanges AND <strong>funding rate gaps</strong> across 8 futures exchanges, all in one place. Switch tabs to see each view.</p>
+
+  <!-- TAB BAR -->
+  <div class="tab-bar">
+   <button class="tab-btn active" onclick="switchTab('price')">📊 Price Difference</button>
+   <button class="tab-btn" onclick="switchTab('funding')">💸 Funding Rate Gap</button>
+  </div>
+
+  <!-- ═══ TAB 1: PRICE DIFFERENCE ═══ -->
+  <div class="tab-panel active" id="tab-price">
+
+   <!-- Filter -->
+   <div class="filter-bar">
+    <span>Filter:</span>
+    <button class="fbtn active" id="pf-all" onclick="setPriceFilter('all')">All</button>
+    <button class="fbtn" id="pf-BN-BB" onclick="setPriceFilter('BN-BB')">Binance↔Bybit</button>
+    <button class="fbtn" id="pf-BN-GT" onclick="setPriceFilter('BN-GT')">Binance↔Gate</button>
+    <button class="fbtn" id="pf-BN-MX" onclick="setPriceFilter('BN-MX')">Binance↔MEXC</button>
+    <button class="fbtn" id="pf-BB-GT" onclick="setPriceFilter('BB-GT')">Bybit↔Gate</button>
+    <button class="fbtn fire" id="pf-2pct" onclick="setPriceFilter('2pct')">🔥 2%+ Only</button>
+   </div>
+
+   <!-- Status -->
+   <div class="status-bar">
+    <div class="status-left">
+     <div class="status-dot" id="p-dot"></div>
+     <span class="status-txt" id="p-status">Click Refresh to load live prices</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:1rem;">
+     <span style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--muted);">Next: <span id="p-countdown" style="color:var(--accent);">30s</span></span>
+     <button class="refresh-btn" onclick="fetchAllPrices()">↻ Refresh</button>
+    </div>
+   </div>
+
+   <!-- Stats -->
+   <div class="stat-row">
+    <div class="stat-card"><div class="stat-num" id="p-stat-pairs">—</div><div class="stat-lbl">Pairs Scanned</div></div>
+    <div class="stat-card"><div class="stat-num green" id="p-stat-opps">—</div><div class="stat-lbl">2%+ Opportunities</div></div>
+    <div class="stat-card"><div class="stat-num green" id="p-stat-best">—</div><div class="stat-lbl">Best Spread</div></div>
+    <div class="stat-card"><div class="stat-num">6</div><div class="stat-lbl">Exchanges</div></div>
+   </div>
+
+   <!-- Table -->
+   <div class="tbl-wrap">
+    <table>
+     <thead>
+      <tr>
+       <th style="text-align:left;color:var(--muted);">PAIR</th>
+       <th style="color:#F0B90B;">BINANCE</th>
+       <th style="color:#F7A600;">BYBIT</th>
+       <th style="color:#00FF88;">GATE.IO</th>
+       <th style="color:#00CED1;">BITGET</th>
+       <th style="color:#31d8a4;">KUCOIN</th>
+       <th style="color:#00E5FF;">MEXC</th>
+       <th style="color:var(--muted);">BEST SPREAD</th>
+       <th style="color:var(--muted);text-align:center;">SIGNAL</th>
+      </tr>
+     </thead>
+     <tbody id="p-tbody">
+      <tr><td colspan="9" style="text-align:center;padding:3rem;color:var(--muted);">Click ↻ Refresh to load live price data</td></tr>
+     </tbody>
+    </table>
+   </div>
+  </div><!-- /tab-price -->
+
+  <!-- ═══ TAB 2: FUNDING RATE ═══ -->
+  <div class="tab-panel" id="tab-funding">
+
+   <!-- Filter -->
+   <div class="filter-bar">
+    <span>Filter:</span>
+    <button class="fbtn active" id="ff-all" onclick="setFundingFilter('all')">All</button>
+    <button class="fbtn fire" id="ff-hot" onclick="setFundingFilter('hot')">🔥 High Funding (0.1%+)</button>
+    <button class="fbtn" id="ff-neg" onclick="setFundingFilter('neg')">📉 Negative Funding</button>
+    <button class="fbtn" id="ff-spread" onclick="setFundingFilter('spread')">⚡ Best Spread Only</button>
+   </div>
+
+   <!-- Status -->
+   <div class="status-bar">
+    <div class="status-left">
+     <div class="status-dot" id="f-dot"></div>
+     <span class="status-txt" id="f-status">Click Refresh to load funding rates</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:1rem;">
+     <span style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--muted);">Next: <span id="f-countdown" style="color:var(--accent);">120s</span></span>
+     <button class="refresh-btn" onclick="runFundingScan()">↻ Refresh</button>
+    </div>
+   </div>
+
+   <!-- Stats -->
+   <div class="stat-row">
+    <div class="stat-card"><div class="stat-num" id="f-stat-coins">—</div><div class="stat-lbl">Coins Tracked</div></div>
+    <div class="stat-card"><div class="stat-num green" id="f-stat-hot">—</div><div class="stat-lbl">High Funding (0.1%+)</div></div>
+    <div class="stat-card"><div class="stat-num green" id="f-stat-best">—</div><div class="stat-lbl">Best FR Spread</div></div>
+    <div class="stat-card"><div class="stat-num">8</div><div class="stat-lbl">Exchanges</div></div>
+   </div>
+
+   <!-- Table -->
+   <div class="tbl-wrap">
+    <table>
+     <thead>
+      <tr>
+       <th style="text-align:left;color:var(--muted);">COIN</th>
+       <th style="color:#F0B90B;">BINANCE FR</th>
+       <th style="color:#F7A600;">BYBIT FR</th>
+       <th style="color:#00CED1;">BITGET FR</th>
+       <th style="color:#00FF88;">GATE.IO FR</th>
+       <th style="color:#00E5FF;">MEXC FR</th>
+       <th style="color:#31d8a4;">KUCOIN FR</th>
+       <th style="color:#a78bfa;">HTX FR</th>
+       <th style="color:#60a5fa;">HYPER FR</th>
+       <th style="color:var(--muted);">AVG FR</th>
+       <th style="color:var(--muted);">SPREAD</th>
+       <th style="color:var(--muted);text-align:center;">SIGNAL</th>
+      </tr>
+     </thead>
+     <tbody id="f-tbody">
+      <tr><td colspan="12" style="text-align:center;padding:3rem;color:var(--muted);">Click ↻ Refresh to load funding rate data</td></tr>
+     </tbody>
+    </table>
+   </div>
+   <div style="padding:0.75rem;font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);">
+    Net profit = funding spread − 4× taker fee (0.045%/leg) · Bitget/MEXC/KuCoin/HTX need Cloudflare Worker proxy for CORS · Not financial advice
+   </div>
+  </div><!-- /tab-funding -->
+
+ </div><!-- /inner-page -->
+
+ <footer>
+  <p>© 2026 ArbVertex · Not financial advice</p>
+  <div class="footer-links">
+   <a href="index.html">Home</a>
+   <a href="live-crypto-arbitrage-scanner.html">Price Scanner</a>
+   <a href="live-funding-gap-scanner.html">Funding Scanner</a>
+   <a href="arbitrage-calculator.html">Calculator</a>
+   <a href="crypto-arbitrage-risks-precautions.html">Risk Disclaimer</a>
+  </div>
+ </footer>
+</div>
+
+<script>
+// ═══════════════════════════════════════════
+// PRICE DIFFERENCE SCANNER
+// ═══════════════════════════════════════════
+const WORKER_URL = 'https://arbvertex-proxy.knitin973.workers.dev';
+let PAIRS = [];
+let priceResults = [];
+let priceFilter = 'all';
+let pCountdownVal = 30, pCountdownInterval;
+
+async function loadAllPairs() {
+  const stableFilter = new Set(['USDCUSDT','BUSDUSDT','TUSDUSDT','USDPUSDT','FDUSDUSDT','DAIUSDT','USTCUSDT','USDTUSDT','EURUSDT','GBPUSDT','FRAXUSDT','LUSDUSDT','GUSDUSDT','PAXUSDT','SUSDUSDT']);
+  try {
+    const r = await fetch('https://api.binance.com/api/v3/ticker/24hr');
+    const d = await r.json();
+    PAIRS = d.filter(t => t.symbol.endsWith('USDT') && !stableFilter.has(t.symbol) && t.symbol.replace('USDT','').length >= 2)
+      .sort((a,b) => parseFloat(b.quoteVolume)-parseFloat(a.quoteVolume))
+      .map(t => t.symbol).slice(0, 500);
+  } catch(e) {
+    PAIRS = ['BTCUSDT','ETHUSDT','BNBUSDT','SOLUSDT','XRPUSDT','DOGEUSDT','ADAUSDT','AVAXUSDT'];
+  }
+}
+
+async function fetchBinanceP() {
+  const m = {};
+  const BATCH = 100;
+  for (let i = 0; i < PAIRS.length; i += BATCH) {
+    const batch = PAIRS.slice(i, i+BATCH);
+    try {
+      const r = await fetch(`https://api.binance.com/api/v3/ticker/price?symbols=[${batch.map(p=>`"${p}"`).join(',')}]`);
+      const d = await r.json();
+      if (Array.isArray(d)) d.forEach(x => m[x.symbol] = parseFloat(x.price));
+    } catch(e) {}
+  }
+  return m;
+}
+async function fetchBybitP() {
+  const m = {}, ps = new Set(PAIRS);
+  try { const r = await fetch('https://api.bybit.com/v5/market/tickers?category=spot'); const d = await r.json(); if(d.result?.list) d.result.list.forEach(x => { if(ps.has(x.symbol)) m[x.symbol]=parseFloat(x.lastPrice); }); } catch(e){}
+  return m;
+}
+async function fetchWorkerP(ex) {
+  try { const r = await fetch(`${WORKER_URL}?exchange=${ex}`); if(!r.ok) throw new Error(); return await r.json(); } catch(e) { return []; }
+}
+async function fetchGateP() {
+  const m = {}, ps = new Set(PAIRS);
+  const d = await fetchWorkerP('gate');
+  d.forEach&&d.forEach(x => { const s = x.currency_pair?.replace('_',''); if(ps.has(s)) m[s]=parseFloat(x.last); });
+  return m;
+}
+async function fetchBitgetP() {
+  const m = {}, ps = new Set(PAIRS);
+  const d = await fetchWorkerP('bitget');
+  if(d.data) d.data.forEach(x => { const s = x.symbol?.replace('USDT','')+'USDT'; if(ps.has(s)) m[s]=parseFloat(x.lastPr); });
+  return m;
+}
+async function fetchKucoinP() {
+  const m = {}, ps = new Set(PAIRS);
+  const d = await fetchWorkerP('kucoin');
+  if(d.data?.ticker) d.data.ticker.forEach(x => { const s = x.symbol?.replace('-',''); if(ps.has(s)) m[s]=parseFloat(x.last); });
+  return m;
+}
+async function fetchMexcP() {
+  const m = {}, ps = new Set(PAIRS);
+  const d = await fetchWorkerP('mexc');
+  d.forEach&&d.forEach(x => { if(ps.has(x.symbol)) m[x.symbol]=parseFloat(x.price); });
+  return m;
+}
+
+function fp(price) {
+  if(!price||isNaN(price)) return '<span style="color:var(--border);">—</span>';
+  if(price>=1000) return '$'+price.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+  if(price>=1) return '$'+price.toFixed(4);
+  return '$'+price.toFixed(6);
+}
+function priceBadge(spread) {
+  const a = Math.abs(spread);
+  if(a>=2) return `<span class="badge-hot">🔥 ${spread>0?'+':''}${spread.toFixed(2)}%</span>`;
+  if(a>=1) return `<span class="badge-ok">⚡ ${spread>0?'+':''}${spread.toFixed(2)}%</span>`;
+  return `<span class="badge-low">— ${spread>0?'+':''}${spread.toFixed(2)}%</span>`;
+}
+
+function renderPriceTable() {
+  const ALL_EX = [
+    {k1:'binance',k2:'bybit', label:'Binance→Bybit', id:'BN-BB'},
+    {k1:'binance',k2:'gate',  label:'Binance→Gate',  id:'BN-GT'},
+    {k1:'binance',k2:'bitget',label:'Binance→Bitget',id:'BN-BG'},
+    {k1:'binance',k2:'kucoin',label:'Binance→KuCoin',id:'BN-KC'},
+    {k1:'binance',k2:'mexc',  label:'Binance→MEXC',  id:'BN-MX'},
+    {k1:'bybit',  k2:'gate',  label:'Bybit→Gate',    id:'BB-GT'},
+    {k1:'bybit',  k2:'mexc',  label:'Bybit→MEXC',    id:'BB-MX'},
+  ];
+  const stables = new Set(['USDCUSDT','BUSDUSDT','TUSDUSDT','USDPUSDT','FDUSDUSDT','DAIUSDT']);
+  let rows = [];
+  priceResults.forEach(r => {
+    if(stables.has(r.symbol)) return;
+    let best = null, bestPair = '', bestId = '';
+    ALL_EX.forEach(ep => {
+      const p1 = r[ep.k1], p2 = r[ep.k2];
+      if(!p1||!p2) return;
+      const sp = ((p2-p1)/p1)*100;
+      if(best===null||Math.abs(sp)>Math.abs(best)){best=sp;bestPair=ep.label;bestId=ep.id;}
+    });
+    if(best===null) return;
+    if(priceFilter==='2pct'&&Math.abs(best)<2) return;
+    if(['BN-BB','BN-GT','BN-MX','BB-GT'].includes(priceFilter)&&bestId!==priceFilter) return;
+    rows.push({...r,spread:best,pair:bestPair});
+  });
+  rows.sort((a,b)=>Math.abs(b.spread)-Math.abs(a.spread));
+  const opps = rows.filter(r=>Math.abs(r.spread)>=2).length;
+  document.getElementById('p-stat-pairs').textContent = priceResults.length;
+  document.getElementById('p-stat-opps').textContent = opps;
+  document.getElementById('p-stat-best').textContent = rows.length ? Math.abs(rows[0].spread).toFixed(2)+'%' : '—';
+  const tbody = document.getElementById('p-tbody');
+  if(!rows.length){tbody.innerHTML=`<tr><td colspan="9" style="text-align:center;padding:3rem;color:var(--muted);">No opportunities for selected filter</td></tr>`;return;}
+  tbody.innerHTML = rows.slice(0,60).map((r,i)=>{
+    const sc = Math.abs(r.spread)>=2?'var(--accent2)':Math.abs(r.spread)>=1?'var(--accent)':'var(--muted)';
+    const bg = Math.abs(r.spread)>=2?'rgba(0,255,136,0.03)':i%2===0?'transparent':'rgba(255,255,255,0.01)';
+    return `<tr style="background:${bg};">
+      <td style="font-weight:600;white-space:nowrap;">${r.symbol.replace('USDT','')}<span style="color:var(--muted);font-weight:400;">/USDT</span></td>
+      <td>${fp(r.binance)}</td><td>${fp(r.bybit)}</td><td>${fp(r.gate)}</td>
+      <td>${fp(r.bitget)}</td><td>${fp(r.kucoin)}</td><td>${fp(r.mexc)}</td>
+      <td style="font-weight:700;color:${sc};white-space:nowrap;">${r.spread>=0?'+':''}${r.spread.toFixed(3)}%<br><span style="font-size:0.62rem;color:var(--muted);font-weight:400;">${r.pair}</span></td>
+      <td style="text-align:center;">${priceBadge(r.spread)}</td>
+    </tr>`;
+  }).join('');
+}
+
+function setPriceFilter(f) {
+  priceFilter = f;
+  ['all','BN-BB','BN-GT','BN-MX','BB-GT','2pct'].forEach(id=>document.getElementById('pf-'+id)?.classList.remove('active'));
+  document.getElementById('pf-'+f)?.classList.add('active');
+  renderPriceTable();
+}
+
+async function fetchAllPrices() {
+  const dot = document.getElementById('p-dot');
+  const status = document.getElementById('p-status');
+  dot.classList.remove('live'); dot.style.background='var(--orange)';
+  status.textContent = PAIRS.length===0?'Loading top 500 coins...':'Fetching from 6 exchanges...';
+  if(PAIRS.length===0) await loadAllPairs();
+  const safe = async(fn,n)=>{try{return await fn();}catch(e){console.warn(n+' failed');return{};}};
+  const [bn,bb,gt,bg,kc,mx] = await Promise.all([
+    safe(fetchBinanceP,'Binance'),safe(fetchBybitP,'Bybit'),safe(fetchGateP,'Gate'),
+    safe(fetchBitgetP,'Bitget'),safe(fetchKucoinP,'KuCoin'),safe(fetchMexcP,'MEXC')
+  ]);
+  const stables = new Set(['USDCUSDT','BUSDUSDT','TUSDUSDT','USDPUSDT','FDUSDUSDT','DAIUSDT','USDTUSDT']);
+  priceResults = PAIRS.map(sym=>({symbol:sym,binance:bn[sym]||null,bybit:bb[sym]||null,gate:gt[sym]||null,bitget:bg[sym]||null,kucoin:kc[sym]||null,mexc:mx[sym]||null}))
+    .filter(r=>r.binance&&!stables.has(r.symbol));
+  dot.classList.add('live'); dot.style.background='var(--accent2)';
+  status.textContent = `Live · Binance, Bybit, Gate, Bitget, KuCoin, MEXC · ${new Date().toLocaleTimeString()}`;
+  pCountdownVal=30;
+  renderPriceTable();
+}
+
+function startPriceCountdown() {
+  if(pCountdownInterval) clearInterval(pCountdownInterval);
+  pCountdownVal=30;
+  pCountdownInterval=setInterval(()=>{
+    pCountdownVal--;
+    const el=document.getElementById('p-countdown');
+    if(el) el.textContent=pCountdownVal+'s';
+    if(pCountdownVal<=0){pCountdownVal=30;fetchAllPrices();}
+  },1000);
+}
+
+// ═══════════════════════════════════════════
+// FUNDING RATE SCANNER
+// ═══════════════════════════════════════════
+const TAKER_FEE = 0.00045;
+const CF_PROXY = 'https://arbvertex-proxy.knitin973.workers.dev';
+const EXCHANGES = ['binance','bybit','bitget','gateio','mexc','kucoin','htx','hyperliquid'];
+let fundingData = {};
+let fundingRows = [];
+let fundingFilter = 'all';
+let fCountdownVal = 120, fCountdownInterval;
+
+async function sf(url, opts={}) {
+  try { const r=await fetch(url,{...opts,signal:AbortSignal.timeout(12000)}); if(!r.ok) return null; return await r.json(); } catch{return null;}
+}
+async function fetchBinanceFR(){
+  const d=await sf('https://fapi.binance.com/fapi/v1/premiumIndex');
+  if(!d) return {};
+  const out={};
+  for(const it of d){if(!it.symbol?.endsWith('USDT'))continue;out[it.symbol.slice(0,-4)]={rate:parseFloat(it.lastFundingRate)*100,price:parseFloat(it.markPrice)||null};}
+  return out;
+}
+async function fetchBybitFR(){
+  const d=await sf('https://api.bybit.com/v5/market/tickers?category=linear&limit=500');
+  if(!d?.result?.list) return {};
+  const out={};
+  for(const it of d.result.list){if(!it.symbol?.endsWith('USDT')||!it.fundingRate)continue;out[it.symbol.slice(0,-4)]={rate:parseFloat(it.fundingRate)*100,price:parseFloat(it.markPrice||it.lastPrice)||null};}
+  return out;
+}
+async function fetchGateFR(){
+  const d=await sf('https://api.gateio.ws/api/v4/futures/usdt/contracts');
+  if(!d) return {};
+  const out={};
+  for(const it of d){const raw=it.name||it.contract||'';if(!raw.includes('USDT'))continue;const rate=it.funding_rate??it.fundingRate;if(rate==null)continue;const sym=raw.replace('_USDT','').replace('USDT','');out[sym]={rate:parseFloat(rate)*100,price:parseFloat(it.mark_price||it.markPrice)||null};}
+  return out;
+}
+async function fetchHyperliquidFR(){
+  const d=await sf('https://api.hyperliquid.xyz/info',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'metaAndAssetCtxs'})});
+  if(!Array.isArray(d)||d.length<2) return {};
+  const out={},assets=d[0]?.universe||[],ctxs=d[1]||[];
+  for(let i=0;i<assets.length;i++){const ctx=ctxs[i]||{};if(ctx.funding==null)continue;out[assets[i].name]={rate:parseFloat(ctx.funding)*8*100,price:parseFloat(ctx.markPx||ctx.oraclePx)||null};}
+  return out;
+}
+async function fetchProxyFR(path){if(!CF_PROXY) return{};return await sf(CF_PROXY+path)||{};}
+async function fetchBitgetFR(){const d=await fetchProxyFR('/bitget/funding');const out={};for(const it of d.data||[]){const raw=it.symbol||'';if(!raw.includes('USDT'))continue;const rate=it.fundingRate??it.funding_rate??it.fundRate;if(rate==null)continue;out[raw.replace('USDT','').replace('_','')]={rate:parseFloat(rate)*100,price:parseFloat(it.markPrice||it.mark_price)||null};}return out;}
+async function fetchMEXCFR(){const d=await fetchProxyFR('/mexc/funding');const out={};for(const it of(d.data||d.result||[])){const raw=it.symbol||'';if(!raw.includes('USDT'))continue;const rate=it.funding_rate??it.fundingRate??it.funding;if(rate==null)continue;out[raw.replace('_USDT','').replace('USDT','')]={rate:parseFloat(rate)*100,price:parseFloat(it.markPrice||it.mark_price)||null};}return out;}
+async function fetchKucoinFR(){const d=await fetchProxyFR('/kucoin/funding');const out={};for(const it of(d.data||[])){const raw=it.symbol||'';if(!raw.includes('USDT'))continue;const rate=it.fundingFeeRate??it.fundingRate;if(rate==null)continue;out[raw.replace('USDTM','').replace('USDT','')]={rate:parseFloat(rate)*100,price:parseFloat(it.markPrice)||null};}return out;}
+async function fetchHTXFR(){const d=await fetchProxyFR('/htx/funding');const out={};for(const it of(d.data||[])){const raw=it.contract_code||it.symbol||'';if(!raw.includes('USDT'))continue;const rate=it.funding_rate??it.estimated_rate;if(rate==null)continue;out[raw.replace('-USDT','').replace('USDT','')]={rate:parseFloat(rate)*100,price:parseFloat(it.mark_price)||null};}return out;}
+
+function frFmt(v){if(v==null) return '<span style="color:var(--border);">—</span>';const cls=v>0.05?'fr-pos':v<-0.01?'fr-neg':'fr-neu';return `<span class="${cls}">${v>0?'+':''}${v.toFixed(4)}%</span>`;}
+
+function renderFundingTable(){
+  const tbody=document.getElementById('f-tbody');
+  let rows=[...fundingRows];
+  if(fundingFilter==='hot') rows=rows.filter(r=>r.avgRate>=0.1);
+  if(fundingFilter==='neg') rows=rows.filter(r=>r.avgRate<0);
+  if(fundingFilter==='spread') rows=rows.filter(r=>r.spread>=0.05);
+  rows.sort((a,b)=>Math.abs(b.spread)-Math.abs(a.spread));
+
+  const hotCount=fundingRows.filter(r=>r.avgRate>=0.1).length;
+  document.getElementById('f-stat-coins').textContent=fundingRows.length;
+  document.getElementById('f-stat-hot').textContent=hotCount;
+  document.getElementById('f-stat-best').textContent=rows.length?rows[0].spread.toFixed(4)+'%':'—';
+
+  if(!rows.length){tbody.innerHTML=`<tr><td colspan="12" style="text-align:center;padding:3rem;color:var(--muted);">No coins match current filter</td></tr>`;return;}
+  tbody.innerHTML=rows.slice(0,60).map((r,i)=>{
+    const bg=r.avgRate>=0.1?'rgba(0,255,136,0.03)':i%2===0?'transparent':'rgba(255,255,255,0.01)';
+    const netP=r.spread-(4*TAKER_FEE*100);
+    const sig=r.spread>=0.2?`<span class="badge-hot">🔥 ${netP.toFixed(3)}%</span>`:r.spread>=0.05?`<span class="badge-ok">⚡ ${netP.toFixed(3)}%</span>`:`<span class="badge-low">— ${netP.toFixed(3)}%</span>`;
+    return `<tr style="background:${bg};">
+      <td style="font-weight:600;white-space:nowrap;">${r.coin}</td>
+      ${frFmt(r.binance)===frFmt(null)?'<td><span style="color:var(--border);">—</span></td>':`<td>${frFmt(r.binance)}</td>`}
+      <td>${frFmt(r.bybit)}</td><td>${frFmt(r.bitget)}</td><td>${frFmt(r.gateio)}</td>
+      <td>${frFmt(r.mexc)}</td><td>${frFmt(r.kucoin)}</td><td>${frFmt(r.htx)}</td><td>${frFmt(r.hyperliquid)}</td>
+      <td><span style="color:${r.avgRate>0.05?'var(--accent2)':r.avgRate<0?'var(--red)':'var(--muted)'};">${r.avgRate>0?'+':''}${r.avgRate.toFixed(4)}%</span></td>
+      <td style="font-weight:700;color:${r.spread>=0.1?'var(--accent2)':r.spread>=0.05?'var(--accent)':'var(--muted)'};">${r.spread.toFixed(4)}%</td>
+      <td style="text-align:center;">${sig}</td>
+    </tr>`;
+  }).join('');
+}
+
+function setFundingFilter(f){
+  fundingFilter=f;
+  ['all','hot','neg','spread'].forEach(id=>document.getElementById('ff-'+id)?.classList.remove('active'));
+  document.getElementById('ff-'+f)?.classList.add('active');
+  renderFundingTable();
+}
+
+const FR_FETCHERS={binance:fetchBinanceFR,bybit:fetchBybitFR,gateio:fetchGateFR,hyperliquid:fetchHyperliquidFR,bitget:fetchBitgetFR,mexc:fetchMEXCFR,kucoin:fetchKucoinFR,htx:fetchHTXFR};
+
+async function runFundingScan(){
+  const dot=document.getElementById('f-dot');
+  const status=document.getElementById('f-status');
+  dot.classList.remove('live');dot.style.background='var(--orange)';
+  status.textContent='Scanning funding rates...';
+  fundingData={};
+  await Promise.allSettled(Object.entries(FR_FETCHERS).map(async([name,fn])=>{
+    const data=await fn();
+    for(const[sym,info]of Object.entries(data)){
+      if(!fundingData[sym])fundingData[sym]={};
+      fundingData[sym][name]=info.rate;
+    }
+  }));
+  fundingRows=[];
+  for(const[coin,exMap]of Object.entries(fundingData)){
+    const rates=Object.values(exMap).filter(v=>v!=null);
+    if(rates.length<2)continue;
+    const avgRate=rates.reduce((a,b)=>a+b,0)/rates.length;
+    const spread=Math.max(...rates)-Math.min(...rates);
+    fundingRows.push({coin,binance:exMap.binance??null,bybit:exMap.bybit??null,bitget:exMap.bitget??null,gateio:exMap.gateio??null,mexc:exMap.mexc??null,kucoin:exMap.kucoin??null,htx:exMap.htx??null,hyperliquid:exMap.hyperliquid??null,avgRate,spread});
+  }
+  dot.classList.add('live');dot.style.background='var(--accent2)';
+  status.textContent=`Live · 8 exchanges · ${new Date().toLocaleTimeString()}`;
+  fCountdownVal=120;
+  renderFundingTable();
+}
+
+function startFundingCountdown(){
+  if(fCountdownInterval)clearInterval(fCountdownInterval);
+  fCountdownVal=120;
+  fCountdownInterval=setInterval(()=>{
+    fCountdownVal--;
+    const el=document.getElementById('f-countdown');
+    if(el)el.textContent=fCountdownVal+'s';
+    if(fCountdownVal<=0){fCountdownVal=120;runFundingScan();}
+  },1000);
+}
+
+// ═══════════════════════════════════════════
+// TAB SWITCHER
+// ═══════════════════════════════════════════
+function switchTab(tab){
+  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',['price','funding'][i]===tab));
+  document.getElementById('tab-price').classList.toggle('active',tab==='price');
+  document.getElementById('tab-funding').classList.toggle('active',tab==='funding');
+}
+
+// ═══════════════════════════════════════════
+// NAV
+// ═══════════════════════════════════════════
+(function(){
+  var hb=document.getElementById('avHamburger'),nl=document.getElementById('avNavLinks');
+  if(hb&&nl)hb.addEventListener('click',()=>nl.classList.toggle('av-mobile-open'));
+  document.querySelectorAll('.av-drop-trigger').forEach(btn=>{
+    btn.addEventListener('click',e=>{
+      e.preventDefault();
+      var p=btn.closest('.av-dropdown'),was=p.classList.contains('av-open');
+      document.querySelectorAll('.av-dropdown.av-open').forEach(d=>d.classList.remove('av-open'));
+      if(!was)p.classList.add('av-open');
+    });
+  });
+  document.addEventListener('click',e=>{if(!e.target.closest('.av-nav-wrap'))document.querySelectorAll('.av-dropdown.av-open').forEach(d=>d.classList.remove('av-open'));});
+})();
+
+// ═══════════════════════════════════════════
+// AUTO START
+// ═══════════════════════════════════════════
+window.addEventListener('DOMContentLoaded',()=>{
+  fetchAllPrices();
+  startPriceCountdown();
+  runFundingScan();
+  startFundingCountdown();
+});
+</script>
+</body>
+</html>
