@@ -3,24 +3,87 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Live Funding Gap Scanner — Real-Time Funding Rate Arbitrage | ArbVertex</title>
-<meta name="description" content="Real-time funding rate arbitrage scanner. Compare funding rates across Binance, Bybit, Hyperliquid, Gate.io, Bitget, KuCoin and HTX. Spot high positive funding rates for passive income.">
+<title>Live Funding Rate Arbitrage Scanner — Compare 8 Exchanges | ArbVertex</title>
+<meta name="description" content="Real-time funding rate arbitrage scanner. Compare funding rates across Binance, Bybit, Hyperliquid, Gate.io, Bitget, KuCoin and HTX. Spot high positive funding rates for passive income opportunities.">
+<meta name="keywords" content="funding rate arbitrage scanner, crypto funding rate comparison, binance bybit funding rate, hyperliquid funding rate, funding rate arbitrage tool, live funding rates crypto">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://arbvertex.com/live-funding-gap-scanner.html">
+<meta property="og:title" content="Live Funding Rate Arbitrage Scanner | ArbVertex">
+<meta property="og:description" content="Real-time funding rate comparison across 8 exchanges. Find arbitrage opportunities instantly.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://arbvertex.com/live-funding-gap-scanner.html">
+<meta property="og:image" content="https://arbvertex.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Live Funding Rate Scanner | ArbVertex">
+<meta name="twitter:description" content="Compare funding rates across Binance, Bybit, Gate.io, Hyperliquid and more in real-time.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Funding Rate Arbitrage Scanner",
+  "description": "Real-time funding rate comparison tool across 8 crypto exchanges for arbitrage opportunities.",
+  "url": "https://arbvertex.com/live-funding-gap-scanner.html",
+  "provider": { "@type": "Organization", "name": "ArbVertex", "url": "https://arbvertex.com" },
+  "applicationCategory": "FinanceApplication"
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg:#0a0c10; --surface:#111318; --card:#161a22; --border:#1f2530; --border2:#2a3040;
   --text:#e8eaf0; --muted:#5a6478; --dim:#8a94a8;
   --accent:#3b82f6; --accent-dim:#1e3a5f;
   --green:#22c55e; --green-dim:#0d2818;
-  --red:#ef4444;   --red-dim:#2a0f0f;
+  --red:#ef4444; --red-dim:#2a0f0f;
   --yellow:#f59e0b; --yellow-dim:#2d1f05;
   --mono:'JetBrains Mono','Fira Code',monospace;
-  --sans:'Inter',system-ui,sans-serif;
+  --sans:'Space Grotesk','Inter',system-ui,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
-body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:14px;min-height:100vh;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:14px;min-height:100vh;padding-top:64px;}
 
-/* ── TOP BAR ── */
-.topbar{border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;position:sticky;top:0;z-index:100;background:var(--bg);}
+/* ── NAV ── */
+.av-nav-wrap{
+  --av-bg:#050a0f; --av-surface:#0d1a24; --av-accent:#00e5ff; --av-accent2:#00ff88;
+  --av-text:#e8f4f8; --av-muted:#8fb0c4; --av-border:#1a3a52;
+  position:fixed; top:0; left:0; right:0; z-index:999;
+  background:rgba(5,10,15,0.95); backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--av-border); font-family:'Space Grotesk',sans-serif;
+}
+.av-nav-inner{ max-width:1400px; margin:0 auto; height:64px; display:flex; align-items:center; justify-content:space-between; padding:0 5%; gap:1rem; }
+.av-logo{ font-family:'JetBrains Mono',monospace; font-size:1.05rem; font-weight:700; color:var(--av-accent); text-decoration:none; letter-spacing:-0.02em; flex-shrink:0; }
+.av-logo span{ color:var(--av-accent2); }
+.av-nav-links{ display:flex; align-items:center; gap:0.15rem; list-style:none; margin:0; padding:0; }
+.av-nav-links > li{ position:relative; }
+.av-top-link{ display:inline-flex; align-items:center; gap:0.3rem; color:var(--av-muted); text-decoration:none; font-size:0.85rem; font-weight:500; background:none; border:none; cursor:pointer; font-family:inherit; padding:0.55rem 0.65rem; border-radius:6px; transition:color .2s,background .2s; white-space:nowrap; }
+.av-top-link:hover{ color:var(--av-text); background:rgba(255,255,255,0.05); }
+.av-caret{ font-size:0.6rem; opacity:0.65; transition:transform .2s; margin-left:1px; }
+.av-dropdown:hover .av-caret,.av-dropdown.av-open .av-caret{ transform:rotate(180deg); }
+.av-mega-panel{ position:absolute; top:calc(100% + 10px); left:50%; transform:translateX(-50%) translateY(6px); background:var(--av-surface); border:1px solid var(--av-border); border-radius:10px; padding:0.55rem; min-width:290px; display:grid; gap:0.1rem; opacity:0; visibility:hidden; pointer-events:none; transition:opacity .16s ease,transform .16s ease; box-shadow:0 24px 48px rgba(0,0,0,0.45); }
+.av-dropdown:hover .av-mega-panel,.av-dropdown.av-open .av-mega-panel{ opacity:1; visibility:visible; pointer-events:auto; transform:translateX(-50%) translateY(0); }
+.av-mega-link{ display:flex; align-items:flex-start; gap:0.65rem; padding:0.55rem 0.65rem; border-radius:7px; color:var(--av-text); text-decoration:none; font-size:0.84rem; font-weight:600; transition:background .15s; }
+.av-mega-link:hover{ background:rgba(0,229,255,0.08); }
+.av-mega-link.active{ background:rgba(0,229,255,0.08); }
+.av-icon{ font-size:1rem; line-height:1.35; flex-shrink:0; }
+.av-desc{ display:block; color:var(--av-muted); font-size:0.72rem; font-weight:400; margin-top:0.15rem; line-height:1.4; }
+.av-scanner-link{ color:var(--av-accent2)!important; font-weight:600!important; }
+.av-cta{ background:var(--av-accent)!important; color:#050a0f!important; text-decoration:none; padding:0.5rem 1.1rem!important; border-radius:6px; font-weight:700!important; font-size:0.85rem!important; white-space:nowrap; }
+.av-hamburger{ display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; flex-shrink:0; }
+.av-hamburger span{ display:block; width:22px; height:2px; background:var(--av-accent); border-radius:2px; }
+@media(max-width:980px){
+  .av-nav-links{display:none!important;position:fixed;top:64px;left:0;right:0;height:calc(100vh - 64px);background:#0a0c10;flex-direction:column;align-items:stretch;padding:1.2rem 5% 2rem;overflow-y:auto;gap:0.2rem;z-index:9999;border-top:1px solid #1f2530;}
+  .av-nav-links.av-mobile-open{display:flex!important;}
+  .av-top-link{width:100%;justify-content:space-between;padding:0.9rem 0.6rem;font-size:0.95rem;}
+  .av-mega-panel{position:static!important;left:auto!important;transform:none!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important;display:none;box-shadow:none;border:none;border-left:2px solid #1f2530;background:rgba(255,255,255,0.02);margin:0 0 0.4rem 0.8rem;padding:0.3rem 0;min-width:0;}
+  .av-dropdown.av-open .av-mega-panel{display:grid;}
+  .av-mega-link{padding:0.6rem 0.8rem;font-size:0.88rem;}
+  .av-cta{display:block;text-align:center;margin-top:0.6rem;}
+  .av-hamburger{display:flex;}
+}
+
+/* ── SCANNER STYLES ── */
+.topbar{border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:var(--bg);}
 .logo{display:flex;align-items:center;gap:10px;}
 .logo-icon{width:30px;height:30px;background:var(--accent);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff;}
 .logo-name{font-size:15px;font-weight:600;letter-spacing:-.3px;}
@@ -33,40 +96,33 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:14
 .topbtn{font-size:12px;padding:6px 14px;border-radius:6px;border:1px solid var(--border2);background:transparent;color:var(--dim);cursor:pointer;font-family:var(--sans);transition:all .15s;}
 .topbtn:hover{border-color:var(--accent);color:var(--accent);}
 
-/* ── EXCHANGE PILLS ── */
 .ex-bar{display:flex;gap:7px;flex-wrap:wrap;padding:10px 24px;border-bottom:1px solid var(--border);background:var(--surface);}
-.ex-pill{display:flex;align-items:center;gap:5px;font-size:11px;padding:3px 9px;border-radius:20px;border:1px solid var(--border);color:var(--muted);transition:all .2s;}
+.ex-pill{display:flex;align-items:center;gap:5px;font-size:11px;padding:3px 9px;border-radius:20px;border:1px solid var(--border);color:var(--muted);}
 .ex-pill.ok{color:var(--green);border-color:rgba(34,197,94,.25);background:var(--green-dim);}
 .ex-pill.err{color:var(--red);border-color:rgba(239,68,68,.25);background:var(--red-dim);}
 .ex-dot{width:5px;height:5px;border-radius:50%;background:currentColor;}
 .ex-note{font-size:11px;color:var(--muted);margin-left:auto;align-self:center;}
 
-/* ── STAT CARDS ── */
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;padding:14px 24px;border-bottom:1px solid var(--border);}
 .stat{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 14px;}
 .stat-val{font-size:20px;font-weight:600;font-family:var(--mono);line-height:1.2;}
 .stat-lbl{font-size:11px;color:var(--muted);margin-top:4px;}
-.ca{color:var(--accent)}.cg{color:var(--green)}.cy{color:var(--yellow)}.cr{color:var(--red)}.cd{color:var(--dim)}
+.ca{color:var(--accent)}.cg{color:var(--green)}.cy{color:var(--yellow)}.cd{color:var(--dim)}
 
-/* ── TOOLBAR ── */
 .toolbar{display:flex;align-items:center;gap:8px;padding:12px 24px;flex-wrap:wrap;border-bottom:1px solid var(--border);}
 .search{background:var(--card);border:1px solid var(--border2);border-radius:6px;padding:7px 12px;color:var(--text);font-size:13px;outline:none;width:170px;transition:border .15s;}
 .search:focus{border-color:var(--accent);}
 .search::placeholder{color:var(--muted);}
 .fbtn{font-size:12px;padding:6px 12px;border-radius:6px;border:1px solid var(--border2);background:transparent;color:var(--muted);cursor:pointer;font-family:var(--sans);transition:all .15s;}
-.fbtn:hover{color:var(--dim);}
 .fbtn.on{border-color:var(--accent);background:var(--accent-dim);color:var(--accent);}
 .sep{width:1px;height:18px;background:var(--border2);}
 .fee-lbl{font-size:11px;color:var(--muted);}
 .fee-in{background:var(--card);border:1px solid var(--border2);border-radius:6px;padding:6px 10px;color:var(--text);font-size:12px;font-family:var(--mono);outline:none;width:80px;}
 .fee-in:focus{border-color:var(--accent);}
-
-/* ── VIEW TOGGLE ── */
 .view-toggle{display:flex;gap:4px;margin-left:auto;}
 .vtbtn{font-size:11px;padding:5px 10px;border-radius:5px;border:1px solid var(--border2);background:transparent;color:var(--muted);cursor:pointer;}
-.vtbtn.on{background:var(--card);color:var(--text);border-color:var(--border2);}
+.vtbtn.on{background:var(--card);color:var(--text);}
 
-/* ── TABLE ── */
 .table-wrap{overflow-x:auto;padding:0 24px 32px;}
 table{width:100%;border-collapse:collapse;min-width:980px;}
 thead tr{border-bottom:1px solid var(--border2);}
@@ -78,10 +134,8 @@ td{padding:8px 8px;border-bottom:1px solid var(--border);white-space:nowrap;vert
 tr.arb td{background:rgba(245,158,11,.03);}
 tr.arb:hover td{background:rgba(245,158,11,.08);}
 tr:not(.arb):hover td{background:rgba(255,255,255,.02);}
-.coin-name{font-size:13px;font-weight:600;color:var(--text);}
-.coin-rank{font-size:10px;color:var(--muted);margin-left:4px;}
+.coin-name{font-size:13px;font-weight:600;}
 
-/* ── BADGES ── */
 .b{display:inline-block;font-size:11px;padding:2px 6px;border-radius:4px;font-family:var(--mono);font-weight:500;}
 .b-pos{color:#ef4444;background:rgba(239,68,68,.1);}
 .b-neg{color:#22c55e;background:rgba(34,197,94,.1);}
@@ -90,19 +144,16 @@ tr:not(.arb):hover td{background:rgba(255,255,255,.02);}
 .b-hot{color:#fff;background:rgba(245,158,11,.7);font-weight:700;}
 .b-miss{color:var(--border2);font-size:10px;}
 
-/* ── SPREAD BAR ── */
 .sbar{display:flex;align-items:center;gap:7px;}
 .sbar-track{flex:1;height:3px;background:var(--border2);border-radius:2px;min-width:44px;}
 .sbar-fill{height:100%;border-radius:2px;}
 .sbar-val{font-size:11px;color:var(--dim);font-family:var(--mono);min-width:50px;text-align:right;}
 
-/* ── SIGNAL ── */
 .sig{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:3px 8px;border-radius:4px;white-space:nowrap;}
 .sig-hot{color:var(--yellow);background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.2);}
 .sig-fire{color:#fff;background:rgba(245,158,11,.55);}
 .sig-none{color:var(--border2);}
 
-/* ── ARB CARD VIEW ── */
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px;padding:16px 24px 32px;}
 .arb-card{background:var(--card);border:1px solid var(--border2);border-radius:10px;padding:16px;transition:border .15s;}
 .arb-card:hover{border-color:rgba(245,158,11,.3);}
@@ -114,15 +165,12 @@ tr:not(.arb):hover td{background:rgba(255,255,255,.02);}
 .arb-exch{color:var(--dim);}
 .arb-signal-box{margin-top:10px;padding:8px 10px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);border-radius:6px;font-size:11px;color:var(--yellow);line-height:1.6;}
 
-/* ── LOADING / EMPTY ── */
 .loading{text-align:center;padding:64px 0;}
 .spin{display:inline-block;width:28px;height:28px;border:2px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg)}}
 .load-msg{font-size:13px;color:var(--muted);margin-top:14px;}
 .load-detail{font-size:11px;color:var(--border2);margin-top:6px;font-family:var(--mono);}
 .empty{text-align:center;padding:56px;color:var(--muted);font-size:13px;}
-
-/* ── FOOTER NOTE ── */
 .footnote{padding:12px 24px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap;}
 
 @media(max-width:640px){
@@ -132,60 +180,72 @@ tr:not(.arb):hover td{background:rgba(255,255,255,.02);}
   .view-toggle{margin-left:0;}
 }
 </style>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-
 </head>
-<body style="padding-top:64px;">
+<body>
+
+<!-- ── NAV ── -->
 <div class="av-nav-wrap">
  <div class="av-nav-inner">
- <a href="index.html" class="av-logo">Arb<span>Vertex</span></a>
- <ul class="av-nav-links" id="avNavLinks">
- <li><a href="index.html" class="av-top-link">Home</a></li>
-
- <li class="av-dropdown">
- <button type="button" class="av-top-link av-drop-trigger">Learn <span class="av-caret">▾</span></button>
- <div class="av-mega-panel">
- <a class="av-mega-link" href="what-is-crypto-futures-arbitrage.html"><span class="av-icon">📘</span><span>What is Arbitrage<span class="av-desc">Core concept explained</span></span></a>
- <a class="av-mega-link" href="how-crypto-arbitrage-signals-work.html"><span class="av-icon">⚙️</span><span>How It Works<span class="av-desc">Step-by-step process</span></span></a>
- <a class="av-mega-link" href="how-to-generate-profit-crypto-arbitrage.html"><span class="av-icon">💰</span><span>Generate Profit<span class="av-desc">Ways arbitrage earns</span></span></a>
- <a class="av-mega-link" href="crypto-arbitrage-risks-precautions.html"><span class="av-icon">⚠️</span><span>Risks &amp; Safety<span class="av-desc">What to watch for</span></span></a>
- <a class="av-mega-link" href="delisting-arbitrage-risks.html"><span class="av-icon">🚨</span><span>Delisting Risks<span class="av-desc">Avoid this trap</span></span></a>
- <a class="av-mega-link" href="rethink-traditional-trading.html"><span class="av-icon">🔄</span><span>Rethink Trading<span class="av-desc">Why arbitrage wins</span></span></a>
- <a class="av-mega-link" href="arbitrage-portfolio-growth.html"><span class="av-icon">📈</span><span>Portfolio Growth<span class="av-desc">Long-term strategy</span></span></a>
+  <a href="index.html" class="av-logo">Arb<span>Vertex</span></a>
+  <ul class="av-nav-links" id="avNavLinks">
+   <li><a href="index.html" class="av-top-link">Home</a></li>
+   <li class="av-dropdown">
+    <button type="button" class="av-top-link av-drop-trigger">Learn <span class="av-caret">▾</span></button>
+    <div class="av-mega-panel">
+     <a class="av-mega-link" href="what-is-crypto-futures-arbitrage.html"><span class="av-icon">📘</span><span>What is Arbitrage<span class="av-desc">Core concept explained</span></span></a>
+     <a class="av-mega-link" href="how-crypto-arbitrage-signals-work.html"><span class="av-icon">⚙️</span><span>How It Works<span class="av-desc">Step-by-step process</span></span></a>
+     <a class="av-mega-link" href="how-to-generate-profit-crypto-arbitrage.html"><span class="av-icon">💰</span><span>Generate Profit<span class="av-desc">Ways arbitrage earns</span></span></a>
+     <a class="av-mega-link" href="crypto-arbitrage-risks-precautions.html"><span class="av-icon">⚠️</span><span>Risks &amp; Safety<span class="av-desc">What to watch for</span></span></a>
+     <a class="av-mega-link" href="delisting-arbitrage-risks.html"><span class="av-icon">🚨</span><span>Delisting Risks<span class="av-desc">Avoid this trap</span></span></a>
+     <a class="av-mega-link" href="rethink-traditional-trading.html"><span class="av-icon">🔄</span><span>Rethink Trading<span class="av-desc">Why arbitrage wins</span></span></a>
+     <a class="av-mega-link" href="arbitrage-portfolio-growth.html"><span class="av-icon">📈</span><span>Portfolio Growth<span class="av-desc">Long-term strategy</span></span></a>
+    </div>
+   </li>
+   <li class="av-dropdown">
+    <button type="button" class="av-top-link av-drop-trigger">Tools <span class="av-caret">▾</span></button>
+    <div class="av-mega-panel">
+     <a class="av-mega-link" href="live-crypto-arbitrage-scanner.html"><span class="av-icon">📊</span><span>Price Difference Scanner<span class="av-desc">Real-time cross-exchange spot price gaps</span></span></a>
+     <a class="av-mega-link active" href="live-funding-gap-scanner.html"><span class="av-icon">💸</span><span>Funding Rate Scanner<span class="av-desc">Compare funding rates across 8 exchanges</span></span></a>
+     <a class="av-mega-link" href="advanced-arb-scanner.html"><span class="av-icon">⚡</span><span>Advanced Live Scanner<span class="av-desc">Price gap + funding rate combined</span></span></a>
+     <a class="av-mega-link" href="arbitrage-calculator.html"><span class="av-icon">🧮</span><span>Futures Arbitrage Calculator<span class="av-desc">Net profit after all fees &amp; slippage</span></span></a>
+    </div>
+   </li>
+   <li><a href="crypto-arbitrage-blog.html" class="av-top-link">Blog</a></li>
+   <li class="av-dropdown">
+    <button type="button" class="av-top-link av-drop-trigger">Signals <span class="av-caret">▾</span></button>
+    <div class="av-mega-panel">
+     <a class="av-mega-link" href="crypto-arbitrage-telegram-signals.html"><span class="av-icon">✈️</span><span>Telegram Bot<span class="av-desc">Get instant signals</span></span></a>
+     <a class="av-mega-link" href="futures-signal-bot.html"><span class="av-icon">🚀</span><span>Free Futures Signal Bot<span class="av-desc">Live pump &amp; liq signals</span></span></a>
+     <a class="av-mega-link" href="crypto-arbitrage-signals-pricing.html"><span class="av-icon">💳</span><span>Pricing<span class="av-desc">$5/month plans</span></span></a>
+    </div>
+   </li>
+   <li class="av-dropdown">
+    <button type="button" class="av-top-link av-drop-trigger">Company <span class="av-caret">▾</span></button>
+    <div class="av-mega-panel">
+     <a class="av-mega-link" href="about-arbvertex-crypto-signals.html"><span class="av-icon">🏢</span><span>About Us<span class="av-desc">Our story</span></span></a>
+     <a class="av-mega-link" href="contact-arbvertex.html"><span class="av-icon">✉️</span><span>Contact<span class="av-desc">Get in touch</span></span></a>
+    </div>
+   </li>
+   <li><a href="advanced-arb-scanner.html" class="av-top-link av-scanner-link">⚡ Live Scanners</a></li>
+   <li><a href="crypto-arbitrage-signals-pricing.html" class="av-top-link av-cta">Join Now</a></li>
+  </ul>
+  <button class="av-hamburger" id="avHamburger" type="button" aria-label="Toggle menu">
+   <span></span><span></span><span></span>
+  </button>
  </div>
- </li>
+</div>
 
- <li class="av-dropdown">
- <button type="button" class="av-top-link av-drop-trigger">Tools <span class="av-caret">▾</span></button>
- <div class="av-mega-panel">
-  <a class="av-mega-link" href="live-crypto-arbitrage-scanner.html"><span class="av-icon">📊</span><span>Price Difference Scanner<span class="av-desc">Real-time cross-exchange spot price gaps</span></span></a>
- <a class="av-mega-link" href="live-funding-gap-scanner.html"><span class="av-icon">💸</span><span>Funding Rate Scanner<span class="av-desc">Compare funding rates across 8 exchanges</span></span></a>
- <a class="av-mega-link" href="advanced-arb-scanner.html"><span class="av-icon">⚡</span><span>Advanced Live Scanner<span class="av-desc">Price gap + funding rate combined</span></span></a>
- <a class="av-mega-link" href="arbitrage-calculator.html"><span class="av-icon">🧮</span><span>Futures Arbitrage Calculator<span class="av-desc">Net profit after all fees &amp; slippage</span></span></a>
- </div>
- </li>
-
- <li><a href="crypto-arbitrage-blog.html" class="av-top-link">Blog</a></li>
-
- <li class="av-dropdown">
- <button type="button" class="av-top-link av-drop-trigger">Signals <span class="av-caret">▾</span></button>
- <div class="av-mega-panel">
- <a class="av-mega-link" href="crypto-arbitrage-telegram-signals.html"><span class="av-icon">✈️</span><span>Telegram Bot<span class="av-desc">Get instant signals</span></span></a>
- <a class="av-mega-link" href="futures-signal-bot.html"><span class="av-icon">🚀</span><span>Free Futures Signal Bot<span class="av-desc">Live pump &amp; liq signals</span></span></a>
- <a class="av-mega-link" href="crypto-arbitrage-signals-pricing.html"><span class="av-icon">💳</span><span>Pricing<span class="av-desc">$5/month plans</span></span></a>
- </div>
-
-<!-- ── TOP BAR ── -->
+<!-- ── SCANNER TOP BAR ── -->
 <div class="topbar">
   <div class="logo">
-    <div class="logo-icon">A</div>
+    <div class="logo-icon">💸</div>
     <div>
       <div class="logo-name">ArbVertex</div>
       <div class="logo-sub">Live Funding Gap Scanner</div>
     </div>
   </div>
   <div class="topbar-right">
-    <div class="live-badge"><div class="dot" id="live-dot"></div><span id="status-txt">Initialising…</span></div>
+    <div class="live-badge"><div class="dot"></div><span id="status-txt">Initialising…</span></div>
     <div class="countdown" id="countdown">--:--</div>
     <button class="topbtn" onclick="runScan()">&#8635; Refresh</button>
   </div>
@@ -257,9 +317,8 @@ tr:not(.arb):hover td{background:rgba(255,255,255,.02);}
 
 <!-- ── CARDS VIEW ── -->
 <div class="cards" id="view-cards" style="display:none"></div>
-<div class="empty" id="empty-cards" style="display:none;padding:56px 24px;">No arbitrage opportunities found with current filters</div>
+<div class="empty" id="empty-cards" style="display:none;padding:56px 24px;">No arbitrage opportunities found</div>
 
-<!-- ── FOOTNOTE ── */
 <div class="footnote">
   <span>Net profit = funding spread + price gap − 4× taker fee (0.045%/leg)</span>
   <span>* Bitget, MEXC, KuCoin, HTX need Cloudflare Worker proxy for CORS</span>
@@ -270,9 +329,9 @@ tr:not(.arb):hover td{background:rgba(255,255,255,.02);}
 // ═══════════════════════════════════
 //  CONFIG
 // ═══════════════════════════════════
-const TAKER_FEE     = 0.00045;   // per leg
+const TAKER_FEE     = 0.00045;
 const SCAN_INTERVAL = 120;
-const CF_PROXY      = '';        // 'https://your-worker.workers.dev'
+const CF_PROXY      = '';  // 'https://your-worker.workers.dev'
 
 const EXCHANGES = ['binance','bybit','bitget','gateio','mexc','kucoin','htx','hyperliquid'];
 const EX_NAMES  = {
@@ -312,8 +371,7 @@ async function fetchBinance() {
   const out = {};
   for (const it of d) {
     if (!it.symbol?.endsWith('USDT')) continue;
-    const sym = it.symbol.slice(0,-4);
-    out[sym] = { rate: parseFloat(it.lastFundingRate)*100, price: parseFloat(it.markPrice)||null };
+    out[it.symbol.slice(0,-4)] = { rate: parseFloat(it.lastFundingRate)*100, price: parseFloat(it.markPrice)||null };
   }
   return out;
 }
@@ -338,8 +396,7 @@ async function fetchGateio() {
     if (!raw.includes('USDT')) continue;
     const rate = it.funding_rate??it.fundingRate;
     if (rate==null) continue;
-    const sym = raw.replace('_USDT','').replace('USDT','');
-    out[sym] = { rate: parseFloat(rate)*100, price: parseFloat(it.mark_price||it.markPrice)||null };
+    out[raw.replace('_USDT','').replace('USDT','')] = { rate: parseFloat(rate)*100, price: parseFloat(it.mark_price||it.markPrice)||null };
   }
   return out;
 }
@@ -354,7 +411,7 @@ async function fetchHyperliquid() {
   const assets = d[0]?.universe||[];
   const ctxs   = d[1]||[];
   for (let i=0;i<assets.length;i++) {
-    const ctx  = ctxs[i]||{};
+    const ctx = ctxs[i]||{};
     if (ctx.funding==null) continue;
     out[assets[i].name] = { rate: parseFloat(ctx.funding)*8*100, price: parseFloat(ctx.markPx||ctx.oraclePx)||null };
   }
@@ -374,8 +431,7 @@ async function fetchBitget() {
     if (!raw.includes('USDT')) continue;
     const rate = it.fundingRate??it.funding_rate??it.fundRate;
     if (rate==null) continue;
-    const sym = raw.replace('USDT','').replace('_','');
-    out[sym] = { rate: parseFloat(rate)*100, price: parseFloat(it.markPrice||it.mark_price)||null };
+    out[raw.replace('USDT','').replace('_','')] = { rate: parseFloat(rate)*100, price: parseFloat(it.markPrice||it.mark_price)||null };
   }
   return out;
 }
@@ -433,7 +489,6 @@ async function runScan() {
   document.getElementById('empty-cards').style.display = 'none';
   document.getElementById('status-txt').textContent = 'Scanning…';
   loadedEx = 0;
-
   EXCHANGES.forEach(e => { exStatus[e] = 'load'; });
   renderExBar();
 
@@ -448,14 +503,13 @@ async function runScan() {
     renderExBar();
     for (const [sym, info] of Object.entries(data)) {
       if (!allData[sym]) allData[sym] = {};
-      allData[sym][name]         = info.rate;
-      allData[sym][name+'_px']   = info.price;
+      allData[sym][name]       = info.rate;
+      allData[sym][name+'_px'] = info.price;
     }
   }));
 
   buildRows();
   renderView();
-
   document.getElementById('s-time').textContent     = new Date().toLocaleTimeString();
   document.getElementById('status-txt').textContent = 'Live';
 
@@ -476,20 +530,17 @@ async function runScan() {
 function buildRows() {
   tableRows = [];
   for (const [sym, data] of Object.entries(allData)) {
-    const rates  = {}, prices = {};
+    const rates = {}, prices = {};
     for (const ex of EXCHANGES) {
-      if (data[ex]    != null) rates[ex]  = data[ex];
-      if (data[ex+'_px'] != null) prices[ex] = data[ex+'_px'];
+      if (data[ex]      != null) rates[ex]  = data[ex];
+      if (data[ex+'_px']!= null) prices[ex] = data[ex+'_px'];
     }
     if (Object.keys(rates).length < 2) continue;
 
     const rVals   = Object.values(rates);
     const avgRate = rVals.reduce((a,b)=>a+b,0)/rVals.length;
-    const maxRate = Math.max(...rVals);
-    const minRate = Math.min(...rVals);
-    const spread  = maxRate - minRate;
+    const spread  = Math.max(...rVals) - Math.min(...rVals);
 
-    // Price gap
     let priceDiff=0, longEx=null, shortEx=null;
     const pxEx = Object.keys(prices);
     if (pxEx.length >= 2) {
@@ -498,12 +549,11 @@ function buildRows() {
       if (prices[longEx]>0) priceDiff = (prices[shortEx]-prices[longEx])/prices[longEx]*100;
     }
 
-    const highFREx = Object.keys(rates).reduce((a,b)=>rates[a]>rates[b]?a:b);
-    const lowFREx  = Object.keys(rates).reduce((a,b)=>rates[a]<rates[b]?a:b);
+    const highFREx  = Object.keys(rates).reduce((a,b)=>rates[a]>rates[b]?a:b);
+    const lowFREx   = Object.keys(rates).reduce((a,b)=>rates[a]<rates[b]?a:b);
     const netProfit = (rates[highFREx]-rates[lowFREx]) + priceDiff - (TAKER_FEE*4*100);
 
-    tableRows.push({ sym, rates, prices, spread, avgRate, netProfit, priceDiff,
-                     longEx, shortEx, highFREx, lowFREx });
+    tableRows.push({ sym, rates, prices, spread, avgRate, netProfit, priceDiff, longEx, shortEx, highFREx, lowFREx });
   }
 }
 
@@ -515,7 +565,6 @@ function frB(v) {
   const cls = v>0.005?'b-pos':v<-0.005?'b-neg':'b-neu';
   return `<span class="b ${cls}">${v>0?'+':''}${v.toFixed(4)}%</span>`;
 }
-
 function netB(v, mp) {
   if (v==null) return '<span class="b b-neu">—</span>';
   const s = v>0?'+':'';
@@ -523,14 +572,12 @@ function netB(v, mp) {
   if (v>=mp)   return `<span class="b b-arb">${s}${v.toFixed(4)}%</span>`;
   return `<span class="b b-neu">${s}${v.toFixed(4)}%</span>`;
 }
-
 function sigEl(net, mp, lEx, sEx) {
   if (net < mp) return '<span class="sig sig-none">—</span>';
   const cls = net>=mp*2?'sig-fire':'sig-hot';
   const e   = net>=mp*2?'🟢':'🟡';
   return `<span class="sig ${cls}">${e} L:${EX_NAMES[lEx]||lEx} S:${EX_NAMES[sEx]||sEx}</span>`;
 }
-
 function sBar(v) {
   const pct = Math.min(v/0.15*100,100).toFixed(1);
   const col = v>=0.1?'#f59e0b':v>=0.05?'#3b82f6':'#2a3040';
@@ -553,9 +600,8 @@ function getFiltered() {
 }
 
 function renderView() {
-  const mp   = parseFloat(document.getElementById('min-profit').value)||0.05;
-  let rows   = getFiltered();
-
+  const mp  = parseFloat(document.getElementById('min-profit').value)||0.05;
+  let rows  = getFiltered();
   rows.sort((a,b) => {
     const av = sortCol==='coin'?a.sym:(a[sortCol]??-999);
     const bv = sortCol==='coin'?b.sym:(b[sortCol]??-999);
@@ -563,9 +609,8 @@ function renderView() {
     return (av-bv)*sortDir;
   });
 
-  // Stats
-  const oppRows = tableRows.filter(r=>r.netProfit>=mp);
-  const bestNet = oppRows.length ? Math.max(...oppRows.map(r=>r.netProfit)) : 0;
+  const oppRows    = tableRows.filter(r=>r.netProfit>=mp);
+  const bestNet    = oppRows.length ? Math.max(...oppRows.map(r=>r.netProfit)) : 0;
   const bestSpread = tableRows.length ? Math.max(...tableRows.map(r=>r.spread)) : 0;
   document.getElementById('s-coins').textContent  = tableRows.length;
   document.getElementById('s-opps').textContent   = oppRows.length;
@@ -574,7 +619,6 @@ function renderView() {
   document.getElementById('s-ex').textContent     = Object.values(exStatus).filter(v=>v==='ok').length+'/'+EXCHANGES.length;
 
   document.getElementById('loading').style.display = 'none';
-
   if (view === 'table') renderTable(rows, mp);
   else renderCards(rows, mp);
 }
@@ -585,7 +629,6 @@ function renderTable(rows, mp) {
   document.getElementById('view-cards').style.display = 'none';
   document.getElementById('empty-cards').style.display = 'none';
   if (!rows.length) return;
-
   document.getElementById('tbody').innerHTML = rows.map(r => `
     <tr class="${r.netProfit>=mp?'arb':''}">
       <td><span class="coin-name">${r.sym}</span></td>
@@ -611,19 +654,15 @@ function renderCards(rows, mp) {
   document.getElementById('view-cards').style.display = arbRows.length ? 'grid' : 'none';
   document.getElementById('empty-cards').style.display = arbRows.length ? 'none' : 'block';
   if (!arbRows.length) return;
-
   document.getElementById('view-cards').innerHTML = arbRows.map(r => {
-    const exRows = Object.entries(r.rates)
-      .sort((a,b)=>b[1]-a[1])
-      .map(([ex, rate]) => {
-        const px = r.prices[ex];
-        return `<div class="arb-row">
-          <span class="arb-exch">${EX_NAMES[ex]||ex}</span>
-          <span>${frB(rate)}</span>
-          ${px?`<span style="font-size:11px;color:var(--muted);font-family:var(--mono)">$${px.toLocaleString(undefined,{maximumFractionDigits:4})}</span>`:''}
-        </div>`;
-      }).join('');
-
+    const exRows = Object.entries(r.rates).sort((a,b)=>b[1]-a[1]).map(([ex, rate]) => {
+      const px = r.prices[ex];
+      return `<div class="arb-row">
+        <span class="arb-exch">${EX_NAMES[ex]||ex}</span>
+        <span>${frB(rate)}</span>
+        ${px?`<span style="font-size:11px;color:var(--muted);font-family:var(--mono)">$${px.toLocaleString(undefined,{maximumFractionDigits:4})}</span>`:''}
+      </div>`;
+    }).join('');
     return `<div class="arb-card">
       <div class="arb-card-header">
         <span class="arb-coin">${r.sym}/USDT</span>
@@ -632,8 +671,7 @@ function renderCards(rows, mp) {
       ${exRows}
       <div class="arb-signal-box">
         ${r.netProfit>=mp*2?'🟢':'🟡'} <strong>LONG</strong> on ${EX_NAMES[r.longEx]||r.longEx||'?'}
-        &nbsp;·&nbsp;
-        <strong>SHORT</strong> on ${EX_NAMES[r.shortEx]||r.shortEx||'?'}<br>
+        &nbsp;·&nbsp; <strong>SHORT</strong> on ${EX_NAMES[r.shortEx]||r.shortEx||'?'}<br>
         Spread: ${r.spread.toFixed(4)}% &nbsp;·&nbsp; Price gap: ${r.priceDiff.toFixed(4)}%
       </div>
     </div>`;
@@ -642,41 +680,61 @@ function renderCards(rows, mp) {
 
 function renderExBar() {
   const pills = EXCHANGES.map(e => {
-    const s = exStatus[e]||'load';
+    const s   = exStatus[e]||'load';
     const lbl = s==='ok'?'live':s==='err'?'offline':s==='proxy'?'no proxy':'…';
     return `<div class="ex-pill ${s==='ok'?'ok':s==='err'?'err':''}">
       <div class="ex-dot"></div>${EX_NAMES[e]} <span style="opacity:.6">${lbl}</span>
     </div>`;
   }).join('');
   document.getElementById('ex-bar').innerHTML = pills +
-    `<span class="ex-note">* Proxy required for Bitget, MEXC, KuCoin, HTX</span>`;
+    `<span class="ex-note">* Proxy needed for Bitget, MEXC, KuCoin, HTX</span>`;
 }
 
-// ═══════════════════════════════════
-//  CONTROLS
-// ═══════════════════════════════════
 function setFilter(f, btn) {
   filter = f;
   document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
   renderView();
 }
-
 function setView(v, btn) {
   view = v;
   document.querySelectorAll('.vtbtn').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
   renderView();
 }
-
 function sortBy(col) {
   if (sortCol===col) sortDir*=-1;
   else { sortCol=col; sortDir=col==='coin'?1:-1; }
   document.querySelectorAll('th span[id^="s-"]').forEach(el=>el.textContent='');
-  const el = document.getElementById('s-'+col) || document.getElementById('s-'+col+'2');
+  const el = document.getElementById('s-'+col)||document.getElementById('s-'+col+'2');
   if (el) el.textContent = sortDir>0?' ↑':' ↓';
   renderView();
 }
+
+// ═══════════════════════════════════
+//  NAV JS
+// ═══════════════════════════════════
+(function(){
+  var hamburger = document.getElementById('avHamburger');
+  var navLinks  = document.getElementById('avNavLinks');
+  if(hamburger && navLinks){
+    hamburger.addEventListener('click', function(){ navLinks.classList.toggle('av-mobile-open'); });
+  }
+  document.querySelectorAll('.av-drop-trigger').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      var parent  = btn.closest('.av-dropdown');
+      var wasOpen = parent.classList.contains('av-open');
+      document.querySelectorAll('.av-dropdown.av-open').forEach(function(d){ d.classList.remove('av-open'); });
+      if(!wasOpen){ parent.classList.add('av-open'); }
+    });
+  });
+  document.addEventListener('click', function(e){
+    if(!e.target.closest('.av-nav-wrap')){
+      document.querySelectorAll('.av-dropdown.av-open').forEach(function(d){ d.classList.remove('av-open'); });
+    }
+  });
+})();
 
 // ═══════════════════════════════════
 //  INIT
@@ -684,6 +742,5 @@ function sortBy(col) {
 renderExBar();
 runScan();
 </script>
-
 </body>
 </html>
