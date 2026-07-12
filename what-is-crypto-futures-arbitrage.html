@@ -389,6 +389,11 @@ footer p{color:var(--muted);font-size:0.82rem;}
  cursor:pointer; padding:4px; flex-shrink:0;
 }
 .av-hamburger span{ display:block; width:22px; height:2px; background:var(--av-accent); border-radius:2px; }
+/* Blog dropdown wide panel */
+.av-blog-panel{min-width:560px;grid-template-columns:1fr 1fr;gap:0.4rem;}
+.av-blog-col-header{font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);padding:0.3rem 0.65rem 0.15rem;border-bottom:1px solid var(--border);margin-bottom:0.1rem;}
+.av-blog-col{display:flex;flex-direction:column;gap:0.05rem;}
+
 
 @media(max-width:980px){
  .av-nav-links{display:none!important;position:fixed;top:64px;left:0;right:0;height:calc(100vh - 64px);background:var(--bg);flex-direction:column;align-items:stretch;padding:1.2rem 5% 2rem;overflow-y:auto;overflow-x:hidden;gap:0.2rem;z-index:9999;border-top:1px solid var(--border);}
@@ -437,7 +442,23 @@ footer p{color:var(--muted);font-size:0.82rem;}
  </div>
  </li>
 
- <li><a href="crypto-arbitrage-blog.html" class="av-top-link">Blog</a></li>
+    <li class="av-dropdown">
+    <button type="button" class="av-top-link av-drop-trigger">Blog <span class="av-caret">&#9662;</span></button>
+    <div class="av-mega-panel av-blog-panel">
+     <div class="av-blog-col">
+      <div class="av-blog-col-header">&#128216; Beginner</div>
+      <a class="av-mega-link" href="crypto-arbitrage-blog.html#beginner"><span class="av-icon">&#129094;</span><span>Beginner Guides<span class="av-desc">Start from zero &mdash; concepts &amp; first steps</span></span></a>
+      <div class="av-blog-col-header" style="margin-top:0.5rem;">&#128161; Strategy</div>
+      <a class="av-mega-link" href="crypto-arbitrage-blog.html#strategy"><span class="av-icon">&#129097;</span><span>Strategy Guides<span class="av-desc">Funding rate, basis trading, advanced tactics</span></span></a>
+     </div>
+     <div class="av-blog-col">
+      <div class="av-blog-col-header">&#128260; Exchange Guides</div>
+      <a class="av-mega-link" href="crypto-arbitrage-blog.html#exchange"><span class="av-icon">&#129095;</span><span>Exchange Guides<span class="av-desc">Binance, Bybit, OKX setup &amp; comparison</span></span></a>
+      <div class="av-blog-col-header" style="margin-top:0.5rem;">&#128737;&#65039; Risk &amp; Tools</div>
+      <a class="av-mega-link" href="crypto-arbitrage-blog.html#risk"><span class="av-icon">&#128101;</span><span>Risk &amp; Tools<span class="av-desc">Position sizing, stop loss, glossary</span></span></a>
+     </div>
+    </div>
+   </li>
 
  <li class="av-dropdown">
  <button type="button" class="av-top-link av-drop-trigger">Signals <span class="av-caret">▾</span></button>

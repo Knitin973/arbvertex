@@ -3,13 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Crypto Arbitrage Blog — Guides, Strategies & Tips | ArbVertex</title>
-<meta name="description" content="Step-by-step crypto arbitrage guides — from beginner basics to advanced funding rate and cross-exchange strategies. 15+ articles covering all arbitrage types.">
+<title>Crypto Arbitrage Blog — Beginner to Advanced Guides | ArbVertex</title>
+<meta name="description" content="30+ crypto arbitrage guides covering beginner basics, funding rate strategies, exchange setup (Binance, Bybit, OKX), risk management, and advanced tactics. Free, in-depth, updated regularly.">
+<meta name="keywords" content="crypto arbitrage blog, funding rate arbitrage guide, crypto arbitrage strategy, binance arbitrage, bybit arbitrage, crypto arbitrage beginner, arbitrage risk management">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://arbvertex.com/blog.html">
+<meta name="author" content="ArbVertex">
+<link rel="canonical" href="https://arbvertex.com/crypto-arbitrage-blog.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Crypto Arbitrage Blog — Beginner to Advanced Guides | ArbVertex">
+<meta property="og:description" content="30+ free crypto arbitrage guides — from first steps to advanced funding rate strategies, exchange setup, and risk management.">
+<meta property="og:url" content="https://arbvertex.com/crypto-arbitrage-blog.html">
+<meta property="og:image" content="https://arbvertex.com/og-image.png">
+<meta property="og:site_name" content="ArbVertex">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Crypto Arbitrage Blog — Beginner to Advanced Guides | ArbVertex">
+<meta name="twitter:description" content="30+ free crypto arbitrage guides covering strategy, exchanges, risk, and tools.">
+<meta name="twitter:image" content="https://arbvertex.com/og-image.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "ArbVertex Crypto Arbitrage Blog",
+  "description": "Free crypto arbitrage guides from beginner to advanced — funding rate strategies, exchange setup, risk management, and tools.",
+  "url": "https://arbvertex.com/crypto-arbitrage-blog.html",
+  "publisher": {"@type": "Organization", "name": "ArbVertex", "url": "https://arbvertex.com/"}
+}
+</script>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#050a0f;--surface:#0d1a24;--accent:#00e5ff;--accent2:#00ff88;--text:#e8f4f8;--muted:#6a8fa8;--border:#1a3a52;--orange:#f97316;}
+:root{--bg:#050a0f;--surface:#0d1a24;--accent:#00e5ff;--accent2:#00ff88;--text:#e8f4f8;--muted:#6a8fa8;--border:#1a3a52;--orange:#f97316;--purple:#a78bfa;}
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;line-height:1.6;overflow-x:hidden;}
@@ -20,6 +42,7 @@ body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-ser
 .av-logo{font-family:'JetBrains Mono',monospace;font-size:1.05rem;font-weight:700;color:var(--accent);text-decoration:none;letter-spacing:-0.02em;flex-shrink:0;}
 .av-logo span{color:var(--accent2);}
 .av-nav-links{display:flex;align-items:center;gap:0.15rem;list-style:none;}
+.av-nav-links>li{position:relative;}
 .av-top-link{display:inline-flex;align-items:center;gap:0.3rem;color:var(--muted);text-decoration:none;font-size:0.85rem;font-weight:500;background:none;border:none;cursor:pointer;font-family:inherit;padding:0.55rem 0.65rem;border-radius:6px;transition:color .2s,background .2s;white-space:nowrap;}
 .av-top-link:hover{color:var(--text);background:rgba(255,255,255,0.05);}
 .av-caret{font-size:0.6rem;opacity:0.65;transition:transform .2s;margin-left:1px;}
@@ -35,63 +58,102 @@ body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-ser
 .av-cta{background:var(--accent)!important;color:#050a0f!important;text-decoration:none;padding:0.5rem 1.1rem!important;border-radius:6px;font-weight:700!important;font-size:0.85rem!important;white-space:nowrap;}
 .av-hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;flex-shrink:0;}
 .av-hamburger span{display:block;width:22px;height:2px;background:var(--accent);border-radius:2px;}
+/* Blog dropdown wide panel */
+.av-blog-panel{min-width:580px;grid-template-columns:1fr 1fr;gap:0.4rem;}
+.av-blog-col-header{font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);padding:0.3rem 0.65rem 0.15rem;border-bottom:1px solid var(--border);margin-bottom:0.1rem;grid-column:span 1;}
+.av-blog-col{display:flex;flex-direction:column;gap:0.05rem;}
 
 @media(max-width:980px){
  .av-nav-links{display:none!important;position:fixed;top:64px;left:0;right:0;height:calc(100vh - 64px);background:var(--bg);flex-direction:column;align-items:stretch;padding:1.2rem 5% 2rem;overflow-y:auto;overflow-x:hidden;gap:0.2rem;z-index:9999;border-top:1px solid var(--border);}
  .av-nav-links.av-mobile-open{display:flex!important;}
  .av-top-link{width:100%;justify-content:space-between;padding:0.9rem 0.6rem;font-size:0.95rem;}
- .av-mega-panel{position:static!important;left:auto!important;transform:none!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important;display:none;box-shadow:none;border:none;border-left:2px solid var(--border);background:rgba(255,255,255,0.02);margin:0 0 0.4rem 0.8rem;padding:0.3rem 0;min-width:0;width:auto;}
- .av-dropdown.av-open .av-mega-panel{display:grid;}
+ .av-mega-panel,.av-blog-panel{position:static!important;left:auto!important;transform:none!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important;display:none;box-shadow:none;border:none;border-left:2px solid var(--border);background:rgba(255,255,255,0.02);margin:0 0 0.4rem 0.8rem;padding:0.3rem 0;min-width:0;width:auto;grid-template-columns:1fr!important;}
+ .av-dropdown.av-open .av-mega-panel,.av-dropdown.av-open .av-blog-panel{display:grid;}
  .av-mega-link{padding:0.6rem 0.8rem;font-size:0.88rem;}
  .av-cta{display:block;text-align:center;margin-top:0.6rem;}
  .av-hamburger{display:flex;}
-}
- .av-cta{display:block;text-align:center;margin-top:0.6rem;}
- .av-hamburger{display:flex;}
+ .av-blog-col-header{display:none;}
 }
 
 /* BLOG PAGE */
 .blog-wrap{max-width:1200px;margin:0 auto;padding:90px 5% 80px;}
-
 .blog-hero{text-align:center;padding:40px 0 50px;}
 .blog-tag{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--accent);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.75rem;}
 .blog-hero h1{font-size:clamp(2rem,4vw,2.8rem);font-weight:700;letter-spacing:-0.02em;margin-bottom:1rem;}
-.blog-hero p{color:var(--muted);font-size:1rem;max-width:500px;margin:0 auto;}
+.blog-hero p{color:var(--muted);font-size:1rem;max-width:560px;margin:0 auto;}
+
+/* STATS ROW */
+.blog-stats{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin-top:1.5rem;}
+.blog-stat{text-align:center;}
+.blog-stat-num{font-family:'JetBrains Mono',monospace;font-size:1.4rem;font-weight:700;color:var(--accent);}
+.blog-stat-label{font-size:0.75rem;color:var(--muted);}
 
 /* FILTER TABS */
 .blog-filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:36px;justify-content:center;}
-.filter-btn{padding:7px 18px;border-radius:20px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:0.82rem;cursor:pointer;font-weight:500;font-family:inherit;transition:all 0.2s;}
-.filter-btn:hover,.filter-btn.active{background:var(--accent);border-color:var(--accent);color:#050a0f;font-weight:700;}
-.filter-btn.strategy.active{background:var(--accent2);border-color:var(--accent2);}
-.filter-btn.exchange.active{background:var(--orange);border-color:var(--orange);}
-.filter-btn.risk.active{background:#ff5555;border-color:#ff5555;}
+.filter-btn{padding:7px 20px;border-radius:20px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:0.82rem;cursor:pointer;font-weight:500;font-family:inherit;transition:all 0.2s;}
+.filter-btn:hover{border-color:var(--accent);color:var(--text);}
+.filter-btn.active{font-weight:700;}
+.filter-btn.f-all.active{background:var(--surface);border-color:var(--accent);color:var(--accent);}
+.filter-btn.f-beginner.active{background:rgba(0,229,255,0.12);border-color:var(--accent);color:var(--accent);}
+.filter-btn.f-strategy.active{background:rgba(0,255,136,0.12);border-color:var(--accent2);color:var(--accent2);}
+.filter-btn.f-exchange.active{background:rgba(249,115,22,0.12);border-color:var(--orange);color:var(--orange);}
+.filter-btn.f-risk.active{background:rgba(167,139,250,0.12);border-color:var(--purple);color:var(--purple);}
+
+/* SECTION HEADERS */
+.cat-section{margin-bottom:48px;}
+.cat-section[data-section="beginner"]{display:block;}
+.cat-section[data-section="strategy"]{display:block;}
+.cat-section[data-section="exchange"]{display:block;}
+.cat-section[data-section="risk"]{display:block;}
+
+.section-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--border);}
+.section-icon{font-size:1.2rem;}
+.section-title{font-family:'JetBrains Mono',monospace;font-size:0.8rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;}
+.section-title.beginner{color:var(--accent);}
+.section-title.strategy{color:var(--accent2);}
+.section-title.exchange{color:var(--orange);}
+.section-title.risk{color:var(--purple);}
+.section-count{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--muted);margin-left:auto;}
 
 /* GRID */
-.blog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;}
+.blog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px;}
 
-.blog-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:22px;text-decoration:none;color:inherit;display:block;transition:all 0.3s;}
-.blog-card:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:0 8px 30px rgba(0,229,255,0.08);}
+/* CARD */
+.blog-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;text-decoration:none;color:inherit;display:block;transition:all 0.25s;position:relative;overflow:hidden;}
+.blog-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.blog-card[data-cat="beginner"]::before{background:var(--accent);}
+.blog-card[data-cat="strategy"]::before{background:var(--accent2);}
+.blog-card[data-cat="exchange"]::before{background:var(--orange);}
+.blog-card[data-cat="risk"]::before{background:var(--purple);}
+.blog-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,229,255,0.07);}
+.blog-card[data-cat="beginner"]:hover{border-color:var(--accent);}
+.blog-card[data-cat="strategy"]:hover{border-color:var(--accent2);}
+.blog-card[data-cat="exchange"]:hover{border-color:var(--orange);}
+.blog-card[data-cat="risk"]:hover{border-color:var(--purple);}
 
-.card-top{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
-.step-badge{font-family:'JetBrains Mono',monospace;font-size:0.68rem;font-weight:700;padding:3px 8px;border-radius:3px;letter-spacing:0.05em;}
-.step-badge.beginner{background:rgba(0,229,255,0.15);color:var(--accent);}
-.step-badge.strategy{background:rgba(0,255,136,0.15);color:var(--accent2);}
-.step-badge.exchange{background:rgba(249,115,22,0.15);color:var(--orange);}
-.step-badge.risk{background:rgba(255,85,85,0.15);color:#ff7070;}
-.step-badge.tools{background:rgba(139,92,246,0.15);color:#a78bfa;}
+.card-meta{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
+.cat-pill{font-family:'JetBrains Mono',monospace;font-size:0.63rem;font-weight:700;padding:2px 7px;border-radius:3px;letter-spacing:0.05em;text-transform:uppercase;}
+.cat-pill.beginner{background:rgba(0,229,255,0.12);color:var(--accent);}
+.cat-pill.strategy{background:rgba(0,255,136,0.12);color:var(--accent2);}
+.cat-pill.exchange{background:rgba(249,115,22,0.12);color:var(--orange);}
+.cat-pill.risk{background:rgba(167,139,250,0.12);color:var(--purple);}
+.read-time{font-size:0.7rem;color:var(--muted);}
 
-.cat-badge{font-size:0.68rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);}
-
-.blog-card h3{font-size:0.95rem;font-weight:700;margin-bottom:10px;line-height:1.4;color:var(--text);}
-.blog-card p{color:var(--muted);font-size:0.83rem;line-height:1.65;margin-bottom:14px;}
-.read-link{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--accent);font-weight:600;}
+.blog-card h3{font-size:0.92rem;font-weight:700;margin-bottom:8px;line-height:1.4;color:var(--text);}
+.blog-card p{color:var(--muted);font-size:0.8rem;line-height:1.6;margin-bottom:14px;}
+.read-link{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--accent);font-weight:600;}
+.blog-card[data-cat="strategy"] .read-link{color:var(--accent2);}
+.blog-card[data-cat="exchange"] .read-link{color:var(--orange);}
+.blog-card[data-cat="risk"] .read-link{color:var(--purple);}
 
 /* CTA */
-.blog-cta{margin-top:60px;text-align:center;background:linear-gradient(135deg,rgba(0,229,255,0.08),rgba(0,255,136,0.05));border:1px solid var(--accent);border-radius:14px;padding:3rem 2rem;}
+.blog-cta{margin-top:60px;text-align:center;background:linear-gradient(135deg,rgba(0,229,255,0.06),rgba(0,255,136,0.04));border:1px solid rgba(0,229,255,0.2);border-radius:14px;padding:3rem 2rem;}
 .blog-cta h2{font-size:1.5rem;font-weight:700;margin-bottom:0.75rem;}
 .blog-cta p{color:var(--muted);font-size:0.95rem;margin-bottom:1.5rem;}
 .cta-btn{background:var(--accent);color:#050a0f;padding:0.85rem 2rem;border-radius:6px;font-weight:700;font-size:0.95rem;text-decoration:none;display:inline-block;transition:opacity 0.2s;}
 .cta-btn:hover{opacity:0.85;}
+
+.no-results{text-align:center;padding:3rem;color:var(--muted);display:none;}
 
 footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
 footer p{color:var(--muted);font-size:0.82rem;}
@@ -101,289 +163,382 @@ footer a{color:var(--accent);text-decoration:none;}
  .blog-grid{grid-template-columns:1fr;}
  .blog-hero h1{font-size:1.8rem;}
  footer{flex-direction:column;text-align:center;}
-}
-
-/* ── Roadmap Layout ── */
-.blog-roadmap { display:flex; flex-direction:column; gap:0; }
-.phase-label {
- font-family:'JetBrains Mono',monospace; font-size:0.72rem; font-weight:700;
- letter-spacing:0.1em; text-transform:uppercase; padding:0.5rem 1rem;
- border-radius:4px; margin:2rem 0 1rem; display:inline-block; align-self:flex-start;
-}
-.phase-label.foundation { background:rgba(0,229,255,0.12); color:var(--accent); }
-.phase-label.strategy { background:rgba(0,255,136,0.12); color:var(--accent2); }
-.phase-label.exchange { background:rgba(249,115,22,0.12); color:var(--orange); }
-.phase-label.risk { background:rgba(255,85,85,0.12); color:#ff7070; }
-
-.phase-row {
- display:flex; align-items:center; gap:0; margin-bottom:0.5rem; flex-wrap:wrap;
-}
-.phase-row-indent { padding-left:0; margin-top:0.5rem; }
-.phase-arrow {
- font-size:1.4rem; color:var(--muted); padding:0 0.5rem; flex-shrink:0;
- align-self:center;
-}
-.phase-row .blog-card {
- flex:1; min-width:200px; max-width:280px;
-}
-
-/* Phase color accents on cards */
-.phase-row:nth-of-type(1) .blog-card,
-.phase-row:nth-of-type(2) .blog-card { border-top:2px solid var(--accent); }
-.phase-row:nth-of-type(3) .blog-card,
-.phase-row:nth-of-type(4) .blog-card { border-top:2px solid var(--accent2); }
-.phase-row:nth-of-type(5) .blog-card,
-.phase-row:nth-of-type(6) .blog-card { border-top:2px solid var(--orange); }
-.phase-row:nth-of-type(7) .blog-card,
-.phase-row:nth-of-type(8) .blog-card { border-top:2px solid #ff7070; }
-
-/* Legend */
-.phase-legend {
- display:flex; gap:1.5rem; flex-wrap:wrap; margin-top:2.5rem;
- padding-top:1.5rem; border-top:1px solid var(--border);
-}
-.legend-item {
- display:flex; align-items:center; gap:0.5rem;
- font-size:0.8rem; color:var(--muted);
-}
-.legend-item::before {
- content:''; width:16px; height:16px; border-radius:4px; flex-shrink:0;
-}
-.legend-item.foundation::before { background:rgba(0,229,255,0.25); }
-.legend-item.strategy::before { background:rgba(0,255,136,0.25); }
-.legend-item.exchange::before { background:rgba(249,115,22,0.25); }
-.legend-item.risk::before { background:rgba(255,85,85,0.25); }
-
-@media(max-width:768px){
- .phase-row { flex-direction:column; align-items:stretch; }
- .phase-arrow { transform:rotate(90deg); align-self:center; }
- .phase-row .blog-card { max-width:100%; }
- .phase-legend { gap:1rem; }
+ .av-blog-panel{min-width:0;}
 }
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <div class="av-nav-wrap">
  <div class="av-nav-inner">
- <a href="index.html" class="av-logo">Arb<span>Vertex</span></a>
- <ul class="av-nav-links" id="avNavLinks">
- <li><a href="index.html" class="av-top-link">Home</a></li>
- <li class="av-dropdown">
- <button type="button" class="av-top-link av-drop-trigger">Learn <span class="av-caret">▾</span></button>
- <div class="av-mega-panel">
- <a class="av-mega-link" href="what-is-crypto-futures-arbitrage.html"><span class="av-icon">📘</span><span>What is Arbitrage<span class="av-desc">Core concept explained</span></span></a>
- <a class="av-mega-link" href="how-crypto-arbitrage-signals-work.html"><span class="av-icon">⚙️</span><span>How It Works<span class="av-desc">Step-by-step process</span></span></a>
- <a class="av-mega-link" href="how-to-generate-profit-crypto-arbitrage.html"><span class="av-icon">💰</span><span>Generate Profit<span class="av-desc">Ways arbitrage earns</span></span></a>
- <a class="av-mega-link" href="crypto-arbitrage-risks-precautions.html"><span class="av-icon">⚠️</span><span>Risks &amp; Safety<span class="av-desc">What to watch for</span></span></a>
- </div>
- </li>
- <li class="av-dropdown">
- <button type="button" class="av-top-link av-drop-trigger">Tools <span class="av-caret">▾</span></button>
- <div class="av-mega-panel">
-  <a class="av-mega-link" href="live-crypto-arbitrage-scanner.html"><span class="av-icon">📊</span><span>Price Difference Scanner<span class="av-desc">Real-time cross-exchange spot price gaps</span></span></a>
- <a class="av-mega-link" href="live-funding-gap-scanner.html"><span class="av-icon">💸</span><span>Funding Rate Scanner<span class="av-desc">Compare funding rates across 8 exchanges</span></span></a>
- <a class="av-mega-link" href="advanced-arb-scanner.html"><span class="av-icon">⚡</span><span>Advanced Live Scanner<span class="av-desc">Price gap + funding rate combined</span></span></a>
- <a class="av-mega-link" href="arbitrage-calculator.html"><span class="av-icon">🧮</span><span>Futures Arbitrage Calculator<span class="av-desc">Net profit after all fees &amp; slippage</span></span></a>
- </div>
- </li>
- <li><a href="crypto-arbitrage-blog.html" class="av-top-link" style="color:var(--accent);">Blog</a></li>
- <li class="av-dropdown">
- <button type="button" class="av-top-link av-drop-trigger">Signals <span class="av-caret">▾</span></button>
- <div class="av-mega-panel">
- <a class="av-mega-link" href="crypto-arbitrage-telegram-signals.html"><span class="av-icon">✈️</span><span>Telegram Bot<span class="av-desc">Get instant signals</span></span></a>
- <a class="av-mega-link" href="futures-signal-bot.html"><span class="av-icon">🚀</span><span>Free Futures Signal Bot<span class="av-desc">Live pump &amp; liq signals</span></span></a>
- <a class="av-mega-link" href="crypto-arbitrage-signals-pricing.html"><span class="av-icon">💳</span><span>Pricing<span class="av-desc">$5/month plans</span></span></a>
- </div>
- </li>
- <li class="av-dropdown">
- <button type="button" class="av-top-link av-drop-trigger">Company <span class="av-caret">▾</span></button>
- <div class="av-mega-panel">
- <a class="av-mega-link" href="about-arbvertex-crypto-signals.html"><span class="av-icon">🏢</span><span>About Us<span class="av-desc">Our story</span></span></a>
- <a class="av-mega-link" href="contact-arbvertex.html"><span class="av-icon">✉️</span><span>Contact<span class="av-desc">Get in touch</span></span></a>
- </div>
- </li>
- <li><a href="advanced-arb-scanner.html" class="av-top-link av-scanner-link">⚡ Live Scanners</a></li>
- <li><a href="crypto-arbitrage-signals-pricing.html" class="av-top-link av-cta">Join Now</a></li>
- </ul>
- <button class="av-hamburger" id="avHamburger" type="button" aria-label="Toggle menu">
- <span></span><span></span><span></span>
- </button>
+  <a href="index.html" class="av-logo">Arb<span>Vertex</span></a>
+  <ul class="av-nav-links" id="avNavLinks">
+   <li><a href="index.html" class="av-top-link">Home</a></li>
+
+   <li class="av-dropdown">
+    <button type="button" class="av-top-link av-drop-trigger">Learn <span class="av-caret">▾</span></button>
+    <div class="av-mega-panel">
+     <a class="av-mega-link" href="what-is-crypto-futures-arbitrage.html"><span class="av-icon">📘</span><span>What is Arbitrage<span class="av-desc">Core concept explained</span></span></a>
+     <a class="av-mega-link" href="how-crypto-arbitrage-signals-work.html"><span class="av-icon">⚙️</span><span>How It Works<span class="av-desc">Step-by-step process</span></span></a>
+     <a class="av-mega-link" href="how-to-generate-profit-crypto-arbitrage.html"><span class="av-icon">💰</span><span>Generate Profit<span class="av-desc">Ways arbitrage earns</span></span></a>
+     <a class="av-mega-link" href="crypto-arbitrage-risks-precautions.html"><span class="av-icon">⚠️</span><span>Risks &amp; Safety<span class="av-desc">What to watch for</span></span></a>
+     <a class="av-mega-link" href="delisting-arbitrage-risks.html"><span class="av-icon">🚨</span><span>Delisting Risks<span class="av-desc">Avoid this trap</span></span></a>
+     <a class="av-mega-link" href="rethink-traditional-trading.html"><span class="av-icon">🔄</span><span>Rethink Trading<span class="av-desc">Why arbitrage wins</span></span></a>
+     <a class="av-mega-link" href="arbitrage-portfolio-growth.html"><span class="av-icon">📈</span><span>Portfolio Growth<span class="av-desc">Long-term strategy</span></span></a>
+    </div>
+   </li>
+
+   <li class="av-dropdown">
+    <button type="button" class="av-top-link av-drop-trigger">Tools <span class="av-caret">▾</span></button>
+    <div class="av-mega-panel">
+     <a class="av-mega-link" href="live-crypto-arbitrage-scanner.html"><span class="av-icon">📊</span><span>Price Difference Scanner<span class="av-desc">Real-time cross-exchange spot price gaps</span></span></a>
+     <a class="av-mega-link" href="live-funding-gap-scanner.html"><span class="av-icon">💸</span><span>Funding Rate Scanner<span class="av-desc">Compare funding rates across 8 exchanges</span></span></a>
+     <a class="av-mega-link" href="advanced-arb-scanner.html"><span class="av-icon">⚡</span><span>Advanced Live Scanner<span class="av-desc">Price gap + funding rate combined</span></span></a>
+     <a class="av-mega-link" href="arbitrage-calculator.html"><span class="av-icon">🧮</span><span>Futures Arbitrage Calculator<span class="av-desc">Net profit after all fees &amp; slippage</span></span></a>
+    </div>
+   </li>
+
+   <!-- BLOG DROPDOWN -->
+   <li class="av-dropdown">
+    <button type="button" class="av-top-link av-drop-trigger" style="color:var(--accent);">Blog <span class="av-caret">▾</span></button>
+    <div class="av-mega-panel av-blog-panel">
+     <div class="av-blog-col">
+      <div class="av-blog-col-header">📘 Beginner</div>
+      <a class="av-mega-link" href="crypto-arbitrage-blog.html#beginner"><span class="av-icon">🟦</span><span>Beginner Guides<span class="av-desc">Start from zero — concepts &amp; first steps</span></span></a>
+      <div class="av-blog-col-header" style="margin-top:0.5rem;">💡 Strategy</div>
+      <a class="av-mega-link" href="crypto-arbitrage-blog.html#strategy"><span class="av-icon">🟩</span><span>Strategy Guides<span class="av-desc">Funding rate, basis trading, advanced tactics</span></span></a>
+     </div>
+     <div class="av-blog-col">
+      <div class="av-blog-col-header">🔄 Exchange Guides</div>
+      <a class="av-mega-link" href="crypto-arbitrage-blog.html#exchange"><span class="av-icon">🟧</span><span>Exchange Guides<span class="av-desc">Binance, Bybit, OKX setup &amp; comparison</span></span></a>
+      <div class="av-blog-col-header" style="margin-top:0.5rem;">🛡️ Risk &amp; Tools</div>
+      <a class="av-mega-link" href="crypto-arbitrage-blog.html#risk"><span class="av-icon">🟪</span><span>Risk &amp; Tools<span class="av-desc">Position sizing, stop loss, glossary</span></span></a>
+     </div>
+    </div>
+   </li>
+
+   <li class="av-dropdown">
+    <button type="button" class="av-top-link av-drop-trigger">Signals <span class="av-caret">▾</span></button>
+    <div class="av-mega-panel">
+     <a class="av-mega-link" href="crypto-arbitrage-telegram-signals.html"><span class="av-icon">✈️</span><span>Telegram Bot<span class="av-desc">Get instant signals</span></span></a>
+     <a class="av-mega-link" href="futures-signal-bot.html"><span class="av-icon">🚀</span><span>Free Futures Signal Bot<span class="av-desc">Live pump &amp; liq signals</span></span></a>
+     <a class="av-mega-link" href="crypto-arbitrage-signals-pricing.html"><span class="av-icon">💳</span><span>Pricing<span class="av-desc">$5/month plans</span></span></a>
+    </div>
+   </li>
+
+   <li class="av-dropdown">
+    <button type="button" class="av-top-link av-drop-trigger">Company <span class="av-caret">▾</span></button>
+    <div class="av-mega-panel">
+     <a class="av-mega-link" href="about-arbvertex-crypto-signals.html"><span class="av-icon">🏢</span><span>About Us<span class="av-desc">Our story</span></span></a>
+     <a class="av-mega-link" href="contact-arbvertex.html"><span class="av-icon">✉️</span><span>Contact<span class="av-desc">Get in touch</span></span></a>
+    </div>
+   </li>
+
+   <li><a href="advanced-arb-scanner.html" class="av-top-link av-scanner-link">⚡ Live Scanners</a></li>
+   <li><a href="crypto-arbitrage-signals-pricing.html" class="av-top-link av-cta">Join Now</a></li>
+  </ul>
+  <button class="av-hamburger" id="avHamburger" type="button" aria-label="Toggle menu">
+   <span></span><span></span><span></span>
+  </button>
  </div>
 </div>
 
+<!-- BLOG CONTENT -->
 <div class="blog-wrap">
  <div class="blog-hero">
- <div class="blog-tag">// LEARN</div>
- <h1>Crypto Arbitrage <span style="color:var(--accent)">Blog</span></h1>
- <p>Step-by-step guides from beginner to advanced. Master arbitrage trading.</p>
+  <div class="blog-tag">// KNOWLEDGE BASE</div>
+  <h1>Crypto Arbitrage <span style="color:var(--accent)">Blog</span></h1>
+  <p>Free in-depth guides — from understanding arbitrage basics to executing advanced funding rate strategies across multiple exchanges.</p>
+  <div class="blog-stats">
+   <div class="blog-stat"><div class="blog-stat-num">30+</div><div class="blog-stat-label">Articles</div></div>
+   <div class="blog-stat"><div class="blog-stat-num">4</div><div class="blog-stat-label">Categories</div></div>
+   <div class="blog-stat"><div class="blog-stat-num">Free</div><div class="blog-stat-label">Always</div></div>
+  </div>
  </div>
 
+ <!-- FILTER BUTTONS -->
  <div class="blog-filters">
- <button class="filter-btn active" onclick="filterCards('all',this)">All</button>
- <button class="filter-btn beginner" onclick="filterCards('beginner',this)">📘 Beginner</button>
- <button class="filter-btn strategy" onclick="filterCards('strategy',this)">💡 Strategy</button>
- <button class="filter-btn exchange" onclick="filterCards('exchange',this)">🔄 Exchange</button>
- <button class="filter-btn risk" onclick="filterCards('risk',this)">⚠️ Risk &amp; Tools</button>
+  <button class="filter-btn f-all active" onclick="filterBlog('all',this)">All Articles</button>
+  <button class="filter-btn f-beginner" onclick="filterBlog('beginner',this)">📘 Beginner</button>
+  <button class="filter-btn f-strategy" onclick="filterBlog('strategy',this)">💡 Strategy</button>
+  <button class="filter-btn f-exchange" onclick="filterBlog('exchange',this)">🔄 Exchange Guides</button>
+  <button class="filter-btn f-risk" onclick="filterBlog('risk',this)">🛡️ Risk &amp; Tools</button>
  </div>
 
- <div class="blog-roadmap" id="blogGrid">
-
- <!-- PHASE 1 -->
- <div class="phase-label foundation">PHASE 1 — FOUNDATION</div>
- <div class="phase-row">
- <a href="what-is-crypto-arbitrage.html" class="blog-card" data-cat="beginner">
- <div class="card-top"><span class="step-badge beginner">STEP 1</span><span class="cat-badge">BEGINNER</span></div>
- <h3>What is crypto arbitrage</h3>
- <p>Learn what arbitrage is, how price gaps form, and 3 types explained simply.</p>
- <div class="read-link">Read Article →</div>
- </a>
- <div class="phase-arrow">→</div>
- <a href="spot-vs-futures-arbitrage.html" class="blog-card" data-cat="beginner">
- <div class="card-top"><span class="step-badge beginner">STEP 2</span><span class="cat-badge">BEGINNER</span></div>
- <h3>Spot vs futures arbitrage</h3>
- <p>Key differences, capital requirements, and which type ArbVertex signals focus on.</p>
- <div class="read-link">Read Article →</div>
- </a>
- <div class="phase-arrow">→</div>
- <a href="how-to-start-crypto-futures-arbitrage.html" class="blog-card" data-cat="beginner">
- <div class="card-top"><span class="step-badge beginner">STEP 3</span><span class="cat-badge">BEGINNER</span></div>
- <h3>How to start (accounts, capital)</h3>
- <p>Which exchanges to open, minimum capital needed, device setup, and day-one mistakes to avoid.</p>
- <div class="read-link">Read Article →</div>
- </a>
+ <!-- SECTION: BEGINNER -->
+ <div class="cat-section" id="beginner" data-section="beginner">
+  <div class="section-header">
+   <span class="section-icon">📘</span>
+   <span class="section-title beginner">Beginner Guides</span>
+   <span class="section-count">9 articles</span>
+  </div>
+  <div class="blog-grid">
+   <a href="what-is-crypto-arbitrage.html" class="blog-card" data-cat="beginner">
+    <div class="card-meta"><span class="cat-pill beginner">Beginner</span><span class="read-time">5 min read</span></div>
+    <h3>What Is Crypto Arbitrage?</h3>
+    <p>Learn how price gaps form across exchanges, the 3 main types of arbitrage, and why these opportunities exist in the first place.</p>
+    <div class="read-link">Read Article →</div>
+   </a>
+   <a href="what-is-crypto-futures-arbitrage.html" class="blog-card" data-cat="beginner">
+    <div class="card-meta"><span class="cat-pill beginner">Beginner</span><span class="read-time">6 min read</span></div>
+    <h3>What Is Crypto Futures Arbitrage?</h3>
+    <p>Understand futures-specific arbitrage — how spot-futures basis, funding rates, and perpetual contracts create repeatable profit opportunities.</p>
+    <div class="read-link">Read Article →</div>
+   </a>
+   <a href="spot-vs-futures-arbitrage.html" class="blog-card" data-cat="beginner">
+    <div class="card-meta"><span class="cat-pill beginner">Beginner</span><span class="read-time">5 min read</span></div>
+    <h3>Spot vs Futures Arbitrage</h3>
+    <p>Key differences in capital requirements, risk profile, and execution speed — and which type ArbVertex signals are built around.</p>
+    <div class="read-link">Read Article →</div>
+   </a>
+   <a href="how-to-start-crypto-futures-arbitrage.html" class="blog-card" data-cat="beginner">
+    <div class="card-meta"><span class="cat-pill beginner">Beginner</span><span class="read-time">7 min read</span></div>
+    <h3>How to Start Crypto Futures Arbitrage</h3>
+    <p>Which exchanges to open, minimum capital needed, device and API setup, and common day-one mistakes to avoid completely.</p>
+    <div class="read-link">Read Article →</div>
+   </a>
+   <a href="how-to-start-arbitrage-with-no-experience.html" class="blog-card" data-cat="beginner">
+    <div class="card-meta"><span class="cat-pill beginner">Beginner</span><span class="read-time">6 min read</span></div>
+    <h3>How to Start Arbitrage With No Experience</h3>
+    <p>A complete zero-to-first-trade walkthrough — no coding or trading background needed. Covers account setup, first signal, and execution.</p>
+    <div class="read-link">Read Article →</div>
+   </a>
+   <a href="how-crypto-arbitrage-signals-work.html" class="blog-card" data-cat="beginner">
+    <div class="card-meta"><span class="cat-pill beginner">Beginner</span><span class="read-time">5 min read</span></div>
+    <h3>How Crypto Arbitrage Signals Work</h3>
+    <p>What an arbitrage signal contains, how ArbVertex screens for quality, and what to do when you receive one on Telegram.</p>
+    <div class="read-link">Read Article →</div>
+   </a>
+   <a href="how-to-generate-profit-crypto-arbitrage.html" class="blog-card" data-cat="beginner">
+    <div class="card-meta"><span class="cat-pill beginner">Beginner</span><span class="read-time">6 min read</span></div>
+    <h3>How to Generate Profit from Crypto Arbitrage</h3>
+    <p>Realistic profit calculations with real numbers — what 1%, 2%, and 5% spreads actually return after fees and slippage.</p>
+    <div class="read-link">Read Article →</div>
+   </a>
+   <a href="crypto-arbitrage-passive-income.html" class="blog-card" data-cat="beginner">
+    <div class="card-meta"><span class="cat-pill beginner">Beginner</span><span class="read-time">6 min read</span></div>
+    <h3>Crypto Arbitrage as Passive Income</h3>
+    <p>Realistic expectations, how much time it actually takes, and what kind of monthly returns are achievable at different capital levels.</p>
+    <div class="read-link">Read Article →</div>
+   </a>
+   <a href="crypto-arbitrage-glossary.html" class="blog-card" data-cat="beginner">
+    <div class="card-meta"><span class="cat-pill beginner">Beginner</span><span class="read-time">8 min read</span></div>
+    <h3>Crypto Arbitrage Glossary</h3>
+    <p>Every term you'll encounter — funding rate, basis, OI, liquidation, slippage, spread — explained simply with arbitrage context.</p>
+    <div class="read-link">Read Article →</div>
+   </a>
+  </div>
  </div>
 
- <!-- PHASE 2 -->
- <div class="phase-label strategy">PHASE 2 — STRATEGIES</div>
- <div class="phase-row">
- <a href="funding-rate-arbitrage.html" class="blog-card" data-cat="strategy">
- <div class="card-top"><span class="step-badge strategy">STEP 4</span><span class="cat-badge">STRATEGY</span></div>
- <h3>Funding rate arbitrage</h3>
- <p>How funding rates work, entry/exit rules, and realistic APR calculations.</p>
- <div class="read-link">Read Article →</div>
- </a>
- <div class="phase-arrow">→</div>
- <a href="triangular-arbitrage-explained.html" class="blog-card" data-cat="strategy">
- <div class="card-top"><span class="step-badge strategy">STEP 5</span><span class="cat-badge">STRATEGY</span></div>
- <h3>Triangular arbitrage</h3>
- <p>How triangular arb works on a single exchange with step-by-step profit calculation.</p>
- <div class="read-link">Read Article →</div>
- </a>
- <div class="phase-arrow">→</div>
- <a href="cross-exchange-arbitrage-guide.html" class="blog-card" data-cat="strategy">
- <div class="card-top"><span class="step-badge strategy">STEP 6</span><span class="cat-badge">STRATEGY</span></div>
- <h3>Cross-exchange arbitrage</h3>
- <p>Step-by-step execution guide: placing both orders, timing, and managing slippage.</p>
- <div class="read-link">Read Article →</div>
- </a>
+ <!-- SECTION: STRATEGY -->
+ <div class="cat-section" id="strategy" data-section="strategy">
+  <div class="section-header">
+   <span class="section-icon">💡</span>
+   <span class="section-title strategy">Strategy Guides</span>
+   <span class="section-count">11 articles</span>
+  </div>
+  <div class="blog-grid">
+   <a href="funding-rate-arbitrage.html" class="blog-card" data-cat="strategy">
+    <div class="card-meta"><span class="cat-pill strategy">Strategy</span><span class="read-time">7 min read</span></div>
+    <h3>Funding Rate Arbitrage — Complete Guide</h3>
+    <p>How funding rates work, when they spike, entry and exit rules, and realistic APR calculations with worked examples.</p>
+    <div class="read-link">Read Article →</div>
+   </a>
+   <a href="funding-rate-arbitrage-binance-bybit.html" class="blog-card" data-cat="strategy">
+    <div class="card-meta"><span class="cat-pill strategy">Strategy</span><span class="read-time">8 min read</span></div>
+    <h3>Funding Rate Arbitrage on Binance &amp; Bybit</h3>
+    <p>Step-by-step execution on the two biggest exchanges — order types, timing, hedging, and maximising the funding rate spread.</p>
+    <div class="read-link">Read Article →</div>
+   </a>
+   <a href="negative-funding-rate-strategy.html" class="blog-card" data-cat="strategy">
+    <div class="card-meta"><span class="cat-pill strategy">Strategy</span><span class="read-time">6 min read</span></div>
+    <h3>Negative Funding Rate Strategy</h3>
+    <p>How to profit when funding rates go negative — flipping the trade to collect from over-extended short sellers in bear markets.</p>
+    <div class="read-link">Read Article →</div>
+   </a>
+   <a href="best-coins-funding-rate-arbitrage.html" class="blog-card" data-cat="strategy">
+    <div class="card-meta"><span class="cat-pill strategy">Strategy</span><span class="read-time">6 min read</span></div>
+    <h3>Best Coins for Funding Rate Arbitrage</h3>
+    <p>Which coins consistently offer the highest funding rates, why altcoins outperform BTC, and how to filter for quality opportunities.</p>
+    <div class="read-link">Read Article →</div>
+   </a>
+   <a href="perpetual-futures-arbitrage-guide.html" class="blog-card" data-cat="strategy">
+    <div class="card-meta"><span class="cat-pill strategy">Strategy</span><span class="read-time">8 min read</span></div>
+    <h3>Perpetual Futures Arbitrage — Full Guide</h3>
+    <p>Deep dive into perp-specific mechanics — funding, OI, basis convergence — and how to combine them into a single strategy.</p>
+    <div class="read-link">Read Article →</div>
+   </a>
+   <a href="basis-trading-crypto-explained.html" class="blog-card" data-cat="strategy">
+    <div class="card-meta"><span class="cat-pill strategy">Strategy</span><span class="read-time">7 min read</span></div>
+    <h3>Basis Trading in Crypto Explained</h3>
+    <p>How to profit from the futures premium over spot — entry timing, convergence plays, and real trade examples with P&amp;L breakdowns.</p>
+    <div class="read-link">Read Article →</div>
+   </a>
+   <a href="cash-and-carry-trade-crypto.html" class="blog-card" data-cat="strategy">
+    <div class="card-meta"><span class="cat-pill strategy">Strategy</span><span class="read-time">6 min read</span></div>
+    <h3>Cash and Carry Trade in Crypto</h3>
+    <p>Lock in guaranteed profit by buying spot and shorting futures simultaneously — how to execute it and when the math works in your favour.</p>
+    <div class="read-link">Read Article →</div>
+   </a>
+   <a href="cross-exchange-arbitrage-guide.html" class="blog-card" data-cat="strategy">
+    <div class="card-meta"><span class="cat-pill strategy">Strategy</span><span class="read-time">7 min read</span></div>
+    <h3>Cross-Exchange Arbitrage Guide</h3>
+    <p>Step-by-step execution — placing both sides simultaneously, managing slippage, and calculating true net profit after withdrawal fees.</p>
+    <div class="read-link">Read Article →</div>
+   </a>
+   <a href="triangular-arbitrage-explained.html" class="blog-card" data-cat="strategy">
+    <div class="card-meta"><span class="cat-pill strategy">Strategy</span><span class="read-time">6 min read</span></div>
+    <h3>Triangular Arbitrage Explained</h3>
+    <p>How three-pair arb works on a single exchange — BTC/ETH/USDT triangle example with profit calculation and execution timing.</p>
+    <div class="read-link">Read Article →</div>
+   </a>
+   <a href="cex-dex-futures-arbitrage.html" class="blog-card" data-cat="strategy">
+    <div class="card-meta"><span class="cat-pill strategy">Strategy</span><span class="read-time">7 min read</span></div>
+    <h3>CEX vs DEX Futures Arbitrage</h3>
+    <p>Price gaps between Binance, Hyperliquid, and GMX — how to exploit them and the extra risks that come with on-chain execution.</p>
+    <div class="read-link">Read Article →</div>
+   </a>
+   <a href="crypto-arbitrage-without-transferring-coins.html" class="blog-card" data-cat="strategy">
+    <div class="card-meta"><span class="cat-pill strategy">Strategy</span><span class="read-time">5 min read</span></div>
+    <h3>Crypto Arbitrage Without Transferring Coins</h3>
+    <p>Execute arb trades using only pre-funded exchange accounts — no slow withdrawals, no transfer delays, no missed opportunities.</p>
+    <div class="read-link">Read Article →</div>
+   </a>
+  </div>
  </div>
 
- <!-- PHASE 3 -->
- <div class="phase-label exchange">PHASE 3 — EXCHANGES &amp; TOOLS</div>
- <div class="phase-row">
- <a href="best-crypto-arbitrage-exchanges.html" class="blog-card" data-cat="exchange">
- <div class="card-top"><span class="step-badge exchange">STEP 7</span><span class="cat-badge">EXCHANGE</span></div>
- <h3>Best exchanges </h3>
- <p>Fee comparison, liquidity, withdrawal speed — with beginner recommendation.</p>
- <div class="read-link">Read Article →</div>
- </a>
- <div class="phase-arrow">→</div>
- <a href="arbitrage-profit-calculator-guide.html" class="blog-card" data-cat="exchange">
- <div class="card-top"><span class="step-badge exchange">STEP 8</span><span class="cat-badge">TOOLS</span></div>
- <h3>Arbitrage calculator guide</h3>
- <p>Walk through 3 real signal examples using the ArbVertex calculator to check net profit.</p>
- <div class="read-link">Read Article →</div>
- </a>
- <div class="phase-arrow">→</div>
- <a href="arbitrage-trading-fees-explained.html" class="blog-card" data-cat="exchange">
- <div class="card-top"><span class="step-badge exchange">STEP 9</span><span class="cat-badge">EXCHANGE</span></div>
- <h3>Fees explained</h3>
- <p>Taker vs maker fees, withdrawal costs, and minimum spread needed to stay profitable.</p>
- <div class="read-link">Read Article →</div>
- </a>
- </div>
- <div class="phase-row phase-row-indent">
- <a href="best-crypto-arbitrage-tools.html" class="blog-card" data-cat="exchange">
- <div class="card-top"><span class="step-badge exchange">STEP 10</span><span class="cat-badge">TOOLS</span></div>
- <h3>Best arbitrage tools</h3>
- <p>Complete comparison of free and paid arbitrage tools — what works and what to avoid.</p>
- <div class="read-link">Read Article →</div>
- </a>
- <div class="phase-arrow">→</div>
- <a href="delisting-arbitrage-risks.html" class="blog-card" data-cat="risk">
- <div class="card-top"><span class="step-badge risk">STEP 11</span><span class="cat-badge">RISK</span></div>
- <h3>When to avoid arbitrage (delistings)</h3>
- <p>Why big spreads on delisted coins are a trap and how to avoid this costly mistake.</p>
- <div class="read-link">Read Article →</div>
- </a>
- </div>
-
- <!-- PHASE 4 -->
- <div class="phase-label risk">PHASE 4 — ADVANCED &amp; MINDSET</div>
- <div class="phase-row">
- <a href="crypto-arbitrage-risks.html" class="blog-card" data-cat="risk">
- <div class="card-top"><span class="step-badge risk">STEP 12</span><span class="cat-badge">RISK</span></div>
- <h3>Arbitrage risks</h3>
- <p>The 6 main risks in arbitrage trading and specific tactics to reduce each one.</p>
- <div class="read-link">Read Article →</div>
- </a>
- <div class="phase-arrow">→</div>
- <a href="arbitrage-portfolio-growth.html" class="blog-card" data-cat="strategy">
- <div class="card-top"><span class="step-badge strategy">STEP 13</span><span class="cat-badge">STRATEGY</span></div>
- <h3>Portfolio growth</h3>
- <p>How to reinvest profits, set position sizing rules, and build consistent monthly returns.</p>
- <div class="read-link">Read Article →</div>
- </a>
- <div class="phase-arrow">→</div>
- <a href="rethink-traditional-trading.html" class="blog-card" data-cat="strategy">
- <div class="card-top"><span class="step-badge strategy">STEP 14</span><span class="cat-badge">STRATEGY</span></div>
- <h3>Rethink traditional trading</h3>
- <p>Direction-free profits, lower stress, and why arbitrage outperforms speculation.</p>
- <div class="read-link">Read Article →</div>
- </a>
- </div>
- <div class="phase-row phase-row-indent">
- <a href="crypto-arbitrage-trading-consistent-income.html" class="blog-card" data-cat="strategy">
- <div class="card-top"><span class="step-badge strategy">STEP 15</span><span class="cat-badge">STRATEGY</span></div>
- <h3>Market inefficiencies → income</h3>
- <p>Building a repeatable process: signal filtering, position sizing, monthly targets.</p>
- <div class="read-link">Read Article →</div>
- </a>
- <div class="phase-arrow">→</div>
- <a href="why-choose-arbvertex-over-other-arbitrage-platforms.html" class="blog-card" data-cat="exchange">
- <div class="card-top"><span class="step-badge exchange">STEP 16</span><span class="cat-badge">EXCHANGE</span></div>
- <h3>Why choose ArbVertex</h3>
- <p>Human-verified signals, manual filtering, and profitability-focused analysis.</p>
- <div class="read-link">Read Article →</div>
- </a>
+ <!-- SECTION: EXCHANGE GUIDES -->
+ <div class="cat-section" id="exchange" data-section="exchange">
+  <div class="section-header">
+   <span class="section-icon">🔄</span>
+   <span class="section-title exchange">Exchange Guides</span>
+   <span class="section-count">7 articles</span>
+  </div>
+  <div class="blog-grid">
+   <a href="binance-futures-setup-arbitrage.html" class="blog-card" data-cat="exchange">
+    <div class="card-meta"><span class="cat-pill exchange">Exchange</span><span class="read-time">7 min read</span></div>
+    <h3>Binance Futures Setup for Arbitrage</h3>
+    <p>Account verification, futures wallet setup, fee tiers, API keys, and the exact settings needed before placing your first arb trade.</p>
+    <div class="read-link">Read Article →</div>
+   </a>
+   <a href="bybit-setup-for-arbitrage.html" class="blog-card" data-cat="exchange">
+    <div class="card-meta"><span class="cat-pill exchange">Exchange</span><span class="read-time">6 min read</span></div>
+    <h3>Bybit Setup for Crypto Arbitrage</h3>
+    <p>Full Bybit onboarding guide — unified margin account, sub-accounts for hedging, fee structure, and pairing with Binance signals.</p>
+    <div class="read-link">Read Article →</div>
+   </a>
+   <a href="okx-arbitrage-guide.html" class="blog-card" data-cat="exchange">
+    <div class="card-meta"><span class="cat-pill exchange">Exchange</span><span class="read-time">7 min read</span></div>
+    <h3>OKX Arbitrage Guide</h3>
+    <p>OKX's unique features for arbitrage — portfolio margin, funding rate schedule, spread vs Binance, and step-by-step account setup.</p>
+    <div class="read-link">Read Article →</div>
+   </a>
+   <a href="best-crypto-arbitrage-exchanges.html" class="blog-card" data-cat="exchange">
+    <div class="card-meta"><span class="cat-pill exchange">Exchange</span><span class="read-time">6 min read</span></div>
+    <h3>Best Crypto Arbitrage Exchanges</h3>
+    <p>Fee comparison, liquidity depth, withdrawal speed, and API reliability — ranked for arbitrage traders, not retail spot buyers.</p>
+    <div class="read-link">Read Article →</div>
+   </a>
+   <a href="how-to-track-funding-rates-free.html" class="blog-card" data-cat="exchange">
+    <div class="card-meta"><span class="cat-pill exchange">Exchange</span><span class="read-time">5 min read</span></div>
+    <h3>How to Track Crypto Funding Rates for Free</h3>
+    <p>Best free tools and dashboards to monitor funding rates across Binance, Bybit, OKX and more — so you never miss a spike.</p>
+    <div class="read-link">Read Article →</div>
+   </a>
+   <a href="best-crypto-arbitrage-tools.html" class="blog-card" data-cat="exchange">
+    <div class="card-meta"><span class="cat-pill exchange">Exchange</span><span class="read-time">6 min read</span></div>
+    <h3>Best Crypto Arbitrage Tools</h3>
+    <p>Full comparison of free and paid arbitrage tools — scanners, calculators, alert bots — and which ones are actually worth using.</p>
+    <div class="read-link">Read Article →</div>
+   </a>
+   <a href="arbitrage-trading-fees-explained.html" class="blog-card" data-cat="exchange">
+    <div class="card-meta"><span class="cat-pill exchange">Exchange</span><span class="read-time">5 min read</span></div>
+    <h3>Arbitrage Trading Fees Explained</h3>
+    <p>Taker vs maker fees, withdrawal costs, slippage, and the minimum spread you need to stay profitable on each major exchange.</p>
+    <div class="read-link">Read Article →</div>
+   </a>
+  </div>
  </div>
 
- <!-- PHASE 5 -->
- <div class="phase-label" style="background:linear-gradient(90deg,#0e1e2e,transparent);border-left:4px solid #00e5ff;color:#00e5ff;">PHASE 5 — DEX & ADVANCED</div>
- <div class="phase-row">
- <a href="cex-dex-futures-arbitrage.html" class="blog-card" data-cat="strategy">
- <div class="card-top"><span class="step-badge strategy">STEP 17</span><span class="cat-badge">STRATEGY</span></div>
- <h3>CEX vs DEX futures arbitrage</h3>
- <p>How to profit from price gaps between Binance, Hyperliquid, GMX and other perpetual exchanges.</p>
- <div class="read-link">Read Article →</div>
- </a>
+ <!-- SECTION: RISK & TOOLS -->
+ <div class="cat-section" id="risk" data-section="risk">
+  <div class="section-header">
+   <span class="section-icon">🛡️</span>
+   <span class="section-title risk">Risk &amp; Tools</span>
+   <span class="section-count">10 articles</span>
+  </div>
+  <div class="blog-grid">
+   <a href="crypto-arbitrage-risks-precautions.html" class="blog-card" data-cat="risk">
+    <div class="card-meta"><span class="cat-pill risk">Risk</span><span class="read-time">6 min read</span></div>
+    <h3>Crypto Arbitrage Risks &amp; Precautions</h3>
+    <p>The 6 main risks every arbitrage trader faces — execution lag, exchange failure, liquidity gaps — with practical mitigation tactics.</p>
+    <div class="read-link">Read Article →</div>
+   </a>
+   <a href="stop-loss-strategies-arbitrage.html" class="blog-card" data-cat="risk">
+    <div class="card-meta"><span class="cat-pill risk">Risk</span><span class="read-time">6 min read</span></div>
+    <h3>Stop Loss Strategies for Crypto Arbitrage</h3>
+    <p>How to set stop losses on hedged positions, when to cut a losing arb trade, and protecting capital when one leg moves against you.</p>
+    <div class="read-link">Read Article →</div>
+   </a>
+   <a href="crypto-arbitrage-position-sizing.html" class="blog-card" data-cat="risk">
+    <div class="card-meta"><span class="cat-pill risk">Risk</span><span class="read-time">7 min read</span></div>
+    <h3>Position Sizing for Crypto Arbitrage</h3>
+    <p>Kelly criterion applied to arb trades, how to scale capital across multiple signals, and avoiding over-concentration on one exchange.</p>
+    <div class="read-link">Read Article →</div>
+   </a>
+   <a href="how-to-avoid-exchange-risk-arbitrage.html" class="blog-card" data-cat="risk">
+    <div class="card-meta"><span class="cat-pill risk">Risk</span><span class="read-time">5 min read</span></div>
+    <h3>How to Avoid Exchange Risk in Arbitrage</h3>
+    <p>Counterparty risk, withdrawal freezes, and exchange insolvency — how to spread capital and never hold more than you can afford to lose on one platform.</p>
+    <div class="read-link">Read Article →</div>
+   </a>
+   <a href="delisting-arbitrage-risks.html" class="blog-card" data-cat="risk">
+    <div class="card-meta"><span class="cat-pill risk">Risk</span><span class="read-time">5 min read</span></div>
+    <h3>Delisting Arbitrage Risks</h3>
+    <p>Why huge spreads on delisted coins are a trap — how delistings kill liquidity and leave traders stuck on the wrong side of the trade.</p>
+    <div class="read-link">Read Article →</div>
+   </a>
+   <a href="arbitrage-risks-delisting-events.html" class="blog-card" data-cat="risk">
+    <div class="card-meta"><span class="cat-pill risk">Risk</span><span class="read-time">5 min read</span></div>
+    <h3>Arbitrage Risks During Delisting Events</h3>
+    <p>Real case studies of delisting traps — how to identify warning signs early and the checklist to run before entering any signal.</p>
+    <div class="read-link">Read Article →</div>
+   </a>
+   <a href="arbitrage-portfolio-growth.html" class="blog-card" data-cat="risk">
+    <div class="card-meta"><span class="cat-pill risk">Risk</span><span class="read-time">6 min read</span></div>
+    <h3>Arbitrage Portfolio Growth Strategy</h3>
+    <p>How to compound arb profits, set monthly withdrawal targets, and build a system that grows capital without increasing risk exposure.</p>
+    <div class="read-link">Read Article →</div>
+   </a>
+   <a href="arbitrage-profit-calculator-guide.html" class="blog-card" data-cat="risk">
+    <div class="card-meta"><span class="cat-pill risk">Tools</span><span class="read-time">5 min read</span></div>
+    <h3>Arbitrage Profit Calculator Guide</h3>
+    <p>Walk through 3 real signal examples using the ArbVertex calculator — input spread, fees, and size to see exact net profit before entering.</p>
+    <div class="read-link">Read Article →</div>
+   </a>
+   <a href="crypto-arbitrage-trading-consistent-income.html" class="blog-card" data-cat="risk">
+    <div class="card-meta"><span class="cat-pill risk">Tools</span><span class="read-time">6 min read</span></div>
+    <h3>Building Consistent Income from Arbitrage</h3>
+    <p>Signal filtering process, position sizing rules, monthly targets, and the mindset shift from trading to systematic income generation.</p>
+    <div class="read-link">Read Article →</div>
+   </a>
+   <a href="rethink-traditional-trading.html" class="blog-card" data-cat="risk">
+    <div class="card-meta"><span class="cat-pill risk">Mindset</span><span class="read-time">5 min read</span></div>
+    <h3>Rethink Traditional Trading</h3>
+    <p>Why direction-free arbitrage beats speculation for most traders — lower stress, more consistent returns, and no need to predict the market.</p>
+    <div class="read-link">Read Article →</div>
+   </a>
+  </div>
  </div>
 
- <!-- Legend -->
- <div class="phase-legend">
- <span class="legend-item foundation">Foundation</span>
- <span class="legend-item strategy">Strategies</span>
- <span class="legend-item exchange">Exchanges &amp; tools</span>
- <span class="legend-item risk">Advanced &amp; mindset</span>
- </div>
+ <div class="no-results" id="noResults">No articles found in this category.</div>
 
- </div>
-
+ <!-- CTA -->
  <div class="blog-cta">
- <h2>Ready to Start Earning?</h2>
- <p>Get 2%+ validated arbitrage signals on Telegram. Only $5/month.</p>
- <a href="crypto-arbitrage-signals-pricing.html" class="cta-btn">View Plans &amp; Subscribe →</a>
+  <h2>Ready to Put This Into Practice?</h2>
+  <p>Get 2%+ validated arbitrage signals on Telegram. Verified spreads, manual filtered, only $5/month.</p>
+  <a href="crypto-arbitrage-signals-pricing.html" class="cta-btn">View Plans &amp; Subscribe →</a>
  </div>
 </div>
 
@@ -393,28 +548,63 @@ footer a{color:var(--accent);text-decoration:none;}
 </footer>
 
 <script>
-// Filter
-function filterCards(cat, btn) {
+// ── Filter by category ──
+function filterBlog(cat, btn) {
  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
  btn.classList.add('active');
- document.querySelectorAll('.blog-card').forEach(card => {
- if (cat === 'all' || card.dataset.cat === cat) {
- card.style.display = 'block';
- } else {
- card.style.display = 'none';
+
+ const sections = document.querySelectorAll('.cat-section');
+ const cards = document.querySelectorAll('.blog-card');
+
+ if (cat === 'all') {
+  sections.forEach(s => s.style.display = 'block');
+  cards.forEach(c => c.style.display = 'block');
+  document.getElementById('noResults').style.display = 'none';
+  return;
  }
+
+ sections.forEach(s => {
+  s.style.display = s.dataset.section === cat ? 'block' : 'none';
  });
+ document.getElementById('noResults').style.display = 'none';
 }
 
-// Nav hamburger
+// ── Anchor hash auto-filter on page load ──
+function activateFromHash() {
+ const hash = window.location.hash.replace('#','');
+ const validCats = ['beginner','strategy','exchange','risk'];
+ if (validCats.includes(hash)) {
+  const btn = document.querySelector('.filter-btn.f-' + hash);
+  if (btn) {
+   filterBlog(hash, btn);
+   setTimeout(() => {
+    const section = document.getElementById(hash);
+    if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+   }, 100);
+  }
+ }
+}
+
+window.addEventListener('load', activateFromHash);
+window.addEventListener('hashchange', activateFromHash);
+
+// ── Nav hamburger ──
 document.getElementById('avHamburger').addEventListener('click', () => {
  document.getElementById('avNavLinks').classList.toggle('av-mobile-open');
 });
 document.querySelectorAll('.av-drop-trigger').forEach(btn => {
- btn.addEventListener('click', () => {
- const li = btn.closest('.av-dropdown');
- li.classList.toggle('av-open');
+ btn.addEventListener('click', e => {
+  e.preventDefault();
+  const li = btn.closest('.av-dropdown');
+  const wasOpen = li.classList.contains('av-open');
+  document.querySelectorAll('.av-dropdown.av-open').forEach(d => d.classList.remove('av-open'));
+  if (!wasOpen) li.classList.add('av-open');
  });
+});
+document.addEventListener('click', e => {
+ if (!e.target.closest('.av-nav-wrap')) {
+  document.querySelectorAll('.av-dropdown.av-open').forEach(d => d.classList.remove('av-open'));
+ }
 });
 </script>
 </body>
