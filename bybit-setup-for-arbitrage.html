@@ -3,344 +3,798 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bybit Setup for Crypto Arbitrage — Full Guide | ArbVertex</title>
-<meta name="description" content="Complete guide to setting up Bybit for crypto arbitrage — account creation, Unified Trading Account, fees, and executing your first hedged trade.">
-<meta name="keywords" content="bybit setup arbitrage, bybit account guide, bybit unified trading, bybit futures arbitrage setup">
+<title>Bybit Setup for Crypto Arbitrage — Complete 2026 Guide | ArbVertex</title>
+<meta name="description" content="Step-by-step Bybit setup guide for crypto arbitrage in 2026 — account creation, KYC, Unified Trading Account, fee reduction, margin modes, leverage settings, and your first delta-neutral short position.">
+<meta name="keywords" content="bybit setup arbitrage, bybit futures arbitrage 2026, bybit unified trading account, bybit margin mode, bybit leverage 1x, bybit fee reduction, bybit funding rate arbitrage, bybit vs binance arbitrage">
 <meta name="robots" content="index, follow">
 <meta name="author" content="ArbVertex">
 <link rel="canonical" href="https://arbvertex.com/bybit-setup-for-arbitrage.html">
+<meta property="og:title" content="Bybit Setup for Crypto Arbitrage — Complete 2026 Guide | ArbVertex">
+<meta property="og:description" content="Step-by-step Bybit setup for funding rate arbitrage — Unified Trading Account, fee reduction, margin modes, and your first delta-neutral position.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Bybit Setup for Crypto Arbitrage — Full Guide | ArbVertex">
-<meta property="og:description" content="Complete guide to setting up Bybit for crypto arbitrage — account creation, Unified Trading Account, fees, and executing your first hedged trade.">
 <meta property="og:url" content="https://arbvertex.com/bybit-setup-for-arbitrage.html">
 <meta property="og:image" content="https://arbvertex.com/og-image.png">
 <meta property="og:site_name" content="ArbVertex">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Bybit Setup for Crypto Arbitrage — Full Guide | ArbVertex">
-<meta name="twitter:description" content="Complete guide to setting up Bybit for crypto arbitrage — account creation, Unified Trading Account, fees, and executing your first hedged trade.">
+<meta name="twitter:title" content="Bybit Setup for Crypto Arbitrage — Complete 2026 Guide | ArbVertex">
+<meta name="twitter:description" content="Step-by-step Bybit setup for funding rate arbitrage — UTA, fee reduction, margin modes, and your first delta-neutral position.">
 <meta name="twitter:image" content="https://arbvertex.com/og-image.png">
+
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Article","headline":"Bybit Setup for Crypto Arbitrage — Full Guide","description":"Complete guide to setting up Bybit for crypto arbitrage — account creation, Unified Trading Account, fees, and executing your first hedged trade.","author":{"@type":"Organization","name":"ArbVertex","url":"https://arbvertex.com/"},"publisher":{"@type":"Organization","name":"ArbVertex","url":"https://arbvertex.com/"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://arbvertex.com/bybit-setup-for-arbitrage.html"}}
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Bybit Setup for Crypto Arbitrage: Complete Step-by-Step Guide 2026",
+  "description": "Step-by-step Bybit setup guide for crypto arbitrage — account creation, Unified Trading Account, fee reduction, and first delta-neutral position.",
+  "author": {"@type": "Organization", "name": "ArbVertex", "url": "https://arbvertex.com/"},
+  "publisher": {"@type": "Organization", "name": "ArbVertex", "logo": {"@type": "ImageObject", "url": "https://arbvertex.com/og-image.png"}},
+  "url": "https://arbvertex.com/bybit-setup-for-arbitrage.html",
+  "datePublished": "2026-01-01",
+  "dateModified": "2026-07-13",
+  "image": "https://arbvertex.com/og-image.png"
+}
 </script>
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Is Bybit safe for large amounts?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Bybit is a top-5 exchange by derivatives volume. For amounts over $50,000, spread across multiple exchanges."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the Bybit UTA advantage in practical terms?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Without UTA you need separate spot and futures wallets requiring internal transfers. With UTA your holdings automatically serve as collateral for futures."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Can I use Bybit without completing KYC?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes \u2014 Bybit allows limited trading without KYC. However, withdrawal limits apply."
-      }
-    }
+    {"@type":"Question","name":"Is Bybit safe for large arbitrage positions?","acceptedAnswer":{"@type":"Answer","text":"Bybit is a top-3 derivatives exchange by volume with third-party verified Proof of Reserves. For amounts above $50,000, split exposure across Bybit and Binance. Never keep more on any exchange than you are actively trading."}},
+    {"@type":"Question","name":"What is the Bybit UTA advantage for arbitrage?","acceptedAnswer":{"@type":"Answer","text":"Without UTA you need separate spot and futures wallets requiring manual internal transfers before every trade. With UTA your USDT balance automatically serves as collateral for both spot and futures positions — no transfers needed, and your full balance backs all legs of your arbitrage position."}},
+    {"@type":"Question","name":"Can I use Bybit without KYC?","acceptedAnswer":{"@type":"Answer","text":"Bybit allows limited trading without KYC but imposes very low withdrawal limits. Complete at least Level 1 KYC (ID upload) to unlock standard withdrawal limits. Level 2 KYC (selfie) increases limits further and is recommended for serious traders."}},
+    {"@type":"Question","name":"What margin mode should I use on Bybit for arbitrage?","acceptedAnswer":{"@type":"Answer","text":"Use Isolated Margin for each arbitrage position. This caps your maximum loss to the margin assigned to that specific trade. Cross margin shares your entire wallet as collateral — a bad position can drain funds meant for other trades."}},
+    {"@type":"Question","name":"How is Bybit different from Binance for funding rate arbitrage?","acceptedAnswer":{"@type":"Answer","text":"Bybit's futures maker fee (0.020%) is slightly higher than Binance's with BNB discount (0.015%), but Bybit's funding rates tend to be more extreme during volatile periods — creating larger income opportunities. Bybit's UTA also simplifies the two-leg arbitrage setup by eliminating internal wallet transfers."}},
+    {"@type":"Question","name":"Does Bybit have a demo or testnet for practice?","acceptedAnswer":{"@type":"Answer","text":"Yes — testnet.bybit.com offers a full simulated trading environment with virtual funds. Order types, liquidation mechanics, and margin modes are identical to mainnet. Practice for 1-2 weeks before trading real capital."}}
   ]
 }
 </script>
+
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
 <style>
-:root{--bg:#050a0f;--surface:#0d1a24;--accent:#00e5ff;--accent2:#00ff88;--text:#e8f4f8;--muted:#6a8fa8;--border:#1a3a52;--orange:#ffa040;}
-*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;line-height:1.6;overflow-x:hidden;padding-top:64px;}
-.av-nav-wrap{
- --av-bg:#050a0f; --av-surface:#0d1a24; --av-accent:#00e5ff; --av-accent2:#00ff88;
- --av-text:#e8f4f8; --av-muted:#8fb0c4; --av-border:#1a3a52;
- position:fixed; top:0; left:0; right:0; z-index:999;
- background:rgba(5,10,15,0.95); backdrop-filter:blur(14px);
- border-bottom:1px solid var(--av-border);
- font-family:'Space Grotesk',sans-serif;
+/* ── VARIABLES ── */
+:root{
+  --bg:#050a0f;--surface:#0d1a24;--surface2:#091018;
+  --accent:#00e5ff;--accent2:#00ff88;
+  --text:#e8f4f8;--muted:#6a8fa8;--border:#1a3a52;
+  --red:#ff5555;--orange:#f97316;--purple:#a78bfa;
+  --glow:0 0 30px rgba(0,229,255,0.15);
 }
-.av-nav-inner{
- max-width:1400px; margin:0 auto; height:64px;
- display:flex; align-items:center; justify-content:space-between;
- padding:0 5%; gap:1rem;
-}
-.av-logo{
- font-family:'JetBrains Mono',monospace; font-size:1.05rem; font-weight:700;
- color:var(--av-accent); text-decoration:none; letter-spacing:-0.02em; flex-shrink:0;
-}
-.av-logo span{ color:var(--av-accent2); }
-.av-nav-links{
- display:flex; align-items:center; gap:0.15rem; list-style:none; margin:0; padding:0;
-}
-.av-nav-links > li{ position:relative; }
-.av-top-link{
- display:inline-flex; align-items:center; gap:0.3rem;
- color:var(--av-muted); text-decoration:none; font-size:0.85rem; font-weight:500;
- background:none; border:none; cursor:pointer; font-family:inherit;
- padding:0.55rem 0.65rem; border-radius:6px; transition:color .2s, background .2s;
- white-space:nowrap;
-}
-.av-top-link:hover{ color:var(--av-text); background:rgba(255,255,255,0.05); }
-.av-caret{ font-size:0.6rem; opacity:0.65; transition:transform .2s; margin-left:1px; }
-.av-dropdown:hover .av-caret,
-.av-dropdown.av-open .av-caret{ transform:rotate(180deg); }
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;line-height:1.6;overflow-x:hidden;}
+a{color:var(--accent);text-decoration:none;}
+a:hover{color:var(--accent2);}
 
-/* Mega dropdown panel */
-.av-mega-panel{
- position:absolute; top:calc(100% + 10px); left:50%;
- transform:translateX(-50%) translateY(6px);
- background:var(--av-surface); border:1px solid var(--av-border); border-radius:10px;
- padding:0.55rem; min-width:290px;
- display:grid; gap:0.1rem;
- opacity:0; visibility:hidden; pointer-events:none;
- transition:opacity .16s ease, transform .16s ease;
- box-shadow:0 24px 48px rgba(0,0,0,0.45);
- max-height:80vh; overflow-y:auto;
-}
-.av-dropdown:hover .av-mega-panel,
-.av-dropdown.av-open .av-mega-panel{
- opacity:1; visibility:visible; pointer-events:auto; transform:translateX(-50%) translateY(0);
-}
-.av-mega-link{
- display:flex; align-items:flex-start; gap:0.65rem;
- padding:0.55rem 0.65rem; border-radius:7px;
- color:var(--av-text); text-decoration:none; font-size:0.84rem; font-weight:600;
- transition:background .15s;
-}
-.av-mega-link:hover{ background:rgba(0,229,255,0.08); }
-.av-icon{ font-size:1rem; line-height:1.35; flex-shrink:0; }
-.av-desc{
- display:block; color:var(--av-muted); font-size:0.72rem; font-weight:400;
- margin-top:0.15rem; line-height:1.4;
-}
-
-.av-scanner-link{ color:var(--av-accent2)!important; font-weight:600!important; }
-.av-cta{
- background:var(--av-accent)!important; color:var(--av-bg)!important; text-decoration:none;
- padding:0.5rem 1.1rem!important; border-radius:6px; font-weight:700!important;
- font-size:0.85rem!important; white-space:nowrap;
-}
-
-.av-hamburger{
- display:none; flex-direction:column; gap:5px; background:none; border:none;
- cursor:pointer; padding:4px; flex-shrink:0;
-}
-.av-hamburger span{ display:block; width:22px; height:2px; background:var(--av-accent); border-radius:2px; }
-
+/* ── NAV ── */
+.av-nav-wrap{position:fixed;top:0;left:0;right:0;z-index:999;background:rgba(5,10,15,0.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);font-family:'Space Grotesk',sans-serif;}
+.av-nav-inner{max-width:1400px;margin:0 auto;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;gap:1rem;}
+.av-logo{font-family:'JetBrains Mono',monospace;font-size:1.05rem;font-weight:700;color:var(--accent);text-decoration:none;letter-spacing:-0.02em;flex-shrink:0;}
+.av-logo span{color:var(--accent2);}
+.av-nav-links{display:flex;align-items:center;gap:0.15rem;list-style:none;margin:0;padding:0;}
+.av-nav-links>li{position:relative;}
+.av-top-link{display:inline-flex;align-items:center;gap:0.3rem;color:var(--muted);text-decoration:none;font-size:0.85rem;font-weight:500;background:none;border:none;cursor:pointer;font-family:inherit;padding:0.55rem 0.65rem;border-radius:6px;transition:color .2s,background .2s;white-space:nowrap;}
+.av-top-link:hover{color:var(--text);background:rgba(255,255,255,0.05);}
+.av-caret{font-size:0.6rem;opacity:0.65;transition:transform .2s;margin-left:1px;}
+.av-dropdown:hover .av-caret,.av-dropdown.av-open .av-caret{transform:rotate(180deg);}
+.av-mega-panel{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(6px);background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:0.55rem;min-width:290px;display:grid;gap:0.1rem;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .16s ease,transform .16s ease;box-shadow:0 24px 48px rgba(0,0,0,0.55);}
+.av-dropdown:hover .av-mega-panel,.av-dropdown.av-open .av-mega-panel{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0);}
+.av-mega-link{display:flex;align-items:flex-start;gap:0.65rem;padding:0.55rem 0.65rem;border-radius:7px;color:var(--text);text-decoration:none;font-size:0.84rem;font-weight:600;transition:background .15s;}
+.av-mega-link:hover{background:rgba(0,229,255,0.08);}
+.av-icon{font-size:1rem;line-height:1.35;flex-shrink:0;}
+.av-desc{display:block;color:var(--muted);font-size:0.72rem;font-weight:400;margin-top:0.15rem;line-height:1.4;}
+.av-scanner-link{color:var(--accent2)!important;font-weight:600!important;}
+.av-cta{background:var(--accent)!important;color:#050a0f!important;text-decoration:none;padding:0.5rem 1.1rem!important;border-radius:6px;font-weight:700!important;font-size:0.85rem!important;white-space:nowrap;}
+.av-hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;flex-shrink:0;}
+.av-hamburger span{display:block;width:22px;height:2px;background:var(--accent);border-radius:2px;}
 @media(max-width:980px){
- .av-nav-links{display:none!important;position:fixed;top:64px;left:0;right:0;height:calc(100vh - 64px);background:var(--bg);flex-direction:column;align-items:stretch;padding:1.2rem 5% 2rem;overflow-y:auto;overflow-x:hidden;gap:0.2rem;z-index:9999;border-top:1px solid var(--border);}
- .av-nav-links.av-mobile-open{display:flex!important;}
- .av-top-link{width:100%;justify-content:space-between;padding:0.9rem 0.6rem;font-size:0.95rem;}
- .av-mega-panel{position:static!important;left:auto!important;transform:none!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important;display:none;box-shadow:none;border:none;border-left:2px solid var(--border);background:rgba(255,255,255,0.02);margin:0 0 0.4rem 0.8rem;padding:0.3rem 0;min-width:0;width:auto;}
- .av-dropdown.av-open .av-mega-panel{display:grid;}
- .av-mega-link{padding:0.6rem 0.8rem;font-size:0.88rem;}
- .av-cta{display:block;text-align:center;margin-top:0.6rem;}
- .av-hamburger{display:flex;}
-}
- .av-cta{ display:block; text-align:center; margin-top:0.6rem; }
- .av-hamburger{ display:flex; }
+  .av-nav-links{display:none!important;position:fixed;top:64px;left:0;right:0;height:calc(100vh - 64px);background:#050a0f;flex-direction:column;align-items:stretch;padding:1.2rem 5% 2rem;overflow-y:auto;gap:0.2rem;z-index:9999;border-top:1px solid var(--border);}
+  .av-nav-links.av-mobile-open{display:flex!important;}
+  .av-top-link{width:100%;justify-content:space-between;padding:0.9rem 0.6rem;font-size:0.95rem;}
+  .av-mega-panel{position:static!important;left:auto!important;transform:none!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important;display:none;box-shadow:none;border:none;border-left:2px solid var(--border);background:rgba(255,255,255,0.02);margin:0 0 0.4rem 0.8rem;padding:0.3rem 0;min-width:0;}
+  .av-dropdown.av-open .av-mega-panel{display:grid;}
+  .av-mega-link{padding:0.6rem 0.8rem;font-size:0.88rem;}
+  .av-cta{display:block;text-align:center;margin-top:0.6rem;}
+  .av-hamburger{display:flex;}
 }
 
-.inner-page{max-width:860px;margin:0 auto;padding:50px 5% 80px;}
-.breadcrumb{display:flex;align-items:center;gap:0.4rem;font-size:0.78rem;color:var(--muted);margin-bottom:1.5rem;flex-wrap:wrap;}
+/* ── PAGE HEADER ── */
+.page-header{padding:100px 5% 52px;background:var(--bg);position:relative;overflow:hidden;}
+.page-header::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(0,229,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.025) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;}
+.page-header-inner{max-width:800px;margin:0 auto;position:relative;z-index:1;}
+.breadcrumb{display:flex;align-items:center;gap:0.4rem;font-size:0.78rem;color:var(--muted);margin-bottom:1.4rem;flex-wrap:wrap;}
 .breadcrumb a{color:var(--muted);text-decoration:none;transition:color .2s;}.breadcrumb a:hover{color:var(--accent);}
-.article-meta{display:flex;align-items:center;gap:0.6rem;margin-bottom:1rem;flex-wrap:wrap;}
-.meta-tag{font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.25rem 0.6rem;border-radius:3px;background:rgba(255,160,64,0.1);color:var(--orange);}
-h1{font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:800;line-height:1.25;letter-spacing:-0.02em;margin-bottom:0.8rem;}
-.article-intro{color:var(--muted);font-size:0.97rem;line-height:1.8;margin-bottom:2rem;border-left:3px solid var(--accent);padding-left:1rem;}
-.section-title{font-size:1.2rem;font-weight:700;margin:2.2rem 0 0.8rem;color:var(--text);}
-.body-text{color:var(--muted);font-size:0.93rem;line-height:1.85;margin-bottom:0.5rem;}
-.faq-section{margin-top:2.5rem;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.6rem;}
-.faq-section h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;color:var(--accent);}
-.faq-item{border-bottom:1px solid var(--border);padding:0.9rem 0;}.faq-item:last-child{border-bottom:none;}
-.faq-q{font-size:0.92rem;font-weight:600;color:var(--text);margin-bottom:0.35rem;}
-.faq-a{color:var(--muted);font-size:0.87rem;line-height:1.75;}
-.cta-box{background:linear-gradient(135deg,rgba(0,229,255,0.05),rgba(0,255,136,0.03));border:1px solid var(--accent);border-radius:10px;padding:1.6rem;margin:2.5rem 0;text-align:center;}
-.cta-box p{color:var(--muted);font-size:0.9rem;margin-bottom:1rem;}
-.cta-btn{background:var(--accent);color:var(--bg);padding:0.7rem 1.8rem;border-radius:4px;font-weight:700;text-decoration:none;display:inline-block;transition:opacity .2s;}.cta-btn:hover{opacity:0.85;}
-.nav-btns{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border);}
-.btn-outline{border:1px solid var(--border);color:var(--text);padding:0.65rem 1.4rem;border-radius:4px;font-weight:500;font-size:0.88rem;text-decoration:none;transition:border-color .2s;display:inline-block;}.btn-outline:hover{border-color:var(--accent);color:var(--accent);}
-.btn-primary{background:var(--accent);color:var(--bg);padding:0.65rem 1.4rem;border-radius:4px;font-weight:700;font-size:0.88rem;text-decoration:none;display:inline-block;transition:opacity .2s;}.btn-primary:hover{opacity:0.85;}
-footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
-footer p{color:var(--muted);font-size:0.82rem;}
-.footer-links{display:flex;gap:1.5rem;}.footer-links a{color:var(--muted);text-decoration:none;font-size:0.82rem;transition:color .2s;}.footer-links a:hover{color:var(--accent);}
-@media(max-width:768px){.nav-btns{flex-direction:column;}footer{flex-direction:column;text-align:center;}}
+.breadcrumb .sep{color:var(--border);}
+.article-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(249,115,22,0.1);border:1px solid rgba(249,115,22,0.25);color:var(--orange);font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.3rem 0.75rem;border-radius:3px;margin-bottom:1.2rem;}
+.page-header h1{font-size:clamp(1.75rem,4vw,2.6rem);font-weight:800;line-height:1.15;letter-spacing:-0.02em;color:var(--text);margin-bottom:1rem;}
+.page-header h1 .hl{color:var(--accent);}
+.article-lead{color:var(--muted);font-size:1rem;line-height:1.8;max-width:640px;margin-bottom:1.5rem;border-left:3px solid var(--accent);padding-left:1.2rem;}
+.meta-row{display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;font-size:0.78rem;color:var(--muted);}
+.meta-row span{display:flex;align-items:center;gap:0.4rem;}
 
-/* Blog dropdown wide panel */
-.av-blog-panel{min-width:260px;grid-template-columns:1fr;gap:0.1rem;}
-.av-blog-col-header{font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--av-muted, #8fb0c4);padding:0.3rem 0.65rem 0.15rem;border-bottom:1px solid var(--av-border, #1a3a52);margin-bottom:0.1rem;}
-.av-blog-col{display:flex;flex-direction:column;gap:0.05rem;}
-@media(max-width:980px){.av-blog-panel{min-width:0;grid-template-columns:1fr!important;}.av-blog-col-header{display:none;}}
+/* ── MAIN ── */
+main{max-width:800px;margin:0 auto;padding:52px 5% 80px;}
+
+/* ── BACK LINK ── */
+.back-link{display:inline-flex;align-items:center;gap:0.5rem;color:var(--muted);font-size:0.85rem;text-decoration:none;margin-bottom:2rem;padding:0.45rem 1rem;border:1px solid var(--border);border-radius:6px;transition:all .2s;}
+.back-link:hover{color:var(--accent);border-color:var(--accent);}
+
+/* ── TOC ── */
+.toc{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:8px;padding:1.4rem 1.6rem;margin-bottom:2.8rem;}
+.toc-title{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.8rem;}
+.toc ol{padding-left:1.2rem;columns:2;column-gap:2rem;}
+.toc li{margin-bottom:0.45rem;font-size:0.87rem;break-inside:avoid;}
+.toc a{color:var(--text);}.toc a:hover{color:var(--accent);}
+@media(max-width:600px){.toc ol{columns:1;}}
+
+/* ── WHY BYBIT STATS ── */
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.85rem;margin-bottom:1.4rem;}
+.stat-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1rem 1.2rem;}
+.stat-label{font-size:0.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;font-family:'JetBrains Mono',monospace;margin-bottom:0.3rem;}
+.stat-value{font-size:1.3rem;font-weight:700;color:var(--accent);font-family:'JetBrains Mono',monospace;}
+.stat-sub{font-size:0.75rem;color:var(--muted);margin-top:0.15rem;}
+
+/* ── SECTIONS ── */
+.article-section{margin-bottom:3rem;}
+.step-eyebrow{display:flex;align-items:center;gap:0.75rem;margin-bottom:0.6rem;}
+.step-badge{width:38px;height:38px;background:rgba(0,229,255,0.08);border:1px solid rgba(0,229,255,0.22);border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:0.88rem;color:var(--accent);font-weight:700;flex-shrink:0;}
+.step-eyebrow-label{font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.12em;}
+h2.section-title{font-size:1.3rem;font-weight:700;color:var(--text);margin-bottom:1rem;letter-spacing:-0.01em;}
+p.body-p{color:var(--muted);font-size:0.95rem;line-height:1.8;margin-bottom:1rem;}
+strong.hl{color:var(--text);}
+
+/* ── STEP LIST ── */
+.step-list{list-style:none;padding:0;margin-bottom:1.2rem;}
+.step-list li{display:flex;gap:1rem;align-items:flex-start;padding:0.95rem 0;border-bottom:1px solid var(--border);}
+.step-list li:last-child{border-bottom:none;}
+.sn{flex-shrink:0;width:30px;height:30px;background:rgba(0,229,255,0.08);border:1px solid rgba(0,229,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--accent);font-weight:700;margin-top:2px;}
+.sb{color:var(--muted);font-size:0.9rem;line-height:1.65;}
+.sb strong{color:var(--text);display:block;margin-bottom:0.2rem;}
+
+/* ── CHECK LIST ── */
+.check-list{list-style:none;padding:0;margin-bottom:1.2rem;display:flex;flex-direction:column;gap:0.5rem;}
+.check-list li{display:flex;align-items:flex-start;gap:0.6rem;font-size:0.9rem;color:var(--muted);}
+.check-list li::before{content:'✓';color:var(--accent2);font-weight:700;flex-shrink:0;margin-top:1px;}
+.check-list li.no::before{content:'✗';color:var(--red);}
+
+/* ── INFO / CALLOUT BOXES ── */
+.info-box{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:8px;padding:1.2rem 1.4rem;margin-bottom:1.2rem;}
+.info-box.green{border-left-color:var(--accent2);}
+.info-box.orange{border-left-color:var(--orange);}
+.info-box.red{border-left-color:var(--red);}
+.info-box.purple{border-left-color:var(--purple);}
+.info-box strong{color:var(--text);display:block;margin-bottom:0.5rem;font-size:0.95rem;}
+.info-box p,.info-box ul{color:var(--muted);font-size:0.88rem;line-height:1.75;}
+.info-box ul{padding-left:1.2rem;margin-top:0.4rem;}
+.info-box li{margin-bottom:0.3rem;}
+.callout{border-radius:8px;padding:1rem 1.2rem;margin-bottom:1.2rem;display:flex;gap:0.75rem;align-items:flex-start;}
+.callout.tip{background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.2);}
+.callout.warn{background:rgba(255,85,85,0.06);border:1px solid rgba(255,85,85,0.25);}
+.callout.info{background:rgba(0,229,255,0.05);border:1px solid rgba(0,229,255,0.2);}
+.callout-icon{font-size:1.1rem;flex-shrink:0;margin-top:1px;}
+.callout p{color:var(--muted);margin:0;line-height:1.65;font-size:0.9rem;}
+.callout strong{color:var(--text);}
+
+/* ── CARD GRID (margin modes) ── */
+.card-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.2rem;}
+@media(max-width:560px){.card-grid{grid-template-columns:1fr;}}
+.mcard{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.2rem;}
+.mcard.rec{border-color:rgba(0,255,136,0.35);background:rgba(0,255,136,0.03);}
+.mcard-icon{font-size:1.4rem;margin-bottom:0.6rem;}
+.mcard h3{font-size:0.95rem;font-weight:700;color:var(--text);margin-bottom:0.5rem;}
+.mcard p{font-size:0.85rem;color:var(--muted);line-height:1.6;}
+.rec-pill{display:inline-block;background:rgba(0,255,136,0.12);color:var(--accent2);font-family:'JetBrains Mono',monospace;font-size:0.65rem;padding:0.2rem 0.6rem;border-radius:2px;margin-bottom:0.5rem;letter-spacing:0.05em;}
+
+/* ── FEE TABLE ── */
+.table-wrap{overflow-x:auto;margin-bottom:1.2rem;}
+table.data-table{width:100%;border-collapse:collapse;font-size:0.88rem;}
+table.data-table th{background:rgba(26,58,82,0.6);color:var(--muted);text-align:left;padding:0.65rem 1rem;font-size:0.74rem;text-transform:uppercase;letter-spacing:0.07em;border-bottom:1px solid var(--border);white-space:nowrap;font-family:'JetBrains Mono',monospace;}
+table.data-table td{padding:0.75rem 1rem;border-bottom:1px solid var(--border);color:var(--muted);white-space:nowrap;}
+table.data-table tr:last-child td{border-bottom:none;}
+table.data-table tr:hover td{background:rgba(26,58,82,0.3);}
+.td-g{color:var(--accent2);font-weight:700;}
+.td-b{color:var(--accent);font-weight:600;}
+.td-r{color:var(--red);}
+
+/* ── MONITOR GRID ── */
+.monitor-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:0.7rem;margin-bottom:1.2rem;}
+.monitor-item{background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:0.9rem 1rem;}
+.mi-label{font-size:0.7rem;color:var(--muted);font-family:'JetBrains Mono',monospace;letter-spacing:0.05em;margin-bottom:0.3rem;text-transform:uppercase;}
+.mi-val{font-size:0.9rem;font-weight:600;color:var(--text);}
+
+/* ── FAQ ── */
+.faq-wrap{margin-bottom:2.5rem;}
+.faq-wrap h2{font-size:1.2rem;font-weight:700;color:var(--text);margin-bottom:1rem;padding-top:1.5rem;border-top:1px solid var(--border);}
+.faq-item{background:var(--surface);border:1px solid var(--border);border-radius:7px;margin-bottom:0.6rem;overflow:hidden;}
+.faq-q{padding:1rem 1.2rem;font-weight:600;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:0.9rem;user-select:none;}
+.faq-q:hover{background:rgba(26,58,82,0.4);}
+.faq-a{display:none;padding:0 1.2rem 1rem;color:var(--muted);font-size:0.88rem;line-height:1.75;}
+.faq-item.open .faq-a{display:block;}
+.faq-icon{color:var(--muted);font-size:1rem;transition:transform 0.2s;flex-shrink:0;}
+.faq-item.open .faq-icon{transform:rotate(45deg);}
+
+/* ── CTA ── */
+.cta-box{background:linear-gradient(135deg,rgba(0,229,255,0.07),rgba(0,255,136,0.04));border:1px solid rgba(0,229,255,0.2);border-radius:12px;padding:2.5rem 2rem;text-align:center;margin:2.5rem 0;}
+.cta-box h3{font-size:1.3rem;font-weight:700;margin-bottom:0.6rem;}
+.cta-box p{color:var(--muted);font-size:0.9rem;margin-bottom:1.4rem;max-width:440px;margin-left:auto;margin-right:auto;}
+.btn-primary{background:var(--accent);color:#050a0f;padding:0.75rem 1.8rem;border-radius:6px;font-weight:700;font-size:0.9rem;text-decoration:none;display:inline-block;transition:opacity .2s,transform .2s;box-shadow:var(--glow);}
+.btn-primary:hover{opacity:0.88;transform:translateY(-2px);color:#050a0f;}
+.btn-outline{border:1px solid var(--border);color:var(--text);padding:0.75rem 1.8rem;border-radius:6px;font-weight:500;font-size:0.9rem;text-decoration:none;display:inline-block;margin-left:0.75rem;transition:border-color .2s,color .2s;}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent);}
+
+/* ── POST NAV ── */
+.post-nav{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border);}
+.post-nav a{padding:0.65rem 1.2rem;border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:0.85rem;font-weight:600;text-decoration:none;transition:all .2s;}
+.post-nav a:hover{border-color:var(--accent);color:var(--accent);}
+.post-nav a.next-btn{background:var(--accent);color:#050a0f;border-color:var(--accent);}
+.post-nav a.next-btn:hover{opacity:0.88;color:#050a0f;}
+
+/* ── FOOTER ── */
+footer{background:var(--surface2);border-top:1px solid var(--border);padding:2rem 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+footer p{color:var(--muted);font-size:0.82rem;}
+.footer-links{display:flex;gap:1.5rem;}
+.footer-links a{color:var(--muted);text-decoration:none;font-size:0.82rem;transition:color .2s;}
+.footer-links a:hover{color:var(--accent);}
+@media(max-width:600px){footer{flex-direction:column;text-align:center;}.post-nav{flex-direction:column;}}
 </style>
 </head>
 <body>
+
+<!-- ── NAV ── -->
 <div class="av-nav-wrap">
- <div class="av-nav-inner">
- <a href="index.html" class="av-logo">Arb<span>Vertex</span></a>
- <ul class="av-nav-links" id="avNavLinks">
- <li><a href="index.html" class="av-top-link">Home</a></li>
+  <div class="av-nav-inner">
+    <a href="index.html" class="av-logo">Arb<span>Vertex</span></a>
+    <ul class="av-nav-links" id="avNavLinks">
+      <li><a href="index.html" class="av-top-link">Home</a></li>
 
- <li class="av-dropdown">
- <button type="button" class="av-top-link av-drop-trigger">Learn <span class="av-caret">▾</span></button>
- <div class="av-mega-panel">
- <a class="av-mega-link" href="what-is-crypto-futures-arbitrage.html"><span class="av-icon">📘</span><span>What is Arbitrage<span class="av-desc">Core concept explained</span></span></a>
- <a class="av-mega-link" href="how-crypto-arbitrage-signals-work.html"><span class="av-icon">⚙️</span><span>How It Works<span class="av-desc">Step-by-step process</span></span></a>
- <a class="av-mega-link" href="how-to-generate-profit-crypto-arbitrage.html"><span class="av-icon">💰</span><span>Generate Profit<span class="av-desc">Ways arbitrage earns</span></span></a>
- <a class="av-mega-link" href="crypto-arbitrage-risks-precautions.html"><span class="av-icon">⚠️</span><span>Risks &amp; Safety<span class="av-desc">What to watch for</span></span></a>
- <a class="av-mega-link" href="delisting-arbitrage-crypto-arbitrage-risks-precautions.html"><span class="av-icon">🚨</span><span>Delisting Risks<span class="av-desc">Avoid this trap</span></span></a>
- <a class="av-mega-link" href="rethink-traditional-trading.html"><span class="av-icon">🔄</span><span>Rethink Trading<span class="av-desc">Why arbitrage wins</span></span></a>
- <a class="av-mega-link" href="arbitrage-portfolio-growth.html"><span class="av-icon">📈</span><span>Portfolio Growth<span class="av-desc">Long-term strategy</span></span></a>
- </div>
- </li>
+      <li class="av-dropdown">
+        <button type="button" class="av-top-link av-drop-trigger">Learn <span class="av-caret">&#9662;</span></button>
+        <div class="av-mega-panel">
+          <a class="av-mega-link" href="what-is-crypto-futures-arbitrage.html"><span class="av-icon">📘</span><span>What is Arbitrage<span class="av-desc">Core concept explained</span></span></a>
+          <a class="av-mega-link" href="how-crypto-arbitrage-signals-work.html"><span class="av-icon">⚙️</span><span>How It Works<span class="av-desc">Step-by-step process</span></span></a>
+          <a class="av-mega-link" href="how-to-generate-profit-crypto-arbitrage.html"><span class="av-icon">💰</span><span>Generate Profit<span class="av-desc">Ways arbitrage earns</span></span></a>
+          <a class="av-mega-link" href="crypto-arbitrage-risks-precautions.html"><span class="av-icon">⚠️</span><span>Risks &amp; Safety<span class="av-desc">What to watch for</span></span></a>
+          <a class="av-mega-link" href="rethink-traditional-trading.html"><span class="av-icon">🔄</span><span>Rethink Trading<span class="av-desc">Why arbitrage wins</span></span></a>
+          <a class="av-mega-link" href="arbitrage-portfolio-growth.html"><span class="av-icon">📈</span><span>Portfolio Growth<span class="av-desc">Long-term strategy</span></span></a>
+        </div>
+      </li>
 
- <li class="av-dropdown">
- <button type="button" class="av-top-link av-drop-trigger">Tools <span class="av-caret">▾</span></button>
- <div class="av-mega-panel">
- <a class="av-mega-link" href="live-crypto-arbitrage-scanner.html"><span class="av-icon">🔍</span><span>Live Scanner<span class="av-desc">Real-time price gaps</span></span></a>
- <a class="av-mega-link" href="arbitrage-calculator.html"><span class="av-icon">🧮</span><span>Profit Calculator<span class="av-desc">Calculate net gains</span></span></a>
- </div>
- </li>
+      <li class="av-dropdown">
+        <button type="button" class="av-top-link av-drop-trigger">Tools <span class="av-caret">&#9662;</span></button>
+        <div class="av-mega-panel">
+          <a class="av-mega-link" href="live-crypto-arbitrage-scanner.html"><span class="av-icon">📊</span><span>Price Difference Scanner<span class="av-desc">Real-time cross-exchange spot price gaps</span></span></a>
+          <a class="av-mega-link" href="live-funding-gap-scanner.html"><span class="av-icon">💸</span><span>Funding Rate Scanner<span class="av-desc">Compare funding rates across 8 exchanges</span></span></a>
+          <a class="av-mega-link" href="advanced-arb-scanner.html"><span class="av-icon">⚡</span><span>Advanced Live Scanner<span class="av-desc">Price gap + funding rate combined</span></span></a>
+          <a class="av-mega-link" href="arbitrage-calculator.html"><span class="av-icon">🧮</span><span>Futures Arbitrage Calculator<span class="av-desc">Net profit after all fees &amp; slippage</span></span></a>
+        </div>
+      </li>
 
-    <li class="av-dropdown">
-    <button type="button" class="av-top-link av-drop-trigger">Blog <span class="av-caret">&#9662;</span></button>
-    <div class="av-mega-panel av-blog-panel">
-     <div class="av-blog-col">
-      <div class="av-blog-col-header">&#128216; Beginner</div>
-      <a class="av-mega-link" href="crypto-arbitrage-blog.html#beginner"><span class="av-icon">&#129094;</span><span>Beginner Guides<span class="av-desc">Start from zero &mdash; concepts &amp; first steps</span></span></a>
-      <div class="av-blog-col-header" style="margin-top:0.5rem;">&#128161; Strategy</div>
-      <a class="av-mega-link" href="crypto-arbitrage-blog.html#strategy"><span class="av-icon">&#129097;</span><span>Strategy Guides<span class="av-desc">Funding rate, basis trading, advanced tactics</span></span></a>
-     </div>
-     <div class="av-blog-col">
-      <div class="av-blog-col-header">&#128260; Exchange Guides</div>
-      <a class="av-mega-link" href="crypto-arbitrage-blog.html#exchange"><span class="av-icon">&#129095;</span><span>Exchange Guides<span class="av-desc">Binance, Bybit, OKX setup &amp; comparison</span></span></a>
-      <div class="av-blog-col-header" style="margin-top:0.5rem;">&#128737;&#65039; Risk &amp; Tools</div>
-      <a class="av-mega-link" href="crypto-arbitrage-blog.html#risk"><span class="av-icon">&#128101;</span><span>Risk &amp; Tools<span class="av-desc">Position sizing, stop loss, glossary</span></span></a>
-     </div>
+      <li class="av-dropdown">
+        <button type="button" class="av-top-link av-drop-trigger">Blog <span class="av-caret">&#9662;</span></button>
+        <div class="av-mega-panel">
+          <a class="av-mega-link" href="blog.html"><span class="av-icon">📰</span><span>All Articles<span class="av-desc">Full blog — all categories</span></span></a>
+          <a class="av-mega-link" href="blog.html#beginner"><span class="av-icon">📘</span><span>Beginner Guides<span class="av-desc">Start from zero</span></span></a>
+          <a class="av-mega-link" href="blog.html#strategy"><span class="av-icon">💡</span><span>Strategy Guides<span class="av-desc">Funding rate, basis trading, advanced</span></span></a>
+          <a class="av-mega-link" href="blog.html#exchange"><span class="av-icon">🔄</span><span>Exchange Guides<span class="av-desc">Binance, Bybit, OKX setup</span></span></a>
+          <a class="av-mega-link" href="blog.html#risk"><span class="av-icon">🛡️</span><span>Risk &amp; Tools<span class="av-desc">Position sizing, stop loss, glossary</span></span></a>
+        </div>
+      </li>
+
+      <li class="av-dropdown">
+        <button type="button" class="av-top-link av-drop-trigger">Signals <span class="av-caret">&#9662;</span></button>
+        <div class="av-mega-panel">
+          <a class="av-mega-link" href="crypto-arbitrage-telegram-signals.html"><span class="av-icon">✈️</span><span>Telegram Bot<span class="av-desc">Get instant signals</span></span></a>
+          <a class="av-mega-link" href="futures-signal-bot.html"><span class="av-icon">🚀</span><span>Free Futures Signal Bot<span class="av-desc">Live pump &amp; liq signals</span></span></a>
+          <a class="av-mega-link" href="crypto-arbitrage-signals-pricing.html"><span class="av-icon">💳</span><span>Pricing<span class="av-desc">$5/month plans</span></span></a>
+        </div>
+      </li>
+
+      <li class="av-dropdown">
+        <button type="button" class="av-top-link av-drop-trigger">Company <span class="av-caret">&#9662;</span></button>
+        <div class="av-mega-panel">
+          <a class="av-mega-link" href="about-arbvertex-crypto-signals.html"><span class="av-icon">🏢</span><span>About Us<span class="av-desc">Our story</span></span></a>
+          <a class="av-mega-link" href="contact-arbvertex.html"><span class="av-icon">✉️</span><span>Contact<span class="av-desc">Get in touch</span></span></a>
+        </div>
+      </li>
+
+      <li><a href="advanced-arb-scanner.html" class="av-top-link av-scanner-link">⚡ Live Scanners</a></li>
+      <li><a href="crypto-arbitrage-signals-pricing.html" class="av-top-link av-cta">Join Now</a></li>
+    </ul>
+    <button class="av-hamburger" id="avHamburger" type="button" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</div>
+
+<!-- ── PAGE HEADER ── -->
+<div class="page-header">
+  <div class="page-header-inner">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Home</a><span class="sep">/</span>
+      <a href="blog.html">Blog</a><span class="sep">/</span>
+      <a href="blog.html#exchange">Exchange Guides</a><span class="sep">/</span>
+      <span>Bybit Setup</span>
+    </nav>
+    <div class="article-tag">🔄 Exchange Guide</div>
+    <h1>Bybit Setup for <span class="hl">Crypto Arbitrage</span>: Complete Step-by-Step Guide</h1>
+    <p class="article-lead">Bybit is the second-largest derivatives exchange globally and one of the best platforms for funding rate arbitrage. This guide covers everything — from account creation and KYC, to Unified Trading Account activation, fee reduction, margin modes, and placing your first delta-neutral position.</p>
+    <div class="meta-row">
+      <span>📅 Updated July 2026</span>
+      <span>⏱ 9 min read</span>
+      <span>🏷 Bybit · Futures · Exchange Guide</span>
     </div>
-   </li>
-
- <li class="av-dropdown">
- <button type="button" class="av-top-link av-drop-trigger">Signals <span class="av-caret">▾</span></button>
- <div class="av-mega-panel">
- <a class="av-mega-link" href="crypto-arbitrage-telegram-signals.html"><span class="av-icon">✈️</span><span>Telegram Bot<span class="av-desc">Get instant signals</span></span></a>
- <a class="av-mega-link" href="futures-signal-bot.html"><span class="av-icon">🚀</span><span>Free Futures Signal Bot<span class="av-desc">Live pump &amp; liq signals</span></span></a>
- <a class="av-mega-link" href="crypto-arbitrage-signals-pricing.html"><span class="av-icon">💳</span><span>Pricing<span class="av-desc">$5/month plans</span></span></a>
- </div>
- </li>
-
- <li class="av-dropdown">
- <button type="button" class="av-top-link av-drop-trigger">Company <span class="av-caret">▾</span></button>
- <div class="av-mega-panel">
- <a class="av-mega-link" href="about-arbvertex-crypto-signals.html"><span class="av-icon">🏢</span><span>About Us<span class="av-desc">Our story</span></span></a>
- <a class="av-mega-link" href="contact-arbvertex.html"><span class="av-icon">✉️</span><span>Contact<span class="av-desc">Get in touch</span></span></a>
- </div>
- </li>
-
- <li><a href="live-crypto-arbitrage-scanner.html" class="av-top-link av-scanner-link">🔍 Live Scanner</a></li>
- <li><a href="crypto-arbitrage-signals-pricing.html" class="av-top-link av-cta">Join Now</a></li>
- </ul>
- <button class="av-hamburger" id="avHamburger" type="button" aria-label="Toggle menu">
- <span></span><span></span><span></span>
- </button>
- </div>
-<div class="inner-page">
-<nav class="breadcrumb">
-<a href="index.html">Home</a> / <a href="crypto-arbitrage-blog.html">Blog</a> / <span style="color:var(--accent);">Exchange Guides</span>
-</nav>
-<div class="article-meta">
-<span class="meta-tag">📘 EXCHANGE GUIDES</span>
-<span class="meta-tag" style="background:rgba(0,229,255,0.08);color:var(--accent);">ArbVertex Blog</span>
+  </div>
 </div>
-<h1>Bybit Setup for Crypto Arbitrage: Complete Step-by-Step Guide</h1>
-<p class="article-intro">Complete guide to setting up Bybit for crypto arbitrage — account creation, Unified Trading Account, fees, and executing your first hedged trade.</p>
-<h2 class="section-title">Why Bybit for Arbitrage?</h2>
-<p class="body-text">Bybit offers the lowest futures maker fee (0.01%) among major exchanges.</p>
-<p class="body-text">The Unified Trading Account (UTA) allows spot and futures to share the same collateral pool, eliminating internal transfers..</p>
-<h2 class="section-title">Creating Your Bybit Account</h2>
-<p class="body-text">Visit bybit.com.</p>
-<p class="body-text">Click Register.</p>
-<p class="body-text">Verify your email.</p>
-<p class="body-text">Complete identity verification (KYC).</p>
-<p class="body-text">Enable 2FA security.</p>
-<p class="body-text">Note: Bybit is NOT available for US residents..</p>
-<h2 class="section-title">Activating Unified Trading Account</h2>
-<p class="body-text">After account creation, go to Account and Security → Upgrade to UTA.</p>
-<p class="body-text">The Unified Trading Account allows spot, derivatives, and options to share a single margin pool..</p>
-<h2 class="section-title">Bybit Fee Structure</h2>
-<p class="body-text">Futures: Maker 0.01% / Taker 0.055%.</p>
-<p class="body-text">Spot: Maker 0.1% / Taker 0.1%.</p>
-<p class="body-text">Bybit's 0.01% maker fee is the lowest in the industry — always use limit orders on Bybit to capture maker rates..</p>
-<h2 class="section-title">Funding and Depositing</h2>
-<p class="body-text">Go to Assets → Deposit → USDT → TRC-20 (cheapest network, ~$1 fee).</p>
-<p class="body-text">Copy your Bybit USDT TRC-20 address.</p>
-<p class="body-text">Transfer from another exchange or wallet..</p>
-<h2 class="section-title">First Trade: Shorting ETHUSDT Perpetual</h2>
-<p class="body-text">1.</p>
-<p class="body-text">Navigate to Derivatives → USDT Perpetual → ETHUSDT.</p>
-<p class="body-text">2.</p>
-<p class="body-text">Set leverage to 1x.</p>
-<p class="body-text">3.</p>
-<p class="body-text">Select Limit order.</p>
-<p class="body-text">4.</p>
-<p class="body-text">Enter quantity matching your Binance spot position value.</p>
-<p class="body-text">5.</p>
-<p class="body-text">Click Sell to open short.</p>
-<p class="body-text">6.</p>
-<p class="body-text">Verify in Positions..</p>
 
-<div class="faq-section">
-<h2>Frequently Asked Questions</h2>
-<div class="faq-item"><div class="faq-q">Is Bybit safe for large amounts?</div><div class="faq-a">Bybit is a top-5 exchange by derivatives volume. For amounts over $50,000, spread across multiple exchanges.</div></div>
-<div class="faq-item"><div class="faq-q">What is the Bybit UTA advantage in practical terms?</div><div class="faq-a">Without UTA you need separate spot and futures wallets requiring internal transfers. With UTA your holdings automatically serve as collateral for futures.</div></div>
-<div class="faq-item"><div class="faq-q">Can I use Bybit without completing KYC?</div><div class="faq-a">Yes — Bybit allows limited trading without KYC. However, withdrawal limits apply.</div></div>
+<!-- ── MAIN ── -->
+<main>
+  <a href="blog.html" class="back-link">← Back to Blog</a>
 
-</div>
-<div class="cta-box">
-<p>Ready to start earning from crypto arbitrage? Get pre-validated 2%+ signals delivered directly on Telegram.</p>
-<a href="crypto-arbitrage-signals-pricing.html" class="cta-btn">View Plans → Join for $5/month</a>
-</div>
-<div class="nav-btns">
-<a href="crypto-arbitrage-blog.html" class="btn-outline">← Back to Blog</a>
-<a href="live-crypto-arbitrage-scanner.html" class="btn-primary">Try Live Scanner →</a>
-</div>
-</div>
+  <!-- TOC -->
+  <div class="toc">
+    <div class="toc-title">// In This Guide</div>
+    <ol>
+      <li><a href="#why-bybit">Why Bybit for Arbitrage</a></li>
+      <li><a href="#account">Creating Your Bybit Account</a></li>
+      <li><a href="#uta">Activating Unified Trading Account</a></li>
+      <li><a href="#margin-mode">Setting Margin Mode</a></li>
+      <li><a href="#leverage">Setting Leverage to 1x</a></li>
+      <li><a href="#fees">Fee Structure &amp; Reduction</a></li>
+      <li><a href="#deposit">Depositing &amp; Funding</a></li>
+      <li><a href="#first-trade">First Arbitrage Trade</a></li>
+      <li><a href="#monitor">Monitoring Your Position</a></li>
+      <li><a href="#faq">Frequently Asked Questions</a></li>
+    </ol>
+  </div>
+
+  <!-- SECTION 1: WHY BYBIT -->
+  <section class="article-section" id="why-bybit">
+    <div class="step-eyebrow">
+      <div class="step-badge">01</div>
+      <div class="step-eyebrow-label">Why Bybit</div>
+    </div>
+    <h2 class="section-title">Why Bybit Is Excellent for Arbitrage Trading</h2>
+    <p class="body-p">Bybit has grown from a derivatives-only exchange into a full-featured platform with spot, perps, options, and copy trading — all unified under one margin account. For arbitrage traders, three things stand out: consistently competitive funding rates, a Unified Trading Account that eliminates internal wallet transfers, and a clean interface designed for futures trading.</p>
+
+    <div class="stat-grid">
+      <div class="stat-box"><div class="stat-label">Futures Maker Fee</div><div class="stat-value">0.020%</div><div class="stat-sub">Among the lowest globally</div></div>
+      <div class="stat-box"><div class="stat-label">Futures Taker Fee</div><div class="stat-value">0.055%</div><div class="stat-sub">Competitive rate</div></div>
+      <div class="stat-box"><div class="stat-label">Daily Derivatives Volume</div><div class="stat-value">$15B+</div><div class="stat-sub">Deep liquidity on all pairs</div></div>
+      <div class="stat-box"><div class="stat-label">USDT Perpetual Pairs</div><div class="stat-value">500+</div><div class="stat-sub">Wide altcoin coverage</div></div>
+    </div>
+
+    <div class="callout tip">
+      <span class="callout-icon">💡</span>
+      <p>Use referral code <strong>NRBX7</strong> when signing up on Bybit to receive a fee discount and new-user bonus rewards from day one.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 2: ACCOUNT -->
+  <section class="article-section" id="account">
+    <div class="step-eyebrow">
+      <div class="step-badge">02</div>
+      <div class="step-eyebrow-label">Step One</div>
+    </div>
+    <h2 class="section-title">Creating Your Bybit Account</h2>
+    <p class="body-p">The process takes about 20–30 minutes including KYC verification. Bybit is available in most countries — restricted in the United States and a few other jurisdictions.</p>
+
+    <ul class="step-list">
+      <li>
+        <div class="sn">1</div>
+        <div class="sb"><strong>Register at bybit.com</strong>Enter your email address and create a strong password. Use an email you actively monitor — all account alerts go here.</div>
+      </li>
+      <li>
+        <div class="sn">2</div>
+        <div class="sb"><strong>Verify your email immediately</strong>Bybit sends a confirmation link that expires in 30 minutes. Click it before doing anything else.</div>
+      </li>
+      <li>
+        <div class="sn">3</div>
+        <div class="sb"><strong>Complete Level 1 KYC (mandatory)</strong>Upload a government-issued ID — passport, national ID card, or driver's licence. Level 1 KYC unlocks standard withdrawal limits and is required for futures access. Auto-approval typically takes 5–60 minutes.</div>
+      </li>
+      <li>
+        <div class="sn">4</div>
+        <div class="sb"><strong>Consider Level 2 KYC</strong>Level 2 (selfie verification) increases daily withdrawal limits significantly. Recommended for any position size above $5,000.</div>
+      </li>
+      <li>
+        <div class="sn">5</div>
+        <div class="sb"><strong>Enable Google Authenticator 2FA</strong>Go to Account Security → Authenticator App. Connect Google Authenticator — not SMS (SIM swap attacks are a real risk). 2FA is required before any withdrawal can be processed.</div>
+      </li>
+    </ul>
+
+    <div class="callout warn">
+      <span class="callout-icon">⚠️</span>
+      <p><strong>Never use SMS 2FA for an exchange account.</strong> SIM swapping can give attackers full access within minutes. Google Authenticator or a hardware key (YubiKey) only.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 3: UTA -->
+  <section class="article-section" id="uta">
+    <div class="step-eyebrow">
+      <div class="step-badge">03</div>
+      <div class="step-eyebrow-label">Step Two</div>
+    </div>
+    <h2 class="section-title">Activating the Unified Trading Account (UTA)</h2>
+    <p class="body-p">The Unified Trading Account is Bybit's flagship account type — and its biggest advantage for arbitrage traders. Without UTA, you need separate Spot and Futures wallets and must manually transfer USDT between them before every trade. With UTA, a single USDT balance backs all your positions simultaneously.</p>
+
+    <div class="info-box green">
+      <strong>UTA vs Standard Account — What Changes</strong>
+      <ul>
+        <li>One margin pool covers spot buys, perp shorts, and options simultaneously</li>
+        <li>No internal transfers needed before opening either leg of an arbitrage trade</li>
+        <li>Cross-margin netting: your spot ETH holding automatically reduces margin requirement for your short ETH perp</li>
+        <li>Unified position view — see all legs of your arbitrage at once in the Positions tab</li>
+      </ul>
+    </div>
+
+    <ul class="step-list">
+      <li>
+        <div class="sn">1</div>
+        <div class="sb"><strong>Go to Account &rarr; Upgrade to UTA</strong>Find the upgrade option in your account dashboard. It is free and instant — no funds are affected.</div>
+      </li>
+      <li>
+        <div class="sn">2</div>
+        <div class="sb"><strong>Read the cross-margin implications</strong>In UTA, positions default to cross-margin (shared pool). For arbitrage, you will switch each pair to Isolated Margin — covered in the next section.</div>
+      </li>
+      <li>
+        <div class="sn">3</div>
+        <div class="sb"><strong>Confirm the upgrade</strong>Existing balances carry over automatically. If you have open positions, they migrate to UTA without closing.</div>
+      </li>
+    </ul>
+
+    <div class="callout info">
+      <span class="callout-icon">📌</span>
+      <p>After UTA activation, deposit USDT once and it immediately serves as margin for both your spot buy and your futures short. No separate wallet transfers needed — ever.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 4: MARGIN MODE -->
+  <section class="article-section" id="margin-mode">
+    <div class="step-eyebrow">
+      <div class="step-badge">04</div>
+      <div class="step-eyebrow-label">Step Three</div>
+    </div>
+    <h2 class="section-title">Setting the Correct Margin Mode</h2>
+    <p class="body-p">Even with UTA, each futures position has its own margin mode setting. Choosing correctly is critical — it determines how much risk one bad position can cause to your entire portfolio.</p>
+
+    <div class="card-grid">
+      <div class="mcard">
+        <div class="mcard-icon">🔗</div>
+        <h3>Cross Margin</h3>
+        <p>All positions share a single margin pool — your full wallet balance backs every trade. Capital-efficient but a liquidation in one position can drain funds meant for all others.</p>
+      </div>
+      <div class="mcard rec">
+        <div class="rec-pill">✅ RECOMMENDED</div>
+        <div class="mcard-icon">🛡️</div>
+        <h3>Isolated Margin</h3>
+        <p>Each position has its own dedicated margin. Maximum loss is capped at exactly what you allocated to that specific trade. Risk-per-trade is completely predictable.</p>
+      </div>
+    </div>
+
+    <div class="callout info">
+      <span class="callout-icon">📌</span>
+      <p><strong>For all arbitrage positions: use Isolated Margin.</strong> To set it — open the futures trading interface, click the margin mode label (shows "Cross" by default) → select "Isolated" → confirm. This must be set per trading pair.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 5: LEVERAGE -->
+  <section class="article-section" id="leverage">
+    <div class="step-eyebrow">
+      <div class="step-badge">05</div>
+      <div class="step-eyebrow-label">Step Four</div>
+    </div>
+    <h2 class="section-title">Setting Leverage to 1x — Always</h2>
+    <p class="body-p">For funding rate arbitrage, leverage must be set to <strong>1x</strong> on the futures short leg. The entire point of the strategy is market neutrality — you are not speculating on price direction. High leverage adds liquidation risk without adding any profit potential.</p>
+
+    <div class="callout warn">
+      <span class="callout-icon">⚠️</span>
+      <p><strong>High leverage is not for arbitrage.</strong> If you short 1 ETH at 10x leverage and ETH jumps 10%, you get liquidated — and your spot position's gain doesn't help your futures margin. At 1x, your liquidation price is so far from current market that it effectively cannot happen unless the exchange itself has issues.</p>
+    </div>
+
+    <ul class="step-list">
+      <li>
+        <div class="sn">1</div>
+        <div class="sb"><strong>In the order panel, click the leverage number</strong>Bybit defaults to 10x or 20x. Click the leverage label to open the slider.</div>
+      </li>
+      <li>
+        <div class="sn">2</div>
+        <div class="sb"><strong>Drag to 1x or type "1"</strong>Bybit will warn you about low leverage — this is expected and intentional. Confirm the setting.</div>
+      </li>
+      <li>
+        <div class="sn">3</div>
+        <div class="sb"><strong>Set per contract</strong>ETHUSDT and SOLUSDT have independent leverage settings. You must set 1x for each pair you trade on Bybit.</div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- SECTION 6: FEES -->
+  <section class="article-section" id="fees">
+    <div class="step-eyebrow">
+      <div class="step-badge">06</div>
+      <div class="step-eyebrow-label">Step Five</div>
+    </div>
+    <h2 class="section-title">Bybit Fee Structure &amp; How to Reduce It</h2>
+    <p class="body-p">In arbitrage, fees are a direct deduction from every trade's profit. Understanding Bybit's fee structure and using it to your advantage is non-negotiable.</p>
+
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr><th>Order Type</th><th>Spot</th><th>USDT Perp (Maker)</th><th>USDT Perp (Taker)</th><th>After VIP 1</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Standard</td><td>0.100%</td><td class="td-g">0.020%</td><td>0.055%</td><td class="td-b">0.016% maker</td></tr>
+          <tr><td>With MNT</td><td class="td-g">0.090%</td><td class="td-g">0.018%</td><td class="td-g">0.050%</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <ul class="check-list">
+      <li><strong>Always use Limit orders on futures</strong> — qualifies for 0.020% maker fee vs 0.055% taker. On a $5,000 position, this saves $1.75 per leg.</li>
+      <li>Hold Bybit's native <strong>MNT token</strong> for an additional fee discount (similar to BNB on Binance). Small amount sufficient.</li>
+      <li>VIP 1 unlocks at $1M monthly volume — realistic for active arbitrage traders with larger capital.</li>
+      <li class="no">Never use Market orders on Bybit — taker fee (0.055%) is nearly 3x the maker fee. Always place limit orders and wait for fill.</li>
+    </ul>
+
+    <div class="info-box orange">
+      <strong>Round-Trip Fee Example — $5,000 Position (Limit Orders)</strong>
+      <ul>
+        <li>Spot buy entry: 0.10% × $5,000 = $5.00</li>
+        <li>Perp short entry (maker): 0.020% × $5,000 = $1.00</li>
+        <li>Spot sell exit: 0.10% × $5,000 = $5.00</li>
+        <li>Perp close exit (maker): 0.020% × $5,000 = $1.00</li>
+        <li><strong>Total round-trip: $12.00 (0.24%)</strong></li>
+        <li>At 0.05%/8h funding rate, fees recovered in &lt;24 hours</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SECTION 7: DEPOSIT -->
+  <section class="article-section" id="deposit">
+    <div class="step-eyebrow">
+      <div class="step-badge">07</div>
+      <div class="step-eyebrow-label">Step Six</div>
+    </div>
+    <h2 class="section-title">Depositing and Funding Your Account</h2>
+    <p class="body-p">Bybit accepts USDT deposits via multiple blockchain networks. With UTA active, your deposit immediately serves as margin for all trading activities — no internal transfers needed.</p>
+
+    <div class="info-box green">
+      <strong>Recommended Deposit Method</strong>
+      <ul>
+        <li><strong>Network: TRC-20 (Tron)</strong> — fee ~$1, settlement in under 2 minutes. Best option for most users.</li>
+        <li><strong>Alternative: BEP-20 (BSC)</strong> — fee ~$0.10, equally fast. Good if your sending exchange supports it.</li>
+        <li><strong>Avoid: ERC-20 (Ethereum)</strong> — fees $10–50 during peak congestion. Only use if no other option available.</li>
+        <li><strong>Minimum deposit</strong>: $10 USDT. Practical minimum for real trading: <strong>$500+</strong>. Fees consume too much of smaller amounts.</li>
+      </ul>
+    </div>
+
+    <ul class="step-list">
+      <li>
+        <div class="sn">1</div>
+        <div class="sb"><strong>Go to Assets &rarr; Deposit &rarr; USDT</strong>Select TRC-20 network. Copy your Bybit USDT TRC-20 deposit address.</div>
+      </li>
+      <li>
+        <div class="sn">2</div>
+        <div class="sb"><strong>Send from your source wallet or exchange</strong>Paste the Bybit address carefully. Double-check the first and last 6 characters. Wrong address = permanent loss of funds.</div>
+      </li>
+      <li>
+        <div class="sn">3</div>
+        <div class="sb"><strong>Wait for confirmation</strong>TRC-20 confirms in under 2 minutes. USDT appears in your Unified Account automatically — no manual allocation needed.</div>
+      </li>
+    </ul>
+
+    <div class="callout tip">
+      <span class="callout-icon">💡</span>
+      <p><strong>How much to start with?</strong> For meaningful returns at 0.05%/8h funding rate: $1,000 earns ~$45/month, $5,000 earns ~$225/month, $10,000 earns ~$450/month — before fees. Start with $500–1,000 to learn, then scale once comfortable.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 8: FIRST TRADE -->
+  <section class="article-section" id="first-trade">
+    <div class="step-eyebrow">
+      <div class="step-badge">08</div>
+      <div class="step-eyebrow-label">Step Seven</div>
+    </div>
+    <h2 class="section-title">Your First Arbitrage Trade on Bybit</h2>
+    <p class="body-p">For funding rate arbitrage: you buy the coin on spot and simultaneously short its USDT perpetual. The short collects funding payments every 8 hours while price exposure is fully hedged.</p>
+
+    <div class="callout info">
+      <span class="callout-icon">📌</span>
+      <p><strong>Example:</strong> ETH funding rate on Bybit is +0.08% per 8 hours. You buy 1 ETH on Bybit Spot and short 1 ETH USDT perpetual on Bybit Derivatives. You collect $X funding every 8 hours while your net price exposure is zero.</p>
+    </div>
+
+    <p class="body-p"><strong style="color:var(--text)">Step A — Open the Bybit Spot Buy:</strong></p>
+    <ul class="step-list">
+      <li>
+        <div class="sn">1</div>
+        <div class="sb"><strong>Go to Spot Trading &rarr; search your coin (e.g. ETHUSDT)</strong>Use whichever coin ArbVertex's signal specifies, or any coin meeting your own screening criteria.</div>
+      </li>
+      <li>
+        <div class="sn">2</div>
+        <div class="sb"><strong>Select Limit order, set price near current market</strong>Place 0.01–0.05% below current ask for fast fill at maker rate.</div>
+      </li>
+      <li>
+        <div class="sn">3</div>
+        <div class="sb"><strong>Enter your USDT amount and click Buy</strong>Note the notional value — you will match this exactly on the futures side.</div>
+      </li>
+    </ul>
+
+    <p class="body-p"><strong style="color:var(--text)">Step B — Open the Futures Short:</strong></p>
+    <ul class="step-list">
+      <li>
+        <div class="sn">1</div>
+        <div class="sb"><strong>Go to Derivatives &rarr; USDT Perpetual &rarr; ETHUSDT</strong>Same coin, different market type.</div>
+      </li>
+      <li>
+        <div class="sn">2</div>
+        <div class="sb"><strong>Verify: Isolated Margin + 1x Leverage</strong>Check both settings before placing any order. These should already be set from the previous steps.</div>
+      </li>
+      <li>
+        <div class="sn">3</div>
+        <div class="sb"><strong>Select Limit order, set price near current market</strong>Maker order = 0.020% fee vs 0.055% taker.</div>
+      </li>
+      <li>
+        <div class="sn">4</div>
+        <div class="sb"><strong>Enter the same notional value as your spot buy</strong>If you bought $2,000 worth of ETH on spot, short $2,000 notional on perp. Both legs must be balanced.</div>
+      </li>
+      <li>
+        <div class="sn">5</div>
+        <div class="sb"><strong>Click Sell / Short and confirm</strong>Your short position appears in the Positions tab with entry price, unrealized PnL, and liquidation price.</div>
+      </li>
+      <li>
+        <div class="sn">6</div>
+        <div class="sb"><strong>Verify both legs are filled</strong>Check Spot Holdings (your ETH) and Futures Positions (your short). If one leg is missing, complete it immediately — a single open leg leaves you with directional exposure.</div>
+      </li>
+    </ul>
+
+    <div class="callout warn">
+      <span class="callout-icon">⚠️</span>
+      <p><strong>Leg risk is real.</strong> If your spot buy fills but the futures short doesn't (or vice versa), you are no longer hedged. You hold a naked directional position. Complete the missing leg immediately using a market order if necessary — the taker fee is worth eliminating the exposure.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 9: MONITOR -->
+  <section class="article-section" id="monitor">
+    <div class="step-eyebrow">
+      <div class="step-badge">09</div>
+      <div class="step-eyebrow-label">Step Eight</div>
+    </div>
+    <h2 class="section-title">Monitoring Your Position on Bybit</h2>
+    <p class="body-p">Once both legs are open, check these metrics before every 8-hour funding settlement (00:00, 08:00, 16:00 UTC). This takes 5–10 minutes per check.</p>
+
+    <div class="monitor-grid">
+      <div class="monitor-item"><div class="mi-label">Funding Rate</div><div class="mi-val">Current &amp; predicted next</div></div>
+      <div class="monitor-item"><div class="mi-label">Next Settlement</div><div class="mi-val">Countdown timer in UI</div></div>
+      <div class="monitor-item"><div class="mi-label">Unrealized PnL</div><div class="mi-val">Should be ≈ zero</div></div>
+      <div class="monitor-item"><div class="mi-label">Liquidation Price</div><div class="mi-val">Very far at 1x</div></div>
+      <div class="monitor-item"><div class="mi-label">Open Interest</div><div class="mi-val">Growing = rate stable</div></div>
+      <div class="monitor-item"><div class="mi-label">Margin Ratio</div><div class="mi-val">Should stay very low</div></div>
+    </div>
+
+    <div class="info-box green">
+      <strong>Where to See Funding Rate on Bybit</strong>
+      <ul>
+        <li>Open the ETHUSDT Perpetual trading interface</li>
+        <li>Look at the top bar — "Funding Rate" shows current rate + time until next payment</li>
+        <li>Click the rate to see the full history for that contract</li>
+        <li>The "Est. Funding Rate" shows what the next period rate is predicted to be</li>
+      </ul>
+    </div>
+
+    <div class="info-box red">
+      <strong>Exit Immediately If:</strong>
+      <ul>
+        <li>Predicted funding rate for next period is <strong>negative or zero</strong></li>
+        <li>Rate has dropped 60%+ from your entry rate over 2–3 consecutive periods</li>
+        <li>Open Interest drops 20%+ in 24 hours (longs exiting = rate collapse incoming)</li>
+        <li>Bybit shows any unusual alerts, maintenance announcements, or withdrawal delays</li>
+      </ul>
+    </div>
+
+    <p class="body-p"><strong style="color:var(--text)">How to exit cleanly:</strong> Close the futures short first (fills instantly as a market or limit order) → then sell your spot ETH (allow 5–10 minutes for a limit order). If spot doesn't fill within 10 minutes at limit price, switch to market order — the extra 0.035% taker cost is worth clean closure.</p>
+  </section>
+
+  <!-- FAQ -->
+  <div class="faq-wrap" id="faq">
+    <h2>// Frequently Asked Questions</h2>
+
+    <div class="faq-item open">
+      <div class="faq-q">Is Bybit safe for large arbitrage positions?<span class="faq-icon">+</span></div>
+      <div class="faq-a">Bybit is a top-3 derivatives exchange by volume with third-party verified Proof of Reserves published monthly. For amounts above $50,000, split your exposure across Bybit and Binance — never put more on any single exchange than you're actively trading. Withdraw profits regularly to a personal wallet.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">What is the UTA advantage in practical terms for arbitrage?<span class="faq-icon">+</span></div>
+      <div class="faq-a">Without UTA: deposit USDT → transfer from Funding wallet to Spot wallet → buy ETH → transfer from Funding wallet to Derivatives wallet → short ETH perp. That's 4 steps before you even open a position. With UTA: deposit USDT → buy ETH spot and short ETH perp simultaneously. Two steps. The margin is shared automatically, and Bybit even recognizes the offsetting positions to reduce your required collateral.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Can I use Bybit without completing KYC?<span class="faq-icon">+</span></div>
+      <div class="faq-a">Bybit allows limited trading without KYC but enforces very low withdrawal limits ($20,000 equivalent daily without KYC vs $1M+ with Level 2 KYC). For any serious arbitrage account, complete at minimum Level 1 KYC immediately after registration. The process takes under 30 minutes.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">What margin mode should I use for arbitrage on Bybit?<span class="faq-icon">+</span></div>
+      <div class="faq-a">Always use Isolated Margin for each arbitrage position. This caps your maximum loss to the margin you allocated to that specific trade. Cross margin shares your entire wallet as collateral — meaning a bad altcoin position could drain funds meant for your BTC or ETH arbitrage positions. Set Isolated per-contract in the trading interface.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">How does Bybit compare to Binance for funding rate arbitrage?<span class="faq-icon">+</span></div>
+      <div class="faq-a">Bybit's maker fee (0.020%) is slightly higher than Binance with BNB discount (0.015%), but Bybit's funding rates tend to be more extreme during volatile periods — creating larger income opportunities. Bybit's UTA also eliminates the internal wallet transfer friction that Binance users face. Both are excellent; many serious arbitrage traders use both simultaneously.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Does Bybit have a demo/testnet for practice?<span class="faq-icon">+</span></div>
+      <div class="faq-a">Yes — testnet.bybit.com offers a complete simulated trading environment with virtual funds. Order types, fee calculations, liquidation mechanics, and UTA all work identically to mainnet. Practice placing both legs of a funding rate arbitrage trade for 1–2 weeks before committing real capital. It's one of the better testnets in the industry.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">What happens to my position if Bybit has a maintenance window?<span class="faq-icon">+</span></div>
+      <div class="faq-a">Bybit announces maintenance windows 24–48 hours in advance. During maintenance, trading pauses but positions remain open and funding payments that fall during maintenance are typically processed after the window closes. Check Bybit's status page and official announcements before each 8-hour settlement if you're holding an active position.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Can I run Bybit + Binance arbitrage simultaneously?<span class="faq-icon">+</span></div>
+      <div class="faq-a">Yes — this is a popular setup. Buy spot on Binance (deeper spot liquidity) and short the perp on Bybit (if Bybit's funding rate is higher), or vice versa. Always compare rates on both exchanges before entry and short on whichever pays more. The only added complexity is holding USDT on both exchanges — pre-position capital on each before you start.</div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-box">
+    <h3>Ready to Trade Arbitrage Signals?</h3>
+    <p>Get pre-validated 2%+ funding rate signals on Telegram. We scan 8 exchanges 24/7 and alert you when rates are worth acting on.</p>
+    <a href="crypto-arbitrage-signals-pricing.html" class="btn-primary">View Plans — $5/month</a>
+    <a href="advanced-arb-scanner.html" class="btn-outline">Try Free Scanner</a>
+  </div>
+
+  <!-- POST NAV -->
+  <nav class="post-nav" aria-label="Post navigation">
+    <a href="blog.html">&larr; All Articles</a>
+    <a href="binance-futures-setup-arbitrage.html">&larr; Binance Futures Setup</a>
+    <a href="okx-arbitrage-guide.html" class="next-btn">OKX Arbitrage Guide &rarr;</a>
+  </nav>
+</main>
+
+<!-- FOOTER -->
 <footer>
-<p>© 2026 ArbVertex — Not financial advice.</p>
-<div class="footer-links">
-<a href="index.html">Home</a><a href="crypto-arbitrage-blog.html">Blog</a><a href="crypto-arbitrage-signals-pricing.html">Pricing</a>
-</div>
-<p style="font-size:0.75rem;">Educational content only. Always do your own research.</p>
+  <p>&copy; 2026 ArbVertex &mdash; All rights reserved</p>
+  <div class="footer-links">
+    <a href="blog.html">Blog</a>
+    <a href="index.html">Home</a>
+    <a href="crypto-arbitrage-signals-pricing.html">Pricing</a>
+    <a href="advanced-arb-scanner.html">Live Scanner</a>
+    <a href="contact-arbvertex.html">Contact</a>
+  </div>
+  <p style="font-size:0.75rem;">Educational content only. Not financial advice. Always do your own research.</p>
 </footer>
-<script>(function(){
- var hamburger = document.getElementById('avHamburger');
- var navLinks = document.getElementById('avNavLinks');
- if(hamburger && navLinks){
- hamburger.addEventListener('click', function(){
- navLinks.classList.toggle('av-mobile-open');
- });
- }
- document.querySelectorAll('.av-drop-trigger').forEach(function(btn){
- btn.addEventListener('click', function(e){
- e.preventDefault();
- var parent = btn.closest('.av-dropdown');
- var wasOpen = parent.classList.contains('av-open');
- document.querySelectorAll('.av-dropdown.av-open').forEach(function(d){ d.classList.remove('av-open'); });
- if(!wasOpen){ parent.classList.add('av-open'); }
- });
- });
- document.addEventListener('click', function(e){
- if(!e.target.closest('.av-nav-wrap')){
- document.querySelectorAll('.av-dropdown.av-open').forEach(function(d){ d.classList.remove('av-open'); });
- }
- });
-})();</script>
+
+<script>
+(function(){
+  // Hamburger
+  var h = document.getElementById('avHamburger');
+  var n = document.getElementById('avNavLinks');
+  if(h && n){ h.addEventListener('click', function(){ n.classList.toggle('av-mobile-open'); }); }
+  // Dropdowns
+  document.querySelectorAll('.av-drop-trigger').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      var p = btn.closest('.av-dropdown');
+      var was = p.classList.contains('av-open');
+      document.querySelectorAll('.av-dropdown.av-open').forEach(function(d){ d.classList.remove('av-open'); });
+      if(!was){ p.classList.add('av-open'); }
+    });
+  });
+  // Close on outside click
+  document.addEventListener('click', function(e){
+    if(!e.target.closest('.av-nav-wrap')){
+      document.querySelectorAll('.av-dropdown.av-open').forEach(function(d){ d.classList.remove('av-open'); });
+    }
+  });
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(function(q){
+    q.addEventListener('click', function(){ q.parentElement.classList.toggle('open'); });
+  });
+})();
+</script>
+
 </body>
 </html>
