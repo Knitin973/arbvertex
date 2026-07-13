@@ -29,13 +29,6 @@ body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-ser
 .av-dropdown:hover .av-mega-panel,.av-dropdown.av-open .av-mega-panel{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0);}
 .av-mega-link{display:flex;align-items:flex-start;gap:0.65rem;padding:0.55rem 0.65rem;border-radius:7px;color:var(--text);text-decoration:none;font-size:0.84rem;font-weight:600;transition:background .15s;}
 .av-mega-link:hover{background:rgba(0,229,255,0.08);}
-.av-mega-section-label{font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);padding:0.55rem 0.65rem 0.2rem;display:flex;align-items:center;gap:0.4rem;}
-.av-mega-section-label::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;flex-shrink:0;}
-.av-mega-section-label.beginner::before{background:#00e5ff;}
-.av-mega-section-label.strategy::before{background:#00ff88;}
-.av-mega-section-label.exchange::before{background:#f97316;}
-.av-mega-section-label.risk::before{background:#ff7070;}
-.av-mega-divider{height:1px;background:var(--border);margin:0.3rem 0.65rem;}
 .av-icon{font-size:1rem;line-height:1.35;flex-shrink:0;}
 .av-desc{display:block;color:var(--muted);font-size:0.72rem;font-weight:400;margin-top:0.15rem;line-height:1.4;}
 .av-scanner-link{color:var(--accent2)!important;font-weight:600!important;}
@@ -219,22 +212,23 @@ footer a{color:var(--accent);text-decoration:none;}
  <a class="av-mega-link" href="arbitrage-calculator.html"><span class="av-icon">🧮</span><span>Futures Arbitrage Calculator<span class="av-desc">Net profit after all fees &amp; slippage</span></span></a>
  </div>
  </li>
- <li class="av-dropdown">
-  <button type="button" class="av-top-link av-drop-trigger" style="color:var(--accent);">Blog <span class="av-caret">▾</span></button>
-  <div class="av-mega-panel" style="min-width:260px;">
-   <div class="av-mega-section-label beginner">Beginner</div>
-   <a class="av-mega-link" href="crypto-arbitrage-blog.html?filter=beginner"><span class="av-icon">📘</span><span>Beginner Guides<span class="av-desc">Start from zero — concepts &amp; first steps</span></span></a>
-   <div class="av-mega-divider"></div>
-   <div class="av-mega-section-label strategy">Strategy</div>
-   <a class="av-mega-link" href="crypto-arbitrage-blog.html?filter=strategy"><span class="av-icon">📐</span><span>Strategy Guides<span class="av-desc">Funding rate, basis trading, advanced tactics</span></span></a>
-   <div class="av-mega-divider"></div>
-   <div class="av-mega-section-label exchange">Exchange Guides</div>
-   <a class="av-mega-link" href="crypto-arbitrage-blog.html?filter=exchange"><span class="av-icon">🏦</span><span>Exchange Guides<span class="av-desc">Binance, Bybit, OKX setup &amp; comparison</span></span></a>
-   <div class="av-mega-divider"></div>
-   <div class="av-mega-section-label risk">Risk &amp; Tools</div>
-   <a class="av-mega-link" href="crypto-arbitrage-blog.html?filter=risk"><span class="av-icon">⚠️</span><span>Risk &amp; Tools<span class="av-desc">Position sizing, stop loss, glossary</span></span></a>
-  </div>
- </li>
+    <li class="av-dropdown">
+    <button type="button" class="av-top-link av-drop-trigger" style="color:var(--accent);">Blog <span class="av-caret">&#9662;</span></button>
+    <div class="av-mega-panel av-blog-panel">
+     <div class="av-blog-col">
+      <div class="av-blog-col-header">&#128216; Beginner</div>
+      <a class="av-mega-link" href="crypto-arbitrage-blog.html#beginner"><span class="av-icon">&#129094;</span><span>Beginner Guides<span class="av-desc">Start from zero &mdash; concepts &amp; first steps</span></span></a>
+      <div class="av-blog-col-header" style="margin-top:0.5rem;">&#128161; Strategy</div>
+      <a class="av-mega-link" href="crypto-arbitrage-blog.html#strategy"><span class="av-icon">&#129097;</span><span>Strategy Guides<span class="av-desc">Funding rate, basis trading, advanced tactics</span></span></a>
+     </div>
+     <div class="av-blog-col">
+      <div class="av-blog-col-header">&#128260; Exchange Guides</div>
+      <a class="av-mega-link" href="crypto-arbitrage-blog.html#exchange"><span class="av-icon">&#129095;</span><span>Exchange Guides<span class="av-desc">Binance, Bybit, OKX setup &amp; comparison</span></span></a>
+      <div class="av-blog-col-header" style="margin-top:0.5rem;">&#128737;&#65039; Risk &amp; Tools</div>
+      <a class="av-mega-link" href="crypto-arbitrage-blog.html#risk"><span class="av-icon">&#128101;</span><span>Risk &amp; Tools<span class="av-desc">Position sizing, stop loss, glossary</span></span></a>
+     </div>
+    </div>
+   </li>
  <li class="av-dropdown">
  <button type="button" class="av-top-link av-drop-trigger">Signals <span class="av-caret">▾</span></button>
  <div class="av-mega-panel">
@@ -452,24 +446,6 @@ document.querySelectorAll('.av-drop-trigger').forEach(btn => {
  li.classList.toggle('av-open');
  });
 });
-
-// Blog filter via URL param
-(function(){
-  const params = new URLSearchParams(window.location.search);
-  const filter = params.get('filter');
-  if (filter) {
-    const btns = document.querySelectorAll('[data-filter]');
-    btns.forEach(btn => {
-      if (btn.dataset.filter === filter) {
-        btn.click();
-        setTimeout(() => {
-          const el = document.querySelector('.blog-roadmap') || document.querySelector('.blog-grid');
-          if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
-        }, 150);
-      }
-    });
-  }
-})();
 </script>
 </body>
 </html>
