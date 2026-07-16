@@ -487,39 +487,329 @@ footer p{color:var(--muted);font-size:0.82rem;}
 </div>
 
 
+<style>
+/* ── ARTICLE LAYOUT ── */
+.article-wrap{max-width:760px;margin:0 auto;padding:60px 5% 80px;}
+.article-meta{display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;margin-bottom:1.8rem;}
+.meta-pill{font-family:'JetBrains Mono',monospace;font-size:0.68rem;padding:0.28rem 0.65rem;border-radius:3px;letter-spacing:0.06em;}
+.pill-step{background:rgba(0,229,255,0.1);color:var(--accent);}
+.pill-level{background:rgba(0,255,136,0.08);color:var(--accent2);}
+.pill-time{background:rgba(106,143,168,0.12);color:var(--muted);}
+.article-h1{font-size:clamp(1.7rem,4vw,2.5rem);font-weight:800;line-height:1.2;letter-spacing:-0.025em;margin-bottom:1rem;color:var(--text);}
+.article-lead{font-size:1.05rem;color:var(--muted);line-height:1.8;margin-bottom:2.5rem;max-width:680px;border-left:3px solid var(--accent);padding-left:1.1rem;}
+.article-h2{font-size:1.25rem;font-weight:700;color:var(--text);margin:2.5rem 0 0.9rem;letter-spacing:-0.015em;}
+.article-h3{font-size:1rem;font-weight:600;color:var(--text);margin:1.4rem 0 0.5rem;}
+.article-p{color:var(--muted);font-size:0.94rem;line-height:1.85;margin-bottom:1rem;}
+.article-divider{border:none;border-top:1px solid var(--border);margin:2.5rem 0;}
+
+/* ── CALLOUT BOXES ── */
+.callout{border-radius:10px;padding:1.5rem 1.7rem;margin:1.5rem 0;}
+.callout-def{background:var(--surface);border:1px solid var(--border);}
+.callout-example{background:rgba(0,255,136,0.04);border:1px solid rgba(0,255,136,0.2);}
+.callout-warning{background:rgba(255,85,85,0.05);border:1px solid rgba(255,85,85,0.25);}
+.callout-tip{background:rgba(0,229,255,0.05);border:1px solid rgba(0,229,255,0.2);}
+.callout-label{font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;margin-bottom:0.55rem;}
+.label-def{color:var(--accent);}
+.label-example{color:var(--accent2);}
+.label-warning{color:#ff7070;}
+.label-tip{color:var(--accent);}
+.callout h3{font-size:0.97rem;font-weight:700;color:var(--text);margin-bottom:0.5rem;}
+.callout p{color:var(--muted);font-size:0.9rem;line-height:1.75;margin:0;}
+.callout p+p{margin-top:0.7rem;}
+
+/* ── PRICE EXAMPLE VISUAL ── */
+.price-gap-visual{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.5rem;margin:1.5rem 0;overflow-x:auto;}
+.pgv-label{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1rem;}
+.pgv-row{display:flex;align-items:center;gap:0.8rem;flex-wrap:wrap;}
+.pgv-exch{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:0.75rem 1.1rem;text-align:center;min-width:120px;}
+.pgv-exch-name{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--muted);margin-bottom:0.3rem;}
+.pgv-exch-price{font-family:'JetBrains Mono',monospace;font-size:1.1rem;font-weight:700;}
+.pgv-buy{color:var(--accent2);}
+.pgv-sell{color:#ff7070;}
+.pgv-arrow{font-size:1.3rem;color:var(--muted);}
+.pgv-gap{background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);border-radius:6px;padding:0.65rem 1rem;text-align:center;}
+.pgv-gap-label{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--accent2);margin-bottom:0.25rem;}
+.pgv-gap-val{font-family:'JetBrains Mono',monospace;font-size:1.1rem;font-weight:700;color:var(--accent2);}
+
+/* ── TYPE CARDS ── */
+.type-cards{display:flex;flex-direction:column;gap:1rem;margin:1.2rem 0;}
+.type-card{display:flex;gap:1rem;align-items:flex-start;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.2rem 1.4rem;transition:border-color .25s;}
+.type-card:hover{border-color:var(--accent);}
+.type-card-accent{width:3px;border-radius:2px;flex-shrink:0;align-self:stretch;min-height:40px;}
+.type-card-body{}
+.type-card-title{font-size:0.95rem;font-weight:700;color:var(--text);margin-bottom:0.4rem;}
+.type-card-desc{color:var(--muted);font-size:0.88rem;line-height:1.7;}
+.type-badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.62rem;padding:0.15rem 0.45rem;border-radius:2px;margin-left:0.4rem;vertical-align:middle;}
+.badge-passive{background:rgba(0,255,136,0.12);color:var(--accent2);}
+.badge-active{background:rgba(0,229,255,0.1);color:var(--accent);}
+.badge-advanced{background:rgba(255,165,0,0.1);color:#ffa040;}
+
+/* ── HOW IT WORKS STEPS ── */
+.arb-steps{display:flex;flex-direction:column;gap:0;}
+.arb-step{display:flex;gap:1.2rem;align-items:flex-start;}
+.arb-step-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0;}
+.arb-step-num{width:36px;height:36px;background:var(--surface);border:1px solid var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--accent);font-weight:700;}
+.arb-step-line{width:1px;flex:1;min-height:20px;background:var(--border);margin:6px 0;}
+.arb-step-body{padding-bottom:1.4rem;}
+.arb-step-body h4{font-size:0.95rem;font-weight:600;color:var(--text);margin-bottom:0.35rem;}
+.arb-step-body p{color:var(--muted);font-size:0.87rem;line-height:1.7;}
+.arb-step:last-child .arb-step-line{display:none;}
+
+/* ── STAT ROW ── */
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.5rem 0;}
+.stat-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.1rem 1rem;text-align:center;}
+.stat-box .num{font-family:'JetBrains Mono',monospace;font-size:1.5rem;font-weight:700;color:var(--accent);display:block;}
+.stat-box .lbl{font-size:0.75rem;color:var(--muted);margin-top:0.25rem;line-height:1.4;}
+
+/* ── FAQ ── */
+.faq-list{display:flex;flex-direction:column;gap:0;}
+.faq-item{border-bottom:1px solid var(--border);padding:1.1rem 0;}
+.faq-item:first-child{border-top:1px solid var(--border);}
+.faq-q{font-size:0.93rem;font-weight:600;color:var(--text);margin-bottom:0.45rem;}
+.faq-a{color:var(--muted);font-size:0.88rem;line-height:1.7;}
+
+/* ── NAV FOOTER ── */
+.article-nav{display:flex;gap:1rem;flex-wrap:wrap;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border);}
+
+@media(max-width:600px){
+ .pgv-row{flex-direction:column;align-items:flex-start;}
+ .pgv-arrow{transform:rotate(90deg);}
+ .stat-row{grid-template-columns:1fr 1fr;}
+}
+</style>
+
 <div class="page active" id="page-article-1">
-<h1 class="article-title">What is Crypto Arbitrage? A Complete Beginner Guide</h1>
- <div class="inner-page">
- <button class="back-btn" onclick="showPage('blog')">← Back to Blog</button>
- <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:1rem;">
- <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;background:rgba(0,229,255,0.1);color:var(--accent);padding:0.3rem 0.7rem;border-radius:3px;">STEP 1 OF 16</span>
- <span style="font-size:0.7rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">🟦 BEGINNER</span>
- </div>
- <h2 style="font-size:1.6rem;font-weight:800;line-height:1.3;margin-bottom:1rem;">What is Crypto Arbitrage? Complete Beginner Guide </h2>
- <p style="color:var(--muted);font-size:0.95rem;line-height:1.8;margin-bottom:2rem;">Crypto arbitrage means buying an asset cheaply on one exchange and selling it higher on another — instantly locking in profit. No price prediction required.</p>
- <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.8rem;margin-bottom:1.5rem;">
- <h2 style="font-size:1.1rem;font-weight:700;margin-bottom:1rem;color:var(--accent);">Simple Definition</h2>
- <p style="color:var(--muted);font-size:0.9rem;line-height:1.8;">Arbitrage is profiting from the same asset being priced differently in 2026two places at the same time. In crypto, this happens constantly — Binance may price BTC at $68,200 while Bybit prices it at $68,600. That $400 gap = profit.</p>
- </div>
- <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.8rem;margin-bottom:1.5rem;">
- <h2 style="font-size:1.1rem;font-weight:700;margin-bottom:1rem;color:var(--accent);">Why Does the Gap Exist?</h2>
- <p style="color:var(--muted);font-size:0.9rem;line-height:1.8;">Different exchanges have different buyers and sellers. Order flow, liquidity, and regional demand create temporary price differences. These gaps close quickly — that's why speed matters.</p>
- </div>
- <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.8rem;margin-bottom:1.5rem;">
- <h2 style="font-size:1.1rem;font-weight:700;margin-bottom:1rem;color:var(--accent);">3 Types of Crypto Arbitrage</h2>
- <div style="display:flex;flex-direction:column;gap:1rem;">
- <div style="border-left:3px solid var(--accent);padding-left:1rem;"><strong style="color:var(--text);">1. Cross-Exchange Arb</strong><p style="color:var(--muted);font-size:0.88rem;margin-top:0.3rem;">Buy on exchange A, sell on exchange B. Profit = price gap minus fees.</p></div>
- <div style="border-left:3px solid var(--accent2);padding-left:1rem;"><strong style="color:var(--text);">2. Funding Rate Arb</strong><p style="color:var(--muted);font-size:0.88rem;margin-top:0.3rem;">Earn passive income from perpetual futures every 8 hours — zero directional risk.</p></div>
- <div style="border-left:3px solid #ffa040;padding-left:1rem;"><strong style="color:var(--text);">3. Triangular Arb</strong><p style="color:var(--muted);font-size:0.88rem;margin-top:0.3rem;">Exploit price inefficiency between 3 trading pairs on the same exchange.</p></div>
- </div>
- </div>
- <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border);">
- <a href="blog.html" style="border:1px solid var(--border);color:var(--muted);padding:0.7rem 1.5rem;border-radius:4px;font-weight:500;font-size:0.9rem;text-decoration:none;background:none;transition:border-color .2s,color .2s;">☰ Back to Blog</a>
- 
- <a href="spot-vs-futures-arbitrage.html" style="background:var(--accent);color:var(--bg);padding:0.7rem 1.5rem;border-radius:4px;font-weight:700;font-size:0.9rem;text-decoration:none;transition:opacity .2s;">Next: Spot vs Futures Arbitrage →</a>
- </div>
- </div>
- <footer><p>© 2026 ArbVertex</p><div class="footer-links"><a onclick="showPage('blog')">Blog</a><a onclick="showPage('home')">Home</a><a onclick="showPage('contact')">Contact</a></div><p style="font-size:0.75rem;">Not financial advice.</p></footer>
+ <div class="article-wrap">
+
+  <!-- Back -->
+  <a href="crypto-arbitrage-blog.html" class="back-btn" style="display:inline-flex;align-items:center;gap:0.4rem;color:var(--muted);font-size:0.83rem;text-decoration:none;margin-bottom:2rem;transition:color .2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'">← Back to Blog</a>
+
+  <!-- Meta -->
+  <div class="article-meta">
+   <span class="meta-pill pill-step">STEP 1 OF 16</span>
+   <span class="meta-pill pill-level">🟦 BEGINNER</span>
+   <span class="meta-pill pill-time">⏱ 8 MIN READ</span>
+  </div>
+
+  <!-- Title -->
+  <h1 class="article-h1">What is Crypto Arbitrage?<br>A Complete Beginner Guide</h1>
+  <p class="article-lead">Crypto arbitrage means buying an asset cheaply on one exchange and selling it higher on another — locking in profit instantly. No price prediction. No directional risk. Just the gap.</p>
+
+  <!-- 1. Definition -->
+  <h2 class="article-h2">The Core Idea</h2>
+  <p class="article-p">Arbitrage is one of the oldest strategies in finance. The concept is simple: the same asset trades at different prices in different places at the same moment. You buy where it's cheap and sell where it's expensive, pocketing the difference.</p>
+  <p class="article-p">In traditional markets this happens between stock exchanges, commodities markets, or currencies. In crypto, it happens between the hundreds of independent exchanges that each set their own prices based on their own order books.</p>
+
+  <div class="callout callout-def">
+   <div class="callout-label label-def">Definition</div>
+   <h3>Crypto Arbitrage</h3>
+   <p>Profiting from the same asset being priced differently on two or more crypto exchanges at the same time. You buy on the cheaper exchange, sell on the more expensive one, and the spread is your gross profit before fees.</p>
+  </div>
+
+  <!-- 2. Why Gaps Exist -->
+  <h2 class="article-h2">Why Do Price Gaps Exist?</h2>
+  <p class="article-p">Every exchange has its own independent order book — its own set of buyers and sellers, its own liquidity depth, and its own regional user base. When a large sell order hits Binance, BTC drops on Binance. It doesn't instantly drop on Bybit. For a brief window, you have a gap.</p>
+  <p class="article-p">Several forces create and maintain these gaps:</p>
+
+  <div class="type-cards" style="gap:0.75rem;margin-top:1rem;">
+   <div class="type-card" style="background:transparent;border:none;padding:0.5rem 0;">
+    <div class="type-card-accent" style="background:var(--accent);"></div>
+    <div class="type-card-body">
+     <div class="type-card-title">Different Liquidity Depth</div>
+     <div class="type-card-desc">A major exchange with $2B daily volume will absorb large orders without much price movement. A smaller exchange may spike on the same size order, creating a temporary gap.</div>
+    </div>
+   </div>
+   <div class="type-card" style="background:transparent;border:none;padding:0.5rem 0;">
+    <div class="type-card-accent" style="background:var(--accent2);"></div>
+    <div class="type-card-body">
+     <div class="type-card-title">Regional Demand Differences</div>
+     <div class="type-card-desc">Exchanges with strong user bases in specific regions see different buying pressure. A coin popular in Southeast Asia may run higher on KuCoin than on Bitget at the same moment.</div>
+    </div>
+   </div>
+   <div class="type-card" style="background:transparent;border:none;padding:0.5rem 0;">
+    <div class="type-card-accent" style="background:#ffa040;"></div>
+    <div class="type-card-body">
+     <div class="type-card-title">Slow Arbitrageurs</div>
+     <div class="type-card-desc">Ironically, the fact that arbitrage is hard to execute keeps gaps alive longer. Not everyone has capital on both exchanges, and withdrawal delays make instant profit-taking impossible for most traders.</div>
+    </div>
+   </div>
+   <div class="type-card" style="background:transparent;border:none;padding:0.5rem 0;">
+    <div class="type-card-accent" style="background:#7b61ff;"></div>
+    <div class="type-card-body">
+     <div class="type-card-title">Funding Rate Divergence</div>
+     <div class="type-card-desc">Perpetual futures contracts charge or pay funding every 8 hours to keep price anchored to spot. When sentiment diverges between exchanges, funding rates diverge — creating a different kind of arbitrage opportunity.</div>
+    </div>
+   </div>
+  </div>
+
+  <!-- Live example -->
+  <h2 class="article-h2">A Real-World Example</h2>
+  <p class="article-p">Imagine BTC is trading at two different prices on two exchanges at exactly the same moment:</p>
+
+  <div class="price-gap-visual">
+   <div class="pgv-label">Live Price Gap — BTC/USDT (example)</div>
+   <div class="pgv-row">
+    <div class="pgv-exch">
+     <div class="pgv-exch-name">Exchange A</div>
+     <div class="pgv-exch-price pgv-buy">$68,200</div>
+     <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--accent2);margin-top:0.25rem;">BUY HERE</div>
+    </div>
+    <div class="pgv-arrow">→</div>
+    <div class="pgv-exch">
+     <div class="pgv-exch-name">Exchange B</div>
+     <div class="pgv-exch-price pgv-sell">$68,600</div>
+     <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:#ff7070;margin-top:0.25rem;">SELL HERE</div>
+    </div>
+    <div class="pgv-arrow">→</div>
+    <div class="pgv-gap">
+     <div class="pgv-gap-label">RAW GAP</div>
+     <div class="pgv-gap-val">+0.59%</div>
+     <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--muted);margin-top:0.25rem;">= $400 on 1 BTC</div>
+    </div>
+   </div>
+   <p style="color:var(--muted);font-size:0.8rem;margin-top:1rem;font-family:'JetBrains Mono',monospace;">After trading fees (~0.1% × 2 sides = 0.2%), net profit ≈ 0.39% per trade.</p>
+  </div>
+
+  <p class="article-p">That's the entire mechanic. You didn't predict where BTC was going. You didn't take directional risk. You simply observed a price difference and captured it.</p>
+
+  <!-- Stats -->
+  <div class="stat-row">
+   <div class="stat-box"><span class="num">700+</span><div class="lbl">Coin pairs scanned across 6 exchanges</div></div>
+   <div class="stat-box"><span class="num">2%+</span><div class="lbl">Minimum net gap ArbVertex signals target</div></div>
+   <div class="stat-box"><span class="num">8h</span><div class="lbl">Funding rate payment cycle on perpetuals</div></div>
+  </div>
+
+  <hr class="article-divider">
+
+  <!-- 3 Types -->
+  <h2 class="article-h2">3 Main Types of Crypto Arbitrage</h2>
+  <p class="article-p">Not all arbitrage works the same way. The three most common forms each have different mechanics, risk profiles, and capital requirements.</p>
+
+  <div class="type-cards">
+   <div class="type-card">
+    <div class="type-card-accent" style="background:var(--accent);"></div>
+    <div class="type-card-body">
+     <div class="type-card-title">1. Cross-Exchange Arbitrage <span class="type-badge badge-active">ACTIVE</span></div>
+     <div class="type-card-desc">Buy on the exchange where the price is lower, simultaneously sell on the exchange where it's higher. Profit is the spread minus trading fees on both sides. This is the most direct form and what most beginners start with. Requires capital pre-positioned on both exchanges.</div>
+    </div>
+   </div>
+   <div class="type-card">
+    <div class="type-card-accent" style="background:var(--accent2);"></div>
+    <div class="type-card-body">
+     <div class="type-card-title">2. Funding Rate Arbitrage <span class="type-badge badge-passive">PASSIVE</span></div>
+     <div class="type-card-desc">Hold a spot position (long) while shorting the same asset via perpetual futures. When funding is high and positive, longs pay shorts — so you collect funding every 8 hours as passive income. Your position is delta-neutral (market-neutral) since the long and short cancel each other out. This is what ArbVertex signals primarily focus on.</div>
+    </div>
+   </div>
+   <div class="type-card">
+    <div class="type-card-accent" style="background:#ffa040;"></div>
+    <div class="type-card-body">
+     <div class="type-card-title">3. Triangular Arbitrage <span class="type-badge badge-advanced">ADVANCED</span></div>
+     <div class="type-card-desc">Exploit a price inconsistency between three trading pairs on the same exchange. For example: BTC → ETH → USDT → BTC should leave you with exactly what you started with. If any leg is mispriced, you end up with more. This requires speed and is usually automated, but the opportunity is often smaller and shorter-lived.</div>
+    </div>
+   </div>
+  </div>
+
+  <!-- 4. How it works step by step -->
+  <h2 class="article-h2">How a Cross-Exchange Arbitrage Trade Works</h2>
+  <p class="article-p">Here's the step-by-step flow of a basic cross-exchange arbitrage trade:</p>
+
+  <div class="arb-steps" style="margin-top:1.5rem;">
+   <div class="arb-step">
+    <div class="arb-step-left"><div class="arb-step-num">1</div><div class="arb-step-line"></div></div>
+    <div class="arb-step-body"><h4>Spot the Opportunity</h4><p>A scanner (like ArbVertex's Price Difference Scanner) detects that the same coin is priced 2%+ higher on Exchange B than Exchange A. The signal fires.</p></div>
+   </div>
+   <div class="arb-step">
+    <div class="arb-step-left"><div class="arb-step-num">2</div><div class="arb-step-line"></div></div>
+    <div class="arb-step-body"><h4>Execute Both Legs Simultaneously</h4><p>You place a buy order on Exchange A and a sell order on Exchange B at the same time. Speed matters — the gap can close in seconds during high-volume periods.</p></div>
+   </div>
+   <div class="arb-step">
+    <div class="arb-step-left"><div class="arb-step-num">3</div><div class="arb-step-line"></div></div>
+    <div class="arb-step-body"><h4>Both Orders Fill</h4><p>Your buy fills on Exchange A. Your sell fills on Exchange B. The net of both trades minus fees is your profit. If the gap was 2.5% and fees were 0.2%, you net approximately 2.3%.</p></div>
+   </div>
+   <div class="arb-step">
+    <div class="arb-step-left"><div class="arb-step-num">4</div><div class="arb-step-line"></div></div>
+    <div class="arb-step-body"><h4>Rebalance for the Next Trade</h4><p>You now have more USDT on Exchange B and more coin on Exchange A. You either withdraw/deposit to rebalance, or wait for a gap that runs in the reverse direction to naturally rebalance your positions.</p></div>
+   </div>
+  </div>
+
+  <div class="callout callout-tip" style="margin-top:1rem;">
+   <div class="callout-label label-tip">Pro Tip</div>
+   <p>Pre-positioning capital on both exchanges before a trade eliminates withdrawal delays entirely. Most experienced arbitrageurs keep equal USDT on 3–5 exchanges at all times so they can execute instantly when a signal fires.</p>
+  </div>
+
+  <hr class="article-divider">
+
+  <!-- 5. Is it risk-free -->
+  <h2 class="article-h2">Is Crypto Arbitrage Risk-Free?</h2>
+  <p class="article-p">Arbitrage is often described as "risk-free profit" in textbooks — and in theory, it can be. But in practice, there are real risks that every trader needs to understand before starting.</p>
+
+  <div class="callout callout-warning">
+   <div class="callout-label label-warning">⚠ Key Risks</div>
+   <p><strong style="color:var(--text);">Execution risk:</strong> The gap closes before both legs fill. You're left with an open position on one exchange.</p>
+   <p><strong style="color:var(--text);">Slippage:</strong> Large orders move the price against you. The "2% gap" you saw may become 1.2% after your order impacts the order book.</p>
+   <p><strong style="color:var(--text);">Withdrawal delays:</strong> If you need to move coins between exchanges mid-trade, blockchain confirmation times can eat into profits — or expose you to price movement.</p>
+   <p><strong style="color:var(--text);">Delisting risk:</strong> A coin gets delisted from one exchange mid-position. This is the biggest risk for smaller altcoins — never use coins you can't afford to hold.</p>
+  </div>
+
+  <p class="article-p">Funding rate arbitrage largely sidesteps execution risk because it's a passive, time-based income strategy — you hold the position and collect payments, rather than trying to capture a gap in milliseconds. This is why it's often recommended as the starting point for beginners.</p>
+
+  <!-- 6. Who is it for -->
+  <h2 class="article-h2">Who Is Crypto Arbitrage For?</h2>
+  <p class="article-p">Arbitrage isn't for everyone, but it suits a specific type of trader very well:</p>
+
+  <div class="type-cards" style="gap:0.6rem;margin:1rem 0;">
+   <div class="type-card" style="border-color:rgba(0,255,136,0.2);">
+    <div class="type-card-accent" style="background:var(--accent2);"></div>
+    <div class="type-card-body">
+     <div class="type-card-title">✓ Good fit if you...</div>
+     <div class="type-card-desc">Prefer consistent, lower-risk returns over high-risk speculation. Are comfortable managing positions across multiple exchanges. Want to profit whether the market is up, down, or sideways. Can dedicate time to monitoring signals and executing trades.</div>
+    </div>
+   </div>
+   <div class="type-card" style="border-color:rgba(255,85,85,0.2);">
+    <div class="type-card-accent" style="background:#ff5555;"></div>
+    <div class="type-card-body">
+     <div class="type-card-title">✗ May not suit you if...</div>
+     <div class="type-card-desc">You only have capital on one exchange and can't pre-position. You're looking for quick 10x gains — arbitrage profits are measured in percentage points, not multiples. You're not comfortable with the operational complexity of multi-exchange management.</div>
+    </div>
+   </div>
+  </div>
+
+  <hr class="article-divider">
+
+  <!-- FAQ -->
+  <h2 class="article-h2">Frequently Asked Questions</h2>
+  <div class="faq-list">
+   <div class="faq-item">
+    <div class="faq-q">How much capital do I need to start?</div>
+    <div class="faq-a">You can technically start with $100, but most traders find $500–$1,000 makes the returns meaningful relative to the time invested. The percentage return is the same regardless of size — only the absolute dollar profit scales.</div>
+   </div>
+   <div class="faq-item">
+    <div class="faq-q">Which exchanges do I need accounts on?</div>
+    <div class="faq-a">Most ArbVertex signals involve opportunities across Binance, Bybit, MEXC, Gate.io, KuCoin, and Bitget. You don't need all six — two or three with capital pre-positioned is enough to act on most signals.</div>
+   </div>
+   <div class="faq-item">
+    <div class="faq-q">Is crypto arbitrage legal?</div>
+    <div class="faq-a">Yes. Arbitrage is a legal and standard trading strategy in all major jurisdictions. It's practiced by banks, hedge funds, and retail traders alike. You're simply taking advantage of market inefficiency.</div>
+   </div>
+   <div class="faq-item">
+    <div class="faq-q">Do I need to code or run bots?</div>
+    <div class="faq-a">Not to start. Many traders execute arbitrage manually, especially funding rate arb which doesn't require millisecond speed. Signals like those from ArbVertex tell you when and where the opportunity exists — you execute manually via exchange apps.</div>
+   </div>
+   <div class="faq-item">
+    <div class="faq-q">What is funding rate arbitrage?</div>
+    <div class="faq-a">Hold spot (long) + short the perpetual futures of the same asset. When the funding rate is positive and high, longs pay shorts every 8 hours. You collect that payment as income while being market-neutral — your spot long and futures short cancel each other out, so you have no net directional exposure.</div>
+   </div>
+  </div>
+
+  <!-- Article nav -->
+  <div class="article-nav">
+   <a href="crypto-arbitrage-blog.html" style="border:1px solid var(--border);color:var(--muted);padding:0.75rem 1.5rem;border-radius:4px;font-weight:500;font-size:0.88rem;text-decoration:none;transition:border-color .2s,color .2s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">☰ Back to Blog</a>
+   <a href="spot-vs-futures-arbitrage.html" style="background:var(--accent);color:var(--bg);padding:0.75rem 1.5rem;border-radius:4px;font-weight:700;font-size:0.88rem;text-decoration:none;transition:opacity .2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">Next: Spot vs Futures Arbitrage →</a>
+  </div>
+
+ </div><!-- /.article-wrap -->
+
+ <footer><p>© 2025 ArbVertex</p><div class="footer-links"><a href="crypto-arbitrage-blog.html">Blog</a><a href="index.html">Home</a><a href="contact-arbvertex.html">Contact</a></div><p style="font-size:0.75rem;">Not financial advice.</p></footer>
 </div>
 
 <script>
@@ -814,7 +1104,7 @@ async function fetchAllPrices() {
  dot.style.animation = 'none';
 
  if (PAIRS.length === 0) {
- status.textContent = 'Loading full coin 2026list (700+)...';
+ status.textContent = 'Loading full coin list (700+)...';
  await loadAllPairs();
  }
 
