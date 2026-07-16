@@ -3,24 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Crypto Arbitrage Glossary — Complete Terms and Definitions | ArbVertex</title>
-<meta name="description" content="Complete glossary of crypto arbitrage terms — funding rate, basis, perpetual futures, OI, CVD, and every other term you need to know.">
-<meta name="keywords" content="crypto arbitrage glossary, arbitrage terms definitions, crypto trading terminology, futures trading glossary, crypto terms explained">
+<title>Crypto Arbitrage Glossary: 40+ Terms Explained (2026) | ArbVertex</title>
+<meta name="description" content="The complete crypto arbitrage glossary — clear definitions for funding rate, basis, perpetual futures, OI, CVD, delta-neutral, liquidation, and 35+ more terms every trader must know.">
+<meta name="keywords" content="crypto arbitrage glossary, arbitrage terms definitions, crypto trading terminology, futures trading glossary, funding rate definition, delta neutral meaning, open interest explained, crypto terms 2026">
 <meta name="robots" content="index, follow">
 <meta name="author" content="ArbVertex">
 <link rel="canonical" href="https://arbvertex.com/crypto-arbitrage-glossary.html">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Crypto Arbitrage Glossary — Complete Terms and Definitions | ArbVertex">
-<meta property="og:description" content="Complete glossary of crypto arbitrage terms — funding rate, basis, perpetual futures, OI, CVD, and every other term you need to know.">
+<meta property="og:title" content="Crypto Arbitrage Glossary: 40+ Terms Explained (2026) | ArbVertex">
+<meta property="og:description" content="The complete crypto arbitrage glossary — clear definitions for funding rate, basis, perpetual futures, OI, CVD, delta-neutral, liquidation, and 35+ more terms every trader must know.">
 <meta property="og:url" content="https://arbvertex.com/crypto-arbitrage-glossary.html">
 <meta property="og:image" content="https://arbvertex.com/og-image.png">
 <meta property="og:site_name" content="ArbVertex">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Crypto Arbitrage Glossary — Complete Terms and Definitions | ArbVertex">
-<meta name="twitter:description" content="Complete glossary of crypto arbitrage terms — funding rate, basis, perpetual futures, OI, CVD, and every other term you need to know.">
+<meta name="twitter:title" content="Crypto Arbitrage Glossary: 40+ Terms Explained (2026) | ArbVertex">
+<meta name="twitter:description" content="The complete crypto arbitrage glossary — clear definitions for funding rate, basis, perpetual futures, OI, CVD, delta-neutral, liquidation, and 35+ more terms every trader must know.">
 <meta name="twitter:image" content="https://arbvertex.com/og-image.png">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Article","headline":"Crypto Arbitrage Glossary — Complete Terms and Definitions","description":"Complete glossary of crypto arbitrage terms — funding rate, basis, perpetual futures, OI, CVD, and every other term you need to know.","author":{"@type":"Organization","name":"ArbVertex","url":"https://arbvertex.com/"},"publisher":{"@type":"Organization","name":"ArbVertex","url":"https://arbvertex.com/"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://arbvertex.com/crypto-arbitrage-glossary.html"}}
+{"@context":"https://schema.org","@type":"Article","headline":"Crypto Arbitrage Glossary: 40+ Terms Explained","description":"The complete crypto arbitrage glossary — clear definitions for funding rate, basis, perpetual futures, OI, CVD, delta-neutral, liquidation, and 35+ more terms every trader must know.","author":{"@type":"Organization","name":"ArbVertex","url":"https://arbvertex.com/"},"publisher":{"@type":"Organization","name":"ArbVertex","url":"https://arbvertex.com/"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://arbvertex.com/crypto-arbitrage-glossary.html"}}
 </script>
 <script type="application/ld+json">
 {
@@ -32,7 +32,7 @@
       "name": "What is the difference between maker and taker?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Maker: Places a limit order that adds liquidity. Usually pays lower fees. Taker: Places a market order that removes liquidity. Usually pays higher fees."
+        "text": "A maker places a limit order that adds liquidity to the order book and typically pays lower fees. A taker places a market order that removes existing liquidity and usually pays higher fees. In arbitrage, using maker orders where possible reduces your fee cost significantly."
       }
     },
     {
@@ -40,7 +40,7 @@
       "name": "What does delta-neutral mean in practice?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Delta-neutral means your portfolio doesn't benefit or lose from price movement. A $5,000 spot long + $5,000 futures short is approximately delta-neutral."
+        "text": "Delta-neutral means your portfolio has no net directional exposure to price movement. A $5,000 spot long combined with a $5,000 futures short is approximately delta-neutral — if the price rises $500, the spot leg gains $500 and the futures leg loses $500, netting to zero."
       }
     },
     {
@@ -48,7 +48,23 @@
       "name": "What is basis risk?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Basis risk is the risk that spot and futures prices don't converge as expected. For perpetual futures, basis risk is replaced by funding rate risk."
+        "text": "Basis risk is the risk that spot and futures prices do not converge exactly as expected. For quarterly futures, basis risk is minimal since convergence is guaranteed at expiry. For perpetual futures, basis risk is replaced by funding rate risk — the risk that the rate turns negative."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between isolated margin and cross margin?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Isolated margin limits your risk to the amount allocated to a single position — if that position is liquidated, only that margin is lost. Cross margin shares your total wallet balance across all positions, reducing liquidation risk but exposing your full balance if a position goes very wrong."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does OI rising mean for arbitrage?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Rising Open Interest means new money is entering the futures market. Combined with rising price, it signals strong bullish momentum — which often drives funding rates higher, creating better arbitrage opportunities for short-side funding collectors."
       }
     }
   ]
@@ -60,81 +76,31 @@
 *{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;line-height:1.6;overflow-x:hidden;padding-top:64px;}
 .av-nav-wrap{
- --av-bg:#050a0f; --av-surface:#0d1a24; --av-accent:#00e5ff; --av-accent2:#00ff88;
- --av-text:#e8f4f8; --av-muted:#8fb0c4; --av-border:#1a3a52;
- position:fixed; top:0; left:0; right:0; z-index:999;
- background:rgba(5,10,15,0.95); backdrop-filter:blur(14px);
- border-bottom:1px solid var(--av-border);
- font-family:'Space Grotesk',sans-serif;
+ --av-bg:#050a0f;--av-surface:#0d1a24;--av-accent:#00e5ff;--av-accent2:#00ff88;
+ --av-text:#e8f4f8;--av-muted:#8fb0c4;--av-border:#1a3a52;
+ position:fixed;top:0;left:0;right:0;z-index:999;
+ background:rgba(5,10,15,0.95);backdrop-filter:blur(14px);
+ border-bottom:1px solid var(--av-border);font-family:'Space Grotesk',sans-serif;
 }
-.av-nav-inner{
- max-width:1400px; margin:0 auto; height:64px;
- display:flex; align-items:center; justify-content:space-between;
- padding:0 5%; gap:1rem;
-}
-.av-logo{
- font-family:'JetBrains Mono',monospace; font-size:1.05rem; font-weight:700;
- color:var(--av-accent); text-decoration:none; letter-spacing:-0.02em; flex-shrink:0;
-}
-.av-logo span{ color:var(--av-accent2); }
-.av-nav-links{
- display:flex; align-items:center; gap:0.15rem; list-style:none; margin:0; padding:0;
-}
-.av-nav-links > li{ position:relative; }
-.av-top-link{
- display:inline-flex; align-items:center; gap:0.3rem;
- color:var(--av-muted); text-decoration:none; font-size:0.85rem; font-weight:500;
- background:none; border:none; cursor:pointer; font-family:inherit;
- padding:0.55rem 0.65rem; border-radius:6px; transition:color .2s, background .2s;
- white-space:nowrap;
-}
-.av-top-link:hover{ color:var(--av-text); background:rgba(255,255,255,0.05); }
-.av-caret{ font-size:0.6rem; opacity:0.65; transition:transform .2s; margin-left:1px; }
-.av-dropdown:hover .av-caret,
-.av-dropdown.av-open .av-caret{ transform:rotate(180deg); }
-
-/* Mega dropdown panel */
-.av-mega-panel{
- position:absolute; top:calc(100% + 10px); left:50%;
- transform:translateX(-50%) translateY(6px);
- background:var(--av-surface); border:1px solid var(--av-border); border-radius:10px;
- padding:0.55rem; min-width:290px;
- display:grid; gap:0.1rem;
- opacity:0; visibility:hidden; pointer-events:none;
- transition:opacity .16s ease, transform .16s ease;
- box-shadow:0 24px 48px rgba(0,0,0,0.45);
- max-height:80vh; overflow-y:auto;
-}
-.av-dropdown:hover .av-mega-panel,
-.av-dropdown.av-open .av-mega-panel{
- opacity:1; visibility:visible; pointer-events:auto; transform:translateX(-50%) translateY(0);
-}
-.av-mega-link{
- display:flex; align-items:flex-start; gap:0.65rem;
- padding:0.55rem 0.65rem; border-radius:7px;
- color:var(--av-text); text-decoration:none; font-size:0.84rem; font-weight:600;
- transition:background .15s;
-}
-.av-mega-link:hover{ background:rgba(0,229,255,0.08); }
-.av-icon{ font-size:1rem; line-height:1.35; flex-shrink:0; }
-.av-desc{
- display:block; color:var(--av-muted); font-size:0.72rem; font-weight:400;
- margin-top:0.15rem; line-height:1.4;
-}
-
-.av-scanner-link{ color:var(--av-accent2)!important; font-weight:600!important; }
-.av-cta{
- background:var(--av-accent)!important; color:var(--av-bg)!important; text-decoration:none;
- padding:0.5rem 1.1rem!important; border-radius:6px; font-weight:700!important;
- font-size:0.85rem!important; white-space:nowrap;
-}
-
-.av-hamburger{
- display:none; flex-direction:column; gap:5px; background:none; border:none;
- cursor:pointer; padding:4px; flex-shrink:0;
-}
-.av-hamburger span{ display:block; width:22px; height:2px; background:var(--av-accent); border-radius:2px; }
-
+.av-nav-inner{max-width:1400px;margin:0 auto;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;gap:1rem;}
+.av-logo{font-family:'JetBrains Mono',monospace;font-size:1.05rem;font-weight:700;color:var(--av-accent);text-decoration:none;letter-spacing:-0.02em;flex-shrink:0;}
+.av-logo span{color:var(--av-accent2);}
+.av-nav-links{display:flex;align-items:center;gap:0.15rem;list-style:none;margin:0;padding:0;}
+.av-nav-links > li{position:relative;}
+.av-top-link{display:inline-flex;align-items:center;gap:0.3rem;color:var(--av-muted);text-decoration:none;font-size:0.85rem;font-weight:500;background:none;border:none;cursor:pointer;font-family:inherit;padding:0.55rem 0.65rem;border-radius:6px;transition:color .2s,background .2s;white-space:nowrap;}
+.av-top-link:hover{color:var(--av-text);background:rgba(255,255,255,0.05);}
+.av-caret{font-size:0.6rem;opacity:0.65;transition:transform .2s;margin-left:1px;}
+.av-dropdown:hover .av-caret,.av-dropdown.av-open .av-caret{transform:rotate(180deg);}
+.av-mega-panel{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(6px);background:var(--av-surface);border:1px solid var(--av-border);border-radius:10px;padding:0.55rem;min-width:290px;display:grid;gap:0.1rem;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .16s ease,transform .16s ease;box-shadow:0 24px 48px rgba(0,0,0,0.45);max-height:80vh;overflow-y:auto;}
+.av-dropdown:hover .av-mega-panel,.av-dropdown.av-open .av-mega-panel{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0);}
+.av-mega-link{display:flex;align-items:flex-start;gap:0.65rem;padding:0.55rem 0.65rem;border-radius:7px;color:var(--av-text);text-decoration:none;font-size:0.84rem;font-weight:600;transition:background .15s;}
+.av-mega-link:hover{background:rgba(0,229,255,0.08);}
+.av-icon{font-size:1rem;line-height:1.35;flex-shrink:0;}
+.av-desc{display:block;color:var(--av-muted);font-size:0.72rem;font-weight:400;margin-top:0.15rem;line-height:1.4;}
+.av-scanner-link{color:var(--av-accent2)!important;font-weight:600!important;}
+.av-cta{background:var(--av-accent)!important;color:var(--av-bg)!important;text-decoration:none;padding:0.5rem 1.1rem!important;border-radius:6px;font-weight:700!important;font-size:0.85rem!important;white-space:nowrap;}
+.av-hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;flex-shrink:0;}
+.av-hamburger span{display:block;width:22px;height:2px;background:var(--av-accent);border-radius:2px;}
 @media(max-width:980px){
  .av-nav-links{display:none!important;position:fixed;top:64px;left:0;right:0;height:calc(100vh - 64px);background:var(--bg);flex-direction:column;align-items:stretch;padding:1.2rem 5% 2rem;overflow-y:auto;overflow-x:hidden;gap:0.2rem;z-index:9999;border-top:1px solid var(--border);}
  .av-nav-links.av-mobile-open{display:flex!important;}
@@ -145,19 +111,52 @@ body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-ser
  .av-cta{display:block;text-align:center;margin-top:0.6rem;}
  .av-hamburger{display:flex;}
 }
- .av-cta{ display:block; text-align:center; margin-top:0.6rem; }
- .av-hamburger{ display:flex; }
-}
 
-.inner-page{max-width:860px;margin:0 auto;padding:50px 5% 80px;}
+/* Page layout */
+.inner-page{max-width:900px;margin:0 auto;padding:50px 5% 80px;}
 .breadcrumb{display:flex;align-items:center;gap:0.4rem;font-size:0.78rem;color:var(--muted);margin-bottom:1.5rem;flex-wrap:wrap;}
 .breadcrumb a{color:var(--muted);text-decoration:none;transition:color .2s;}.breadcrumb a:hover{color:var(--accent);}
 .article-meta{display:flex;align-items:center;gap:0.6rem;margin-bottom:1rem;flex-wrap:wrap;}
 .meta-tag{font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.25rem 0.6rem;border-radius:3px;background:rgba(255,160,64,0.1);color:var(--orange);}
 h1{font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:800;line-height:1.25;letter-spacing:-0.02em;margin-bottom:0.8rem;}
 .article-intro{color:var(--muted);font-size:0.97rem;line-height:1.8;margin-bottom:2rem;border-left:3px solid var(--accent);padding-left:1rem;}
-.section-title{font-size:1.2rem;font-weight:700;margin:2.2rem 0 0.8rem;color:var(--text);}
-.body-text{color:var(--muted);font-size:0.93rem;line-height:1.85;margin-bottom:0.5rem;}
+.body-text{color:var(--muted);font-size:0.93rem;line-height:1.85;margin-bottom:0.8rem;}
+
+/* Alpha-index bar */
+.alpha-bar{display:flex;flex-wrap:wrap;gap:0.3rem;margin:0 0 2.5rem;padding:1rem 1.2rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;}
+.alpha-bar a{font-family:'JetBrains Mono',monospace;font-size:0.78rem;font-weight:700;color:var(--muted);text-decoration:none;padding:0.25rem 0.45rem;border-radius:4px;transition:color .15s,background .15s;}
+.alpha-bar a:hover,.alpha-bar a.active{color:var(--accent);background:rgba(0,229,255,0.08);}
+.alpha-bar .sep{color:var(--border);font-size:0.7rem;padding:0.25rem 0;}
+
+/* Search bar */
+.gloss-search-wrap{position:relative;margin-bottom:2rem;}
+.gloss-search{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:0.75rem 1rem 0.75rem 2.7rem;color:var(--text);font-family:'Space Grotesk',sans-serif;font-size:0.93rem;outline:none;transition:border-color .2s;}
+.gloss-search:focus{border-color:var(--accent);}
+.gloss-search::placeholder{color:var(--muted);}
+.search-icon{position:absolute;left:0.9rem;top:50%;transform:translateY(-50%);color:var(--muted);font-size:1rem;pointer-events:none;}
+.no-results{display:none;color:var(--muted);font-size:0.9rem;padding:1.2rem 0;text-align:center;}
+
+/* Category heading */
+.cat-heading{display:flex;align-items:center;gap:0.7rem;margin:2.5rem 0 1rem;}
+.cat-label{font-family:'JetBrains Mono',monospace;font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);padding:0.25rem 0.65rem;border-radius:4px;background:rgba(0,229,255,0.08);white-space:nowrap;}
+.cat-line{flex:1;height:1px;background:var(--border);}
+
+/* Term card */
+.term-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.1rem 1.3rem;margin-bottom:0.7rem;transition:border-color .2s;}
+.term-card:hover{border-color:rgba(0,229,255,0.25);}
+.term-header{display:flex;align-items:center;gap:0.7rem;margin-bottom:0.5rem;flex-wrap:wrap;}
+.term-name{font-family:'JetBrains Mono',monospace;font-size:0.95rem;font-weight:700;color:var(--text);}
+.term-abbr{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--accent);background:rgba(0,229,255,0.08);padding:0.15rem 0.5rem;border-radius:3px;}
+.term-tag{font-size:0.68rem;color:var(--muted);background:rgba(255,255,255,0.04);padding:0.15rem 0.5rem;border-radius:3px;border:1px solid var(--border);}
+.term-def{color:var(--muted);font-size:0.9rem;line-height:1.75;margin-bottom:0;}
+.term-def strong{color:var(--text);}
+.term-example{margin-top:0.55rem;padding:0.6rem 0.85rem;background:rgba(0,255,136,0.03);border-left:2px solid rgba(0,255,136,0.3);border-radius:0 4px 4px 0;}
+.term-example p{color:var(--muted);font-size:0.83rem;line-height:1.65;}
+.term-example strong{color:var(--accent2);}
+
+/* Hide for search */
+.term-card.hidden{display:none;}
+
 .faq-section{margin-top:2.5rem;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.6rem;}
 .faq-section h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;color:var(--accent);}
 .faq-item{border-bottom:1px solid var(--border);padding:0.9rem 0;}.faq-item:last-child{border-bottom:none;}
@@ -172,11 +171,10 @@ h1{font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:800;line-height:1.25;letter-
 footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
 footer p{color:var(--muted);font-size:0.82rem;}
 .footer-links{display:flex;gap:1.5rem;}.footer-links a{color:var(--muted);text-decoration:none;font-size:0.82rem;transition:color .2s;}.footer-links a:hover{color:var(--accent);}
-@media(max-width:768px){.nav-btns{flex-direction:column;}footer{flex-direction:column;text-align:center;}}
+@media(max-width:768px){.nav-btns{flex-direction:column;}footer{flex-direction:column;text-align:center;}.alpha-bar{gap:0.2rem;}}
 
-/* Blog dropdown wide panel */
 .av-blog-panel{min-width:260px;grid-template-columns:1fr;gap:0.1rem;}
-.av-blog-col-header{font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--av-muted, #8fb0c4);padding:0.3rem 0.65rem 0.15rem;border-bottom:1px solid var(--av-border, #1a3a52);margin-bottom:0.1rem;}
+.av-blog-col-header{font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--av-muted,#8fb0c4);padding:0.3rem 0.65rem 0.15rem;border-bottom:1px solid var(--av-border,#1a3a52);margin-bottom:0.1rem;}
 .av-blog-col{display:flex;flex-direction:column;gap:0.05rem;}
 @media(max-width:980px){.av-blog-panel{min-width:0;grid-template-columns:1fr!important;}.av-blog-col-header{display:none;}}
 </style>
@@ -187,7 +185,6 @@ footer p{color:var(--muted);font-size:0.82rem;}
  <a href="index.html" class="av-logo">Arb<span>Vertex</span></a>
  <ul class="av-nav-links" id="avNavLinks">
  <li><a href="index.html" class="av-top-link">Home</a></li>
-
  <li class="av-dropdown">
  <button type="button" class="av-top-link av-drop-trigger">Learn <span class="av-caret">▾</span></button>
  <div class="av-mega-panel">
@@ -200,7 +197,6 @@ footer p{color:var(--muted);font-size:0.82rem;}
  <a class="av-mega-link" href="arbitrage-portfolio-growth.html"><span class="av-icon">📈</span><span>Portfolio Growth<span class="av-desc">Long-term strategy</span></span></a>
  </div>
  </li>
-
  <li class="av-dropdown">
  <button type="button" class="av-top-link av-drop-trigger">Tools <span class="av-caret">▾</span></button>
  <div class="av-mega-panel">
@@ -208,25 +204,23 @@ footer p{color:var(--muted);font-size:0.82rem;}
  <a class="av-mega-link" href="arbitrage-calculator.html"><span class="av-icon">🧮</span><span>Profit Calculator<span class="av-desc">Calculate net gains</span></span></a>
  </div>
  </li>
-
-    <li class="av-dropdown">
-    <button type="button" class="av-top-link av-drop-trigger">Blog <span class="av-caret">&#9662;</span></button>
-    <div class="av-mega-panel av-blog-panel">
-     <div class="av-blog-col">
-      <div class="av-blog-col-header">&#128216; Beginner</div>
-      <a class="av-mega-link" href="crypto-arbitrage-blog.html#beginner"><span class="av-icon">&#129094;</span><span>Beginner Guides<span class="av-desc">Start from zero &mdash; concepts &amp; first steps</span></span></a>
-      <div class="av-blog-col-header" style="margin-top:0.5rem;">&#128161; Strategy</div>
-      <a class="av-mega-link" href="crypto-arbitrage-blog.html#strategy"><span class="av-icon">&#129097;</span><span>Strategy Guides<span class="av-desc">Funding rate, basis trading, advanced tactics</span></span></a>
-     </div>
-     <div class="av-blog-col">
-      <div class="av-blog-col-header">&#128260; Exchange Guides</div>
-      <a class="av-mega-link" href="crypto-arbitrage-blog.html#exchange"><span class="av-icon">&#129095;</span><span>Exchange Guides<span class="av-desc">Binance, Bybit, OKX setup &amp; comparison</span></span></a>
-      <div class="av-blog-col-header" style="margin-top:0.5rem;">&#128737;&#65039; Risk &amp; Tools</div>
-      <a class="av-mega-link" href="crypto-arbitrage-blog.html#risk"><span class="av-icon">&#128101;</span><span>Risk &amp; Tools<span class="av-desc">Position sizing, stop loss, glossary</span></span></a>
-     </div>
-    </div>
-   </li>
-
+ <li class="av-dropdown">
+ <button type="button" class="av-top-link av-drop-trigger">Blog <span class="av-caret">&#9662;</span></button>
+ <div class="av-mega-panel av-blog-panel">
+  <div class="av-blog-col">
+   <div class="av-blog-col-header">&#128216; Beginner</div>
+   <a class="av-mega-link" href="crypto-arbitrage-blog.html#beginner"><span class="av-icon">&#129094;</span><span>Beginner Guides<span class="av-desc">Start from zero &mdash; concepts &amp; first steps</span></span></a>
+   <div class="av-blog-col-header" style="margin-top:0.5rem;">&#128161; Strategy</div>
+   <a class="av-mega-link" href="crypto-arbitrage-blog.html#strategy"><span class="av-icon">&#129097;</span><span>Strategy Guides<span class="av-desc">Funding rate, basis trading, advanced tactics</span></span></a>
+  </div>
+  <div class="av-blog-col">
+   <div class="av-blog-col-header">&#128260; Exchange Guides</div>
+   <a class="av-mega-link" href="crypto-arbitrage-blog.html#exchange"><span class="av-icon">&#129095;</span><span>Exchange Guides<span class="av-desc">Binance, Bybit, OKX setup &amp; comparison</span></span></a>
+   <div class="av-blog-col-header" style="margin-top:0.5rem;">&#128737;&#65039; Risk &amp; Tools</div>
+   <a class="av-mega-link" href="crypto-arbitrage-blog.html#risk"><span class="av-icon">&#128101;</span><span>Risk &amp; Tools<span class="av-desc">Position sizing, stop loss, glossary</span></span></a>
+  </div>
+ </div>
+ </li>
  <li class="av-dropdown">
  <button type="button" class="av-top-link av-drop-trigger">Signals <span class="av-caret">▾</span></button>
  <div class="av-mega-panel">
@@ -235,7 +229,6 @@ footer p{color:var(--muted);font-size:0.82rem;}
  <a class="av-mega-link" href="crypto-arbitrage-signals-pricing.html"><span class="av-icon">💳</span><span>Pricing<span class="av-desc">$5/month plans</span></span></a>
  </div>
  </li>
-
  <li class="av-dropdown">
  <button type="button" class="av-top-link av-drop-trigger">Company <span class="av-caret">▾</span></button>
  <div class="av-mega-panel">
@@ -243,7 +236,6 @@ footer p{color:var(--muted);font-size:0.82rem;}
  <a class="av-mega-link" href="contact-arbvertex.html"><span class="av-icon">✉️</span><span>Contact<span class="av-desc">Get in touch</span></span></a>
  </div>
  </li>
-
  <li><a href="live-crypto-arbitrage-scanner.html" class="av-top-link av-scanner-link">🔍 Live Scanner</a></li>
  <li><a href="crypto-arbitrage-signals-pricing.html" class="av-top-link av-cta">Join Now</a></li>
  </ul>
@@ -251,69 +243,342 @@ footer p{color:var(--muted);font-size:0.82rem;}
  <span></span><span></span><span></span>
  </button>
  </div>
+</div>
+
 <div class="inner-page">
 <nav class="breadcrumb">
-<a href="index.html">Home</a> / <a href="crypto-arbitrage-blog.html">Blog</a> / <span style="color:var(--accent);">Risk & Strategy</span>
+<a href="index.html">Home</a> / <a href="crypto-arbitrage-blog.html">Blog</a> / <span style="color:var(--accent);">Glossary</span>
 </nav>
 <div class="article-meta">
-<span class="meta-tag">📘 RISK & STRATEGY</span>
-<span class="meta-tag" style="background:rgba(0,229,255,0.08);color:var(--accent);">ArbVertex Blog</span>
+<span class="meta-tag">📖 REFERENCE</span>
+<span class="meta-tag" style="background:rgba(0,229,255,0.08);color:var(--accent);">ArbVertex Glossary</span>
 </div>
-<h1>Crypto Arbitrage Glossary: Every Term You Need to Know</h1>
-<p class="article-intro">Complete glossary of crypto arbitrage terms — funding rate, basis, perpetual futures, OI, CVD, and every other term you need to know.</p>
-<h2 class="section-title">Core Arbitrage Terms</h2>
-<p class="body-text">Arbitrage: Simultaneously buying and selling the same asset in different markets to profit from price discrepancies.</p>
-<p class="body-text">Basis: The difference between the spot price and futures price of the same asset.</p>
-<p class="body-text">Spread: The price difference between two markets, expressed in percentage.</p>
-<p class="body-text">Market-neutral: A strategy with no net directional exposure..</p>
-<h2 class="section-title">Futures Market Terms</h2>
-<p class="body-text">Perpetual Future (Perp): A futures contract with no expiry date.</p>
-<p class="body-text">Price is kept near spot through funding rates.</p>
-<p class="body-text">Quarterly Future: A futures contract that expires on a fixed date.</p>
-<p class="body-text">Mark Price: The fair value price used by exchanges to calculate unrealized P&L and liquidation.</p>
-<p class="body-text">Index Price: The spot reference price..</p>
-<h2 class="section-title">Funding Rate Terms</h2>
-<p class="body-text">Funding Rate: The periodic payment between longs and shorts in perpetual futures markets.</p>
-<p class="body-text">Paid every 8 hours on most exchanges.</p>
-<p class="body-text">Funding Fee: The actual dollar amount paid or received based on position size x funding rate.</p>
-<p class="body-text">Predicted Funding: The estimated next funding rate, visible on most exchange interfaces..</p>
-<h2 class="section-title">Market Data Terms</h2>
-<p class="body-text">Open Interest (OI): Total value of outstanding futures contracts.</p>
-<p class="body-text">Rising OI = new positions opening.</p>
-<p class="body-text">CVD (Cumulative Volume Delta): Net buying minus selling volume.</p>
-<p class="body-text">Positive CVD = more buyers than sellers.</p>
-<p class="body-text">Long/Short Ratio: Ratio of long positions to short positions.</p>
-<p class="body-text">L/S < 1 = more shorts = squeeze potential..</p>
-<h2 class="section-title">Position and Risk Terms</h2>
-<p class="body-text">Leverage: Multiplier on position size.</p>
-<p class="body-text">2x leverage = twice the position with half the capital.</p>
-<p class="body-text">Margin: Capital deposited as collateral for a leveraged position.</p>
-<p class="body-text">Isolated Margin: Margin specific to one position.</p>
-<p class="body-text">Cross Margin: Shared margin across all positions.</p>
-<p class="body-text">Liquidation Price: Price at which your position will be forcibly closed..</p>
-<h2 class="section-title">Strategy Terms</h2>
-<p class="body-text">Cash and Carry: Long spot + short futures.</p>
-<p class="body-text">Earn the basis or funding rate.</p>
-<p class="body-text">Funding Rate Arbitrage: Collect funding payments via a market-neutral position.</p>
-<p class="body-text">Cross-Exchange Arbitrage: Buy on cheaper exchange, sell on more expensive.</p>
-<p class="body-text">Triangular Arbitrage: Profit from price inconsistencies in a 3-way currency loop..</p>
 
+<h1>Crypto Arbitrage Glossary: 40+ Terms Explained</h1>
+<p class="article-intro">Every important term in crypto arbitrage, futures trading, and market structure — defined clearly with examples. Use the search bar or jump to a category. Bookmark this page as your quick-reference during trades.</p>
+
+<!-- SEARCH -->
+<div class="gloss-search-wrap">
+ <span class="search-icon">🔍</span>
+ <input type="text" class="gloss-search" id="glossSearch" placeholder="Search terms — e.g. funding rate, OI, liquidation…" autocomplete="off">
+</div>
+
+<!-- ALPHA INDEX -->
+<div class="alpha-bar" id="alphaBar">
+ <a href="#cat-core">Core Arb</a><span class="sep">·</span>
+ <a href="#cat-futures">Futures</a><span class="sep">·</span>
+ <a href="#cat-funding">Funding</a><span class="sep">·</span>
+ <a href="#cat-market">Market Data</a><span class="sep">·</span>
+ <a href="#cat-position">Position &amp; Risk</a><span class="sep">·</span>
+ <a href="#cat-order">Order Types</a><span class="sep">·</span>
+ <a href="#cat-strategy">Strategies</a><span class="sep">·</span>
+ <a href="#cat-exchange">Exchange</a>
+</div>
+
+<div id="noResults" class="no-results">No terms match your search. Try a different keyword.</div>
+
+<!-- ═══════════════════════════════════════
+     CATEGORY 1 — CORE ARBITRAGE TERMS
+════════════════════════════════════════ -->
+<div class="cat-heading" id="cat-core">
+ <span class="cat-label">⚡ Core Arbitrage</span>
+ <div class="cat-line"></div>
+</div>
+
+<div class="term-card" data-terms="arbitrage arb price difference market">
+ <div class="term-header"><span class="term-name">Arbitrage</span><span class="term-tag">Core</span></div>
+ <p class="term-def">The practice of simultaneously buying and selling the same (or equivalent) asset in different markets to profit from a price discrepancy. In crypto, this includes price gaps between exchanges, funding rate imbalances, and spot-futures premiums. A pure arbitrage has <strong>no directional risk</strong> — profit is locked in regardless of price movement.</p>
+ <div class="term-example"><p><strong>Example:</strong> BTC trades at $60,000 on Binance and $60,180 on Bybit. Buy on Binance, sell on Bybit simultaneously → lock in $180 profit per BTC before fees.</p></div>
+</div>
+
+<div class="term-card" data-terms="basis spread spot futures difference premium">
+ <div class="term-header"><span class="term-name">Basis</span><span class="term-tag">Core</span></div>
+ <p class="term-def">The price difference between a futures contract and the underlying spot price. <strong>Basis = Futures Price − Spot Price.</strong> In contango (bull market), basis is positive. In backwardation (bearish conditions), basis is negative. Quarterly futures basis converges to zero at expiry — this convergence is the source of basis trade profit.</p>
+ <div class="term-example"><p><strong>Example:</strong> BTC spot = $60,000, BTC quarterly futures = $62,400. Basis = +$2,400 (+4%). This 4% will be earned if you long spot and short futures and hold until expiry.</p></div>
+</div>
+
+<div class="term-card" data-terms="spread price gap percentage difference">
+ <div class="term-header"><span class="term-name">Spread</span><span class="term-tag">Core</span></div>
+ <p class="term-def">The price difference between two related instruments or markets, expressed as a percentage. In arbitrage, the spread is the raw profit opportunity before fees. A spread must exceed round-trip trading fees to be profitable.</p>
+ <div class="term-example"><p><strong>Example:</strong> ETH is $3,000 on Exchange A and $3,045 on Exchange B. Spread = 1.5%. If trading fees total 0.2%, net spread = 1.3% — a valid arbitrage opportunity.</p></div>
+</div>
+
+<div class="term-card" data-terms="market neutral no directional exposure balanced position">
+ <div class="term-header"><span class="term-name">Market-Neutral</span><span class="term-tag">Core</span></div>
+ <p class="term-def">A position or strategy with no net directional exposure to price movement. Gains and losses from price changes cancel out across the two legs, leaving only the arbitrage income (funding rate, basis premium, or price gap) as profit. Most crypto arbitrage strategies aim to be market-neutral.</p>
+</div>
+
+<div class="term-card" data-terms="delta neutral hedge balanced no exposure">
+ <div class="term-header"><span class="term-name">Delta-Neutral</span><span class="term-tag">Core</span></div>
+ <p class="term-def">A specific type of market-neutral position where the total delta (sensitivity to price change) is approximately zero. In practice: a spot long and a futures short of exactly equal USD value creates a delta-neutral position. <strong>If price moves $1, one leg gains $1 and the other loses $1 — net delta = $0.</strong></p>
+ <div class="term-example"><p><strong>Example:</strong> Long 1 ETH spot ($3,000) + Short 1 ETH perpetual ($3,000) = delta-neutral. ETH goes to $4,000: spot +$1,000, perp short −$1,000. Net = $0 price P&amp;L. Only funding income remains.</p></div>
+</div>
+
+<div class="term-card" data-terms="contango futures premium bull market futures above spot">
+ <div class="term-header"><span class="term-name">Contango</span><span class="term-tag">Core</span></div>
+ <p class="term-def">A market condition where futures price trades <strong>above</strong> the spot price. This is the normal state in crypto during bull markets, driven by high demand for leveraged long exposure. Contango creates positive basis — the primary condition for profitable basis trading and funding rate arbitrage.</p>
+</div>
+
+<div class="term-card" data-terms="backwardation futures discount bear market futures below spot">
+ <div class="term-header"><span class="term-name">Backwardation</span><span class="term-tag">Core</span></div>
+ <p class="term-def">A market condition where futures price trades <strong>below</strong> the spot price. Rare in crypto — usually seen during extreme fear or selling pressure. In backwardation, funding rates turn negative (longs receive payments from shorts). Standard basis trades become unprofitable; strategy must be reversed or paused.</p>
+</div>
+
+<!-- ═══════════════════════════════════════
+     CATEGORY 2 — FUTURES MARKET TERMS
+════════════════════════════════════════ -->
+<div class="cat-heading" id="cat-futures">
+ <span class="cat-label">📊 Futures Market</span>
+ <div class="cat-line"></div>
+</div>
+
+<div class="term-card" data-terms="perpetual future perp no expiry derivative">
+ <div class="term-header"><span class="term-name">Perpetual Future</span><span class="term-abbr">PERP</span><span class="term-tag">Futures</span></div>
+ <p class="term-def">A futures contract with <strong>no expiry date</strong>. Unlike quarterly futures, perps can be held indefinitely. The price is kept close to spot through a periodic funding rate mechanism rather than expiry convergence. Perps are the most traded derivative in crypto, accounting for the majority of daily futures volume.</p>
+</div>
+
+<div class="term-card" data-terms="quarterly future expiry date settlement fixed date">
+ <div class="term-header"><span class="term-name">Quarterly Future</span><span class="term-tag">Futures</span></div>
+ <p class="term-def">A futures contract that expires on a <strong>fixed date</strong> — usually the last Friday of a calendar quarter (March, June, September, December). At expiry, the futures price converges exactly to the spot index price, and all positions are settled automatically. Used in basis trading to earn the fixed premium locked at entry.</p>
+</div>
+
+<div class="term-card" data-terms="mark price fair value unrealized pnl liquidation calculation">
+ <div class="term-header"><span class="term-name">Mark Price</span><span class="term-tag">Futures</span></div>
+ <p class="term-def">The fair value price used by exchanges to calculate unrealized P&amp;L and determine liquidation. Mark price is derived from the spot index price plus a funding basis component — it is designed to prevent market manipulation from triggering liquidations. <strong>Liquidation is triggered when your margin falls below the maintenance requirement based on mark price, not last traded price.</strong></p>
+</div>
+
+<div class="term-card" data-terms="index price spot reference price oracle">
+ <div class="term-header"><span class="term-name">Index Price</span><span class="term-tag">Futures</span></div>
+ <p class="term-def">The spot reference price used by the exchange, typically a weighted average of prices from multiple major spot exchanges (e.g. Binance, OKX, Coinbase). The index price acts as the anchor that the perpetual's mark price tracks via funding rates.</p>
+</div>
+
+<div class="term-card" data-terms="settlement expiry closing price final price delivery">
+ <div class="term-header"><span class="term-name">Settlement</span><span class="term-tag">Futures</span></div>
+ <p class="term-def">The process by which a futures contract is closed at expiry. For quarterly crypto futures, settlement is <strong>cash-settled</strong> — no actual BTC or ETH changes hands. The final settlement price is the average spot index price over the last hour before expiry. All open positions are closed at this price automatically.</p>
+</div>
+
+<!-- ═══════════════════════════════════════
+     CATEGORY 3 — FUNDING RATE TERMS
+════════════════════════════════════════ -->
+<div class="cat-heading" id="cat-funding">
+ <span class="cat-label">💸 Funding Rate</span>
+ <div class="cat-line"></div>
+</div>
+
+<div class="term-card" data-terms="funding rate payment longs shorts 8 hours periodic">
+ <div class="term-header"><span class="term-name">Funding Rate</span><span class="term-tag">Funding</span></div>
+ <p class="term-def">The periodic payment exchanged between long and short traders in perpetual futures markets, designed to keep the perp price anchored to spot. <strong>Positive funding → longs pay shorts.</strong> Negative funding → shorts pay longs. Paid every 8 hours on most major exchanges (00:00, 08:00, 16:00 UTC). Formula: <strong>Funding Rate = (Mark Price − Index Price) / Index Price × 100.</strong></p>
+ <div class="term-example"><p><strong>Example:</strong> Funding rate = 0.05% per 8h. You hold a $10,000 short perp position. You receive: $10,000 × 0.05% = $5.00 every 8 hours = $15/day = ~$450/month.</p></div>
+</div>
+
+<div class="term-card" data-terms="funding fee dollar amount paid received position size">
+ <div class="term-header"><span class="term-name">Funding Fee</span><span class="term-tag">Funding</span></div>
+ <p class="term-def">The actual dollar amount paid or received at each funding interval, calculated as: <strong>Funding Fee = Position Size × Funding Rate.</strong> Note that funding is charged on the <em>notional</em> position value, not on your margin. A $10,000 position at 1x leverage has a $10,000 notional value for fee calculation purposes.</p>
+</div>
+
+<div class="term-card" data-terms="predicted funding estimated next rate forecast">
+ <div class="term-header"><span class="term-name">Predicted Funding Rate</span><span class="term-tag">Funding</span></div>
+ <p class="term-def">The estimated funding rate for the <em>next</em> 8-hour interval, displayed in real time on exchange interfaces. This updates continuously based on current market conditions. Always check predicted funding — not just the last settled rate — before entering a position, as conditions can shift quickly.</p>
+</div>
+
+<div class="term-card" data-terms="funding rate arbitrage cash carry collect payments neutral">
+ <div class="term-header"><span class="term-name">Funding Rate Arbitrage</span><span class="term-tag">Funding</span></div>
+ <p class="term-def">A strategy that collects funding payments by holding a delta-neutral position: <strong>long spot + short perpetual futures.</strong> When funding is positive, the short perp leg receives payments from longs every 8 hours. Since both legs cancel out directionally, the funding income is the net profit. Also called a "cash and carry" trade when applied to perpetual futures.</p>
+</div>
+
+<!-- ═══════════════════════════════════════
+     CATEGORY 4 — MARKET DATA TERMS
+════════════════════════════════════════ -->
+<div class="cat-heading" id="cat-market">
+ <span class="cat-label">📈 Market Data</span>
+ <div class="cat-line"></div>
+</div>
+
+<div class="term-card" data-terms="open interest OI outstanding contracts total value futures">
+ <div class="term-header"><span class="term-name">Open Interest</span><span class="term-abbr">OI</span><span class="term-tag">Market Data</span></div>
+ <p class="term-def">The total USD value (or contract count) of all outstanding, unsettled futures positions across all traders. <strong>Rising OI = new capital entering the market.</strong> Falling OI = positions being closed. Rising price + rising OI signals strong bullish conviction. Rising price + falling OI signals a short squeeze or weak rally. For arbitrage, high OI + high funding usually means a strong opportunity to collect funding as a short.</p>
+ <div class="term-example"><p><strong>Example:</strong> BTC OI jumps from $8B to $11B in 24 hours while price rises 8%. Interpretation: significant new long positions opening — funding rate will likely rise. Good time to consider entering a funding rate arb position.</p></div>
+</div>
+
+<div class="term-card" data-terms="CVD cumulative volume delta buying selling pressure">
+ <div class="term-header"><span class="term-name">Cumulative Volume Delta</span><span class="term-abbr">CVD</span><span class="term-tag">Market Data</span></div>
+ <p class="term-def">The running total of buy volume minus sell volume over a time period. <strong>Positive CVD = more aggressive buying than selling.</strong> Negative CVD = more aggressive selling. CVD helps distinguish real demand from price moves driven by thin orderbooks. Used in conjunction with OI to confirm the conviction behind a price move.</p>
+</div>
+
+<div class="term-card" data-terms="long short ratio LSR positions longs shorts exchange data">
+ <div class="term-header"><span class="term-name">Long/Short Ratio</span><span class="term-abbr">L/S</span><span class="term-tag">Market Data</span></div>
+ <p class="term-def">The ratio of long positions to short positions held by traders on an exchange. <strong>L/S > 1 = more longs than shorts</strong> (bullish sentiment). L/S &lt; 1 = more shorts (bearish sentiment or squeeze setup). Extreme readings in either direction often precede reversals. For funding arb, high L/S ratio correlates with high positive funding rates.</p>
+</div>
+
+<div class="term-card" data-terms="liquidation heatmap price levels forced close cascade">
+ <div class="term-header"><span class="term-name">Liquidation Heatmap</span><span class="term-tag">Market Data</span></div>
+ <p class="term-def">A visualization showing where large clusters of leveraged positions will be force-liquidated at specific price levels. Price often moves toward high-density liquidation zones as exchanges (and large traders) hunt stop losses. Useful for timing entry into arbitrage positions — avoid entering just before a likely liquidation cascade.</p>
+</div>
+
+<!-- ═══════════════════════════════════════
+     CATEGORY 5 — POSITION & RISK TERMS
+════════════════════════════════════════ -->
+<div class="cat-heading" id="cat-position">
+ <span class="cat-label">⚠️ Position &amp; Risk</span>
+ <div class="cat-line"></div>
+</div>
+
+<div class="term-card" data-terms="leverage multiplier position size capital 2x 3x 10x">
+ <div class="term-header"><span class="term-name">Leverage</span><span class="term-tag">Risk</span></div>
+ <p class="term-def">A multiplier that allows you to control a position larger than your deposited capital. <strong>2x leverage = $1,000 margin controls a $2,000 position.</strong> Higher leverage amplifies both gains and losses, and brings the liquidation price closer to your entry. For funding rate arbitrage, use 1x leverage — there is no benefit to higher leverage, only additional liquidation risk.</p>
+</div>
+
+<div class="term-card" data-terms="margin collateral deposit futures leveraged position">
+ <div class="term-header"><span class="term-name">Margin</span><span class="term-tag">Risk</span></div>
+ <p class="term-def">The capital deposited as collateral to open and maintain a leveraged futures position. Your margin is at risk — if price moves against your position and your margin falls below the maintenance requirement, your position will be liquidated. <strong>Always keep 20–30% extra margin buffer beyond the minimum requirement.</strong></p>
+</div>
+
+<div class="term-card" data-terms="isolated margin single position separate collateral">
+ <div class="term-header"><span class="term-name">Isolated Margin</span><span class="term-tag">Risk</span></div>
+ <p class="term-def">A margin mode where the collateral for each position is kept separate. If that position is liquidated, only the isolated margin allocated to it is lost — your other positions and wallet balance are unaffected. <strong>Best for beginners</strong> as it caps your maximum loss per trade.</p>
+</div>
+
+<div class="term-card" data-terms="cross margin shared balance all positions wallet">
+ <div class="term-header"><span class="term-name">Cross Margin</span><span class="term-tag">Risk</span></div>
+ <p class="term-def">A margin mode where your entire available wallet balance is used as collateral across all open positions. This reduces the risk of individual position liquidations (more buffer available), but a large adverse move can drain your entire wallet. <strong>Use with caution</strong> — one bad position can affect everything else.</p>
+</div>
+
+<div class="term-card" data-terms="liquidation price forced close maintenance margin call">
+ <div class="term-header"><span class="term-name">Liquidation Price</span><span class="term-tag">Risk</span></div>
+ <p class="term-def">The price at which your futures position will be forcibly closed by the exchange because your margin has fallen to the maintenance margin level. <strong>For a short position, liquidation price is above your entry price.</strong> For a long position, it is below. Always know your liquidation price before entering any futures trade.</p>
+ <div class="term-example"><p><strong>Example:</strong> You short ETH at $3,000 with $500 margin at 3x leverage. Your liquidation price might be around $3,150 (above entry). If ETH rises above $3,150, your position is closed and $500 margin is lost.</p></div>
+</div>
+
+<div class="term-card" data-terms="basis risk convergence mismatch spot futures">
+ <div class="term-header"><span class="term-name">Basis Risk</span><span class="term-tag">Risk</span></div>
+ <p class="term-def">The risk that spot and futures prices do not converge as expected before or at expiry. For quarterly futures, this risk is minimal — convergence at expiry is guaranteed. For perpetual futures, basis risk manifests as funding rate risk: the rate may turn negative, causing your short position to pay longs instead of receiving.</p>
+</div>
+
+<div class="term-card" data-terms="slippage execution price difference market order large order">
+ <div class="term-header"><span class="term-name">Slippage</span><span class="term-tag">Risk</span></div>
+ <p class="term-def">The difference between the expected execution price of an order and the actual price at which it fills. Slippage occurs when market orders consume multiple price levels in the order book. <strong>Larger orders in thinner markets experience more slippage.</strong> Use limit orders where possible to avoid slippage eating into arbitrage margins.</p>
+</div>
+
+<!-- ═══════════════════════════════════════
+     CATEGORY 6 — ORDER TYPES
+════════════════════════════════════════ -->
+<div class="cat-heading" id="cat-order">
+ <span class="cat-label">📋 Order Types</span>
+ <div class="cat-line"></div>
+</div>
+
+<div class="term-card" data-terms="market order immediate fill taker best price">
+ <div class="term-header"><span class="term-name">Market Order</span><span class="term-tag">Orders</span></div>
+ <p class="term-def">An order that executes immediately at the best available price. <strong>Guarantees execution but not price.</strong> Taker fees apply (higher than maker). Best used when speed of execution matters more than precise price — such as closing a position quickly when funding turns negative.</p>
+</div>
+
+<div class="term-card" data-terms="limit order specific price maker liquidity add">
+ <div class="term-header"><span class="term-name">Limit Order</span><span class="term-tag">Orders</span></div>
+ <p class="term-def">An order that executes only at a specified price or better. <strong>Guarantees price but not execution.</strong> Maker fees apply (lower than taker). Use limit orders when entering planned positions — they reduce your fee cost significantly and can improve entry prices. Note: in fast-moving markets, limit orders may not fill if price moves away.</p>
+</div>
+
+<div class="term-card" data-terms="maker taker fee liquidity provide remove order book">
+ <div class="term-header"><span class="term-name">Maker vs Taker</span><span class="term-tag">Orders</span></div>
+ <p class="term-def"><strong>Maker:</strong> Places a limit order that sits in the order book and <em>adds</em> liquidity. Typically charged lower fees (0.01–0.02% on most exchanges). <strong>Taker:</strong> Places a market order that <em>removes</em> liquidity from the book. Typically charged higher fees (0.03–0.06%). Arbitrage profitability often depends on using maker orders — always check which fee tier applies to your execution method.</p>
+</div>
+
+<div class="term-card" data-terms="stop loss stop order risk management exit trigger">
+ <div class="term-header"><span class="term-name">Stop-Loss Order</span><span class="term-tag">Orders</span></div>
+ <p class="term-def">An order that automatically closes your position when price reaches a specified level, limiting maximum loss. In arbitrage, stop-losses are less common because positions are hedged — but they can be used on individual legs to cap losses in extreme scenarios (e.g. exchange downtime preventing one leg from closing).</p>
+</div>
+
+<!-- ═══════════════════════════════════════
+     CATEGORY 7 — STRATEGY TERMS
+════════════════════════════════════════ -->
+<div class="cat-heading" id="cat-strategy">
+ <span class="cat-label">🧠 Strategies</span>
+ <div class="cat-line"></div>
+</div>
+
+<div class="term-card" data-terms="cash and carry long spot short futures basis trade carry">
+ <div class="term-header"><span class="term-name">Cash and Carry</span><span class="term-tag">Strategy</span></div>
+ <p class="term-def">A classic arbitrage strategy: <strong>buy (carry) the spot asset and simultaneously short the futures contract.</strong> Profit comes from the futures premium converging to spot at expiry (quarterly) or from funding payments (perpetual). Also called basis trading when applied to quarterly contracts. The position is market-neutral and profit is determined at entry.</p>
+</div>
+
+<div class="term-card" data-terms="cross exchange arbitrage price gap different exchanges spot">
+ <div class="term-header"><span class="term-name">Cross-Exchange Arbitrage</span><span class="term-tag">Strategy</span></div>
+ <p class="term-def">Exploiting price differences of the same asset across two or more exchanges. Buy on the cheaper exchange, sell on the more expensive one simultaneously. The main challenges are: transfer time between exchanges, withdrawal fees, and execution speed. Best executed with pre-funded accounts on both exchanges to avoid transfer delays.</p>
+</div>
+
+<div class="term-card" data-terms="triangular arbitrage three pairs currency loop crypto">
+ <div class="term-header"><span class="term-name">Triangular Arbitrage</span><span class="term-tag">Strategy</span></div>
+ <p class="term-def">A strategy that profits from price inconsistencies across three trading pairs in a circular loop. Example: USDT → BTC → ETH → USDT. If the exchange rates across the three pairs don't perfectly cancel, a small profit exists. Highly competitive and usually requires bots to execute in milliseconds — less practical for manual traders.</p>
+</div>
+
+<div class="term-card" data-terms="statistical arbitrage stat arb pairs trading correlation mean reversion">
+ <div class="term-header"><span class="term-name">Statistical Arbitrage</span><span class="term-tag">Strategy</span></div>
+ <p class="term-def">A quantitative strategy that exploits temporary price divergences between historically correlated assets. Example: BTC and ETH typically move together — if ETH lags BTC in a rally, a stat arb trade might long ETH and short BTC, expecting ETH to catch up. More complex than funding rate arb; requires historical data analysis and risk modeling.</p>
+</div>
+
+<!-- ═══════════════════════════════════════
+     CATEGORY 8 — EXCHANGE TERMS
+════════════════════════════════════════ -->
+<div class="cat-heading" id="cat-exchange">
+ <span class="cat-label">🏦 Exchange Terms</span>
+ <div class="cat-line"></div>
+</div>
+
+<div class="term-card" data-terms="KYC know your customer identity verification exchange account">
+ <div class="term-header"><span class="term-name">KYC</span><span class="term-abbr">Know Your Customer</span><span class="term-tag">Exchange</span></div>
+ <p class="term-def">The identity verification process required by regulated crypto exchanges. Typically involves submitting a government-issued ID and sometimes a selfie. Required to unlock full trading features, higher withdrawal limits, and futures trading on most major exchanges. Complete KYC before depositing funds to avoid restrictions.</p>
+</div>
+
+<div class="term-card" data-terms="liquidity depth order book buy sell available volume">
+ <div class="term-header"><span class="term-name">Liquidity</span><span class="term-tag">Exchange</span></div>
+ <p class="term-def">The ease with which an asset can be bought or sold without significantly affecting its price. High liquidity = tight spreads, low slippage, large orders executed cleanly. Low liquidity = wide spreads, high slippage, small orders move the market. For arbitrage, always trade on high-liquidity pairs (BTC, ETH) on top-tier exchanges to minimize execution costs.</p>
+</div>
+
+<div class="term-card" data-terms="withdrawal fee transfer cost moving crypto exchange wallet">
+ <div class="term-header"><span class="term-name">Withdrawal Fee</span><span class="term-tag">Exchange</span></div>
+ <p class="term-def">The fee charged by an exchange to send crypto to an external wallet or another exchange. For cross-exchange arbitrage, withdrawal fees are a significant cost that must be factored into profit calculations. Using USDT on cheaper networks (TRC-20, BEP-20) reduces transfer costs compared to ERC-20.</p>
+</div>
+
+<div class="term-card" data-terms="USDT tether stablecoin base currency arbitrage USDC">
+ <div class="term-header"><span class="term-name">USDT / USDC</span><span class="term-tag">Exchange</span></div>
+ <p class="term-def">The primary stablecoins used as base currency in crypto arbitrage. Most futures contracts are quoted in USDT (Tether) — called USDT-margined or linear contracts. USDC is increasingly available as an alternative. Using stablecoins as collateral means your margin value doesn't fluctuate with crypto prices, simplifying P&amp;L calculation.</p>
+</div>
+
+<!-- FAQ -->
 <div class="faq-section">
 <h2>Frequently Asked Questions</h2>
-<div class="faq-item"><div class="faq-q">What is the difference between maker and taker?</div><div class="faq-a">Maker: Places a limit order that adds liquidity. Usually pays lower fees. Taker: Places a market order that removes liquidity. Usually pays higher fees.</div></div>
-<div class="faq-item"><div class="faq-q">What does delta-neutral mean in practice?</div><div class="faq-a">Delta-neutral means your portfolio doesn't benefit or lose from price movement. A $5,000 spot long + $5,000 futures short is approximately delta-neutral.</div></div>
-<div class="faq-item"><div class="faq-q">What is basis risk?</div><div class="faq-a">Basis risk is the risk that spot and futures prices don't converge as expected. For perpetual futures, basis risk is replaced by funding rate risk.</div></div>
-
+<div class="faq-item">
+<div class="faq-q">What is the difference between maker and taker?</div>
+<div class="faq-a">A maker places a limit order that adds liquidity to the order book and pays lower fees (typically 0.01–0.02%). A taker places a market order that removes liquidity and pays higher fees (0.03–0.06%). In arbitrage, using maker orders where possible meaningfully reduces your cost per trade.</div>
 </div>
+<div class="faq-item">
+<div class="faq-q">What does delta-neutral mean in practice?</div>
+<div class="faq-a">Delta-neutral means your portfolio has no net exposure to price direction. A $5,000 spot long + $5,000 futures short is approximately delta-neutral — if price rises $100, the spot leg gains $100 and the futures leg loses $100, netting to zero. Only the arbitrage income (funding or basis) remains as profit.</div>
+</div>
+<div class="faq-item">
+<div class="faq-q">What is basis risk?</div>
+<div class="faq-a">Basis risk is the risk that spot and futures prices don't converge exactly as expected. For quarterly futures, this is minimal since convergence at expiry is guaranteed. For perpetual futures, basis risk takes the form of funding rate risk — the rate may turn negative, causing your short position to pay longs instead of receiving income.</div>
+</div>
+<div class="faq-item">
+<div class="faq-q">What is the difference between isolated margin and cross margin?</div>
+<div class="faq-a">Isolated margin limits your risk to the collateral allocated to one position — if that position is liquidated, only that margin is lost. Cross margin uses your entire wallet balance across all positions, reducing per-position liquidation risk but exposing your full balance to any single large adverse move. Beginners should use isolated margin.</div>
+</div>
+<div class="faq-item">
+<div class="faq-q">What does rising OI mean for arbitrage?</div>
+<div class="faq-a">Rising Open Interest means new money is entering the futures market. Combined with rising prices, it signals strong bullish momentum — which typically pushes funding rates higher, creating better opportunities to collect funding as the short leg of a delta-neutral position.</div>
+</div>
+</div>
+
 <div class="cta-box">
 <p>Ready to start earning from crypto arbitrage? Get pre-validated 2%+ signals delivered directly on Telegram.</p>
 <a href="crypto-arbitrage-signals-pricing.html" class="cta-btn">View Plans → Join for $5/month</a>
 </div>
+
 <div class="nav-btns">
 <a href="crypto-arbitrage-blog.html" class="btn-outline">← Back to Blog</a>
 <a href="live-crypto-arbitrage-scanner.html" class="btn-primary">Try Live Scanner →</a>
 </div>
 </div>
+
 <footer>
 <p>© 2026 ArbVertex — Not financial advice.</p>
 <div class="footer-links">
@@ -321,28 +586,59 @@ footer p{color:var(--muted);font-size:0.82rem;}
 </div>
 <p style="font-size:0.75rem;">Educational content only. Always do your own research.</p>
 </footer>
+
 <script>(function(){
- var hamburger = document.getElementById('avHamburger');
- var navLinks = document.getElementById('avNavLinks');
- if(hamburger && navLinks){
- hamburger.addEventListener('click', function(){
- navLinks.classList.toggle('av-mobile-open');
- });
- }
+ /* Nav */
+ var hamburger=document.getElementById('avHamburger');
+ var navLinks=document.getElementById('avNavLinks');
+ if(hamburger&&navLinks){hamburger.addEventListener('click',function(){navLinks.classList.toggle('av-mobile-open');});}
  document.querySelectorAll('.av-drop-trigger').forEach(function(btn){
- btn.addEventListener('click', function(e){
- e.preventDefault();
- var parent = btn.closest('.av-dropdown');
- var wasOpen = parent.classList.contains('av-open');
- document.querySelectorAll('.av-dropdown.av-open').forEach(function(d){ d.classList.remove('av-open'); });
- if(!wasOpen){ parent.classList.add('av-open'); }
+  btn.addEventListener('click',function(e){
+   e.preventDefault();
+   var parent=btn.closest('.av-dropdown');
+   var wasOpen=parent.classList.contains('av-open');
+   document.querySelectorAll('.av-dropdown.av-open').forEach(function(d){d.classList.remove('av-open');});
+   if(!wasOpen){parent.classList.add('av-open');}
+  });
  });
+ document.addEventListener('click',function(e){
+  if(!e.target.closest('.av-nav-wrap')){document.querySelectorAll('.av-dropdown.av-open').forEach(function(d){d.classList.remove('av-open');});}
  });
- document.addEventListener('click', function(e){
- if(!e.target.closest('.av-nav-wrap')){
- document.querySelectorAll('.av-dropdown.av-open').forEach(function(d){ d.classList.remove('av-open'); });
- }
+
+ /* Glossary search */
+ var searchInput=document.getElementById('glossSearch');
+ var cards=document.querySelectorAll('.term-card');
+ var noResults=document.getElementById('noResults');
+ var catHeadings=document.querySelectorAll('.cat-heading');
+
+ searchInput.addEventListener('input',function(){
+  var q=this.value.toLowerCase().trim();
+  var visibleCount=0;
+
+  cards.forEach(function(card){
+   var terms=(card.getAttribute('data-terms')||'').toLowerCase();
+   var name=card.querySelector('.term-name')?card.querySelector('.term-name').textContent.toLowerCase():'';
+   var def=card.querySelector('.term-def')?card.querySelector('.term-def').textContent.toLowerCase():'';
+   var match=!q||terms.includes(q)||name.includes(q)||def.includes(q);
+   card.classList.toggle('hidden',!match);
+   if(match)visibleCount++;
+  });
+
+  noResults.style.display=visibleCount===0?'block':'none';
+
+  /* hide category headings with no visible cards below them */
+  catHeadings.forEach(function(heading){
+   var id=heading.id;
+   var nextEl=heading.nextElementSibling;
+   var hasVisible=false;
+   while(nextEl&&!nextEl.classList.contains('cat-heading')&&!nextEl.classList.contains('faq-section')){
+    if(nextEl.classList.contains('term-card')&&!nextEl.classList.contains('hidden')){hasVisible=true;break;}
+    nextEl=nextEl.nextElementSibling;
+   }
+   heading.style.display=(!q||hasVisible)?'':'none';
+  });
  });
-})();</script>
+})();
+</script>
 </body>
 </html>
