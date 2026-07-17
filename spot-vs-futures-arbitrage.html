@@ -5,21 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Spot vs Futures Arbitrage: Which Is Better for Beginners?</title>
 <meta name="description" content="Key differences between spot and futures arbitrage — capital requirements, speed, fees, and which strategy suits your experience level best.">
-<meta name="keywords" content="crypto futures arbitrage signals, bitcoin 2026arbitrage telegram, crypto arbitrage bot, funding rate arbitrage, cross exchange arbitrage, bybit binance arbitrage, crypto signals telegram, arbitrage trading signals">
+<meta name="keywords" content="crypto futures arbitrage signals, bitcoin arbitrage telegram, crypto arbitrage bot, funding rate arbitrage, cross exchange arbitrage, bybit binance arbitrage, crypto signals telegram, arbitrage trading signals">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://arbvertex.com/spot-vs-futures-arbitrage.html">
 
 <!-- Open Graph -->
-<meta property="og:title" content="Spot vs Futures Arbitrage: Which Is Better for Beginners in 20262026 | ArbVertex Blog">
-<meta property="og:description" content="Spot vs Futures Arbitrage: Which Is Better for Beginners in 20262026">
+<meta property="og:title" content="Spot vs Futures Arbitrage: Which Is Better for Beginners? | ArbVertex Blog">
+<meta property="og:description" content="Key differences between spot and futures arbitrage — capital requirements, speed, fees, and which strategy suits your experience level best.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="spot-vs-futures-arbitrage.html">
 <meta property="og:image" content="https://arbvertex.com/og-image.png">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Spot vs Futures Arbitrage: Which Is Better for Beginners in 20262026 | ArbVertex Blog">
-<meta name="twitter:description" content="Spot vs Futures Arbitrage: Which Is Better for Beginners in 20262026">
+<meta name="twitter:title" content="Spot vs Futures Arbitrage: Which Is Better for Beginners? | ArbVertex Blog">
+<meta name="twitter:description" content="Key differences between spot and futures arbitrage — capital requirements, speed, fees, and which strategy suits your experience level best.">
 
 <!-- Schema: WebSite -->
 <script type="application/ld+json">
@@ -487,38 +487,359 @@ footer p{color:var(--muted);font-size:0.82rem;}
 </div>
 
 
+<style>
+/* ── ARTICLE LAYOUT (shared with article-1) ── */
+.article-wrap{max-width:760px;margin:0 auto;padding:60px 5% 80px;}
+.article-meta{display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;margin-bottom:1.8rem;}
+.meta-pill{font-family:'JetBrains Mono',monospace;font-size:0.68rem;padding:0.28rem 0.65rem;border-radius:3px;letter-spacing:0.06em;}
+.pill-step{background:rgba(0,229,255,0.1);color:var(--accent);}
+.pill-level{background:rgba(0,255,136,0.08);color:var(--accent2);}
+.pill-time{background:rgba(106,143,168,0.12);color:var(--muted);}
+.article-h1{font-size:clamp(1.7rem,4vw,2.5rem);font-weight:800;line-height:1.2;letter-spacing:-0.025em;margin-bottom:1rem;color:var(--text);}
+.article-lead{font-size:1.05rem;color:var(--muted);line-height:1.8;margin-bottom:2.5rem;max-width:680px;border-left:3px solid var(--accent);padding-left:1.1rem;}
+.article-h2{font-size:1.25rem;font-weight:700;color:var(--text);margin:2.5rem 0 0.9rem;letter-spacing:-0.015em;}
+.article-p{color:var(--muted);font-size:0.94rem;line-height:1.85;margin-bottom:1rem;}
+.article-divider{border:none;border-top:1px solid var(--border);margin:2.5rem 0;}
+
+/* ── CALLOUT BOXES ── */
+.callout{border-radius:10px;padding:1.5rem 1.7rem;margin:1.5rem 0;}
+.callout-def{background:var(--surface);border:1px solid var(--border);}
+.callout-example{background:rgba(0,255,136,0.04);border:1px solid rgba(0,255,136,0.2);}
+.callout-warning{background:rgba(255,85,85,0.05);border:1px solid rgba(255,85,85,0.25);}
+.callout-tip{background:rgba(0,229,255,0.05);border:1px solid rgba(0,229,255,0.2);}
+.callout-label{font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;margin-bottom:0.55rem;}
+.label-def{color:var(--accent);}
+.label-example{color:var(--accent2);}
+.label-warning{color:#ff7070;}
+.label-tip{color:var(--accent);}
+.callout h3{font-size:0.97rem;font-weight:700;color:var(--text);margin-bottom:0.5rem;}
+.callout p{color:var(--muted);font-size:0.9rem;line-height:1.75;margin:0;}
+.callout p+p{margin-top:0.7rem;}
+
+/* ── COMPARISON TABLE ── */
+.cmp-table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.88rem;}
+.cmp-table th{font-family:'JetBrains Mono',monospace;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.65rem 1rem;border-bottom:2px solid var(--border);text-align:left;}
+.cmp-table th:nth-child(2){color:var(--accent);}
+.cmp-table th:nth-child(3){color:var(--accent2);}
+.cmp-table td{padding:0.7rem 1rem;border-bottom:1px solid var(--border);color:var(--muted);vertical-align:top;line-height:1.55;}
+.cmp-table tr:last-child td{border-bottom:none;}
+.cmp-table td:first-child{color:var(--text);font-weight:500;white-space:nowrap;}
+.cmp-table .good{color:var(--accent2);}
+.cmp-table .bad{color:#ff7070;}
+.cmp-table .mid{color:#ffa040;}
+.cmp-table .neu{color:var(--muted);}
+
+/* ── SIDE-BY-SIDE METHOD CARDS ── */
+.method-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin:1.5rem 0;}
+.method-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.5rem;transition:border-color .25s;}
+.method-card.mc-spot{border-top:3px solid var(--accent);}
+.method-card.mc-futures{border-top:3px solid var(--accent2);}
+.mc-label{font-family:'JetBrains Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;margin-bottom:0.5rem;}
+.mc-spot .mc-label{color:var(--accent);}
+.mc-futures .mc-label{color:var(--accent2);}
+.mc-title{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:0.8rem;}
+.mc-list{list-style:none;display:flex;flex-direction:column;gap:0.45rem;}
+.mc-list li{font-size:0.87rem;color:var(--muted);display:flex;gap:0.5rem;line-height:1.5;}
+.mc-list li::before{flex-shrink:0;margin-top:1px;}
+.mc-pro li::before{content:'✓';color:var(--accent2);}
+.mc-con li::before{content:'✗';color:#ff7070;}
+.mc-divider{border:none;border-top:1px solid var(--border);margin:0.8rem 0;}
+
+/* ── VERDICT BOX ── */
+.verdict{background:rgba(0,255,136,0.05);border:1px solid rgba(0,255,136,0.25);border-radius:10px;padding:1.5rem 1.7rem;margin:1.5rem 0;}
+.verdict-label{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--accent2);letter-spacing:0.1em;text-transform:uppercase;font-weight:700;margin-bottom:0.5rem;}
+.verdict h3{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:0.5rem;}
+.verdict p{color:var(--muted);font-size:0.9rem;line-height:1.75;margin:0;}
+
+/* ── FLOW STEPS ── */
+.flow{display:flex;flex-direction:column;gap:0;}
+.flow-step{display:flex;gap:1.2rem;align-items:flex-start;}
+.flow-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0;}
+.flow-num{width:34px;height:34px;background:var(--surface);border:1px solid var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:0.82rem;color:var(--accent);font-weight:700;}
+.flow-line{width:1px;flex:1;min-height:18px;background:var(--border);margin:5px 0;}
+.flow-body{padding-bottom:1.3rem;}
+.flow-body h4{font-size:0.93rem;font-weight:600;color:var(--text);margin-bottom:0.3rem;}
+.flow-body p{color:var(--muted);font-size:0.86rem;line-height:1.7;}
+.flow-step:last-child .flow-line{display:none;}
+
+/* ── STAT ROW ── */
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.5rem 0;}
+.stat-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.1rem 1rem;text-align:center;}
+.stat-box .num{font-family:'JetBrains Mono',monospace;font-size:1.5rem;font-weight:700;color:var(--accent);display:block;}
+.stat-box .lbl{font-size:0.75rem;color:var(--muted);margin-top:0.25rem;line-height:1.4;}
+
+/* ── FAQ ── */
+.faq-list{display:flex;flex-direction:column;gap:0;}
+.faq-item{border-bottom:1px solid var(--border);padding:1.1rem 0;}
+.faq-item:first-child{border-top:1px solid var(--border);}
+.faq-q{font-size:0.93rem;font-weight:600;color:var(--text);margin-bottom:0.45rem;}
+.faq-a{color:var(--muted);font-size:0.88rem;line-height:1.7;}
+
+/* ── ARTICLE NAV ── */
+.article-nav{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border);}
+
+@media(max-width:600px){
+ .method-grid{grid-template-columns:1fr;}
+ .stat-row{grid-template-columns:1fr 1fr;}
+ .cmp-table{font-size:0.82rem;}
+ .cmp-table td,.cmp-table th{padding:0.6rem 0.6rem;}
+}
+</style>
+
 <div class="page active" id="page-article-2">
-<h1 class="article-title">Spot vs Futures Arbitrage: Which Is Better for Beginners?</h1>
- <div class="inner-page">
- <button class="back-btn" onclick="showPage('blog')">← Back to Blog</button>
- <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:1rem;">
- <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;background:rgba(0,229,255,0.1);color:var(--accent);padding:0.3rem 0.7rem;border-radius:3px;">STEP 2 OF 16</span>
- <span style="font-size:0.7rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">🟦 BEGINNER</span>
- </div>
- <h2 style="font-size:1.6rem;font-weight:800;line-height:1.3;margin-bottom:1rem;">Spot vs Futures Arbitrage: Which Is Better for Beginners in 20262026</h2>
- <p style="color:var(--muted);font-size:0.95rem;line-height:1.8;margin-bottom:2rem;">Key difference, capital requirements, speed, safety — and which type ArbVertex signals focus on.</p>
- <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.8rem;margin-bottom:1.5rem;">
- <h2 style="font-size:1.1rem;font-weight:700;margin-bottom:1rem;color:var(--accent);">Spot Arbitrage</h2>
- <p style="color:var(--muted);font-size:0.9rem;line-height:1.8;">You actually buy and transfer the coin 2026between exchanges. Slower due to blockchain 2026withdrawal times (10–60 min). Best for large, stable price gaps on high-liquidity coins like BTC and ETH.</p>
- </div>
- <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.8rem;margin-bottom:1.5rem;">
- <h2 style="font-size:1.1rem;font-weight:700;margin-bottom:1rem;color:var(--accent2);">Futures Arbitrage ← ArbVertex Focus</h2>
- <p style="color:var(--muted);font-size:0.9rem;line-height:1.8;">No coin 2026transfer needed. You hold positions on both sides simultaneously (spot long + futures short). Faster execution. Includes funding rate income. <strong style="color:var(--text);">This is what ArbVertex signals focus on.</strong></p>
- </div>
- <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.8rem;margin-bottom:1.5rem;">
- <h2 style="font-size:1.1rem;font-weight:700;margin-bottom:1rem;">Quick Comparison</h2>
- <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;font-size:0.88rem;">
- <div style="border:1px solid var(--border);border-radius:6px;padding:1rem;"><strong style="color:var(--accent);">Spot Arb</strong><br><span style="color:var(--muted);">Low risk · Slow · Needs timing · Withdrawal fees</span></div>
- <div style="border:1px solid var(--accent2);border-radius:6px;padding:1rem;"><strong style="color:var(--accent2);">Futures Arb</strong><br><span style="color:var(--muted);">Fast · Passive income · Needs margin 2026· No transfers</span></div>
- </div>
- </div>
- <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border);">
-      <a href="blog.html" style="border:1px solid var(--border);color:var(--muted);padding:0.7rem 1.5rem;border-radius:4px;font-weight:500;font-size:0.9rem;text-decoration:none;background:none;transition:border-color .2s,color .2s;">☰ Back to Blog</a>
-      <a href="what-is-crypto-arbitrage.html" style="border:1px solid var(--border);color:var(--text);padding:0.7rem 1.5rem;border-radius:4px;font-weight:500;font-size:0.9rem;text-decoration:none;background:none;transition:border-color .2s,color .2s;">← Prev: What is Crypto Arbitrage</a>
-      <a href="how-to-start-crypto-futures-arbitrage.html" style="background:var(--accent);color:var(--bg);padding:0.7rem 1.5rem;border-radius:4px;font-weight:700;font-size:0.9rem;text-decoration:none;transition:opacity .2s;">Next: How to Start →</a>
-    </div>
- </div>
- <footer><p>© 2026 ArbVertex</p><div class="footer-links"><a onclick="showPage('blog')">Blog</a><a onclick="showPage('home')">Home</a><a onclick="showPage('contact')">Contact</a></div><p style="font-size:0.75rem;">Not financial advice.</p></footer>
+ <div class="article-wrap">
+
+  <!-- Back -->
+  <a href="crypto-arbitrage-blog.html" class="back-btn" style="display:inline-flex;align-items:center;gap:0.4rem;color:var(--muted);font-size:0.83rem;text-decoration:none;margin-bottom:2rem;transition:color .2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'">← Back to Blog</a>
+
+  <!-- Meta -->
+  <div class="article-meta">
+   <span class="meta-pill pill-step">STEP 2 OF 16</span>
+   <span class="meta-pill pill-level">🟦 BEGINNER</span>
+   <span class="meta-pill pill-time">⏱ 9 MIN READ</span>
+  </div>
+
+  <!-- Title -->
+  <h1 class="article-h1">Spot vs Futures Arbitrage:<br>Which Is Better for Beginners?</h1>
+  <p class="article-lead">Two strategies, very different mechanics. Capital requirements, speed, risk profile, and passive income potential all differ — here's how to choose the right one for where you are right now.</p>
+
+  <!-- Intro -->
+  <h2 class="article-h2">Two Roads to the Same Gap</h2>
+  <p class="article-p">When a price gap opens between exchanges, there are fundamentally two ways to capture it. You can move the actual coin — buying on the cheaper exchange, withdrawing it, and depositing on the more expensive one to sell. Or you can hold positions on both sides simultaneously using futures contracts, without moving any coin at all.</p>
+  <p class="article-p">These are spot arbitrage and futures arbitrage respectively. Both are legitimate. Both are profitable. But they suit different traders, different capital sizes, and different risk tolerances. Understanding which applies to you is the first real decision in your arbitrage journey.</p>
+
+  <!-- Side by side cards -->
+  <h2 class="article-h2">The Two Methods at a Glance</h2>
+  <div class="method-grid">
+   <div class="method-card mc-spot">
+    <div class="mc-label">Method 1</div>
+    <div class="mc-title">Spot Arbitrage</div>
+    <ul class="mc-list mc-pro" style="margin-bottom:0.6rem;">
+     <li>Simple to understand conceptually</li>
+     <li>No futures/margin knowledge needed</li>
+     <li>Works on any exchange with withdrawals</li>
+    </ul>
+    <hr class="mc-divider">
+    <ul class="mc-list mc-con">
+     <li>Requires physical coin transfer between exchanges</li>
+     <li>Withdrawal takes 10 min – 2 hours depending on chain</li>
+     <li>Gap may close before transfer completes</li>
+     <li>Withdrawal fees eat into small gaps</li>
+     <li>Needs capital pre-loaded on both sides to avoid delays</li>
+    </ul>
+   </div>
+   <div class="method-card mc-futures">
+    <div class="mc-label">Method 2 · ArbVertex Focus</div>
+    <div class="mc-title">Futures Arbitrage</div>
+    <ul class="mc-list mc-pro" style="margin-bottom:0.6rem;">
+     <li>No coin transfer — positions held simultaneously</li>
+     <li>Execute both legs in seconds</li>
+     <li>Earns funding rate income every 8 hours</li>
+     <li>Market-neutral — no directional price risk</li>
+     <li>Capital stays on exchange, always ready</li>
+    </ul>
+    <hr class="mc-divider">
+    <ul class="mc-list mc-con">
+     <li>Requires understanding of perpetual futures</li>
+     <li>Margin/liquidation risk if not managed properly</li>
+     <li>Not available on all coins</li>
+    </ul>
+   </div>
+  </div>
+
+  <!-- Full comparison table -->
+  <h2 class="article-h2">Detailed Comparison</h2>
+  <div style="overflow-x:auto;">
+   <table class="cmp-table">
+    <thead>
+     <tr>
+      <th>Factor</th>
+      <th>Spot Arbitrage</th>
+      <th>Futures Arbitrage</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>Execution speed</td>
+      <td class="bad">Slow — 10 min to 2 hrs</td>
+      <td class="good">Fast — seconds</td>
+     </tr>
+     <tr>
+      <td>Capital needed</td>
+      <td class="mid">Medium — needs funds on both exchanges</td>
+      <td class="mid">Medium — needs margin on both exchanges</td>
+     </tr>
+     <tr>
+      <td>Coin transfer required</td>
+      <td class="bad">Yes — blockchain withdrawal</td>
+      <td class="good">No</td>
+     </tr>
+     <tr>
+      <td>Gap size needed</td>
+      <td class="bad">Large (2–5%+) to cover withdrawal fees and time</td>
+      <td class="good">Smaller gaps viable (0.5–2%+)</td>
+     </tr>
+     <tr>
+      <td>Directional price risk</td>
+      <td class="bad">Yes — price can move during transfer</td>
+      <td class="good">Minimal — delta-neutral by design</td>
+     </tr>
+     <tr>
+      <td>Funding rate income</td>
+      <td class="bad">None</td>
+      <td class="good">Yes — collected every 8 hours</td>
+     </tr>
+     <tr>
+      <td>Liquidation risk</td>
+      <td class="good">None</td>
+      <td class="mid">Low if managed — use conservative leverage</td>
+     </tr>
+     <tr>
+      <td>Best for</td>
+      <td class="neu">BTC/ETH on major exchanges with large gaps</td>
+      <td class="neu">Any coin with liquid perps and active funding</td>
+     </tr>
+     <tr>
+      <td>Difficulty level</td>
+      <td class="mid">Beginner-friendly in concept, tricky in execution</td>
+      <td class="mid">Moderate — needs basic futures knowledge</td>
+     </tr>
+    </tbody>
+   </table>
+  </div>
+
+  <hr class="article-divider">
+
+  <!-- Spot deep dive -->
+  <h2 class="article-h2">Spot Arbitrage: How It Actually Works</h2>
+  <p class="article-p">The spot arbitrage workflow seems simple — buy cheap, sell expensive. But the coin transfer step is where most beginners run into problems.</p>
+
+  <div class="flow" style="margin-top:1.5rem;">
+   <div class="flow-step">
+    <div class="flow-left"><div class="flow-num">1</div><div class="flow-line"></div></div>
+    <div class="flow-body"><h4>Spot the Gap</h4><p>BTC is $200 higher on Exchange B than Exchange A. At current price that's about 0.3% — but by the time you transfer, it might be gone.</p></div>
+   </div>
+   <div class="flow-step">
+    <div class="flow-left"><div class="flow-num">2</div><div class="flow-line"></div></div>
+    <div class="flow-body"><h4>Buy on Exchange A</h4><p>You buy BTC at the lower price. You now own the asset but haven't sold it yet — you have directional exposure to BTC price.</p></div>
+   </div>
+   <div class="flow-step">
+    <div class="flow-left"><div class="flow-num">3</div><div class="flow-line"></div></div>
+    <div class="flow-body"><h4>Initiate Withdrawal</h4><p>You withdraw BTC to Exchange B. Depending on network congestion and chain choice (BTC mainnet vs Lightning), this takes anywhere from a few minutes to over an hour. During this window, you're exposed to price moves.</p></div>
+   </div>
+   <div class="flow-step">
+    <div class="flow-left"><div class="flow-num">4</div><div class="flow-line"></div></div>
+    <div class="flow-body"><h4>Sell on Exchange B</h4><p>Once deposited, you sell. If the gap held, you profit. If BTC dropped during the transfer, you may have lost more than you made on the spread.</p></div>
+   </div>
+   <div class="flow-step">
+    <div class="flow-left"><div class="flow-num">5</div><div class="flow-line"></div></div>
+    <div class="flow-body"><h4>Pay Withdrawal Fee</h4><p>The blockchain network fee comes out of your profit. BTC mainnet fees can be $5–$30+ during busy periods. This alone can kill a small gap trade.</p></div>
+   </div>
+  </div>
+
+  <div class="callout callout-warning">
+   <div class="callout-label label-warning">⚠ The Core Problem with Spot Arb</div>
+   <p>You cannot execute both legs simultaneously. You buy first, transfer, then sell — meaning price risk is always present between step 2 and step 4. In volatile markets, this window is genuinely dangerous. Spot arb works best when you already have funds pre-positioned on both exchanges, so no transfer is needed at all — but then you need double the capital to maintain that position.</p>
+  </div>
+
+  <hr class="article-divider">
+
+  <!-- Futures deep dive -->
+  <h2 class="article-h2">Futures Arbitrage: How It Actually Works</h2>
+  <p class="article-p">Futures arbitrage eliminates the transfer problem entirely. Instead of moving a coin from one exchange to another, you hold two opposing positions simultaneously — one long (on spot), one short (on perpetual futures). Both positions cancel each other out directionally, but each earns from the pricing inefficiency.</p>
+
+  <div class="flow" style="margin-top:1.5rem;">
+   <div class="flow-step">
+    <div class="flow-left"><div class="flow-num">1</div><div class="flow-line"></div></div>
+    <div class="flow-body"><h4>Signal Fires</h4><p>ArbVertex detects: ETH funding rate on Bybit is +0.08% per 8 hours (annualised ~87%). Spot price on both exchanges is aligned.</p></div>
+   </div>
+   <div class="flow-step">
+    <div class="flow-left"><div class="flow-num">2</div><div class="flow-line"></div></div>
+    <div class="flow-body"><h4>Open Both Legs Simultaneously</h4><p>Buy ETH spot on any exchange. Short ETH perp on Bybit. Both happen within seconds. Your net market position is flat — if ETH goes up, your spot wins and your short loses. They cancel.</p></div>
+   </div>
+   <div class="flow-step">
+    <div class="flow-left"><div class="flow-num">3</div><div class="flow-line"></div></div>
+    <div class="flow-body"><h4>Collect Funding Every 8 Hours</h4><p>Every 8 hours, Bybit pays you the funding rate because you're short and funding is positive. On $1,000 position at 0.08% rate: you collect $0.80 per cycle, or $2.40/day.</p></div>
+   </div>
+   <div class="flow-step">
+    <div class="flow-left"><div class="flow-num">4</div><div class="flow-line"></div></div>
+    <div class="flow-body"><h4>Close When Rate Normalises</h4><p>When funding drops back to near-zero, the edge is gone. You close both legs simultaneously. Total profit = sum of all funding payments collected minus open/close trading fees.</p></div>
+   </div>
+  </div>
+
+  <div class="callout callout-example">
+   <div class="callout-label label-example">📊 Example Trade</div>
+   <p><strong style="color:var(--text);">Position:</strong> $1,000 ETH spot long + $1,000 ETH perp short on Bybit</p>
+   <p><strong style="color:var(--text);">Funding rate:</strong> +0.1% per 8h (collected 3× per day)</p>
+   <p><strong style="color:var(--text);">Daily income:</strong> $1,000 × 0.1% × 3 = <span style="color:var(--accent2);font-weight:700;">$3.00/day</span></p>
+   <p><strong style="color:var(--text);">After 7 days:</strong> ~$21 gross, minus ≈$4 in fees = <span style="color:var(--accent2);font-weight:700;">~$17 net on $1,000</span> (1.7% in one week)</p>
+  </div>
+
+  <div class="stat-row">
+   <div class="stat-box"><span class="num">3×</span><div class="lbl">Funding payments collected per day (every 8h)</div></div>
+   <div class="stat-box"><span class="num">~0%</span><div class="lbl">Net directional price exposure when properly hedged</div></div>
+   <div class="stat-box"><span class="num">2–5%</span><div class="lbl">Typical weekly return range during high-rate periods</div></div>
+  </div>
+
+  <hr class="article-divider">
+
+  <!-- Which to choose -->
+  <h2 class="article-h2">Which Should You Start With?</h2>
+  <p class="article-p">There is no single right answer — but there is a clear pattern based on what most successful beginners do.</p>
+
+  <div class="callout callout-def">
+   <div class="callout-label label-def">If you're brand new to crypto trading</div>
+   <p>Start with <strong style="color:var(--text);">funding rate arbitrage</strong>. It doesn't require timing a withdrawal window, doesn't expose you to price risk during execution, and generates income passively on a schedule you can predict. The main learning curve is understanding perpetual futures mechanics — which is worth learning regardless of your long-term strategy.</p>
+  </div>
+
+  <div class="callout callout-def">
+   <div class="callout-label label-def">If you already have funds on multiple exchanges</div>
+   <p>Consider <strong style="color:var(--text);">spot arbitrage with pre-positioned capital</strong>. By keeping USDT ready on several exchanges, you eliminate the withdrawal step entirely — you can buy on Exchange A and sell on Exchange B simultaneously using what's already there. This is how serious spot arbitrageurs operate.</p>
+  </div>
+
+  <div class="verdict">
+   <div class="verdict-label">🎯 ArbVertex Recommendation</div>
+   <h3>Begin with futures arbitrage. Add spot arb later.</h3>
+   <p>ArbVertex signals focus primarily on futures (funding rate + cash-and-carry) opportunities because they offer execution speed, passive income, and market-neutral exposure that spot transfers simply can't match at small capital sizes. Once you're comfortable with perpetuals, spot arb becomes a useful complement — not a replacement.</p>
+  </div>
+
+  <hr class="article-divider">
+
+  <!-- FAQ -->
+  <h2 class="article-h2">Common Questions</h2>
+  <div class="faq-list">
+   <div class="faq-item">
+    <div class="faq-q">Do I need a lot of capital to start futures arbitrage?</div>
+    <div class="faq-a">No. You can start with $200–$500 split between spot and futures margin. The percentage returns are the same regardless of size — only the absolute dollar amount scales. Smaller capital makes it easier to learn without meaningful risk.</div>
+   </div>
+   <div class="faq-item">
+    <div class="faq-q">What's the liquidation risk in futures arbitrage?</div>
+    <div class="faq-a">Low if done correctly. Your short futures position is hedged by your spot long — so if the price rises, your spot gains offset your futures losses. The real risk is using too high leverage on the futures side. Most arbitrageurs use 1x–2x leverage to keep liquidation thresholds very distant.</div>
+   </div>
+   <div class="faq-item">
+    <div class="faq-q">Can I do spot arbitrage without withdrawing coins?</div>
+    <div class="faq-a">Yes — if you pre-position capital on both exchanges. Buy on the cheap exchange using the USDT already there, and simultaneously sell on the expensive exchange using coin already held there. This eliminates transfer delay, but doubles your capital requirement per opportunity.</div>
+   </div>
+   <div class="faq-item">
+    <div class="faq-q">Which exchanges support futures arbitrage?</div>
+    <div class="faq-a">Any exchange offering perpetual futures contracts. The main ones used for ArbVertex signals are Binance, Bybit, OKX, Gate.io, and MEXC — all offer both spot and perp markets for most major coins.</div>
+   </div>
+   <div class="faq-item">
+    <div class="faq-q">Is there a risk that funding rate goes negative while I'm in the trade?</div>
+    <div class="faq-a">Yes, this is real. If sentiment shifts and funding turns negative, your short position would owe funding rather than receive it. This is why you close positions when the rate drops near zero — never hold a funding arb position when the rate is at or below 0.01%.</div>
+   </div>
+  </div>
+
+  <!-- Article nav -->
+  <div class="article-nav">
+   <a href="crypto-arbitrage-blog.html" style="border:1px solid var(--border);color:var(--muted);padding:0.75rem 1.2rem;border-radius:4px;font-weight:500;font-size:0.86rem;text-decoration:none;transition:border-color .2s,color .2s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">☰ Blog</a>
+   <a href="what-is-crypto-arbitrage.html" style="border:1px solid var(--border);color:var(--text);padding:0.75rem 1.2rem;border-radius:4px;font-weight:500;font-size:0.86rem;text-decoration:none;transition:border-color .2s,color .2s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">← Prev: What is Crypto Arbitrage</a>
+   <a href="how-to-start-crypto-futures-arbitrage.html" style="background:var(--accent);color:var(--bg);padding:0.75rem 1.4rem;border-radius:4px;font-weight:700;font-size:0.86rem;text-decoration:none;transition:opacity .2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">Next: How to Start →</a>
+  </div>
+
+ </div><!-- /.article-wrap -->
+
+ <footer><p>© 2025 ArbVertex</p><div class="footer-links"><a href="crypto-arbitrage-blog.html">Blog</a><a href="index.html">Home</a><a href="contact-arbvertex.html">Contact</a></div><p style="font-size:0.75rem;">Not financial advice.</p></footer>
 </div>
 
 <script>
@@ -813,7 +1134,7 @@ async function fetchAllPrices() {
  dot.style.animation = 'none';
 
  if (PAIRS.length === 0) {
- status.textContent = 'Loading full coin 2026list (700+)...';
+ status.textContent = 'Loading full coin list (700+)...';
  await loadAllPairs();
  }
 
