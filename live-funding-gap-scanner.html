@@ -30,12 +30,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:#0a0c10; --surface:#111318; --card:#161a22; --border:#1f2530; --border2:#2a3040;
-  --text:#e8eaf0; --muted:#5a6478; --dim:#8a94a8;
-  --accent:#3b82f6; --accent-dim:#1e3a5f;
-  --green:#22c55e; --green-dim:#0d2818;
-  --red:#ef4444; --red-dim:#2a0f0f;
-  --yellow:#f59e0b; --yellow-dim:#2d1f05;
+  --bg:#080b11; --surface:#0f1420; --card:#141926; --border:#1e2a3a; --border2:#263347;
+  --text:#f0f4ff; --muted:#7a8faa; --dim:#a0b4cc;
+  --accent:#38bdf8; --accent-dim:#0c2a40;
+  --green:#4ade80; --green-dim:#0b2e1a;
+  --red:#f87171; --red-dim:#2d0f0f;
+  --yellow:#fbbf24; --yellow-dim:#2e1d04;
   --mono:'JetBrains Mono','Fira Code',monospace;
   --sans:'Space Grotesk','Inter',system-ui,sans-serif;
 }
@@ -88,11 +88,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:14
 }
 
 /* ── SCANNER STYLES ── */
-.topbar{border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:var(--bg);}
-.logo{display:flex;align-items:center;gap:10px;}
-.logo-icon{width:30px;height:30px;background:var(--accent);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff;}
-.logo-name{font-size:15px;font-weight:600;letter-spacing:-.3px;}
-.logo-sub{font-size:11px;color:var(--muted);margin-top:1px;}
+.topbar{border-bottom:1px solid var(--border);padding:10px 24px;display:flex;align-items:center;justify-content:flex-end;gap:12px;flex-wrap:wrap;background:var(--bg);}
 .topbar-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
 .live-badge{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--dim);}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:pulse 2s infinite;}
@@ -112,7 +108,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:14
 .stat{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 14px;}
 .stat-val{font-size:20px;font-weight:600;font-family:var(--mono);line-height:1.2;}
 .stat-lbl{font-size:11px;color:var(--muted);margin-top:4px;}
-.ca{color:var(--accent)}.cg{color:var(--green)}.cy{color:var(--yellow)}.cd{color:var(--dim)}
+.ca{color:#38bdf8;text-shadow:0 0 12px rgba(56,189,248,.25);}
+.cg{color:#4ade80;text-shadow:0 0 12px rgba(74,222,128,.25);}
+.cy{color:#fbbf24;text-shadow:0 0 12px rgba(251,191,36,.25);}
+.cd{color:var(--dim);}
 
 .toolbar{display:flex;align-items:center;gap:8px;padding:12px 24px;flex-wrap:wrap;border-bottom:1px solid var(--border);}
 .search{background:var(--card);border:1px solid var(--border2);border-radius:6px;padding:7px 12px;color:var(--text);font-size:13px;outline:none;width:170px;transition:border .15s;}
@@ -136,39 +135,38 @@ th:hover{color:var(--dim);}
 th.r,td.r{text-align:right;}
 th.c,td.c{text-align:center;}
 td{padding:8px 8px;border-bottom:1px solid var(--border);white-space:nowrap;vertical-align:middle;font-size:12.5px;}
-tr.arb td{background:rgba(245,158,11,.03);}
-tr.arb:hover td{background:rgba(245,158,11,.08);}
-tr:not(.arb):hover td{background:rgba(255,255,255,.02);}
-.coin-name{font-size:13px;font-weight:600;}
+tr.arb td{background:rgba(251,191,36,.04);border-bottom-color:rgba(251,191,36,.08);}
+tr.arb:hover td{background:rgba(251,191,36,.09);}
+tr:not(.arb):hover td{background:rgba(56,189,248,.03);}
+.coin-name{font-size:13px;font-weight:700;color:var(--text);letter-spacing:.2px;}
 
-.b{display:inline-block;font-size:11px;padding:2px 6px;border-radius:4px;font-family:var(--mono);font-weight:500;}
-.b-pos{color:#ef4444;background:rgba(239,68,68,.1);}
-.b-neg{color:#22c55e;background:rgba(34,197,94,.1);}
-.b-neu{color:var(--muted);background:var(--card);}
-.b-arb{color:var(--yellow);background:rgba(245,158,11,.12);}
-.b-hot{color:#fff;background:rgba(245,158,11,.7);font-weight:700;}
-.b-miss{color:var(--border2);font-size:10px;}
+.b{display:inline-block;font-size:11px;padding:2px 7px;border-radius:4px;font-family:var(--mono);font-weight:600;letter-spacing:.2px;}
+.b-pos{color:#f87171;background:rgba(248,113,113,.13);border:1px solid rgba(248,113,113,.18);}
+.b-neg{color:#4ade80;background:rgba(74,222,128,.13);border:1px solid rgba(74,222,128,.18);}
+.b-neu{color:var(--dim);background:var(--card);border:1px solid var(--border);}
+.b-arb{color:#fbbf24;background:rgba(251,191,36,.13);border:1px solid rgba(251,191,36,.22);font-weight:700;}
+.b-hot{color:#fff;background:linear-gradient(135deg,rgba(251,191,36,.85),rgba(251,146,60,.85));border:none;font-weight:700;box-shadow:0 0 8px rgba(251,191,36,.3);}
+.b-miss{color:var(--border2);font-size:10px;border:none;background:none;}
 
 .sbar{display:flex;align-items:center;gap:7px;}
 .sbar-track{flex:1;height:3px;background:var(--border2);border-radius:2px;min-width:44px;}
 .sbar-fill{height:100%;border-radius:2px;}
 .sbar-val{font-size:11px;color:var(--dim);font-family:var(--mono);min-width:50px;text-align:right;}
 
-.sig{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:3px 8px;border-radius:4px;white-space:nowrap;}
-.sig-hot{color:var(--yellow);background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.2);}
-.sig-fire{color:#fff;background:rgba(245,158,11,.55);}
-.sig-none{color:var(--border2);}
+
 
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px;padding:16px 24px 32px;}
 .arb-card{background:var(--card);border:1px solid var(--border2);border-radius:10px;padding:16px;transition:border .15s;}
 .arb-card:hover{border-color:rgba(245,158,11,.3);}
 .arb-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
 .arb-coin{font-size:16px;font-weight:700;}
-.arb-net{font-size:13px;font-family:var(--mono);font-weight:600;}
+.arb-net{font-size:13px;font-family:var(--mono);font-weight:700;}
+.arb-net.cy{color:#fbbf24;text-shadow:0 0 8px rgba(251,191,36,.3);}
+.arb-net.cd{color:var(--dim);}
 .arb-row{display:flex;align-items:center;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border);font-size:12px;}
 .arb-row:last-child{border:none;}
 .arb-exch{color:var(--dim);}
-.arb-signal-box{margin-top:10px;padding:8px 10px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);border-radius:6px;font-size:11px;color:var(--yellow);line-height:1.6;}
+.arb-signal-box{display:none;}
 
 .loading{text-align:center;padding:64px 0;}
 .spin{display:inline-block;width:28px;height:28px;border:2px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;}
@@ -256,16 +254,17 @@ tr:not(.arb):hover td{background:rgba(255,255,255,.02);}
  </div>
 </div>
 
-<!-- ── SCANNER TOP BAR ── -->
+<!-- ── PAGE HEADER ── -->
+<div style="padding:2.5rem 5% 0;background:var(--bg);">
+  <a href="index.html" style="display:inline-flex;align-items:center;gap:0.5rem;color:var(--dim);font-size:0.85rem;text-decoration:none;margin-bottom:1.2rem;transition:color .2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--dim)'">← Back to Home</a>
+  <div style="font-family:var(--mono);font-size:0.72rem;color:var(--accent);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.6rem;">// LIVE FUNDING RATE SCANNER</div>
+  <h1 style="font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700;letter-spacing:-0.02em;color:var(--text);line-height:1.25;margin-bottom:0.6rem;">Live Funding Rate Arbitrage Scanner</h1>
+  <p style="color:var(--muted);font-size:0.95rem;max-width:620px;line-height:1.75;margin-bottom:1.5rem;">Real-time funding rate comparison across 8 exchanges — Binance, Bybit, Gate.io, Bitget, KuCoin, MEXC, HTX &amp; Hyperliquid. Refreshed every 2 minutes.</p>
+</div>
+
+<!-- ── SCANNER CONTROLS BAR ── -->
 <div class="topbar">
-  <div class="logo">
-    <div class="logo-icon">💸</div>
-    <div>
-      <div class="logo-name">ArbVertex</div>
-      <div class="logo-sub">Live Funding Gap Scanner</div>
-    </div>
-  </div>
-  <div class="topbar-right">
+  <div class="topbar-right" style="margin-left:auto;">
     <div class="live-badge"><div class="dot"></div><span id="status-txt">Initialising…</span></div>
     <div class="countdown" id="countdown">--:--</div>
     <button class="topbtn" onclick="runScan()">&#8635; Refresh</button>
@@ -328,7 +327,6 @@ tr:not(.arb):hover td{background:rgba(255,255,255,.02);}
         <th class="r" onclick="sortBy('avgRate')">Avg FR <span id="s-avgRate"></span></th>
         <th class="r" onclick="sortBy('spread')">Spread <span id="s-spread2"></span></th>
         <th class="r" onclick="sortBy('netProfit')">Net profit <span id="s-netProfit"></span></th>
-        <th class="c" onclick="sortBy('signal')">Signal <span id="s-signal"></span></th>
       </tr>
     </thead>
     <tbody id="tbody"></tbody>
@@ -342,9 +340,18 @@ tr:not(.arb):hover td{background:rgba(255,255,255,.02);}
 
 <div class="footnote">
   <span>Net profit = funding spread + price gap − 4× taker fee (0.045%/leg)</span>
-  <span>* Bitget, MEXC, KuCoin, HTX need Cloudflare Worker proxy for CORS</span>
-  <span>Refresh every 120s · Not financial advice · DYOR</span>
+  <span>* Bitget, MEXC, KuCoin, HTX require a Cloudflare Worker proxy for CORS</span>
+  <span>Auto-refreshes every 120s · Not financial advice · DYOR</span>
 </div>
+<footer style="background:var(--bg);border-top:1px solid var(--border);padding:1.5rem 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+  <p style="color:var(--muted);font-size:0.82rem;">© 2026 ArbVertex</p>
+  <div style="display:flex;gap:1.5rem;">
+    <a href="index.html" style="color:var(--muted);text-decoration:none;font-size:0.82rem;transition:color .2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'">Home</a>
+    <a href="crypto-arbitrage-risks-precautions.html" style="color:var(--muted);text-decoration:none;font-size:0.82rem;transition:color .2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'">Risk Disclaimer</a>
+    <a href="contact-arbvertex.html" style="color:var(--muted);text-decoration:none;font-size:0.82rem;transition:color .2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'">Contact</a>
+  </div>
+  <p style="color:var(--muted);font-size:0.75rem;">Not financial advice.</p>
+</footer>
 
 <script>
 // ═══════════════════════════════════
@@ -593,15 +600,10 @@ function netB(v, mp) {
   if (v>=mp)   return `<span class="b b-arb">${s}${v.toFixed(4)}%</span>`;
   return `<span class="b b-neu">${s}${v.toFixed(4)}%</span>`;
 }
-function sigEl(net, mp, lEx, sEx) {
-  if (net < mp) return '<span class="sig sig-none">—</span>';
-  const cls = net>=mp*2?'sig-fire':'sig-hot';
-  const e   = net>=mp*2?'🟢':'🟡';
-  return `<span class="sig ${cls}">${e} L:${EX_NAMES[lEx]||lEx} S:${EX_NAMES[sEx]||sEx}</span>`;
-}
+
 function sBar(v) {
   const pct = Math.min(v/0.15*100,100).toFixed(1);
-  const col = v>=0.1?'#f59e0b':v>=0.05?'#3b82f6':'#2a3040';
+  const col = v>=0.1?'#fbbf24':v>=0.05?'#38bdf8':'#263347';
   return `<div class="sbar"><div class="sbar-track"><div class="sbar-fill" style="width:${pct}%;background:${col}"></div></div><span class="sbar-val">${v.toFixed(4)}%</span></div>`;
 }
 
@@ -664,7 +666,6 @@ function renderTable(rows, mp) {
       <td class="r">${frB(r.avgRate)}</td>
       <td class="r">${sBar(r.spread)}</td>
       <td class="r">${netB(r.netProfit, mp)}</td>
-      <td class="c">${sigEl(r.netProfit, mp, r.longEx, r.shortEx)}</td>
     </tr>`).join('');
 }
 
@@ -690,11 +691,7 @@ function renderCards(rows, mp) {
         <span class="arb-net ${r.netProfit>=mp*2?'cy':'cd'}">${r.netProfit>0?'+':''}${r.netProfit.toFixed(4)}% net</span>
       </div>
       ${exRows}
-      <div class="arb-signal-box">
-        ${r.netProfit>=mp*2?'🟢':'🟡'} <strong>LONG</strong> on ${EX_NAMES[r.longEx]||r.longEx||'?'}
-        &nbsp;·&nbsp; <strong>SHORT</strong> on ${EX_NAMES[r.shortEx]||r.shortEx||'?'}<br>
-        Spread: ${r.spread.toFixed(4)}% &nbsp;·&nbsp; Price gap: ${r.priceDiff.toFixed(4)}%
-      </div>
+
     </div>`;
   }).join('');
 }
