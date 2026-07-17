@@ -156,47 +156,189 @@ footer p{color:var(--muted);font-size:0.82rem;}
  </div>
 </div>
 
+<style>
+.fees-wrap{max-width:820px;margin:0 auto;}
+.fees-meta{display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;margin-bottom:1.5rem;}
+.fees-tag{font-family:'JetBrains Mono',monospace;font-size:0.68rem;padding:0.25rem 0.65rem;border-radius:3px;letter-spacing:0.05em;}
+.fees-tag-orange{background:rgba(249,115,22,0.1);color:var(--orange);}
+.fees-tag-blue{background:rgba(0,229,255,0.08);color:var(--accent);}
+.fees-hero-title{font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:800;line-height:1.25;letter-spacing:-0.02em;margin-bottom:1rem;}
+.fees-lead{color:var(--muted);font-size:1rem;line-height:1.85;margin-bottom:2.5rem;border-left:3px solid #ffa040;padding-left:1.2rem;}
+.fees-toc{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.4rem 1.8rem;margin-bottom:2.5rem;}
+.fees-toc h4{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.9rem;}
+.fees-toc ul{list-style:none;display:flex;flex-direction:column;gap:0.45rem;}
+.fees-toc li{font-size:0.88rem;display:flex;align-items:center;gap:0.5rem;}
+.fees-toc .n{font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--border);min-width:18px;}
+.fees-toc a{color:var(--muted);text-decoration:none;transition:color .2s;}
+.fees-toc a:hover{color:var(--accent);}
+.fees-section{background:var(--surface);border:1px solid var(--border);border-left:3px solid #ffa040;border-radius:12px;padding:2rem;margin-bottom:1.5rem;}
+.fees-section h3{font-size:1.05rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.6rem;}
+.fees-section p{color:var(--muted);font-size:0.92rem;line-height:1.85;margin-bottom:0.9rem;}
+.fees-section p:last-child{margin-bottom:0;}
+.fees-calc{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:1.4rem;font-family:'JetBrains Mono',monospace;font-size:0.83rem;line-height:2.1;color:var(--muted);margin:1rem 0;}
+.fees-calc strong{color:var(--accent2);}
+.fees-calc .sep{border-top:1px solid var(--border);padding-top:0.8rem;margin-top:0.8rem;display:block;}
+.fees-table{width:100%;border-collapse:collapse;font-size:0.84rem;margin:1rem 0;}
+.fees-table th{font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;padding:0.6rem 0.8rem;border-bottom:1px solid var(--border);text-align:left;}
+.fees-table td{padding:0.65rem 0.8rem;border-bottom:1px solid rgba(26,58,82,0.5);color:var(--text);font-size:0.84rem;}
+.fees-table tr:last-child td{border-bottom:none;}
+.fees-table .good{color:var(--accent2);font-weight:600;}
+.fees-table .mid{color:#ffa040;}
+.fees-table .bad{color:#ff7070;}
+.fees-table .mono{font-family:'JetBrains Mono',monospace;color:var(--accent);}
+.checklist-box{background:rgba(0,255,136,0.03);border:1px solid rgba(0,255,136,0.2);border-radius:12px;padding:2rem;margin-bottom:1.5rem;}
+.checklist-box h3{font-size:1.05rem;font-weight:700;color:var(--accent2);margin-bottom:1.2rem;display:flex;align-items:center;gap:0.6rem;}
+.chk-list{display:flex;flex-direction:column;gap:0.7rem;}
+.chk-item{display:flex;align-items:flex-start;gap:0.75rem;font-size:0.9rem;color:var(--muted);line-height:1.6;}
+.chk-icon{flex-shrink:0;font-size:0.9rem;margin-top:0.05rem;}
+.chk-item.bad-item{color:#ff7070;}
+.fees-nav{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2.5rem;padding-top:1.8rem;border-top:1px solid var(--border);}
+.fees-btn{padding:0.75rem 1.5rem;border-radius:5px;font-weight:500;font-size:0.88rem;text-decoration:none;transition:all .2s;}
+.fees-btn-ghost{border:1px solid var(--border);color:var(--muted);background:none;}
+.fees-btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+.fees-btn-outline{border:1px solid var(--border);color:var(--text);background:none;}
+.fees-btn-outline:hover{border-color:var(--accent);color:var(--accent);}
+.fees-btn-primary{background:var(--accent);color:var(--bg);font-weight:700;border:none;}
+.fees-btn-primary:hover{opacity:0.88;}
+@media(max-width:600px){
+  .fees-table{font-size:0.78rem;}
+  .fees-table th,.fees-table td{padding:0.5rem 0.5rem;}
+}
+</style>
+
 <main>
+ <div class="fees-wrap">
   <a href="crypto-arbitrage-blog.html" class="back-link">← Back to Blog</a>
-  <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:1rem;">
-    <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;background:rgba(249,115,22,0.1);color:var(--orange);padding:0.3rem 0.7rem;border-radius:3px;">STEP 9 OF 16</span>
-    <span style="font-size:0.7rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">🟥 TOOLS</span>
+
+  <div class="fees-meta">
+   <span class="fees-tag fees-tag-orange">STEP 9 OF 16</span>
+   <span class="fees-tag fees-tag-blue">🟥 TOOLS</span>
+   <span style="font-size:0.75rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">⏱ 6 min read</span>
   </div>
-  <h1 style="font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;line-height:1.15;letter-spacing:-0.02em;margin-bottom:1rem;">Futures Arbitrage Fees Explained: Funding Rate, Taker, Rollover &amp; Hidden Costs</h1>
-  <p style="color:var(--muted);font-size:0.95rem;line-height:1.8;margin-bottom:2rem;">Futures arbitrage has different fee structure than spot. Know all 4 cost types — or lose money on every trade even when the strategy is right.</p>
-  <div style="display:flex;flex-direction:column;gap:1rem;margin-bottom:1.5rem;">
-    <div style="background:var(--surface);border:1px solid var(--border);border-left:3px solid #ffa040;border-radius:10px;padding:1.4rem;">
-      <strong style="color:var(--text);">1. Taker Fee (Entry + Exit)</strong>
-      <p style="color:var(--muted);font-size:0.88rem;margin-top:0.4rem;line-height:1.7;">You pay taker fee on BOTH legs — spot buy and futures short. Binance futures: 0.04%, Bybit futures: 0.055%. Total entry cost on $10,000 = ~$9.50. Same amount again 2026to exit = $19 total round-trip fee.</p>
-    </div>
-    <div style="background:var(--surface);border:1px solid var(--border);border-left:3px solid #ffa040;border-radius:10px;padding:1.4rem;">
-      <strong style="color:var(--text);">2. Funding Rate (Your Income)</strong>
-      <p style="color:var(--muted);font-size:0.88rem;margin-top:0.4rem;line-height:1.7;">Paid every 8 hours (3x/day) by longs to shorts when rate is positive. This is your income in cash-and-carry arb. At 0.05%/8h on $10,000 = $15/day = $450/month. Only enter when rate covers your fees in 2026under 48 hours.</p>
-    </div>
-    <div style="background:var(--surface);border:1px solid var(--border);border-left:3px solid #ffa040;border-radius:10px;padding:1.4rem;">
-      <strong style="color:var(--text);">3. Funding Rate Reversal Risk</strong>
-      <p style="color:var(--muted);font-size:0.88rem;margin-top:0.4rem;line-height:1.7;">If rate flips negative, YOU pay instead of earning. Always set a stop rule: exit the trade if funding rate drops below 0.01% for 2 consecutive payments. Never hold through a rate reversal without a plan.</p>
-    </div>
-    <div style="background:var(--surface);border:1px solid var(--border);border-left:3px solid #ffa040;border-radius:10px;padding:1.4rem;">
-      <strong style="color:var(--text);">4. Slippage on Futures</strong>
-      <p style="color:var(--muted);font-size:0.88rem;margin-top:0.4rem;line-height:1.7;">Futures markets are deep for BTC/ETH — slippage near zero for trades under $50K. For altcoin 2026perps, check open interest before entering. Avoid coins with OI under $5M — wide spreads kill your margin.</p>
-    </div>
+
+  <h1 class="fees-hero-title">Futures Arbitrage Fees Explained: Taker, Funding Rate, Reversal &amp; Slippage</h1>
+  <p class="fees-lead">Futures arbitrage has a different fee structure than spot trading. Know all 4 cost types before you trade — or lose money on every position even when the strategy is correct.</p>
+
+  <div class="fees-toc">
+   <h4>// In this article</h4>
+   <ul>
+    <li><span class="n">01</span><a href="#taker">Taker Fee — Entry &amp; Exit</a></li>
+    <li><span class="n">02</span><a href="#funding">Funding Rate — Your Income</a></li>
+    <li><span class="n">03</span><a href="#reversal">Funding Rate Reversal Risk</a></li>
+    <li><span class="n">04</span><a href="#slippage">Slippage on Futures</a></li>
+    <li><span class="n">05</span><a href="#exchange-fees">Fee Comparison by Exchange</a></li>
+    <li><span class="n">06</span><a href="#checklist">Entry Checklist</a></li>
+   </ul>
   </div>
-  <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.8rem;margin-bottom:1.5rem;">
-    <h2 style="font-size:1.1rem;font-weight:700;margin-bottom:1rem;color:var(--accent2);">✅ Minimum Viable Funding Rate Checklist</h2>
-    <div style="display:flex;flex-direction:column;gap:0.6rem;font-size:0.88rem;">
-      <div style="display:flex;align-items:center;gap:0.6rem;"><span style="color:var(--accent2);font-weight:700;">✓</span><span style="color:var(--muted);">Funding rate ≥ 0.03% per 8h (covers fees in 2026&lt;36h)</span></div>
-      <div style="display:flex;align-items:center;gap:0.6rem;"><span style="color:var(--accent2);font-weight:700;">✓</span><span style="color:var(--muted);">Rate positive for last 5+ consecutive payments</span></div>
-      <div style="display:flex;align-items:center;gap:0.6rem;"><span style="color:var(--accent2);font-weight:700;">✓</span><span style="color:var(--muted);">Futures OI growing (longs increasing = rate stays positive)</span></div>
-      <div style="display:flex;align-items:center;gap:0.6rem;"><span style="color:var(--accent2);font-weight:700;">✓</span><span style="color:var(--muted);">Exit plan ready if rate drops below 0.01%</span></div>
-      <div style="display:flex;align-items:center;gap:0.6rem;"><span style="color:#ff7070;font-weight:700;">✗</span><span style="color:var(--muted);">Never enter at peak rate — rate usually reverts after spike</span></div>
-    </div>
+
+  <!-- 1. TAKER FEE -->
+  <div class="fees-section" id="taker">
+   <h3><span>💸</span><span style="color:#ffa040;">Taker Fee — Entry &amp; Exit</span></h3>
+   <p>In futures arbitrage you pay taker fees on <strong>both legs</strong> — the spot buy and the futures short — both at entry and at exit. This means every trade has <strong>4 fee events</strong> total.</p>
+   <div class="fees-calc">
+    Position size: $10,000
+    Binance spot taker: 0.10% → $10.00
+    Binance futures taker: 0.04% → $4.00
+    <span class="sep"></span>
+    Entry cost: <strong>$14.00</strong>
+    Exit cost (same): <strong>$14.00</strong>
+    Total round-trip: <strong style="color:#ffa040;">$28.00</strong>
+    <span class="sep"></span>
+    Minimum funding needed to break even: ~0.047% per 8h (just under 2 payments)
+   </div>
+   <p>Always use <strong>limit orders where possible</strong> to qualify for maker rates — this cuts fees by 50–60% on most exchanges.</p>
   </div>
-  <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border);">
-      <a href="blog.html" style="border:1px solid var(--border);color:var(--muted);padding:0.7rem 1.5rem;border-radius:4px;font-weight:500;font-size:0.9rem;text-decoration:none;background:none;transition:border-color .2s,color .2s;">☰ Back to Blog</a>
-      <a href="arbitrage-profit-calculator-guide.html" style="border:1px solid var(--border);color:var(--text);padding:0.7rem 1.5rem;border-radius:4px;font-weight:500;font-size:0.9rem;text-decoration:none;background:none;transition:border-color .2s,color .2s;">← Prev: Profit Calculator</a>
-      <a href="best-crypto-arbitrage-tools.html" style="background:var(--accent);color:var(--bg);padding:0.7rem 1.5rem;border-radius:4px;font-weight:700;font-size:0.9rem;text-decoration:none;transition:opacity .2s;">Next: Best Tools →</a>
-    </div>
+
+  <!-- 2. FUNDING RATE -->
+  <div class="fees-section" id="funding">
+   <h3><span>💰</span><span style="color:var(--accent2);">Funding Rate — Your Primary Income</span></h3>
+   <p>When funding is positive, longs pay shorts every 8 hours (or 1h/4h on some exchanges). As a cash-and-carry trader holding a short futures position, <strong>you receive this payment</strong>.</p>
+   <div class="fees-calc">
+    Funding rate: +0.05% per 8h
+    Position: $10,000
+    Per payment: <strong>$5.00</strong>
+    Per day (3 payments): <strong>$15.00</strong>
+    Per month: <strong style="color:var(--accent2);">~$450</strong>
+    Annualized APR: <strong style="color:var(--accent2);">~54.75%</strong>
+    <span class="sep"></span>
+    Rule: Only enter when funding rate covers round-trip fees within 48 hours.
+   </div>
+   <p>At $28 round-trip fee on $10,000 and $15/day income — break-even is under 2 days. Anything beyond is pure profit.</p>
+  </div>
+
+  <!-- 3. REVERSAL RISK -->
+  <div class="fees-section" id="reversal" style="border-left-color:#ff7070;">
+   <h3><span>⚠️</span><span style="color:#ff7070;">Funding Rate Reversal Risk</span></h3>
+   <p>If market sentiment flips bearish, the funding rate can turn <strong>negative</strong> — meaning you pay instead of collecting. This is the most common way traders lose money in funding rate arbitrage.</p>
+   <div class="fees-calc" style="border-color:rgba(255,85,85,0.2);background:rgba(255,85,85,0.03);">
+    Rate turns: −0.05% per 8h
+    Your position: SHORT futures + LONG spot
+    You now PAY: <strong style="color:#ff7070;">$5.00 per 8h = −$15/day</strong>
+    Plus your round-trip exit fee still applies.
+    <span class="sep"></span>
+    Exit immediately if: rate drops below +0.01% for 2 consecutive payments.
+   </div>
+   <p>Warning signs to watch: open interest falling sharply, price dropping while shorts increasing, major negative news event. ArbVertex Telegram bot alerts you automatically before each settlement.</p>
+  </div>
+
+  <!-- 4. SLIPPAGE -->
+  <div class="fees-section" id="slippage">
+   <h3><span>📉</span><span style="color:#ffa040;">Slippage on Futures</span></h3>
+   <p>Slippage is the difference between the price you expected and the price you got. On futures, it varies heavily by pair and position size.</p>
+   <div class="fees-calc">
+    BTC/ETH perps under $50K: slippage ≈ <strong>0.00–0.02%</strong> (negligible)
+    Mid-cap altcoin perps $5K–$20K: slippage ≈ <strong>0.05–0.15%</strong>
+    Low OI altcoin perps (&lt;$5M OI): slippage ≈ <strong>0.2–0.5%+</strong> (avoid)
+   </div>
+   <p>Always check <strong>Open Interest</strong> before entering altcoin positions. OI under $5M means thin order books — your entry alone can move the price against you.</p>
+  </div>
+
+  <!-- 5. EXCHANGE FEE TABLE -->
+  <div class="fees-section" id="exchange-fees">
+   <h3><span>📊</span><span style="color:var(--accent);">Fee Comparison by Exchange</span></h3>
+   <p>Fees vary significantly across exchanges. Lower taker fees mean your position breaks even faster.</p>
+   <table class="fees-table">
+    <thead>
+     <tr>
+      <th>Exchange</th>
+      <th>Spot Maker</th>
+      <th>Spot Taker</th>
+      <th>Futures Maker</th>
+      <th>Futures Taker</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr><td><strong>Binance</strong></td><td class="good">0.08%</td><td class="mid">0.10%</td><td class="good">0.02%</td><td class="good">0.04%</td></tr>
+     <tr><td><strong>Bybit</strong></td><td class="good">0.10%</td><td class="mid">0.10%</td><td class="good">0.02%</td><td class="mid">0.055%</td></tr>
+     <tr><td><strong>OKX</strong></td><td class="good">0.08%</td><td class="mid">0.10%</td><td class="good">0.02%</td><td class="good">0.05%</td></tr>
+     <tr><td><strong>Gate.io</strong></td><td class="mid">0.10%</td><td class="mid">0.10%</td><td class="good">0.015%</td><td class="mid">0.05%</td></tr>
+     <tr><td><strong>MEXC</strong></td><td class="good">0.00%</td><td class="good">0.00%</td><td class="good">0.00%</td><td class="good">0.00%</td></tr>
+    </tbody>
+   </table>
+   <p style="font-size:0.82rem;color:var(--muted);">Note: MEXC zero fees apply to select pairs. Always verify current fee schedule on each exchange — rates change with volume tiers and promotions.</p>
+  </div>
+
+  <!-- 6. CHECKLIST -->
+  <div class="checklist-box" id="checklist">
+   <h3><span>✅</span> Entry Checklist — Before Every Trade</h3>
+   <div class="chk-list">
+    <div class="chk-item"><span class="chk-icon">✅</span><span>Funding rate ≥ 0.03% per 8h — covers round-trip fees in under 36 hours</span></div>
+    <div class="chk-item"><span class="chk-icon">✅</span><span>Rate has been positive for at least 5 consecutive payments</span></div>
+    <div class="chk-item"><span class="chk-icon">✅</span><span>Futures Open Interest is growing — signals rate will stay positive</span></div>
+    <div class="chk-item"><span class="chk-icon">✅</span><span>OI on target pair is above $5M — ensures tight spreads and low slippage</span></div>
+    <div class="chk-item"><span class="chk-icon">✅</span><span>Exit plan defined — know your rate floor before entering</span></div>
+    <div class="chk-item bad-item"><span class="chk-icon">❌</span><span>Never enter immediately after a rate spike — rates usually revert within 1–2 payments</span></div>
+    <div class="chk-item bad-item"><span class="chk-icon">❌</span><span>Never hold through a rate reversal without an exit plan in place</span></div>
+   </div>
+  </div>
+
+  <div class="fees-nav">
+   <a href="crypto-arbitrage-blog.html" class="fees-btn fees-btn-ghost">☰ Back to Blog</a>
+   <a href="arbitrage-profit-calculator-guide.html" class="fees-btn fees-btn-outline">← Prev: Profit Calculator</a>
+   <a href="best-crypto-arbitrage-tools.html" class="fees-btn fees-btn-primary">Next: Best Tools →</a>
+  </div>
+
+ </div>
 </main>
 
 <footer>
