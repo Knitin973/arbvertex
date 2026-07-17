@@ -372,7 +372,7 @@ const EX_NAMES  = {
   binance:'Binance', bybit:'Bybit', bitget:'Bitget', gateio:'Gate.io',
   mexc:'MEXC', kucoin:'KuCoin', htx:'HTX', hyperliquid:'Hyperliquid'
 };
-const EX_CORS_OK = ['binance','bybit','gateio','hyperliquid'];
+const EX_CORS_OK = ['binance','bybit','hyperliquid'];
 
 // ═══════════════════════════════════
 //  STATE
@@ -433,8 +433,8 @@ async function fetchBybit() {
 }
 
 async function fetchGateio() {
-  // Gate.io futures tickers — funding_rate field
-  const d = await sf('https://api.gateio.ws/api/v4/futures/usdt/tickers');
+  // Gate.io via proxy (CORS fix)
+  const d = await fetchProxy('/funding?exchange=gate');
   if (!d || !Array.isArray(d)) return {};
   const out = {};
   for (const it of d) {
