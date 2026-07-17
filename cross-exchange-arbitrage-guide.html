@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cross-Exchange Arbitrage Guide: Execute Both Legs Fast</title>
 <meta name="description" content="5-step execution guide for cross-exchange crypto arbitrage — fee math, minimum spread threshold, and timing tips for Binance and Bybit trades.">
-<meta name="keywords" content="crypto futures arbitrage signals, bitcoin 2026arbitrage telegram, crypto arbitrage bot, funding rate arbitrage, cross exchange arbitrage, bybit binance arbitrage, crypto signals telegram, arbitrage trading signals">
+<meta name="keywords" content="crypto futures arbitrage signals, bitcoin arbitrage telegram, crypto arbitrage bot, funding rate arbitrage, cross exchange arbitrage, bybit binance arbitrage, crypto signals telegram, arbitrage trading signals">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://arbvertex.com/cross-exchange-arbitrage-guide.html">
 
@@ -487,44 +487,392 @@ footer p{color:var(--muted);font-size:0.82rem;}
 </div>
 
 
+<style>
+/* ── ARTICLE LAYOUT ── */
+.article-wrap{max-width:760px;margin:0 auto;padding:60px 5% 80px;}
+.article-meta{display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;margin-bottom:1.8rem;}
+.meta-pill{font-family:'JetBrains Mono',monospace;font-size:0.68rem;padding:0.28rem 0.65rem;border-radius:3px;letter-spacing:0.06em;}
+.pill-step{background:rgba(0,255,136,0.1);color:var(--accent2);}
+.pill-level{background:rgba(0,255,136,0.08);color:var(--accent2);}
+.pill-time{background:rgba(106,143,168,0.12);color:var(--muted);}
+.article-h1{font-size:clamp(1.7rem,4vw,2.5rem);font-weight:800;line-height:1.2;letter-spacing:-0.025em;margin-bottom:1rem;color:var(--text);}
+.article-lead{font-size:1.05rem;color:var(--muted);line-height:1.8;margin-bottom:2.5rem;max-width:680px;border-left:3px solid var(--accent);padding-left:1.1rem;}
+.article-h2{font-size:1.25rem;font-weight:700;color:var(--text);margin:2.5rem 0 0.9rem;letter-spacing:-0.015em;}
+.article-p{color:var(--muted);font-size:0.94rem;line-height:1.85;margin-bottom:1rem;}
+.article-divider{border:none;border-top:1px solid var(--border);margin:2.5rem 0;}
+
+/* ── CALLOUT BOXES ── */
+.callout{border-radius:10px;padding:1.5rem 1.7rem;margin:1.5rem 0;}
+.callout-def{background:var(--surface);border:1px solid var(--border);}
+.callout-example{background:rgba(0,255,136,0.04);border:1px solid rgba(0,255,136,0.2);}
+.callout-warning{background:rgba(255,85,85,0.05);border:1px solid rgba(255,85,85,0.25);}
+.callout-tip{background:rgba(0,229,255,0.05);border:1px solid rgba(0,229,255,0.2);}
+.callout-label{font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;margin-bottom:0.55rem;}
+.label-def{color:var(--accent);}
+.label-example{color:var(--accent2);}
+.label-warning{color:#ff7070;}
+.label-tip{color:var(--accent);}
+.callout h3{font-size:0.97rem;font-weight:700;color:var(--text);margin-bottom:0.5rem;}
+.callout p{color:var(--muted);font-size:0.9rem;line-height:1.75;margin:0;}
+.callout p+p{margin-top:0.7rem;}
+
+/* ── EXECUTION FLOW ── */
+.exec-flow{display:flex;flex-direction:column;gap:0;margin:1.5rem 0;}
+.ef-step{display:flex;gap:1.2rem;align-items:flex-start;}
+.ef-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0;}
+.ef-num{width:36px;height:36px;background:var(--surface);border:1px solid var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:0.82rem;font-weight:700;color:var(--accent);}
+.ef-line{width:1px;flex:1;min-height:20px;background:var(--border);margin:5px 0;}
+.ef-body{padding-bottom:1.3rem;}
+.ef-body h4{font-size:0.95rem;font-weight:600;color:var(--text);margin-bottom:0.35rem;}
+.ef-body p{color:var(--muted);font-size:0.87rem;line-height:1.72;}
+.ef-body .mono{font-family:'JetBrains Mono',monospace;font-size:0.82rem;color:var(--accent2);display:block;margin-top:0.35rem;}
+.ef-step:last-child .ef-line{display:none;}
+
+/* ── LIVE SCENARIO PANEL ── */
+.scenario{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin:1.5rem 0;}
+.scenario-header{background:rgba(0,229,255,0.06);border-bottom:1px solid var(--border);padding:0.9rem 1.4rem;display:flex;align-items:center;gap:0.6rem;}
+.scenario-dot{width:7px;height:7px;background:var(--accent2);border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.scenario-title{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent);letter-spacing:0.08em;text-transform:uppercase;font-weight:700;}
+.scenario-body{padding:1.3rem 1.4rem;}
+.price-row{display:flex;justify-content:space-between;align-items:center;padding:0.55rem 0;border-bottom:1px solid var(--border);}
+.price-row:last-of-type{border-bottom:none;}
+.pr-label{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--muted);}
+.pr-val{font-family:'JetBrains Mono',monospace;font-size:0.88rem;font-weight:600;}
+.pr-buy{color:var(--accent2);}
+.pr-sell{color:#ff7070;}
+.pr-gap{color:var(--accent);}
+.pr-net{color:var(--accent2);}
+
+/* ── FEE TABLE ── */
+.fee-table{width:100%;border-collapse:collapse;margin:1.2rem 0;font-size:0.87rem;}
+.fee-table th{font-family:'JetBrains Mono',monospace;font-size:0.68rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.6rem 0.9rem;border-bottom:2px solid var(--border);text-align:left;color:var(--muted);}
+.fee-table td{padding:0.65rem 0.9rem;border-bottom:1px solid var(--border);color:var(--muted);vertical-align:middle;}
+.fee-table tr:last-child td{border-bottom:none;}
+.fee-table td:first-child{color:var(--text);font-weight:500;}
+.fee-table .tier-vip{color:var(--accent2);font-family:'JetBrains Mono',monospace;font-size:0.8rem;}
+.fee-table .tier-std{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:0.8rem;}
+.fee-table .exch-tag{display:inline-block;background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:0.1rem 0.4rem;font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent);}
+
+/* ── MATH BREAKDOWN ── */
+.math-block{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:1.3rem 1.5rem;margin:1.2rem 0;font-family:'JetBrains Mono',monospace;font-size:0.85rem;}
+.math-row{display:flex;justify-content:space-between;align-items:baseline;padding:0.4rem 0;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:0.3rem;}
+.math-row:last-child{border-bottom:none;}
+.math-label{color:var(--muted);font-size:0.8rem;}
+.math-val{color:var(--text);}
+.math-val.pos{color:var(--accent2);font-weight:700;}
+.math-val.neg{color:#ff7070;}
+.math-val.neu{color:var(--accent);}
+.math-total{border-top:2px solid var(--border)!important;padding-top:0.6rem!important;}
+
+/* ── CAPITAL SPLIT VISUAL ── */
+.cap-split{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.2rem 0;}
+.cap-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.2rem 1.3rem;}
+.cap-exch{font-family:'JetBrains Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;margin-bottom:0.6rem;color:var(--accent);}
+.cap-amount{font-family:'JetBrains Mono',monospace;font-size:1.3rem;font-weight:700;color:var(--text);margin-bottom:0.3rem;}
+.cap-desc{font-size:0.83rem;color:var(--muted);line-height:1.55;}
+.cap-tag{display:inline-block;background:rgba(0,255,136,0.1);color:var(--accent2);font-family:'JetBrains Mono',monospace;font-size:0.65rem;padding:0.15rem 0.45rem;border-radius:2px;margin-top:0.5rem;}
+
+/* ── STAT ROW ── */
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.5rem 0;}
+.stat-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.1rem 1rem;text-align:center;}
+.stat-box .num{font-family:'JetBrains Mono',monospace;font-size:1.5rem;font-weight:700;color:var(--accent);display:block;}
+.stat-box .lbl{font-size:0.75rem;color:var(--muted);margin-top:0.25rem;line-height:1.4;}
+
+/* ── CHECKLIST ── */
+.checklist{list-style:none;display:flex;flex-direction:column;gap:0.55rem;margin:1rem 0;}
+.checklist li{display:flex;gap:0.6rem;font-size:0.9rem;color:var(--muted);line-height:1.6;}
+.checklist li::before{content:'✓';color:var(--accent2);font-weight:700;flex-shrink:0;margin-top:1px;}
+.checklist.warn li::before{content:'✗';color:#ff7070;}
+
+/* ── FAQ ── */
+.faq-list{display:flex;flex-direction:column;}
+.faq-item{border-bottom:1px solid var(--border);padding:1.1rem 0;}
+.faq-item:first-child{border-top:1px solid var(--border);}
+.faq-q{font-size:0.93rem;font-weight:600;color:var(--text);margin-bottom:0.45rem;}
+.faq-a{color:var(--muted);font-size:0.88rem;line-height:1.7;}
+
+/* ── ARTICLE NAV ── */
+.article-nav{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border);}
+
+@media(max-width:600px){
+ .cap-split{grid-template-columns:1fr;}
+ .stat-row{grid-template-columns:1fr 1fr;}
+ .fee-table{font-size:0.8rem;}
+ .fee-table td,.fee-table th{padding:0.55rem 0.5rem;}
+ .math-row{flex-direction:column;gap:0.1rem;}
+}
+</style>
+
 <div class="page active" id="page-article-6">
-<h1 class="article-title">Cross-Exchange Arbitrage Guide: Execute Both Legs on Binance & Bybit</h1>
- <div class="inner-page">
- <button class="back-btn" onclick="showPage('blog')">← Back to Blog</button>
- <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:1rem;">
- <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;background:rgba(0,255,136,0.1);color:var(--accent2);padding:0.3rem 0.7rem;border-radius:3px;">STEP 6 OF 16</span>
- <span style="font-size:0.7rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">🟩 STRATEGY</span>
- </div>
- <h2 style="font-size:1.6rem;font-weight:800;line-height:1.3;margin-bottom:1rem;">Cross-Exchange Arbitrage: How to Execute Both Legs on Binance & Bybit ( Guide)</h2>
- <p style="color:var(--muted);font-size:0.95rem;line-height:1.8;margin-bottom:2rem;">Step-by-step: spot a price gap, calculate net profit after fees, execute both legs, and close for guaranteed spread income.</p>
- <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.8rem;margin-bottom:1.5rem;">
- <h2 style="font-size:1.1rem;font-weight:700;margin-bottom:1rem;color:var(--accent);">The Trade in 20265 Steps</h2>
- <div style="display:flex;flex-direction:column;gap:0.8rem;">
- <div style="border-left:3px solid var(--accent);padding-left:1rem;color:var(--muted);font-size:0.9rem;">1. Monitor both exchanges for the same pair</div>
- <div style="border-left:3px solid var(--accent);padding-left:1rem;color:var(--muted);font-size:0.9rem;">2. Calculate: raw spread % − (exchange A fee + exchange B fee + slippage)</div>
- <div style="border-left:3px solid var(--accent);padding-left:1rem;color:var(--muted);font-size:0.9rem;">3. Only enter if net spread &gt; 0.25%</div>
- <div style="border-left:3px solid var(--accent);padding-left:1rem;color:var(--muted);font-size:0.9rem;">4. BUY on cheaper exchange + SELL/SHORT on expensive one simultaneously</div>
- <div style="border-left:3px solid var(--accent);padding-left:1rem;color:var(--muted);font-size:0.9rem;">5. Close both legs when spread compresses to near zero</div>
- </div>
- </div>
- <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.8rem;margin-bottom:1.5rem;">
- <h2 style="font-size:1.1rem;font-weight:700;margin-bottom:1rem;color:var(--accent);">Fee Math Example (BTC/USDT)</h2>
- <div style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;line-height:2;color:var(--muted);">
- Binance taker: 0.04%<br>
- Bybit taker: 0.055%<br>
- Round-trip total: 0.19%<br>
- Raw spread: 0.50%<br>
- Net profit: <strong style="color:var(--accent2);">0.31%</strong> ✅
- </div>
- <p style="color:var(--muted);font-size:0.85rem;margin-top:0.8rem;">ArbVertex only sends signals with 2%+ net gap — already fee-validated. <span style="color:var(--accent);cursor:pointer;font-weight:600;" onclick="showPage('pricing')">Subscribe →</span></p>
- </div>
- <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border);">
-      <a href="blog.html" style="border:1px solid var(--border);color:var(--muted);padding:0.7rem 1.5rem;border-radius:4px;font-weight:500;font-size:0.9rem;text-decoration:none;background:none;transition:border-color .2s,color .2s;">☰ Back to Blog</a>
-      <a href="triangular-arbitrage-explained.html" style="border:1px solid var(--border);color:var(--text);padding:0.7rem 1.5rem;border-radius:4px;font-weight:500;font-size:0.9rem;text-decoration:none;background:none;transition:border-color .2s,color .2s;">← Prev: Triangular Arbitrage</a>
-      <a href="best-crypto-arbitrage-exchanges.html" style="background:var(--accent);color:var(--bg);padding:0.7rem 1.5rem;border-radius:4px;font-weight:700;font-size:0.9rem;text-decoration:none;transition:opacity .2s;">Next: Best Exchanges →</a>
+ <div class="article-wrap">
+
+  <!-- Back -->
+  <a href="crypto-arbitrage-blog.html" style="display:inline-flex;align-items:center;gap:0.4rem;color:var(--muted);font-size:0.83rem;text-decoration:none;margin-bottom:2rem;transition:color .2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'">← Back to Blog</a>
+
+  <!-- Meta -->
+  <div class="article-meta">
+   <span class="meta-pill pill-step">STEP 6 OF 16</span>
+   <span class="meta-pill pill-level">🟩 STRATEGY</span>
+   <span class="meta-pill pill-time">⏱ 10 MIN READ</span>
+  </div>
+
+  <!-- Title -->
+  <h1 class="article-h1">Cross-Exchange Arbitrage:<br>A Complete Execution Guide</h1>
+  <p class="article-lead">Spotting the gap is the easy part. This guide covers what actually happens between seeing a price difference and walking away with profit — fee math, capital positioning, simultaneous execution, and how to close cleanly.</p>
+
+  <!-- 1. What it is -->
+  <h2 class="article-h2">What Cross-Exchange Arbitrage Actually Is</h2>
+  <p class="article-p">Cross-exchange arbitrage is the most direct form of crypto arbitrage: the same asset trades at two different prices on two different exchanges at the same moment. You buy where it's cheap and sell where it's expensive — simultaneously — and the spread is your profit.</p>
+  <p class="article-p">Unlike triangular arbitrage (which runs a loop on one exchange) or funding rate arb (which earns passive payments over time), cross-exchange arb is transactional. You enter, capture the gap, and exit. The entire trade can last seconds if both legs are pre-positioned and execution is clean.</p>
+
+  <div class="callout callout-def">
+   <div class="callout-label label-def">Core Mechanic</div>
+   <h3>Buy low on Exchange A. Sell high on Exchange B. Net the spread minus fees.</h3>
+   <p>The key constraint: both legs must execute as close to simultaneously as possible. If you buy first and then the gap closes before you can sell, you own the asset at market price with no edge. Pre-positioned capital on both exchanges eliminates the need to transfer coins mid-trade.</p>
+  </div>
+
+  <!-- 2. Live scenario -->
+  <h2 class="article-h2">A Live Trade Scenario</h2>
+  <p class="article-p">Here's what a real cross-exchange opportunity looks like when it fires. The scanner shows SOL/USDT with a significant price gap between two exchanges:</p>
+
+  <div class="scenario">
+   <div class="scenario-header">
+    <div class="scenario-dot"></div>
+    <div class="scenario-title">Live Signal — SOL/USDT Price Gap</div>
+   </div>
+   <div class="scenario-body">
+    <div class="price-row"><span class="pr-label">Exchange A (Binance)</span><span class="pr-val pr-buy">$142.80 ← BUY</span></div>
+    <div class="price-row"><span class="pr-label">Exchange B (Bybit)</span><span class="pr-val pr-sell">$146.10 ← SELL</span></div>
+    <div class="price-row"><span class="pr-label">Raw spread</span><span class="pr-val pr-gap">+2.31%</span></div>
+    <div class="price-row"><span class="pr-label">Round-trip fees (0.04% + 0.055% × 2 sides)</span><span class="pr-val" style="color:#ffa040;">−0.19%</span></div>
+    <div class="price-row"><span class="pr-label">Estimated slippage</span><span class="pr-val" style="color:#ffa040;">−0.05%</span></div>
+    <div class="price-row"><span class="pr-label">Net profit (est.)</span><span class="pr-val pr-net">+2.07% ✓</span></div>
+   </div>
+  </div>
+
+  <p class="article-p">On $1,000 capital, +2.07% net = <strong style="color:var(--accent2);">+$20.70</strong> profit per trade. ArbVertex only signals gaps that have already cleared the fee threshold — you act, you don't calculate on the fly.</p>
+
+  <div class="stat-row">
+   <div class="stat-box"><span class="num">2%+</span><div class="lbl">Minimum net gap ArbVertex signals after all fees</div></div>
+   <div class="stat-box"><span class="num">0.19%</span><div class="lbl">Typical round-trip fee cost (Binance + Bybit taker)</div></div>
+   <div class="stat-box"><span class="num">&lt;30s</span><div class="lbl">Target execution window — both legs placed</div></div>
+  </div>
+
+  <hr class="article-divider">
+
+  <!-- 3. Fee math -->
+  <h2 class="article-h2">Fee Math: What You're Actually Paying</h2>
+  <p class="article-p">Fees are the single biggest factor in whether a cross-exchange trade is profitable. Every trade involves four fee events: two opens (buy on A, sell on B) and two closes when you unwind. Understanding the exact cost structure is non-negotiable before entering any trade.</p>
+
+  <div style="overflow-x:auto;">
+   <table class="fee-table">
+    <thead>
+     <tr>
+      <th>Exchange</th>
+      <th>Standard Taker</th>
+      <th>VIP/BNB/Discount</th>
+      <th>Round-trip cost</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td><span class="exch-tag">Binance</span></td>
+      <td class="tier-std">0.10%</td>
+      <td class="tier-vip">0.04% (BNB discount)</td>
+      <td class="tier-vip">0.08% (with BNB)</td>
+     </tr>
+     <tr>
+      <td><span class="exch-tag">Bybit</span></td>
+      <td class="tier-std">0.10%</td>
+      <td class="tier-vip">0.055% (VIP1)</td>
+      <td class="tier-vip">0.11% (VIP1)</td>
+     </tr>
+     <tr>
+      <td><span class="exch-tag">Gate.io</span></td>
+      <td class="tier-std">0.20%</td>
+      <td class="tier-vip">0.10% (VIP1)</td>
+      <td class="tier-vip">0.20% (VIP1)</td>
+     </tr>
+     <tr>
+      <td><span class="exch-tag">MEXC</span></td>
+      <td class="tier-std">0.20%</td>
+      <td class="tier-vip">0.00% (promo)</td>
+      <td class="tier-vip">0.00% (promo periods)</td>
+     </tr>
+     <tr>
+      <td><span class="exch-tag">KuCoin</span></td>
+      <td class="tier-std">0.10%</td>
+      <td class="tier-vip">0.06% (KCS discount)</td>
+      <td class="tier-vip">0.12% (KCS)</td>
+     </tr>
+     <tr>
+      <td><span class="exch-tag">Bitget</span></td>
+      <td class="tier-std">0.10%</td>
+      <td class="tier-vip">0.06% (VIP1)</td>
+      <td class="tier-vip">0.12% (VIP1)</td>
+     </tr>
+    </tbody>
+   </table>
+  </div>
+
+  <div class="callout callout-tip">
+   <div class="callout-label label-tip">Fee Reduction Tip</div>
+   <p>Binance's BNB fee discount (25% off) and MEXC's periodic zero-fee promotions can meaningfully change minimum viable spread thresholds. With Binance BNB + Bybit VIP1, your combined round-trip cost drops to ~0.19% — meaning a 0.25% gap is already profitable. Always check current fee schedules as these change.</p>
+  </div>
+
+  <!-- 4. Full fee math example -->
+  <h2 class="article-h2">Full Fee Calculation: $2,000 SOL Trade</h2>
+  <p class="article-p">Let's run the complete numbers on the SOL scenario above with $2,000 total capital ($1,000 on each exchange):</p>
+
+  <div class="math-block">
+   <div class="math-row"><span class="math-label">Capital on Binance (buy leg)</span><span class="math-val neu">$1,000 USDT</span></div>
+   <div class="math-row"><span class="math-label">Capital on Bybit (sell leg)</span><span class="math-val neu">$1,000 USDT equiv. in SOL</span></div>
+   <div class="math-row"><span class="math-label">SOL bought on Binance @ $142.80</span><span class="math-val">7.003 SOL</span></div>
+   <div class="math-row"><span class="math-label">Binance taker fee (0.04%)</span><span class="math-val neg">−$0.40</span></div>
+   <div class="math-row"><span class="math-label">SOL sold on Bybit @ $146.10</span><span class="math-val">7.003 × $146.10 = $1,023.10</span></div>
+   <div class="math-row"><span class="math-label">Bybit taker fee (0.055%)</span><span class="math-val neg">−$0.56</span></div>
+   <div class="math-row"><span class="math-label">Estimated slippage (both sides)</span><span class="math-val neg">−$0.50</span></div>
+   <div class="math-row math-total"><span class="math-label" style="color:var(--text);font-weight:600;">Net profit on $1,000 deployed</span><span class="math-val pos">+$21.64 (+2.16%)</span></div>
+  </div>
+
+  <p class="article-p">The other $1,000 (SOL pre-held on Bybit) is used as the sell-side inventory — it's not consumed, just repositioned. After the trade, you have more USDT on Bybit and less SOL there, while Binance has more SOL and less USDT. The rebalancing step (described below) resets you for the next trade.</p>
+
+  <hr class="article-divider">
+
+  <!-- 5. Pre-positioning -->
+  <h2 class="article-h2">The Critical Step: Pre-Positioning Capital</h2>
+  <p class="article-p">The biggest mistake beginners make is trying to buy on Exchange A and then withdraw the coin to Exchange B to sell. Blockchain confirmations take 10 minutes to 2 hours — the gap closes in seconds. You need capital already sitting on both exchanges before any signal fires.</p>
+
+  <div class="cap-split">
+   <div class="cap-card">
+    <div class="cap-exch">Exchange A (e.g. Binance)</div>
+    <div class="cap-amount">USDT only</div>
+    <div class="cap-desc">Hold stablecoins ready to buy any coin that gaps down here. When a signal fires showing Binance is cheaper, you deploy USDT immediately.</div>
+    <div class="cap-tag">BUY SIDE</div>
+   </div>
+   <div class="cap-card">
+    <div class="cap-exch">Exchange B (e.g. Bybit)</div>
+    <div class="cap-amount">Coin inventory</div>
+    <div class="cap-desc">Hold a basket of liquid coins (BTC, ETH, SOL, BNB etc.) ready to sell. When Bybit is expensive, you sell from this inventory immediately.</div>
+    <div class="cap-tag">SELL SIDE</div>
+   </div>
+  </div>
+
+  <p class="article-p">After the trade, Exchange A has more coin and less USDT. Exchange B has more USDT and less coin. You can either wait for a reverse gap on the same pair (which naturally rebalances), or periodically rebalance by transferring USDT from Bybit back to Binance and coin from Binance back to Bybit via the most cost-effective network.</p>
+
+  <div class="callout callout-example">
+   <div class="callout-label label-example">📐 Optimal Capital Split</div>
+   <p>A practical starting allocation: keep 60% of your capital as USDT spread across 2–3 exchanges, and 40% as a coin inventory (BTC, ETH, SOL split evenly) across those same exchanges. This gives you buy-side liquidity and sell-side inventory simultaneously, without over-concentrating in any single position.</p>
+  </div>
+
+  <hr class="article-divider">
+
+  <!-- 6. Step-by-step execution -->
+  <h2 class="article-h2">The 5-Step Execution Playbook</h2>
+  <p class="article-p">When a gap signal fires, this is the exact sequence of actions:</p>
+
+  <div class="exec-flow">
+   <div class="ef-step">
+    <div class="ef-left"><div class="ef-num">1</div><div class="ef-line"></div></div>
+    <div class="ef-body">
+     <h4>Verify the gap is still live</h4>
+     <p>Open both exchange apps side by side (or use ArbVertex scanner). Confirm the bid/ask prices still show the gap. Gaps can close in under 10 seconds — if the spread has already compressed to under 0.5%, stand down.</p>
     </div>
- </div>
- <footer><p>© 2026 ArbVertex</p><div class="footer-links"><a onclick="showPage('blog')">Blog</a><a onclick="showPage('home')">Home</a><a onclick="showPage('contact')">Contact</a></div><p style="font-size:0.75rem;">Not financial advice.</p></footer>
+   </div>
+   <div class="ef-step">
+    <div class="ef-left"><div class="ef-num">2</div><div class="ef-line"></div></div>
+    <div class="ef-body">
+     <h4>Calculate your position size</h4>
+     <p>Decide how much capital to deploy. Consider: order book depth on both exchanges (can you fill without moving price?), your available inventory on the sell side, and your total exposure limit per trade.</p>
+     <span class="mono">Position size = min(buy-side USDT, sell-side inventory value)</span>
+    </div>
+   </div>
+   <div class="ef-step">
+    <div class="ef-left"><div class="ef-num">3</div><div class="ef-line"></div></div>
+    <div class="ef-body">
+     <h4>Place both orders simultaneously</h4>
+     <p>Open the buy order on the cheap exchange in one window/tab, and the sell order on the expensive exchange in another. Submit both as close together as possible — ideally within 2–3 seconds. Use market orders for guaranteed fills (taker fees apply), or limit orders at the current ask/bid if the gap is large enough to absorb them.</p>
+    </div>
+   </div>
+   <div class="ef-step">
+    <div class="ef-left"><div class="ef-num">4</div><div class="ef-line"></div></div>
+    <div class="ef-body">
+     <h4>Confirm both legs filled</h4>
+     <p>Check trade history on both exchanges. If one leg didn't fill or partially filled, assess your net position. A partial fill on the sell side while the buy fully filled means you're holding long exposure — decide quickly whether to hold or flatten at market.</p>
+    </div>
+   </div>
+   <div class="ef-step">
+    <div class="ef-left"><div class="ef-num">5</div><div class="ef-line"></div></div>
+    <div class="ef-body">
+     <h4>Rebalance for the next trade</h4>
+     <p>Your capital is now misallocated — more coin on the buy exchange, more USDT on the sell exchange. Options: wait for a reverse gap that naturally rebalances, or transfer USDT via a low-fee stablecoin bridge (USDT on TRC-20 is ~$1 flat transfer fee). Don't leave capital locked in an imbalanced state for multiple days.</p>
+    </div>
+   </div>
+  </div>
+
+  <hr class="article-divider">
+
+  <!-- 7. Common mistakes -->
+  <h2 class="article-h2">Common Mistakes to Avoid</h2>
+
+  <div class="callout callout-warning">
+   <div class="callout-label label-warning">⚠ Slippage Is Always Larger Than You Expect</div>
+   <p>The displayed price in the order book is for the first unit. If you're buying $2,000 worth of SOL and the order book has $500 at the displayed price, the next $1,500 will fill at progressively worse prices. Always check order book depth before entering — if your full position size isn't available within 0.2% of the displayed price, the real spread after slippage may be smaller than it appears.</p>
+  </div>
+
+  <ul class="checklist warn">
+   <li>Entering a trade without pre-positioned capital on both sides — forces a withdrawal that takes too long</li>
+   <li>Using the same coin for buy and sell simultaneously (you can't be long and short the same coin on spot)</li>
+   <li>Ignoring withdrawal network fees when rebalancing — TRX-20 USDT transfer is ~$1; ERC-20 can be $10–50</li>
+   <li>Trading illiquid altcoins with wide bid/ask spreads — the apparent gap disappears on execution</li>
+   <li>Not accounting for both open and close fees — if you enter and exit, you pay fees four times total</li>
+   <li>Holding an unhedged position hoping the gap re-opens — this converts an arbitrage into a directional bet</li>
+  </ul>
+
+  <div class="callout callout-tip">
+   <div class="callout-label label-tip">The ArbVertex Advantage</div>
+   <p>Every signal from ArbVertex has already had the fee math done. The 2%+ net gap threshold accounts for standard taker fees on both sides plus an estimated slippage buffer. You don't need to calculate anything on the fly — you just need to execute both legs before the gap closes.</p>
+   <p><a href="crypto-arbitrage-signals-pricing.html" style="color:var(--accent);font-weight:600;text-decoration:none;">View signal plans →</a></p>
+  </div>
+
+  <hr class="article-divider">
+
+  <!-- FAQ -->
+  <h2 class="article-h2">Frequently Asked Questions</h2>
+  <div class="faq-list">
+   <div class="faq-item">
+    <div class="faq-q">Do I need to have the coin pre-held on the sell exchange?</div>
+    <div class="faq-a">Yes — or you need to use futures (short the perp on the expensive side while buying spot on the cheap side). Without pre-positioned inventory, your sell leg would require borrowing (margin) or waiting for a coin transfer, both of which add cost and delay.</div>
+   </div>
+   <div class="faq-item">
+    <div class="faq-q">What's the minimum gap worth trading?</div>
+    <div class="faq-a">With standard taker fees on Binance (0.10%) + Bybit (0.10%), your round-trip cost is 0.40% for open+close. A 0.5% gap leaves only 0.1% after fees and slippage — barely worth the execution risk. In practice, 1.5%+ raw spread (0.5%+ net) is the realistic minimum for manual execution. ArbVertex targets 2%+ net, which provides meaningful buffer.</div>
+   </div>
+   <div class="faq-item">
+    <div class="faq-q">How do I rebalance after a trade without paying high withdrawal fees?</div>
+    <div class="faq-a">Use TRC-20 USDT transfers between exchanges — typically around $1 flat regardless of amount. Avoid ERC-20 (Ethereum network) unless necessary. Some traders also use internal transfers between exchange sub-accounts where supported, which can be instant and free.</div>
+   </div>
+   <div class="faq-item">
+    <div class="faq-q">Can I use futures instead of spot for the sell leg?</div>
+    <div class="faq-a">Yes — and this is actually common. Instead of pre-holding the coin on Exchange B, you short the perpetual futures on Exchange B. This eliminates the need for a coin inventory, but adds a small funding rate cost for the duration of your position. It also requires margin on the futures side, and you need to manage liquidation risk carefully.</div>
+   </div>
+   <div class="faq-item">
+    <div class="faq-q">How many exchanges should I have capital on simultaneously?</div>
+    <div class="faq-a">Two to three is the practical starting range. With two exchanges (e.g. Binance + Bybit), you can act on any signal between them. Adding a third (e.g. Gate.io or MEXC) opens more pair combinations but requires more capital to maintain meaningful positions across all of them. Most traders start with two and expand as capital grows.</div>
+   </div>
+  </div>
+
+  <!-- Article nav -->
+  <div class="article-nav">
+   <a href="crypto-arbitrage-blog.html" style="border:1px solid var(--border);color:var(--muted);padding:0.75rem 1.2rem;border-radius:4px;font-weight:500;font-size:0.86rem;text-decoration:none;transition:border-color .2s,color .2s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">☰ Blog</a>
+   <a href="triangular-arbitrage-explained.html" style="border:1px solid var(--border);color:var(--text);padding:0.75rem 1.2rem;border-radius:4px;font-weight:500;font-size:0.86rem;text-decoration:none;transition:border-color .2s,color .2s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">← Prev: Triangular Arbitrage</a>
+   <a href="best-crypto-arbitrage-exchanges.html" style="background:var(--accent);color:var(--bg);padding:0.75rem 1.4rem;border-radius:4px;font-weight:700;font-size:0.86rem;text-decoration:none;transition:opacity .2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">Next: Best Exchanges →</a>
+  </div>
+
+ </div><!-- /.article-wrap -->
+
+ <footer><p>© 2025 ArbVertex</p><div class="footer-links"><a href="crypto-arbitrage-blog.html">Blog</a><a href="index.html">Home</a><a href="contact-arbvertex.html">Contact</a></div><p style="font-size:0.75rem;">Not financial advice.</p></footer>
 </div>
 
 <script>
@@ -819,7 +1167,7 @@ async function fetchAllPrices() {
  dot.style.animation = 'none';
 
  if (PAIRS.length === 0) {
- status.textContent = 'Loading full coin 2026list (700+)...';
+ status.textContent = 'Loading full coin list (700+)...';
  await loadAllPairs();
  }
 
