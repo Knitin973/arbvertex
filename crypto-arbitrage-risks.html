@@ -487,43 +487,246 @@ footer p{color:var(--muted);font-size:0.82rem;}
 </div>
 
 
+<style>
+.risk-wrap{max-width:820px;margin:0 auto;}
+.risk-meta{display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;margin-bottom:1.5rem;}
+.risk-tag{font-family:'JetBrains Mono',monospace;font-size:0.68rem;padding:0.25rem 0.65rem;border-radius:3px;letter-spacing:0.05em;}
+.risk-tag-red{background:rgba(255,85,85,0.1);color:#ff7070;}
+.risk-tag-muted{background:rgba(0,229,255,0.08);color:var(--accent);}
+.risk-hero-title{font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:800;line-height:1.25;letter-spacing:-0.02em;margin-bottom:1rem;}
+.risk-lead{color:var(--muted);font-size:1rem;line-height:1.85;margin-bottom:2.5rem;border-left:3px solid #ff7070;padding-left:1.2rem;}
+.risk-toc{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.4rem 1.8rem;margin-bottom:2.5rem;}
+.risk-toc h4{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.9rem;}
+.risk-toc ul{list-style:none;display:flex;flex-direction:column;gap:0.45rem;}
+.risk-toc li{font-size:0.88rem;display:flex;align-items:center;gap:0.5rem;}
+.risk-toc .n{font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--border);min-width:18px;}
+.risk-toc a{color:var(--muted);text-decoration:none;transition:color .2s;}
+.risk-toc a:hover{color:#ff7070;}
+.risk-card{background:var(--surface);border:1px solid var(--border);border-left:3px solid #ff7070;border-radius:12px;padding:2rem;margin-bottom:1.2rem;}
+.risk-card-head{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1rem;flex-wrap:wrap;}
+.risk-card-title{font-size:1rem;font-weight:700;display:flex;align-items:center;gap:0.6rem;}
+.sev-badge{font-family:'JetBrains Mono',monospace;font-size:0.65rem;padding:0.2rem 0.65rem;border-radius:20px;letter-spacing:0.05em;white-space:nowrap;}
+.sev-high{background:rgba(255,85,85,0.12);color:#ff7070;border:1px solid rgba(255,85,85,0.25);}
+.sev-med{background:rgba(255,160,64,0.12);color:#ffa040;border:1px solid rgba(255,160,64,0.25);}
+.sev-low{background:rgba(0,255,136,0.1);color:var(--accent2);border:1px solid rgba(0,255,136,0.2);}
+.risk-card p{color:var(--muted);font-size:0.92rem;line-height:1.85;margin-bottom:0.9rem;}
+.risk-card p:last-child{margin-bottom:0;}
+.risk-fix{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:1rem 1.2rem;margin-top:0.8rem;}
+.risk-fix-label{font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--accent2);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;}
+.risk-fix p{font-size:0.87rem;color:var(--muted);margin:0;line-height:1.7;}
+.risk-table-section{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:2rem;margin-bottom:1.5rem;}
+.risk-table-section h3{font-size:1.05rem;font-weight:700;margin-bottom:1.2rem;color:var(--text);}
+.risk-summary-table{width:100%;border-collapse:collapse;font-size:0.84rem;}
+.risk-summary-table th{font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;padding:0.6rem 0.8rem;border-bottom:1px solid var(--border);text-align:left;}
+.risk-summary-table td{padding:0.65rem 0.8rem;border-bottom:1px solid rgba(26,58,82,0.4);font-size:0.84rem;vertical-align:middle;}
+.risk-summary-table tr:last-child td{border-bottom:none;}
+.risk-summary-table .rname{color:var(--text);font-weight:600;}
+.risk-summary-table .rmit{color:var(--muted);font-size:0.82rem;}
+.safety-box{background:rgba(0,255,136,0.03);border:1px solid rgba(0,255,136,0.2);border-radius:12px;padding:2rem;margin-bottom:1.5rem;}
+.safety-box h3{font-size:1.05rem;font-weight:700;color:var(--accent2);margin-bottom:1.2rem;display:flex;align-items:center;gap:0.6rem;}
+.safety-list{display:flex;flex-direction:column;gap:0.7rem;}
+.safety-item{display:flex;align-items:flex-start;gap:0.75rem;font-size:0.9rem;color:var(--muted);line-height:1.65;}
+.safety-item .si{flex-shrink:0;margin-top:0.05rem;}
+.safety-item.dont{color:#ff7070;}
+.risk-nav{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2.5rem;padding-top:1.8rem;border-top:1px solid var(--border);}
+.risk-btn{padding:0.75rem 1.5rem;border-radius:5px;font-weight:500;font-size:0.88rem;text-decoration:none;transition:all .2s;}
+.risk-btn-ghost{border:1px solid var(--border);color:var(--muted);background:none;}
+.risk-btn-ghost:hover{border-color:#ff7070;color:#ff7070;}
+.risk-btn-outline{border:1px solid var(--border);color:var(--text);background:none;}
+.risk-btn-outline:hover{border-color:var(--accent);color:var(--accent);}
+.risk-btn-primary{background:var(--accent);color:var(--bg);font-weight:700;border:none;}
+.risk-btn-primary:hover{opacity:0.88;}
+@media(max-width:600px){
+  .risk-card-head{flex-direction:column;gap:0.5rem;align-items:flex-start;}
+  .risk-summary-table{font-size:0.78rem;}
+  .risk-summary-table th,.risk-summary-table td{padding:0.5rem 0.5rem;}
+}
+</style>
+
 <div class="page active" id="page-article-7">
-<h1 class="article-title">Crypto Arbitrage Risks You Must Know Before Starting</h1>
  <div class="inner-page">
- <button class="back-btn" onclick="showPage('blog')">← Back to Blog</button>
- <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:1rem;">
- <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;background:rgba(255,85,85,0.1);color:#ff7070;padding:0.3rem 0.7rem;border-radius:3px;">STEP 12 OF 16</span>
- <span style="font-size:0.7rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">🟥 RISK</span>
- </div>
- <h2 style="font-size:1.6rem;font-weight:800;line-height:1.3;margin-bottom:1rem;">Crypto Arbitrage Risks You Must Know Before Starting in 2026</h2>
- <p style="color:var(--muted);font-size:0.95rem;line-height:1.8;margin-bottom:2rem;">Arbitrage is low-risk — not zero risk. Know these before putting in 2026real capital.</p>
- <div style="display:flex;flex-direction:column;gap:1rem;margin-bottom:1.5rem;">
- <div style="background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--red);border-radius:10px;padding:1.4rem;">
- <strong style="color:var(--text);">⚠️ Slippage</strong>
- <p style="color:var(--muted);font-size:0.88rem;margin-top:0.4rem;line-height:1.7;">Large orders move the market before both legs fill. Stick to signals with 2%+ gap to absorb slippage.</p>
- </div>
- <div style="background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--red);border-radius:10px;padding:1.4rem;">
- <strong style="color:var(--text);">⚠️ Execution Lag</strong>
- <p style="color:var(--muted);font-size:0.88rem;margin-top:0.4rem;line-height:1.7;">Manual execution is slow. A 0.3% gap can vanish in 20262 seconds. Use limit orders pre-set, or rely on ArbVertex entry windows.</p>
- </div>
- <div style="background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--red);border-radius:10px;padding:1.4rem;">
- <strong style="color:var(--text);">⚠️ Funding Rate Reversal</strong>
- <p style="color:var(--muted);font-size:0.88rem;margin-top:0.4rem;line-height:1.7;">Positive funding can turn negative overnight. Always exit when funding drops below +0.01%.</p>
- </div>
- <div style="background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--red);border-radius:10px;padding:1.4rem;">
- <strong style="color:var(--text);">⚠️ Exchange Risk</strong>
- <p style="color:var(--muted);font-size:0.88rem;margin-top:0.4rem;line-height:1.7;">Keep only what you need on each exchange. Don't leave large idle balances.</p>
- </div>
- <div style="background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--red);border-radius:10px;padding:1.4rem;">
- <strong style="color:var(--text);">⚠️ Margin 2026Liquidation</strong>
- <p style="color:var(--muted);font-size:0.88rem;margin-top:0.4rem;line-height:1.7;">In futures arb, keep 2–3× the minimum margin 2026to avoid forced liquidation.</p>
- </div>
- </div>
- <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border);">
-      <a href="blog.html" style="border:1px solid var(--border);color:var(--muted);padding:0.7rem 1.5rem;border-radius:4px;font-weight:500;font-size:0.9rem;text-decoration:none;background:none;transition:border-color .2s,color .2s;">☰ Back to Blog</a>
-      <a href="delisting-arbitrage-risks.html" style="border:1px solid var(--border);color:var(--text);padding:0.7rem 1.5rem;border-radius:4px;font-weight:500;font-size:0.9rem;text-decoration:none;background:none;transition:border-color .2s,color .2s;">← Prev: Delisting Risks</a>
-      <a href="arbitrage-portfolio-growth.html" style="background:var(--accent);color:var(--bg);padding:0.7rem 1.5rem;border-radius:4px;font-weight:700;font-size:0.9rem;text-decoration:none;transition:opacity .2s;">Next: Portfolio Growth →</a>
+  <div class="risk-wrap">
+   <button class="back-btn" onclick="showPage('blog')">← Back to Blog</button>
+
+   <div class="risk-meta">
+    <span class="risk-tag risk-tag-red">STEP 12 OF 16</span>
+    <span class="risk-tag risk-tag-muted">🟥 RISK</span>
+    <span style="font-size:0.75rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">⏱ 7 min read</span>
+   </div>
+
+   <h2 class="risk-hero-title">Crypto Arbitrage Risks You Must Know Before Starting</h2>
+   <p class="risk-lead">Arbitrage is low-risk compared to directional trading — but it is not zero risk. These 8 risks have caught beginners off guard. Know them before putting in real capital.</p>
+
+   <div class="risk-toc">
+    <h4>// 8 risks covered</h4>
+    <ul>
+     <li><span class="n">01</span><a href="#r-slippage">Slippage</a></li>
+     <li><span class="n">02</span><a href="#r-lag">Execution Lag</a></li>
+     <li><span class="n">03</span><a href="#r-funding">Funding Rate Reversal</a></li>
+     <li><span class="n">04</span><a href="#r-exchange">Exchange Risk</a></li>
+     <li><span class="n">05</span><a href="#r-margin">Margin Liquidation</a></li>
+     <li><span class="n">06</span><a href="#r-delisting">Delisting Risk</a></li>
+     <li><span class="n">07</span><a href="#r-withdrawal">Withdrawal Freeze</a></li>
+     <li><span class="n">08</span><a href="#r-leverage">Overleveraging</a></li>
+    </ul>
+   </div>
+
+   <!-- 1. SLIPPAGE -->
+   <div class="risk-card" id="r-slippage">
+    <div class="risk-card-head">
+     <div class="risk-card-title"><span>📉</span><span>Slippage</span></div>
+     <span class="sev-badge sev-med">MEDIUM RISK</span>
     </div>
+    <p>When you place a large market order, your trade itself moves the price before both legs fill. On thin altcoin pairs, a $5,000 order can shift price by 0.2–0.5% — wiping your entire spread before execution completes.</p>
+    <p>Slippage is worst on low-liquidity pairs and during high-volatility events. BTC and ETH perps handle up to $50K with near-zero slippage. Altcoins with OI under $5M are dangerous.</p>
+    <div class="risk-fix">
+     <div class="risk-fix-label">✅ How to avoid</div>
+     <p>Only trade signals with 2%+ gap — this gives buffer above worst-case slippage. Check open interest before entry. Avoid pairs with OI under $5M. Use limit orders where possible.</p>
+    </div>
+   </div>
+
+   <!-- 2. EXECUTION LAG -->
+   <div class="risk-card" id="r-lag">
+    <div class="risk-card-head">
+     <div class="risk-card-title"><span>⚡</span><span>Execution Lag</span></div>
+     <span class="sev-badge sev-high">HIGH RISK</span>
+    </div>
+    <p>A 0.3% price gap can close in under 2 seconds once spotted. Manual execution — switching tabs, copying prices, placing orders one by one — is too slow for small gaps. By the time both legs fill, the opportunity is gone and you may be left with a one-sided position.</p>
+    <p>This is why ArbVertex only signals gaps above 2% — large enough to survive the 10–30 second manual execution window.</p>
+    <div class="risk-fix">
+     <div class="risk-fix-label">✅ How to avoid</div>
+     <p>Pre-set limit orders before signals arrive. Only trade gaps 2%+. Use ArbVertex entry windows — each signal includes an exact price range and time window. Never chase a gap that has already started closing.</p>
+    </div>
+   </div>
+
+   <!-- 3. FUNDING REVERSAL -->
+   <div class="risk-card" id="r-funding">
+    <div class="risk-card-head">
+     <div class="risk-card-title"><span>🔄</span><span>Funding Rate Reversal</span></div>
+     <span class="sev-badge sev-high">HIGH RISK</span>
+    </div>
+    <p>Positive funding rates can flip negative within a single 8-hour period if market sentiment shifts sharply. When this happens, you stop earning and start paying — $15/day income becomes −$15/day loss on a $10,000 position.</p>
+    <p>Reversals are most common after sudden bearish news, market-wide liquidation cascades, or when funding has been extremely high for several days and mean-reverts.</p>
+    <div class="risk-fix">
+     <div class="risk-fix-label">✅ How to avoid</div>
+     <p>Set a hard exit rule: close the trade if funding drops below +0.01% for 2 consecutive payments. Monitor funding 30 minutes before each settlement (00:00, 08:00, 16:00 UTC for Binance/Bybit). ArbVertex Telegram bot alerts you automatically.</p>
+    </div>
+   </div>
+
+   <!-- 4. EXCHANGE RISK -->
+   <div class="risk-card" id="r-exchange">
+    <div class="risk-card-head">
+     <div class="risk-card-title"><span>🏦</span><span>Exchange Risk</span></div>
+     <span class="sev-badge sev-med">MEDIUM RISK</span>
+    </div>
+    <p>Exchanges can freeze withdrawals, get hacked, or in rare cases become insolvent (FTX being the most extreme example). Funds held on an exchange are not insured — if the exchange fails, recovery is uncertain and slow.</p>
+    <p>Spreading capital across exchanges reduces single-point-of-failure risk, but also means more accounts to manage and monitor.</p>
+    <div class="risk-fix">
+     <div class="risk-fix-label">✅ How to avoid</div>
+     <p>Only keep capital on exchanges that is actively deployed in a trade. Never leave large idle balances. Stick to tier-1 exchanges — Binance, Bybit, OKX, Gate. Withdraw profits regularly to a personal wallet.</p>
+    </div>
+   </div>
+
+   <!-- 5. MARGIN LIQUIDATION -->
+   <div class="risk-card" id="r-margin">
+    <div class="risk-card-head">
+     <div class="risk-card-title"><span>💥</span><span>Margin Liquidation</span></div>
+     <span class="sev-badge sev-high">HIGH RISK</span>
+    </div>
+    <p>In futures arbitrage, your short position requires margin. If the price of the coin spikes sharply upward, your short futures position loses unrealised value. Without sufficient margin buffer, the exchange will force-liquidate your short — leaving you with an unhedged spot position exposed to full price risk.</p>
+    <p>This is the most severe single event in futures arbitrage. A 20% price spike with 3× leverage and thin margin can wipe an entire position.</p>
+    <div class="risk-fix">
+     <div class="risk-fix-label">✅ How to avoid</div>
+     <p>Always maintain 2–3× the minimum required margin. Use 1× leverage only — you do not need leverage in funding rate arbitrage. Set a margin alert at 150% of maintenance margin so you can top up before liquidation triggers.</p>
+    </div>
+   </div>
+
+   <!-- 6. DELISTING RISK -->
+   <div class="risk-card" id="r-delisting">
+    <div class="risk-card-head">
+     <div class="risk-card-title"><span>🚨</span><span>Delisting Risk</span></div>
+     <span class="sev-badge sev-high">HIGH RISK</span>
+    </div>
+    <p>When an exchange announces a coin delisting, the futures contract is force-settled — often at an unfavourable price. If you hold a short futures position when this happens, you may be settled at a price far from spot, destroying your hedge and exposing you to directional loss.</p>
+    <p>Delistings are announced with little warning — sometimes only 24–72 hours notice. Altcoin pairs are most vulnerable.</p>
+    <div class="risk-fix">
+     <div class="risk-fix-label">✅ How to avoid</div>
+     <p>Avoid pairs with recent delisting rumours or low exchange support. Check that the pair exists on at least 3 major exchanges before entering. Exit immediately if a delisting announcement appears — do not wait for settlement. See our full <a href="delisting-arbitrage-risks.html" style="color:var(--accent);text-decoration:none;">Delisting Risks guide →</a></p>
+    </div>
+   </div>
+
+   <!-- 7. WITHDRAWAL FREEZE -->
+   <div class="risk-card" id="r-withdrawal">
+    <div class="risk-card-head">
+     <div class="risk-card-title"><span>🔒</span><span>Withdrawal Freeze</span></div>
+     <span class="sev-badge sev-med">MEDIUM RISK</span>
+    </div>
+    <p>Exchanges occasionally suspend withdrawals for maintenance, regulatory issues, or liquidity problems. In spot arbitrage, this can leave you stranded mid-trade — unable to move the coin to the target exchange to close the gap.</p>
+    <p>Even 30-minute withdrawal suspensions can be enough for a 3% gap to fully close, turning a planned profit into a forced hold at loss.</p>
+    <div class="risk-fix">
+     <div class="risk-fix-label">✅ How to avoid</div>
+     <p>Before any spot arb trade, verify withdrawal status on both exchanges. Check the exchange status page and community channels for any reported issues. Futures arbitrage avoids this risk entirely — no coin transfer is needed.</p>
+    </div>
+   </div>
+
+   <!-- 8. OVERLEVERAGING -->
+   <div class="risk-card" id="r-leverage">
+    <div class="risk-card-head">
+     <div class="risk-card-title"><span>⚠️</span><span>Overleveraging</span></div>
+     <span class="sev-badge sev-high">HIGH RISK</span>
+    </div>
+    <p>Arbitrage returns look small per trade (0.5–2%). Beginners often try to amplify returns with 5× or 10× leverage on the futures leg. This completely destroys the delta-neutral nature of the strategy — a 10% price move against your leveraged short can liquidate the position before the hedge catches up.</p>
+    <p>Leverage in arbitrage is not a performance booster. It is a risk multiplier that removes the core safety of the strategy.</p>
+    <div class="risk-fix">
+     <div class="risk-fix-label">✅ Rule — no exceptions</div>
+     <p>Use 1× leverage only on the futures leg. The income in funding rate arbitrage comes from the funding rate — not from leverage. If returns feel too slow, increase capital size, not leverage.</p>
+    </div>
+   </div>
+
+   <!-- RISK SUMMARY TABLE -->
+   <div class="risk-table-section">
+    <h3>📊 Risk Summary at a Glance</h3>
+    <table class="risk-summary-table">
+     <thead>
+      <tr><th>Risk</th><th>Severity</th><th>Primary Mitigation</th></tr>
+     </thead>
+     <tbody>
+      <tr><td class="rname">Slippage</td><td><span class="sev-badge sev-med">MEDIUM</span></td><td class="rmit">2%+ gaps only, check OI &gt; $5M</td></tr>
+      <tr><td class="rname">Execution Lag</td><td><span class="sev-badge sev-high">HIGH</span></td><td class="rmit">Pre-set limit orders, 2%+ gaps only</td></tr>
+      <tr><td class="rname">Funding Reversal</td><td><span class="sev-badge sev-high">HIGH</span></td><td class="rmit">Exit below +0.01%, monitor before settlement</td></tr>
+      <tr><td class="rname">Exchange Risk</td><td><span class="sev-badge sev-med">MEDIUM</span></td><td class="rmit">Tier-1 only, withdraw profits regularly</td></tr>
+      <tr><td class="rname">Margin Liquidation</td><td><span class="sev-badge sev-high">HIGH</span></td><td class="rmit">2–3× margin buffer, 1× leverage only</td></tr>
+      <tr><td class="rname">Delisting Risk</td><td><span class="sev-badge sev-high">HIGH</span></td><td class="rmit">Exit on announcement, avoid low-support pairs</td></tr>
+      <tr><td class="rname">Withdrawal Freeze</td><td><span class="sev-badge sev-med">MEDIUM</span></td><td class="rmit">Check status before spot arb, use futures arb</td></tr>
+      <tr><td class="rname">Overleveraging</td><td><span class="sev-badge sev-high">HIGH</span></td><td class="rmit">1× leverage only — no exceptions</td></tr>
+     </tbody>
+    </table>
+   </div>
+
+   <!-- SAFETY CHECKLIST -->
+   <div class="safety-box">
+    <h3><span>🛡️</span> Pre-Trade Safety Checklist</h3>
+    <div class="safety-list">
+     <div class="safety-item"><span class="si">✅</span><span>Gap is 2%+ after fees — not before</span></div>
+     <div class="safety-item"><span class="si">✅</span><span>Funding rate is +0.03% or higher per 8h</span></div>
+     <div class="safety-item"><span class="si">✅</span><span>Open interest on pair is above $5M</span></div>
+     <div class="safety-item"><span class="si">✅</span><span>Margin buffer is 2–3× minimum requirement</span></div>
+     <div class="safety-item"><span class="si">✅</span><span>Futures leverage set to 1× before entry</span></div>
+     <div class="safety-item"><span class="si">✅</span><span>Exchange withdrawal status confirmed (spot arb only)</span></div>
+     <div class="safety-item"><span class="si">✅</span><span>No delisting news on target pair in last 7 days</span></div>
+     <div class="safety-item"><span class="si">✅</span><span>Exit rule defined — know your funding floor before entering</span></div>
+     <div class="safety-item dont"><span class="si">❌</span><span>Never chase a gap already closing — wait for the next signal</span></div>
+     <div class="safety-item dont"><span class="si">❌</span><span>Never increase leverage to boost returns — increase capital instead</span></div>
+    </div>
+   </div>
+
+   <div class="risk-nav">
+    <a href="blog.html" class="risk-btn risk-btn-ghost">☰ Back to Blog</a>
+    <a href="delisting-arbitrage-risks.html" class="risk-btn risk-btn-outline">← Prev: Delisting Risks</a>
+    <a href="arbitrage-portfolio-growth.html" class="risk-btn risk-btn-primary">Next: Portfolio Growth →</a>
+   </div>
+
+  </div>
  </div>
  <footer><p>© 2026 ArbVertex</p><div class="footer-links"><a onclick="showPage('blog')">Blog</a><a onclick="showPage('home')">Home</a><a onclick="showPage('contact')">Contact</a></div><p style="font-size:0.75rem;">Not financial advice.</p></footer>
 </div>
