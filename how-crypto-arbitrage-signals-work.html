@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>How ArbVertex Crypto Arbitrage Signals Work</title>
 <meta name="description" content="Step-by-step breakdown of how ArbVertex detects, validates and sends arbitrage signals — from price gap detection to Telegram delivery.">
-<meta name="keywords" content="crypto futures arbitrage signals, bitcoin 2026arbitrage telegram, crypto arbitrage bot, funding rate arbitrage, cross exchange arbitrage, bybit binance arbitrage, crypto signals telegram, arbitrage trading signals">
+<meta name="keywords" content="crypto futures arbitrage signals, bitcoin arbitrage telegram, crypto arbitrage bot, funding rate arbitrage, cross exchange arbitrage, bybit binance arbitrage, crypto signals telegram, arbitrage trading signals">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://arbvertex.com/how-crypto-arbitrage-signals-work.html">
 
@@ -291,6 +291,9 @@ textarea{resize:vertical;min-height:120px;}
 .c-link:hover{color:var(--accent);}
 .c-icon{width:36px;height:36px;background:var(--surface);border:1px solid var(--border);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:1rem;}
 
+/* ── ARTICLE TITLE ── */
+.article-title{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700;letter-spacing:-0.02em;padding:2.5rem 5% 0;max-width:860px;line-height:1.25;color:var(--text);}
+
 /* ── FOOTER ── */
 footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
 footer p{color:var(--muted);font-size:0.82rem;}
@@ -490,7 +493,7 @@ footer p{color:var(--muted);font-size:0.82rem;}
 <div class="page active" id="page-how-it-works">
 <h1 class="article-title">How ArbVertex Crypto Arbitrage Signals Work</h1>
  <div class="inner-page">
- <button class="back-btn" onclick="showPage('home')">← Back to Home</button>
+ <a class="back-btn" href="index.html">← Back to Home</a>
  <div class="section-tag">// PROCESS</div>
  <h2>How Does It Work?</h2>
  <p class="page-desc">From detecting the opportunity to delivering the signal to your Telegram — here's the full process.</p>
@@ -499,7 +502,7 @@ footer p{color:var(--muted);font-size:0.82rem;}
  <div class="step-num-box">01</div>
  <div class="step-body">
  <h3>Scan 10+ Exchanges Simultaneously</h3>
- <p>Our system monitors price feeds on Binance, Bybit, MEXC, Gate.io, KuCoin, Bitget, and more — in 2026real time. We track 200+ trading pairs for spot-futures basis gaps and cross-exchange spreads.</p>
+ <p>Our system monitors price feeds on Binance, Bybit, MEXC, Gate.io, KuCoin, Bitget, and more — in real time. We track 200+ trading pairs for spot-futures basis gaps and cross-exchange spreads.</p>
  </div>
  </div>
  <div class="step-connector"></div>
@@ -536,10 +539,10 @@ footer p{color:var(--muted);font-size:0.82rem;}
  </div>
  </div>
  <div style="margin-top:3rem;">
- <button class="btn-primary" onclick="showPage('profit')">View Profit Strategies →</button>
+ <a class="btn-primary" href="how-to-generate-profit-crypto-arbitrage.html">View Profit Strategies →</a>
  </div>
  </div>
- <footer><p>© 2026 ArbVertex</p><div class="footer-links"><a onclick="showPage('home')">Home</a><a onclick="showPage('contact')">Contact</a></div><p style="font-size:0.75rem;">Not financial advice.</p></footer>
+ <footer><p>© 2026 ArbVertex</p><div class="footer-links"><a href="index.html">Home</a><a href="contact-arbvertex.html">Contact</a></div><p style="font-size:0.75rem;">Not financial advice.</p></footer>
 </div>
 
 <script>
@@ -834,7 +837,7 @@ async function fetchAllPrices() {
  dot.style.animation = 'none';
 
  if (PAIRS.length === 0) {
- status.textContent = 'Loading full coin 2026list (700+)...';
+ status.textContent = 'Loading full coin list (700+)...';
  await loadAllPairs();
  }
 
