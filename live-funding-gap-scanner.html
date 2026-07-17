@@ -274,7 +274,7 @@ tr:not(.arb):hover td{background:rgba(255,255,255,.02);}
     <div class="logo-icon">💸</div>
     <div>
       <div class="logo-name">ArbVertex</div>
-      <div class="logo-sub">Live Funding Gap Scanner</div>
+      <div class="logo-sub">Live Net Profit Scanner</div>
     </div>
   </div>
   <div class="topbar-right">
@@ -293,7 +293,7 @@ tr:not(.arb):hover td{background:rgba(255,255,255,.02);}
 <div class="stats">
   <div class="stat"><div class="stat-val ca" id="s-coins">—</div><div class="stat-lbl">Coins tracked</div></div>
   <div class="stat"><div class="stat-val cy" id="s-opps">—</div><div class="stat-lbl">Arb opportunities</div></div>
-  <div class="stat"><div class="stat-val cg" id="s-best">—</div><div class="stat-lbl">Best Funding Gap</div></div>
+  <div class="stat"><div class="stat-val cg" id="s-best">—</div><div class="stat-lbl">Best Net Profit</div></div>
   <div class="stat"><div class="stat-val cy" id="s-spread">—</div><div class="stat-lbl">Max spread</div></div>
   <div class="stat"><div class="stat-val cd" id="s-ex">—</div><div class="stat-lbl">Exchanges live</div></div>
   <div class="stat"><div class="stat-val cd" id="s-time">—</div><div class="stat-lbl">Last updated</div></div>
@@ -303,13 +303,13 @@ tr:not(.arb):hover td{background:rgba(255,255,255,.02);}
 <div class="toolbar">
   <input class="search" id="search" placeholder="Search coin…" oninput="renderView()">
   <div class="sep"></div>
-  <button class="fbtn on" id="f-all"  onclick="setFilter('all',this)">All</button>
-  <button class="fbtn"    id="f-arb"  onclick="setFilter('arb',this)">Arb only</button>
+  <button class="fbtn"    id="f-all"  onclick="setFilter('all',this)">All</button>
+  <button class="fbtn on" id="f-arb"  onclick="setFilter('arb',this)">Arb only</button>
   <button class="fbtn"    id="f-pos"  onclick="setFilter('pos',this)">Positive FR</button>
   <button class="fbtn"    id="f-neg"  onclick="setFilter('neg',this)">Negative FR</button>
   <div class="sep"></div>
-  <span class="fee-lbl">Min Gap&nbsp;%</span>
-  <input class="fee-in" id="min-profit" type="number" value="0.05" step="0.01" min="0" oninput="renderView()">
+  <span class="fee-lbl">Min Net Profit&nbsp;%</span>
+  <input class="fee-in" id="min-profit" type="number" value="0.5" step="0.01" min="0" oninput="renderView()">
   <div class="view-toggle">
     <button class="vtbtn on" id="vt-table" onclick="setView('table',this)">Table</button>
     <button class="vtbtn"    id="vt-cards" onclick="setView('cards',this)">Cards</button>
@@ -339,7 +339,7 @@ tr:not(.arb):hover td{background:rgba(255,255,255,.02);}
         <th class="r" onclick="sortBy('hyperliquid')">Hyperliquid <span id="s-hyperliquid"></span></th>
         <th class="r" onclick="sortBy('avgRate')">Avg FR <span id="s-avgRate"></span></th>
         <th class="r" onclick="sortBy('spread')">Spread <span id="s-spread2"></span></th>
-        <th class="r" onclick="sortBy('netProfit')">Funding Gap <span id="s-netProfit"></span></th>
+        <th class="r" onclick="sortBy('fundingGap')">Net Profit <span id="s-netProfit"></span></th>
         <th class="c" onclick="sortBy('signal')">Signal <span id="s-signal"></span></th>
       </tr>
     </thead>
@@ -353,9 +353,10 @@ tr:not(.arb):hover td{background:rgba(255,255,255,.02);}
 <div class="empty" id="empty-cards" style="display:none;padding:56px 24px;">No arbitrage opportunities found</div>
 
 <div class="footnote">
-  <span>Funding Gap = funding rate spread + price gap − 4× taker fee (0.045%/leg)</span>
-  <span>* Bitget, MEXC, KuCoin, HTX need Cloudflare Worker proxy for CORS</span>
-  <span>Refresh every 120s · Not financial advice · DYOR</span>
+  <span>Net Profit = (Highest FR − Lowest FR) − 4× taker fee (0.045%/leg) · Rates shown as 8h %</span>
+  <span>Signal: LONG on lowest-FR exchange · SHORT on highest-FR exchange</span>
+  <span>* Bitget, MEXC, KuCoin, HTX require Cloudflare Worker proxy for CORS</span>
+  <span>Auto-refresh every 120s · Not financial advice · DYOR</span>
 </div>
 
 <script>
@@ -379,9 +380,9 @@ const EX_CORS_OK = ['binance','bybit','gateio','hyperliquid'];
 let allData   = {};
 let tableRows = [];
 let exStatus  = {};
-let filter    = 'all';
+let filter    = 'arb';
 let view      = 'table';
-let sortCol   = 'netProfit';
+let sortCol   = 'fundingGap';
 let sortDir   = -1;
 let cdVal     = SCAN_INTERVAL;
 let cdTimer;
@@ -399,37 +400,53 @@ async function sf(url, opts={}) {
 }
 
 async function fetchBinance() {
-  const d = await sf('https://fapi.binance.com/fapi/v1/premiumIndex');
-  if (!d) return {};
+  // Try premiumIndex first, fallback to fundingRate endpoint
+  let d = await sf('https://fapi.binance.com/fapi/v1/premiumIndex');
+  if (!d || !Array.isArray(d)) {
+    d = await sf('https://fapi.binance.com/fapi/v1/fundingRate?limit=1');
+  }
+  if (!d || !Array.isArray(d)) return {};
   const out = {};
   for (const it of d) {
-    if (!it.symbol?.endsWith('USDT')) continue;
-    out[it.symbol.slice(0,-4)] = { rate: parseFloat(it.lastFundingRate)*100, price: parseFloat(it.markPrice)||null };
+    const sym = it.symbol||'';
+    if (!sym.endsWith('USDT')) continue;
+    const rate  = parseFloat(it.lastFundingRate ?? it.fundingRate);
+    const price = parseFloat(it.markPrice ?? it.indexPrice ?? 0);
+    if (isNaN(rate)) continue;
+    out[sym.slice(0,-4)] = { rate: rate*100, price: price>0?price:null };
   }
   return out;
 }
 
 async function fetchBybit() {
-  const d = await sf('https://api.bybit.com/v5/market/tickers?category=linear&limit=500');
+  const d = await sf('https://api.bybit.com/v5/market/tickers?category=linear&limit=1000');
   if (!d?.result?.list) return {};
   const out = {};
   for (const it of d.result.list) {
-    if (!it.symbol?.endsWith('USDT') || !it.fundingRate) continue;
-    out[it.symbol.slice(0,-4)] = { rate: parseFloat(it.fundingRate)*100, price: parseFloat(it.markPrice||it.lastPrice)||null };
+    if (!it.symbol?.endsWith('USDT')) continue;
+    const rate = it.fundingRate;
+    if (rate==null||rate==='') continue;
+    const price = parseFloat(it.markPrice||it.lastPrice||it.indexPrice);
+    out[it.symbol.slice(0,-4)] = { rate: parseFloat(rate)*100, price: price>0?price:null };
   }
   return out;
 }
 
 async function fetchGateio() {
-  const d = await sf('https://api.gateio.ws/api/v4/futures/usdt/contracts');
-  if (!d) return {};
+  // Gate.io futures tickers — funding_rate field
+  const d = await sf('https://api.gateio.ws/api/v4/futures/usdt/tickers');
+  if (!d || !Array.isArray(d)) return {};
   const out = {};
   for (const it of d) {
-    const raw = it.name||it.contract||'';
-    if (!raw.includes('USDT')) continue;
-    const rate = it.funding_rate??it.fundingRate;
-    if (rate==null) continue;
-    out[raw.replace('_USDT','').replace('USDT','')] = { rate: parseFloat(rate)*100, price: parseFloat(it.mark_price||it.markPrice)||null };
+    const raw = it.contract||it.name||'';
+    if (!raw.includes('_USDT') && !raw.includes('USDT')) continue;
+    const rateRaw = it.funding_rate ?? it.fundingRate ?? it.funding_impact_bid;
+    if (rateRaw==null) continue;
+    const rate = parseFloat(rateRaw);
+    if (isNaN(rate)) continue;
+    const price = parseFloat(it.mark_price||it.last||it.index_price||0);
+    const cleanSym = raw.replace('_USDT','').replace('USDT','');
+    out[cleanSym] = { rate: rate*100, price: price>0?price:null };
   }
   return out;
 }
@@ -439,14 +456,23 @@ async function fetchHyperliquid() {
     method:'POST', headers:{'Content-Type':'application/json'},
     body: JSON.stringify({type:'metaAndAssetCtxs'})
   });
-  if (!Array.isArray(d)||d.length<2) return {};
+  if (!Array.isArray(d) || d.length < 2) return {};
   const out = {};
-  const assets = d[0]?.universe||[];
-  const ctxs   = d[1]||[];
-  for (let i=0;i<assets.length;i++) {
-    const ctx = ctxs[i]||{};
-    if (ctx.funding==null) continue;
-    out[assets[i].name] = { rate: parseFloat(ctx.funding)*8*100, price: parseFloat(ctx.markPx||ctx.oraclePx)||null };
+  const universe = d[0]?.universe || [];
+  const ctxs     = d[1] || [];
+  for (let i = 0; i < universe.length; i++) {
+    const asset = universe[i];
+    const ctx   = ctxs[i] || {};
+    const fundingRaw = ctx.funding ?? ctx.fundingRate;
+    if (fundingRaw == null) continue;
+    // Hyperliquid funding is per-hour — multiply by 8 for 8h equivalent, then *100 for %
+    const funding8h = parseFloat(fundingRaw);
+    if (isNaN(funding8h)) continue;
+    const rate  = funding8h * 100;
+    const price = parseFloat(ctx.markPx || ctx.oraclePx || ctx.midPx || 0);
+    const name  = asset.name || asset.coin || '';
+    if (!name) continue;
+    out[name] = { rate, price: price > 0 ? price : null };
   }
   return out;
 }
@@ -464,7 +490,9 @@ async function fetchBitget() {
     if (!raw.includes('USDT')) continue;
     const rate = it.fundingRate??it.funding_rate??it.fundRate;
     if (rate==null) continue;
-    out[raw.replace('USDT','').replace('_','')] = { rate: parseFloat(rate)*100, price: parseFloat(it.markPrice||it.mark_price)||null };
+    const sym   = raw.replace('USDT','').replace(/_/g,'');
+    const price = parseFloat(it.markPrice||it.mark_price||it.indexPrice||it.index_price);
+    out[sym] = { rate: parseFloat(rate)*100, price: price>0?price:null };
   }
   return out;
 }
@@ -477,7 +505,9 @@ async function fetchMEXC() {
     if (!raw.includes('USDT')) continue;
     const rate = it.funding_rate??it.fundingRate??it.funding;
     if (rate==null) continue;
-    out[raw.replace('_USDT','').replace('USDT','')] = { rate: parseFloat(rate)*100, price: parseFloat(it.markPrice||it.mark_price)||null };
+    const sym   = raw.replace('_USDT','').replace('USDT','');
+    const price = parseFloat(it.markPrice||it.mark_price||it.indexPrice);
+    out[sym] = { rate: parseFloat(rate)*100, price: price>0?price:null };
   }
   return out;
 }
@@ -485,12 +515,21 @@ async function fetchMEXC() {
 async function fetchKucoin() {
   const d = await fetchProxy('/funding?exchange=kucoin');
   const out = {};
-  for (const it of (d.data||[])) {
-    const raw = it.symbol||'';
+  const items = d.data || d.result || d || [];
+  for (const it of (Array.isArray(items) ? items : [])) {
+    const raw = it.symbol || it.contract || '';
+    // KuCoin futures symbols: XBTUSDTM, ETHUSDTM or XBTUSDT
     if (!raw.includes('USDT')) continue;
-    const rate = it.fundingFeeRate??it.fundingRate;
-    if (rate==null) continue;
-    out[raw.replace('USDTM','').replace('USDT','')] = { rate: parseFloat(rate)*100, price: parseFloat(it.markPrice)||null };
+    const rate = it.fundingFeeRate ?? it.fundingRate ?? it.funding_rate;
+    if (rate == null) continue;
+    const rateNum = parseFloat(rate);
+    if (isNaN(rateNum)) continue;
+    // Clean symbol: XBTUSDTM → XBT, ETHUSDTM → ETH
+    let sym = raw.replace('USDTM','').replace('_USDT','').replace('USDT','');
+    // Map KuCoin XBT → BTC
+    if (sym === 'XBT') sym = 'BTC';
+    const price = parseFloat(it.markPrice || it.mark_price || it.indexPrice || it.index_price || 0);
+    out[sym] = { rate: rateNum * 100, price: price > 0 ? price : null };
   }
   return out;
 }
@@ -503,7 +542,9 @@ async function fetchHTX() {
     if (!raw.includes('USDT')) continue;
     const rate = it.funding_rate??it.estimated_rate;
     if (rate==null) continue;
-    out[raw.replace('-USDT','').replace('USDT','')] = { rate: parseFloat(rate)*100, price: parseFloat(it.mark_price)||null };
+    const sym   = raw.replace('-USDT','').replace('USDT','');
+    const price = parseFloat(it.mark_price||it.markPrice||it.index_price);
+    out[sym] = { rate: parseFloat(rate)*100, price: price>0?price:null };
   }
   return out;
 }
@@ -566,27 +607,36 @@ function buildRows() {
     const rates = {}, prices = {};
     for (const ex of EXCHANGES) {
       if (data[ex]      != null) rates[ex]  = data[ex];
-      if (data[ex+'_px']!= null) prices[ex] = data[ex+'_px'];
+      if (data[ex+'_px']!= null && data[ex+'_px'] > 0) prices[ex] = data[ex+'_px'];
     }
     if (Object.keys(rates).length < 2) continue;
 
     const rVals   = Object.values(rates);
     const avgRate = rVals.reduce((a,b)=>a+b,0)/rVals.length;
-    const spread  = Math.max(...rVals) - Math.min(...rVals);
 
-    let priceDiff=0, longEx=null, shortEx=null;
+    // Funding Gap = highest FR - lowest FR (pure rate spread, before fees)
+    const highFREx = Object.keys(rates).reduce((a,b)=>rates[a]>rates[b]?a:b);
+    const lowFREx  = Object.keys(rates).reduce((a,b)=>rates[a]<rates[b]?a:b);
+    const spread   = rates[highFREx] - rates[lowFREx]; // same as fundingGap before fees
+
+    // Funding Gap net of entry/exit fees (4 legs: open long, open short, close long, close short)
+    const fundingGap = spread - (TAKER_FEE * 4 * 100);
+
+    // Price diff between exchanges (informational)
+    let priceDiff = 0;
     const pxEx = Object.keys(prices);
     if (pxEx.length >= 2) {
-      longEx  = pxEx.reduce((a,b) => prices[a]<prices[b]?a:b);
-      shortEx = pxEx.reduce((a,b) => prices[a]>prices[b]?a:b);
-      if (prices[longEx]>0) priceDiff = (prices[shortEx]-prices[longEx])/prices[longEx]*100;
+      const cheapEx = pxEx.reduce((a,b) => prices[a]<prices[b]?a:b);
+      const expEx   = pxEx.reduce((a,b) => prices[a]>prices[b]?a:b);
+      if (prices[cheapEx] > 0) priceDiff = (prices[expEx]-prices[cheapEx])/prices[cheapEx]*100;
     }
 
-    const highFREx  = Object.keys(rates).reduce((a,b)=>rates[a]>rates[b]?a:b);
-    const lowFREx   = Object.keys(rates).reduce((a,b)=>rates[a]<rates[b]?a:b);
-    const netProfit = (rates[highFREx]-rates[lowFREx]) + priceDiff - (TAKER_FEE*4*100);
+    // For funding arb: SHORT on high-FR exchange, LONG on low-FR exchange
+    const longEx  = lowFREx;   // collect funding by going long where rate is lowest (or most negative)
+    const shortEx = highFREx;  // collect funding by going short where rate is highest (most positive)
 
-    tableRows.push({ sym, rates, prices, spread, avgRate, netProfit, priceDiff, longEx, shortEx, highFREx, lowFREx });
+    tableRows.push({ sym, rates, prices, spread, avgRate,
+      fundingGap, priceDiff, longEx, shortEx, highFREx, lowFREx });
   }
 }
 
@@ -598,7 +648,7 @@ function frB(v) {
   const cls = v>0.005?'b-pos':v<-0.005?'b-neg':'b-neu';
   return `<span class="b ${cls}">${v>0?'+':''}${v.toFixed(4)}%</span>`;
 }
-function netB(v, mp) {
+function gapB(v, mp) {
   if (v==null) return '<span class="b b-neu">—</span>';
   const s = v>0?'+':'';
   if (v>=mp*2) return `<span class="b b-hot">${s}${v.toFixed(4)}%</span>`;
@@ -622,10 +672,10 @@ function sBar(v) {
 // ═══════════════════════════════════
 function getFiltered() {
   const q  = document.getElementById('search').value.toLowerCase();
-  const mp = parseFloat(document.getElementById('min-profit').value)||0.05;
+  const mp = parseFloat(document.getElementById('min-profit').value)||0.5;
   return tableRows.filter(r => {
     if (q && !r.sym.toLowerCase().includes(q)) return false;
-    if (filter==='arb') return r.netProfit >= mp;
+    if (filter==='arb') return r.fundingGap >= mp;
     if (filter==='pos') return r.avgRate > 0.005;
     if (filter==='neg') return r.avgRate < -0.005;
     return true;
@@ -633,7 +683,7 @@ function getFiltered() {
 }
 
 function renderView() {
-  const mp  = parseFloat(document.getElementById('min-profit').value)||0.05;
+  const mp  = parseFloat(document.getElementById('min-profit').value)||0.5;
   let rows  = getFiltered();
   rows.sort((a,b) => {
     const av = sortCol==='coin'?a.sym:(a[sortCol]??-999);
@@ -642,12 +692,12 @@ function renderView() {
     return (av-bv)*sortDir;
   });
 
-  const oppRows    = tableRows.filter(r=>r.netProfit>=mp);
-  const bestNet    = oppRows.length ? Math.max(...oppRows.map(r=>r.netProfit)) : 0;
+  const oppRows    = tableRows.filter(r=>r.fundingGap>=mp);
+  const bestGap    = oppRows.length ? Math.max(...oppRows.map(r=>r.fundingGap)) : 0;
   const bestSpread = tableRows.length ? Math.max(...tableRows.map(r=>r.spread)) : 0;
   document.getElementById('s-coins').textContent  = tableRows.length;
   document.getElementById('s-opps').textContent   = oppRows.length;
-  document.getElementById('s-best').textContent   = oppRows.length ? '+'+bestNet.toFixed(4)+'%' : '—';
+  document.getElementById('s-best').textContent   = oppRows.length ? '+'+bestGap.toFixed(4)+'%' : '—';
   document.getElementById('s-spread').textContent = bestSpread>0 ? bestSpread.toFixed(4)+'%' : '—';
   document.getElementById('s-ex').textContent     = Object.values(exStatus).filter(v=>v==='ok').length+'/'+EXCHANGES.length;
 
@@ -663,7 +713,7 @@ function renderTable(rows, mp) {
   document.getElementById('empty-cards').style.display = 'none';
   if (!rows.length) return;
   document.getElementById('tbody').innerHTML = rows.map(r => `
-    <tr class="${r.netProfit>=mp?'arb':''}">
+    <tr class="${r.fundingGap>=mp?'arb':''}">
       <td><span class="coin-name">${r.sym}</span></td>
       <td class="r">${frB(r.rates.binance)}</td>
       <td class="r">${frB(r.rates.bybit)}</td>
@@ -675,15 +725,15 @@ function renderTable(rows, mp) {
       <td class="r">${frB(r.rates.hyperliquid)}</td>
       <td class="r">${frB(r.avgRate)}</td>
       <td class="r">${sBar(r.spread)}</td>
-      <td class="r">${netB(r.netProfit, mp)}</td>
-      <td class="c">${sigEl(r.netProfit, mp, r.longEx, r.shortEx)}</td>
+      <td class="r">${gapB(r.fundingGap, mp)}</td>
+      <td class="c">${sigEl(r.fundingGap, mp, r.longEx, r.shortEx)}</td>
     </tr>`).join('');
 }
 
 function renderCards(rows, mp) {
   document.getElementById('view-table').style.display = 'none';
   document.getElementById('empty-table').style.display = 'none';
-  const arbRows = rows.filter(r=>r.netProfit>=mp);
+  const arbRows = rows.filter(r=>r.fundingGap>=mp);
   document.getElementById('view-cards').style.display = arbRows.length ? 'grid' : 'none';
   document.getElementById('empty-cards').style.display = arbRows.length ? 'none' : 'block';
   if (!arbRows.length) return;
@@ -693,19 +743,19 @@ function renderCards(rows, mp) {
       return `<div class="arb-row">
         <span class="arb-exch">${EX_NAMES[ex]||ex}</span>
         <span>${frB(rate)}</span>
-        ${px?`<span style="font-size:11px;color:var(--muted);font-family:var(--mono)">$${px.toLocaleString(undefined,{maximumFractionDigits:4})}</span>`:''}
+        ${px?`<span style="font-size:11px;color:var(--muted);font-family:var(--mono)">$${px.toLocaleString(undefined,{maximumFractionDigits:4})}</span>`:'<span style="font-size:10px;color:var(--border2)">no price</span>'}
       </div>`;
     }).join('');
     return `<div class="arb-card">
       <div class="arb-card-header">
         <span class="arb-coin">${r.sym}/USDT</span>
-        <span class="arb-net ${r.netProfit>=mp*2?'cg':'cd'}">${r.netProfit>0?'+':''}${r.netProfit.toFixed(4)}% gap</span>
+        <span class="arb-net ${r.fundingGap>=mp*2?'cg':'cd'}">${r.fundingGap>0?'+':''}${r.fundingGap.toFixed(4)}% net profit</span>
       </div>
       ${exRows}
       <div class="arb-signal-box">
-        ${r.netProfit>=mp*2?'🟢':'🟡'} <strong>LONG</strong> on ${EX_NAMES[r.longEx]||r.longEx||'?'}
-        &nbsp;·&nbsp; <strong>SHORT</strong> on ${EX_NAMES[r.shortEx]||r.shortEx||'?'}<br>
-        Spread: ${r.spread.toFixed(4)}% &nbsp;·&nbsp; Price gap: ${r.priceDiff.toFixed(4)}%
+        ${r.fundingGap>=mp*2?'🟢':'🟡'} <strong>LONG</strong> on ${EX_NAMES[r.longEx]||r.longEx||'?'} (FR: ${r.rates[r.longEx]!=null?r.rates[r.longEx].toFixed(4)+'%':'—'})
+        &nbsp;·&nbsp; <strong>SHORT</strong> on ${EX_NAMES[r.shortEx]||r.shortEx||'?'} (FR: ${r.rates[r.shortEx]!=null?r.rates[r.shortEx].toFixed(4)+'%':'—'})<br>
+        Rate Spread: ${r.spread.toFixed(4)}% &nbsp;·&nbsp; Price Diff: ${r.priceDiff.toFixed(4)}%
       </div>
     </div>`;
   }).join('');
