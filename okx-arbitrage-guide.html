@@ -93,7 +93,7 @@
 <style>
 :root{--bg:#050a0f;--surface:#0d1a24;--accent:#00e5ff;--accent2:#00ff88;--text:#e8f4f8;--muted:#6a8fa8;--border:#1a3a52;--orange:#ffa040;--red:#ff5555;}
 *{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;line-height:1.6;padding-top:64px;}
+body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;line-height:1.6;overflow-x:hidden;padding-top:64px;}
 
 /* ── Nav ── */
 .av-nav-wrap{--av-bg:#050a0f;--av-surface:#0d1a24;--av-accent:#00e5ff;--av-accent2:#00ff88;--av-text:#e8f4f8;--av-muted:#8fb0c4;--av-border:#1a3a52;position:fixed;top:0;left:0;right:0;z-index:999;background:rgba(5,10,15,0.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--av-border);font-family:'Space Grotesk',sans-serif;}
@@ -210,14 +210,6 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem 5%;d
 footer p{color:var(--muted);font-size:0.82rem;}
 .footer-links{display:flex;gap:1.5rem;}.footer-links a{color:var(--muted);text-decoration:none;font-size:0.82rem;transition:color .2s;}.footer-links a:hover{color:var(--accent);}
 @media(max-width:768px){.nav-btns{flex-direction:column;}footer{flex-direction:column;text-align:center;}.compare-table{display:block;overflow-x:auto;}.feature-grid{grid-template-columns:1fr;}}
-
-.nav-btns{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border);}
-.nav-btn{padding:0.6rem 1.2rem;border-radius:6px;font-size:0.85rem;font-weight:600;text-decoration:none;transition:all .2s;display:inline-flex;align-items:center;gap:0.4rem;}
-.nav-btn-ghost{background:transparent;border:1px solid var(--border);color:var(--muted);}.nav-btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
-.nav-btn-outline{background:transparent;border:1px solid var(--border);color:var(--text);}.nav-btn-outline:hover{border-color:var(--accent);color:var(--accent);}
-.nav-btn-primary{background:var(--accent);color:var(--bg);border:1px solid var(--accent);}.nav-btn-primary:hover{opacity:0.85;}
-@media(max-width:600px){.nav-btns{flex-direction:column;}.nav-btn{justify-content:center;}}
-
 </style>
 </head>
 <body>
@@ -613,14 +605,15 @@ footer p{color:var(--muted);font-size:0.82rem;}
     <a href="crypto-arbitrage-signals-pricing.html" class="cta-btn">View Plans → Join for $5/month</a>
   </div>
 
+  <div class="nav-btns">
+    <a href="crypto-arbitrage-blog.html" class="btn-outline">← Back to Blog</a>
+    <a href="binance-futures-setup-arbitrage.html" class="btn-outline">Binance Guide →</a>
+    <a href="live-crypto-arbitrage-scanner.html" class="btn-primary">Try Live Scanner →</a>
   </div>
 
-<div class="nav-btns">
-<a href="crypto-arbitrage-blog.html#exchange" class="nav-btn nav-btn-ghost">☰ 🔄 Exchange Guides Articles</a>
-<a href="bybit-setup-for-arbitrage.html" class="nav-btn nav-btn-outline">← Bybit Setup for Arbitrage</a>
-<a href="best-crypto-arbitrage-exchanges.html" class="nav-btn nav-btn-primary">Best Crypto Arbitrage Exchanges →</a>
 </div>
->
+
+<footer>
   <p>© 2026 ArbVertex — Not financial advice.</p>
   <div class="footer-links">
     <a href="index.html">Home</a>

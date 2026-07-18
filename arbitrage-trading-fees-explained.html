@@ -21,7 +21,7 @@
 :root{--bg:#050a0f;--surface:#0d1a24;--accent:#00e5ff;--accent2:#00ff88;--text:#e8f4f8;--muted:#6a8fa8;--border:#1a3a52;--red:#ff5555;--glow:0 0 30px rgba(0,229,255,0.15);}
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;line-height:1.6;}
+body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;line-height:1.6;overflow-x:hidden;}
 .av-nav-wrap{--av-bg:#050a0f;--av-surface:#0d1a24;--av-accent:#00e5ff;--av-accent2:#00ff88;--av-text:#e8f4f8;--av-muted:#8fb0c4;--av-border:#1a3a52;position:fixed;top:0;left:0;right:0;z-index:999;background:rgba(5,10,15,0.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--av-border);font-family:'Space Grotesk',sans-serif;}
 .av-nav-inner{max-width:1400px;margin:0 auto;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;gap:1rem;}
 .av-logo{font-family:'JetBrains Mono',monospace;font-size:1.05rem;font-weight:700;color:var(--av-accent);text-decoration:none;letter-spacing:-0.02em;flex-shrink:0;}
@@ -71,14 +71,6 @@ footer p{color:var(--muted);font-size:0.82rem;}
 .footer-links a{color:var(--muted);text-decoration:none;font-size:0.82rem;transition:color 0.2s;}
 .footer-links a:hover{color:var(--accent);}
 @media(max-width:768px){footer{flex-direction:column;text-align:center;}}
-
-.nav-btns{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border);}
-.nav-btn{padding:0.6rem 1.2rem;border-radius:6px;font-size:0.85rem;font-weight:600;text-decoration:none;transition:all .2s;display:inline-flex;align-items:center;gap:0.4rem;}
-.nav-btn-ghost{background:transparent;border:1px solid var(--border);color:var(--muted);}.nav-btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
-.nav-btn-outline{background:transparent;border:1px solid var(--border);color:var(--text);}.nav-btn-outline:hover{border-color:var(--accent);color:var(--accent);}
-.nav-btn-primary{background:var(--accent);color:var(--bg);border:1px solid var(--accent);}.nav-btn-primary:hover{opacity:0.85;}
-@media(max-width:600px){.nav-btns{flex-direction:column;}.nav-btn{justify-content:center;}}
-
 </style>
 
 <script type="application/ld+json">
