@@ -58,7 +58,7 @@
 <style>
 :root{--bg:#050a0f;--surface:#0d1a24;--accent:#00e5ff;--accent2:#00ff88;--text:#e8f4f8;--muted:#6a8fa8;--border:#1a3a52;--orange:#ffa040;}
 *{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;line-height:1.6;overflow-x:hidden;padding-top:64px;}
+body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;line-height:1.6;padding-top:64px;}
 .av-nav-wrap{
  --av-bg:#050a0f; --av-surface:#0d1a24; --av-accent:#00e5ff; --av-accent2:#00ff88;
  --av-text:#e8f4f8; --av-muted:#8fb0c4; --av-border:#1a3a52;
@@ -179,6 +179,14 @@ footer p{color:var(--muted);font-size:0.82rem;}
 .av-blog-col-header{font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--av-muted, #8fb0c4);padding:0.3rem 0.65rem 0.15rem;border-bottom:1px solid var(--av-border, #1a3a52);margin-bottom:0.1rem;}
 .av-blog-col{display:flex;flex-direction:column;gap:0.05rem;}
 @media(max-width:980px){.av-blog-panel{min-width:0;grid-template-columns:1fr!important;}.av-blog-col-header{display:none;}}
+
+.nav-btns{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border);}
+.nav-btn{padding:0.6rem 1.2rem;border-radius:6px;font-size:0.85rem;font-weight:600;text-decoration:none;transition:all .2s;display:inline-flex;align-items:center;gap:0.4rem;}
+.nav-btn-ghost{background:transparent;border:1px solid var(--border);color:var(--muted);}.nav-btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+.nav-btn-outline{background:transparent;border:1px solid var(--border);color:var(--text);}.nav-btn-outline:hover{border-color:var(--accent);color:var(--accent);}
+.nav-btn-primary{background:var(--accent);color:var(--bg);border:1px solid var(--accent);}.nav-btn-primary:hover{opacity:0.85;}
+@media(max-width:600px){.nav-btns{flex-direction:column;}.nav-btn{justify-content:center;}}
+
 </style>
 </head>
 <body>
@@ -251,6 +259,7 @@ footer p{color:var(--muted);font-size:0.82rem;}
  <span></span><span></span><span></span>
  </button>
  </div>
+</div>
 <div class="inner-page">
 <nav class="breadcrumb">
 <a href="index.html">Home</a> / <a href="crypto-arbitrage-blog.html">Blog</a> / <span style="color:var(--accent);">Futures Arbitrage</span>
@@ -297,18 +306,14 @@ footer p{color:var(--muted);font-size:0.82rem;}
 <p>Ready to start earning from crypto arbitrage? Get pre-validated 2%+ signals delivered directly on Telegram.</p>
 <a href="crypto-arbitrage-signals-pricing.html" class="cta-btn">View Plans → Join for $5/month</a>
 </div>
-<div class="nav-btns">
-<a href="crypto-arbitrage-blog.html" class="btn-outline">← Back to Blog</a>
-<a href="live-crypto-arbitrage-scanner.html" class="btn-primary">Try Live Scanner →</a>
 </div>
-</div>
-<footer>
+>
 <p>© 2026 ArbVertex — Not financial advice.</p>
 <div class="footer-links">
 <a href="index.html">Home</a><a href="crypto-arbitrage-blog.html">Blog</a><a href="crypto-arbitrage-signals-pricing.html">Pricing</a>
 </div>
 <p style="font-size:0.75rem;">Educational content only. Always do your own research.</p>
-</footer>
+
 <script>(function(){
  var hamburger = document.getElementById('avHamburger');
  var navLinks = document.getElementById('avNavLinks');

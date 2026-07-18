@@ -126,7 +126,7 @@
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;line-height:1.6;overflow-x:hidden;}
+body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;line-height:1.6;}
 
 /* ── HEADER ── */
 header{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(5,10,15,0.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 5%;}
@@ -311,6 +311,14 @@ footer p{color:var(--muted);font-size:0.82rem;}
  footer{flex-direction:column;text-align:center;}
  .single-plan{padding:2rem 1.5rem;}
 }
+
+.nav-btns{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border);}
+.nav-btn{padding:0.6rem 1.2rem;border-radius:6px;font-size:0.85rem;font-weight:600;text-decoration:none;transition:all .2s;display:inline-flex;align-items:center;gap:0.4rem;}
+.nav-btn-ghost{background:transparent;border:1px solid var(--border);color:var(--muted);}.nav-btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+.nav-btn-outline{background:transparent;border:1px solid var(--border);color:var(--text);}.nav-btn-outline:hover{border-color:var(--accent);color:var(--accent);}
+.nav-btn-primary{background:var(--accent);color:var(--bg);border:1px solid var(--accent);}.nav-btn-primary:hover{opacity:0.85;}
+@media(max-width:600px){.nav-btns{flex-direction:column;}.nav-btn{justify-content:center;}}
+
 </style>
 <style>
 /* ══════════════════════════════════════════════════
@@ -492,7 +500,8 @@ footer p{color:var(--muted);font-size:0.82rem;}
 
 <div class="page active" id="page-risks">
  <h1 class="article-title">Crypto Arbitrage Risks &amp; Precautions Every Trader Must Know</h1>
- <div class="inner-page">
+ </div>
+<div class="inner-page">
  <a class="back-btn" href="index.html">← Back to Home</a>
  <div class="section-tag">// RISK WARNING</div>
  <h2>Risks & Precautions</h2>
@@ -562,7 +571,11 @@ footer p{color:var(--muted);font-size:0.82rem;}
  <a class="btn-primary" href="crypto-arbitrage-signals-pricing.html">I Understand — Subscribe →</a>
  </div>
  </div>
- <footer><p>© 2026 ArbVertex</p><div class="footer-links"><a href="index.html">Home</a><a href="contact-arbvertex.html">Contact</a></div><p style="font-size:0.75rem;">Not financial advice.</p></footer>
+><p>© 2026 ArbVertex</p><div class="footer-links"><a href="index.html">Home</a><a href="contact-arbvertex.html">Contact</a></div><p style="font-size:0.75rem;">Not financial advice.</p>
+<div class="nav-btns">
+<a href="crypto-arbitrage-blog.html#risk" class="nav-btn nav-btn-ghost">☰ 🛡️ Risk & Tools Articles</a>
+<a href="crypto-arbitrage-blog.html#risk" class="nav-btn nav-btn-outline">← Back to 🛡️ Risk & Tools</a>
+<a href="stop-loss-strategies-arbitrage.html" class="nav-btn nav-btn-primary">Stop Loss Strategies for Arbitrage →</a>
 </div>
 
 <script>
