@@ -58,7 +58,8 @@
 <style>
 :root{--bg:#050a0f;--surface:#0d1a24;--accent:#00e5ff;--accent2:#00ff88;--text:#e8f4f8;--muted:#6a8fa8;--border:#1a3a52;--orange:#ffa040;}
 *{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;line-height:1.6;overflow-x:hidden;padding-top:64px;}
+html{scroll-behavior:smooth;overflow-x:hidden;}
+body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;line-height:1.6;padding-top:64px;}
 .av-nav-wrap{
  --av-bg:#050a0f; --av-surface:#0d1a24; --av-accent:#00e5ff; --av-accent2:#00ff88;
  --av-text:#e8f4f8; --av-muted:#8fb0c4; --av-border:#1a3a52;
@@ -149,30 +150,14 @@ body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-ser
  .av-hamburger{ display:flex; }
 }
 
-.inner-page{max-width:860px;margin:0 auto;padding:50px 5% 80px;}
-.breadcrumb{display:flex;align-items:center;gap:0.4rem;font-size:0.78rem;color:var(--muted);margin-bottom:1.5rem;flex-wrap:wrap;}
+.inner-page{max-width:880px;margin:0 auto;padding:54px 5% 90px;}
+.breadcrumb{display:flex;align-items:center;gap:0.35rem;font-size:0.76rem;color:var(--muted);margin-bottom:1.8rem;flex-wrap:wrap;font-family:var(--mono);}
 .breadcrumb a{color:var(--muted);text-decoration:none;transition:color .2s;}.breadcrumb a:hover{color:var(--accent);}
-.article-meta{display:flex;align-items:center;gap:0.6rem;margin-bottom:1rem;flex-wrap:wrap;}
-.meta-tag{font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.25rem 0.6rem;border-radius:3px;background:rgba(255,160,64,0.1);color:var(--orange);}
-h1{font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:800;line-height:1.25;letter-spacing:-0.02em;margin-bottom:0.8rem;}
-.article-intro{color:var(--muted);font-size:0.97rem;line-height:1.8;margin-bottom:2rem;border-left:3px solid var(--accent);padding-left:1rem;}
-.section-title{font-size:1.2rem;font-weight:700;margin:2.2rem 0 0.8rem;color:var(--text);}
-.body-text{color:var(--muted);font-size:0.93rem;line-height:1.85;margin-bottom:0.5rem;}
-.faq-section{margin-top:2.5rem;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.6rem;}
-.faq-section h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;color:var(--accent);}
-.faq-item{border-bottom:1px solid var(--border);padding:0.9rem 0;}.faq-item:last-child{border-bottom:none;}
-.faq-q{font-size:0.92rem;font-weight:600;color:var(--text);margin-bottom:0.35rem;}
-.faq-a{color:var(--muted);font-size:0.87rem;line-height:1.75;}
-.cta-box{background:linear-gradient(135deg,rgba(0,229,255,0.05),rgba(0,255,136,0.03));border:1px solid var(--accent);border-radius:10px;padding:1.6rem;margin:2.5rem 0;text-align:center;}
-.cta-box p{color:var(--muted);font-size:0.9rem;margin-bottom:1rem;}
-.cta-btn{background:var(--accent);color:var(--bg);padding:0.7rem 1.8rem;border-radius:4px;font-weight:700;text-decoration:none;display:inline-block;transition:opacity .2s;}.cta-btn:hover{opacity:0.85;}
-.nav-btns{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border);}
-.btn-outline{border:1px solid var(--border);color:var(--text);padding:0.65rem 1.4rem;border-radius:4px;font-weight:500;font-size:0.88rem;text-decoration:none;transition:border-color .2s;display:inline-block;}.btn-outline:hover{border-color:var(--accent);color:var(--accent);}
-.btn-primary{background:var(--accent);color:var(--bg);padding:0.65rem 1.4rem;border-radius:4px;font-weight:700;font-size:0.88rem;text-decoration:none;display:inline-block;transition:opacity .2s;}.btn-primary:hover{opacity:0.85;}
-footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+.breadcrumb .sep{opacity:0.35;font-size:0.65rem;}
+footer{background:var(--surface);border-top:1px solid var(--border);padding:2rem 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
 footer p{color:var(--muted);font-size:0.82rem;}
 .footer-links{display:flex;gap:1.5rem;}.footer-links a{color:var(--muted);text-decoration:none;font-size:0.82rem;transition:color .2s;}.footer-links a:hover{color:var(--accent);}
-@media(max-width:768px){.nav-btns{flex-direction:column;}footer{flex-direction:column;text-align:center;}}
+@media(max-width:768px){footer{flex-direction:column;text-align:center;}}
 
 /* Blog dropdown wide panel */
 .av-blog-panel{min-width:260px;grid-template-columns:1fr;gap:0.1rem;}
@@ -251,65 +236,387 @@ footer p{color:var(--muted);font-size:0.82rem;}
  <span></span><span></span><span></span>
  </button>
  </div>
+<style>
+/* ── ARTICLE PAGE STYLES ── */
+:root{
+  --bg:#050a0f;--surface:#0a1118;--surface2:#0d1720;--accent:#00e5ff;--accent2:#00ff88;
+  --text:#e8f4f8;--muted:#6a8fa8;--dim:#a0bfcf;--border:#1a3040;--border2:#243850;
+  --orange:#ffa040;--red:#ff4466;
+  --mono:'JetBrains Mono','Fira Code',monospace;
+  --sans:'Space Grotesk','Inter',system-ui,sans-serif;
+}
+.ps-wrap{max-width:840px;margin:0 auto;}
+
+/* META + HERO */
+.ps-meta{display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.6rem;}
+.ps-tag{font-family:var(--mono);font-size:0.65rem;padding:0.22rem 0.65rem;border-radius:4px;letter-spacing:0.07em;font-weight:600;text-transform:uppercase;}
+.ps-tag-blue{background:rgba(0,229,255,0.08);color:var(--accent);border:1px solid rgba(0,229,255,0.15);}
+.ps-tag-green{background:rgba(0,255,136,0.08);color:var(--accent2);border:1px solid rgba(0,255,136,0.15);}
+.ps-tag-time{font-size:0.72rem;color:var(--muted);font-family:var(--mono);padding:0.22rem 0.65rem;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:4px;}
+
+.ps-hero-title{font-size:clamp(1.7rem,3.8vw,2.4rem);font-weight:800;line-height:1.22;letter-spacing:-0.03em;margin-bottom:1rem;color:var(--text);}
+
+.ps-lead{color:var(--dim);font-size:1rem;line-height:1.9;margin-bottom:2.5rem;border-left:3px solid var(--accent2);padding-left:1.3rem;background:rgba(0,255,136,0.02);border-radius:0 6px 6px 0;padding-top:0.8rem;padding-bottom:0.8rem;padding-right:1rem;}
+
+/* TOC */
+.ps-toc{background:var(--surface);border:1px solid var(--border2);border-radius:12px;padding:1.5rem 1.8rem;margin-bottom:2.5rem;position:relative;}
+.ps-toc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2),transparent);}
+.ps-toc h4{font-family:var(--mono);font-size:0.68rem;color:var(--accent);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1rem;opacity:0.8;}
+.ps-toc ul{list-style:none;display:flex;flex-direction:column;gap:0.35rem;}
+.ps-toc li{font-size:0.88rem;display:flex;align-items:center;gap:0.7rem;}
+.ps-toc .n{font-family:var(--mono);font-size:0.65rem;color:var(--border2);min-width:20px;font-weight:600;}
+.ps-toc a{color:var(--muted);text-decoration:none;transition:color .2s;font-weight:500;}
+.ps-toc a:hover{color:var(--accent);}
+
+/* SECTIONS */
+.ps-section{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:2.2rem;margin-bottom:1.2rem;position:relative;transition:border-color .2s;}
+.ps-section:hover{border-color:var(--border2);}
+.ps-section::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(180deg,var(--accent),transparent);}
+.ps-section h3{font-size:1.08rem;font-weight:700;margin-bottom:1.2rem;display:flex;align-items:center;gap:0.65rem;letter-spacing:-0.01em;}
+.ps-section p{color:var(--muted);font-size:0.93rem;line-height:1.9;margin-bottom:0.9rem;}
+.ps-section p:last-child{margin-bottom:0;}
+.ps-section strong{color:var(--text);font-weight:600;}
+
+/* CALC BOX */
+.ps-calc{background:var(--bg);border:1px solid var(--border2);border-radius:10px;padding:1.5rem 1.7rem;font-family:var(--mono);font-size:0.82rem;line-height:2.2;color:var(--muted);margin:1.2rem 0;position:relative;}
+.ps-calc::before{content:'// formula';position:absolute;top:0.7rem;right:1rem;font-size:0.62rem;color:var(--border2);letter-spacing:0.08em;}
+.ps-calc strong{color:var(--accent2);font-weight:700;}
+.ps-calc .sep{border-top:1px dashed var(--border2);padding-top:0.9rem;margin-top:0.6rem;display:block;}
+.ps-calc .label{font-size:0.67rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);display:block;margin-bottom:0.3rem;font-weight:600;}
+
+/* TABLE */
+.ps-table{width:100%;border-collapse:collapse;font-size:0.85rem;margin:1.2rem 0;}
+.ps-table thead tr{border-bottom:2px solid var(--border2);}
+.ps-table th{font-family:var(--mono);font-size:0.67rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.09em;padding:0.7rem 1rem;text-align:left;font-weight:600;}
+.ps-table td{padding:0.75rem 1rem;border-bottom:1px solid rgba(26,48,64,0.5);font-size:0.85rem;vertical-align:middle;}
+.ps-table tr:last-child td{border-bottom:none;}
+.ps-table tr:hover td{background:rgba(255,255,255,0.015);}
+.ps-table .good{color:var(--accent2);font-weight:700;}
+.ps-table .mid{color:var(--orange);font-weight:600;}
+.ps-table .bad{color:var(--red);}
+.ps-table .rowhead{color:var(--text);font-weight:700;font-family:var(--mono);}
+.ps-table .mono{font-family:var(--mono);color:var(--accent);}
+
+/* PHASE GRID */
+.phase-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.2rem 0;}
+.phase-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:1.4rem;transition:border-color .2s,box-shadow .2s;position:relative;overflow:hidden;}
+.phase-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.phase-card:nth-child(1)::before{background:linear-gradient(90deg,var(--accent),transparent);}
+.phase-card:nth-child(2)::before{background:linear-gradient(90deg,var(--orange),transparent);}
+.phase-card:nth-child(3)::before{background:linear-gradient(90deg,var(--accent2),transparent);}
+.phase-card:hover{box-shadow:0 6px 24px rgba(0,0,0,0.3);}
+.phase-card h4{font-size:0.83rem;font-weight:700;margin-bottom:0.8rem;line-height:1.4;}
+.phase-card ul{list-style:none;display:flex;flex-direction:column;gap:0.45rem;}
+.phase-card li{font-size:0.8rem;color:var(--muted);display:flex;gap:0.45rem;line-height:1.5;align-items:flex-start;}
+.phase-card li span:first-child{color:var(--accent);font-weight:700;flex-shrink:0;margin-top:1px;}
+
+/* DYNAMIC GRID */
+.dynamic-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.2rem 0;}
+.dynamic-card{border-radius:10px;padding:1.4rem;}
+.dynamic-card.increase{background:rgba(0,255,136,0.03);border:1px solid rgba(0,255,136,0.18);}
+.dynamic-card.decrease{background:rgba(255,68,102,0.03);border:1px solid rgba(255,68,102,0.18);}
+.dynamic-card h4{font-size:0.83rem;font-weight:700;margin-bottom:0.8rem;}
+.dynamic-card ul{list-style:none;display:flex;flex-direction:column;gap:0.45rem;}
+.dynamic-card li{font-size:0.83rem;color:var(--muted);display:flex;gap:0.45rem;line-height:1.55;align-items:flex-start;}
+.dynamic-card li span:first-child{flex-shrink:0;margin-top:1px;}
+
+/* FAQ */
+.ps-faq{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:2.2rem;margin-bottom:1.5rem;position:relative;}
+.ps-faq::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),transparent);}
+.ps-faq h3{font-size:1.08rem;font-weight:700;margin-bottom:1.4rem;color:var(--accent);display:flex;align-items:center;gap:0.65rem;}
+.ps-faq-item{border-bottom:1px solid var(--border);padding:1.1rem 0;}
+.ps-faq-item:last-child{border-bottom:none;padding-bottom:0;}
+.ps-faq-q{font-size:0.93rem;font-weight:700;color:var(--text);margin-bottom:0.55rem;display:flex;align-items:flex-start;gap:0.5rem;}
+.ps-faq-q::before{content:'Q';font-family:var(--mono);font-size:0.65rem;color:var(--accent);background:rgba(0,229,255,0.1);padding:0.15rem 0.4rem;border-radius:3px;flex-shrink:0;margin-top:2px;font-weight:700;}
+.ps-faq-a{font-size:0.89rem;color:var(--muted);line-height:1.8;padding-left:1.5rem;}
+
+/* CTA */
+.ps-cta{background:linear-gradient(135deg,rgba(0,255,136,0.04),rgba(0,229,255,0.03));border:1px solid rgba(0,255,136,0.2);border-radius:14px;padding:2.2rem;text-align:center;margin-bottom:1.5rem;position:relative;}
+.ps-cta::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent2),var(--accent));}
+.ps-cta p{color:var(--muted);font-size:0.97rem;margin-bottom:1.4rem;line-height:1.8;}
+
+/* NAV BUTTONS */
+.ps-nav{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2.8rem;padding-top:2rem;border-top:1px solid var(--border);}
+.ps-btn{padding:0.8rem 1.6rem;border-radius:8px;font-weight:600;font-size:0.88rem;text-decoration:none;transition:all .2s;display:inline-flex;align-items:center;gap:0.4rem;}
+.ps-btn-ghost{border:1px solid var(--border2);color:var(--muted);background:none;}
+.ps-btn-ghost:hover{border-color:var(--accent);color:var(--accent);background:rgba(0,229,255,0.04);}
+.ps-btn-primary{background:var(--accent);color:#050a0f;font-weight:700;border:none;box-shadow:0 0 16px rgba(0,229,255,0.2);}
+.ps-btn-primary:hover{box-shadow:0 0 24px rgba(0,229,255,0.35);opacity:0.92;}
+
+/* CTA BUTTON SHARED */
+.btn-primary{background:var(--accent);color:#050a0f;padding:0.8rem 2rem;border-radius:8px;font-weight:700;text-decoration:none;display:inline-block;transition:all .2s;font-size:0.95rem;box-shadow:0 0 20px rgba(0,229,255,0.25);}
+.btn-primary:hover{box-shadow:0 0 30px rgba(0,229,255,0.4);opacity:0.92;}
+
+@media(max-width:640px){
+  .phase-grid{grid-template-columns:1fr;}
+  .dynamic-grid{grid-template-columns:1fr;}
+  .ps-table{font-size:0.76rem;}
+  .ps-table th,.ps-table td{padding:0.55rem 0.6rem;}
+  .ps-section,.ps-faq,.ps-cta{padding:1.5rem;}
+  .ps-calc{padding:1.1rem 1.2rem;}
+}
+</style>
+
 <div class="inner-page">
-<nav class="breadcrumb">
-<a href="index.html">Home</a> / <a href="crypto-arbitrage-blog.html">Blog</a> / <span style="color:var(--accent);">Risk & Strategy</span>
-</nav>
-<div class="article-meta">
-<span class="meta-tag">📘 RISK & STRATEGY</span>
-<span class="meta-tag" style="background:rgba(0,229,255,0.08);color:var(--accent);">ArbVertex Blog</span>
-</div>
-<h1>Position Sizing for Crypto Arbitrage: A Practical Guide</h1>
-<p class="article-intro">Learn how to size arbitrage positions correctly — Kelly Criterion, risk percentage methods, and practical frameworks for retail arbitrage traders.</p>
-<h2 class="section-title">Why Position Sizing Matters</h2>
-<p class="body-text">The difference between a profitable and unprofitable arbitrage trader often isn't the strategy — it's position sizing.</p>
-<p class="body-text">Too small: Returns are insignificant.</p>
-<p class="body-text">Too large: One bad period wipes out months of gains..</p>
-<h2 class="section-title">The Kelly Criterion</h2>
-<p class="body-text">Kelly formula: f = (bp - q) / b.</p>
-<p class="body-text">For arbitrage with 70% win rate, 2:1 reward/risk: f = 55% Kelly.</p>
-<p class="body-text">Full Kelly is too aggressive — most practitioners use 1/4 to 1/2 Kelly: 14-28% per position..</p>
-<h2 class="section-title">Practical Risk Percentage Method</h2>
-<p class="body-text">Simpler alternative: Risk 1-2% of total portfolio per trade.</p>
-<p class="body-text">Calculate position size: Position = (Portfolio × Risk%) / (Entry - Stop Loss).</p>
-<p class="body-text">Cap at 10% of portfolio maximum..</p>
-<h2 class="section-title">Funding Rate Arb Specific Sizing</h2>
-<p class="body-text">For hedged funding rate positions (near-zero market risk): Larger position sizes are acceptable.</p>
-<p class="body-text">20-50% of portfolio per position is reasonable.</p>
-<p class="body-text">Spread across 3-5 positions (10-15% each).</p>
-<p class="body-text">Maximum single exchange exposure: 40-50% of total portfolio..</p>
-<h2 class="section-title">Scaling Positions</h2>
-<p class="body-text">Start small (5-10% of capital per position) even if your framework suggests more.</p>
-<p class="body-text">Learn how the position behaves in practice.</p>
-<p class="body-text">After 10+ successful trades with the sizing, increase to target levels..</p>
-<h2 class="section-title">Dynamic Sizing</h2>
-<p class="body-text">Increase position size when: Funding rate is high (0.1%+), market regime is bull, you've had 5+ consecutive profitable trades.</p>
-<p class="body-text">Decrease when: Rates are marginal, market is bear or volatile, you've had 2+ losing trades recently..</p>
+ <div class="ps-wrap">
 
-<div class="faq-section">
-<h2>Frequently Asked Questions</h2>
-<div class="faq-item"><div class="faq-q">Should I use the same position size for every trade?</div><div class="faq-a">Not necessarily. Higher-quality signals warrant larger positions. Lower-quality signals warrant smaller.</div></div>
-<div class="faq-item"><div class="faq-q">How do I size a cross-exchange trade?</div><div class="faq-a">Position = Amount you can execute on both exchanges within the spread window without moving the market.</div></div>
-<div class="faq-item"><div class="faq-q">What if my position sizing feels too conservative?</div><div class="faq-a">It probably isn't. The biggest risk in trading isn't missing gains — it's blowing up capital.</div></div>
+  <nav class="breadcrumb">
+   <a href="index.html">Home</a> <span class="sep">›</span> <a href="crypto-arbitrage-blog.html">Blog</a> <span class="sep">›</span> <span style="color:var(--accent);">Risk &amp; Strategy</span>
+  </nav>
 
-</div>
-<div class="cta-box">
-<p>Ready to start earning from crypto arbitrage? Get pre-validated 2%+ signals delivered directly on Telegram.</p>
-<a href="crypto-arbitrage-signals-pricing.html" class="cta-btn">View Plans → Join for $5/month</a>
-</div>
-<div class="nav-btns">
-<a href="crypto-arbitrage-blog.html" class="btn-outline">← Back to Blog</a>
-<a href="live-crypto-arbitrage-scanner.html" class="btn-primary">Try Live Scanner →</a>
+  <div class="ps-meta">
+   <span class="ps-tag ps-tag-green">📘 RISK &amp; STRATEGY</span>
+   <span class="ps-tag ps-tag-blue">ArbVertex Blog</span>
+   <span class="ps-tag-time">⏱ 7 min read</span>
+  </div>
+
+  <h1 class="ps-hero-title">Position Sizing for Crypto Arbitrage: A Practical Guide</h1>
+  <p class="ps-lead">The difference between a profitable and unprofitable arbitrage trader often is not the strategy — it is position sizing. Too small and returns are insignificant. Too large and one bad period wipes out months of gains. This guide gives you exact frameworks with real numbers.</p>
+
+  <div class="ps-toc">
+   <h4>// In this article</h4>
+   <ul>
+    <li><span class="n">01</span><a href="#ps-why">Why Position Sizing Matters</a></li>
+    <li><span class="n">02</span><a href="#ps-kelly">The Kelly Criterion</a></li>
+    <li><span class="n">03</span><a href="#ps-risk">Risk Percentage Method</a></li>
+    <li><span class="n">04</span><a href="#ps-funding">Funding Rate Arb Sizing</a></li>
+    <li><span class="n">05</span><a href="#ps-ref">Position Size Reference Table</a></li>
+    <li><span class="n">06</span><a href="#ps-scaling">Scaling Roadmap</a></li>
+    <li><span class="n">07</span><a href="#ps-dynamic">Dynamic Sizing Rules</a></li>
+    <li><span class="n">08</span><a href="#ps-faq">FAQ</a></li>
+   </ul>
+  </div>
+
+  <!-- 1. WHY IT MATTERS -->
+  <div class="ps-section" id="ps-why">
+   <h3><span>📌</span><span style="color:var(--accent);">Why Position Sizing Matters</span></h3>
+   <p>Most beginners focus entirely on finding good signals — and ignore how much capital to deploy per trade. This is backwards. Even a perfectly identified arbitrage opportunity can result in net losses if the position is too large relative to fees, slippage, or margin requirements.</p>
+   <p>Consider two traders with the same $10,000 portfolio and the same 70% win rate signals. Trader A risks 5% per trade. Trader B risks 25% per trade. After 20 trades with identical signal quality, Trader A compounds steadily. Trader B may be wiped out by a single bad streak — even though their signals were correct 70% of the time.</p>
+   <p>In arbitrage specifically, position sizing also determines your <strong>exchange exposure risk</strong>, <strong>margin buffer</strong>, and <strong>liquidity risk</strong> — all of which are separate from price risk.</p>
+  </div>
+
+  <!-- 2. KELLY -->
+  <div class="ps-section" id="ps-kelly">
+   <h3><span>📐</span><span style="color:var(--accent);">The Kelly Criterion</span></h3>
+   <p>The Kelly Criterion is a mathematical formula that calculates the optimal fraction of your portfolio to risk on any bet or trade, given a known win rate and reward-to-risk ratio.</p>
+   <div class="ps-calc">
+    <span class="label">Kelly Formula</span>
+    f* = (b × p − q) / b
+    where: b = reward/risk ratio · p = win probability · q = loss probability (1−p)
+    <span class="sep"></span>
+    <span class="label">Example — Arbitrage signal: 70% win rate, 2:1 reward/risk</span>
+    f* = (2 × 0.70 − 0.30) / 2
+    f* = (1.40 − 0.30) / 2
+    f* = <strong>0.55 → 55% of portfolio</strong>
+    <span class="sep"></span>
+    <span class="label">Half Kelly (recommended)</span>
+    Full Kelly (55%) is dangerously aggressive in practice.
+    Most professionals use ¼ to ½ Kelly → <strong>14% to 28% per position</strong>
+   </div>
+   <p>Kelly assumes a fixed win rate and reward ratio — which arbitrage does not always have cleanly. Use it as an upper bound, not a target. For most retail traders, <strong>Half Kelly (25–28%) is the absolute maximum</strong> for a single position.</p>
+  </div>
+
+  <!-- 3. RISK % METHOD -->
+  <div class="ps-section" id="ps-risk">
+   <h3><span>🎯</span><span style="color:var(--accent);">Risk Percentage Method</span></h3>
+   <p>The simpler and more practical alternative to Kelly. Risk a fixed percentage of your total portfolio on each trade — regardless of signal strength. This keeps drawdowns predictable and prevents a single loss from causing serious damage.</p>
+   <div class="ps-calc">
+    <span class="label">Formula</span>
+    Position Size = (Portfolio × Risk%) ÷ Max Loss per Unit
+    <span class="sep"></span>
+    <span class="label">Example — $10,000 portfolio, 2% risk rule, 1% stop loss</span>
+    Risk amount: $10,000 × 2% = <strong>$200</strong>
+    Position size: $200 ÷ 1% = <strong>$20,000</strong> notional
+    (using 2× leverage — or $10,000 at 1× with 2% stop)
+    <span class="sep"></span>
+    <span class="label">Hard cap rule</span>
+    Never exceed <strong>10% of portfolio</strong> on a single directional trade.
+    For delta-neutral arb positions, cap raises to <strong>20–30%</strong> per position.
+   </div>
+   <p>The risk % method is beginner-friendly because it scales automatically. As your portfolio grows, position sizes grow proportionally — you never need to recalculate manually.</p>
+  </div>
+
+  <!-- 4. FUNDING RATE SPECIFIC -->
+  <div class="ps-section" id="ps-funding">
+   <h3><span>💰</span><span style="color:var(--accent2);">Funding Rate Arb Specific Sizing</span></h3>
+   <p>Funding rate arbitrage is delta-neutral — meaning your net market price exposure is near zero. This changes the sizing math significantly. Because you are not exposed to price direction, <strong>larger positions are acceptable</strong> compared to directional trades.</p>
+   <p>However, you are still exposed to: funding rate reversal, exchange risk, and margin liquidation. These risks set the sizing ceiling.</p>
+   <div class="ps-calc">
+    <span class="label">Recommended portfolio allocation — Funding Rate Arb</span>
+    Total arb allocation:     <strong>60–80% of portfolio</strong>
+    Per position max:         <strong>20–25% of portfolio</strong>
+    Number of positions:      <strong>3–5 simultaneous</strong>
+    Single exchange max:      <strong>40% of total portfolio</strong>
+    Margin buffer per pos:    <strong>2–3× minimum requirement</strong>
+    <span class="sep"></span>
+    <span class="label">Example — $10,000 portfolio, 4 positions</span>
+    ETH/USDT:   $2,500 (25%)  — Binance spot + Bybit short
+    BTC/USDT:   $2,500 (25%)  — Binance spot + Bybit short
+    SOL/USDT:   $1,500 (15%)  — Gate spot + Bybit short
+    BNB/USDT:   $1,500 (15%)  — Binance spot + Binance short
+    Reserve:    $2,000 (20%)  — Margin buffer + opportunity fund
+   </div>
+   <p>The 20% reserve is not idle capital — it serves as your margin top-up fund in case of price spikes against your short leg, and as dry powder for new opportunities when a position is closed.</p>
+  </div>
+
+  <!-- 5. REFERENCE TABLE -->
+  <div class="ps-section" id="ps-ref">
+   <h3><span>📊</span><span style="color:var(--accent);">Position Size Reference Table</span></h3>
+   <p>Recommended position sizes per trade at different portfolio levels — funding rate arbitrage, 4-position spread:</p>
+   <table class="ps-table">
+    <thead>
+     <tr>
+      <th>Portfolio</th>
+      <th>Per Position (20%)</th>
+      <th>Max Position (25%)</th>
+      <th>Reserve (20%)</th>
+      <th>Expected Monthly</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr><td class="rowhead">$1,000</td><td class="mono">$200</td><td class="mono">$250</td><td class="mono">$200</td><td class="good">~$27</td></tr>
+     <tr><td class="rowhead">$2,500</td><td class="mono">$500</td><td class="mono">$625</td><td class="mono">$500</td><td class="good">~$68</td></tr>
+     <tr><td class="rowhead">$5,000</td><td class="mono">$1,000</td><td class="mono">$1,250</td><td class="mono">$1,000</td><td class="good">~$135</td></tr>
+     <tr><td class="rowhead">$10,000</td><td class="mono">$2,000</td><td class="mono">$2,500</td><td class="mono">$2,000</td><td class="good">~$270</td></tr>
+     <tr><td class="rowhead">$25,000</td><td class="mono">$5,000</td><td class="mono">$6,250</td><td class="mono">$5,000</td><td class="good">~$675</td></tr>
+    </tbody>
+   </table>
+   <p style="font-size:0.82rem;color:var(--muted);">Monthly estimates based on 0.03% avg funding/8h after fees. Not guaranteed — funding rates vary.</p>
+  </div>
+
+  <!-- 6. SCALING -->
+  <div class="ps-section" id="ps-scaling">
+   <h3><span>📈</span><span style="color:var(--accent2);">Scaling Roadmap</span></h3>
+   <p>Even if your framework says 20% per position from day one — start smaller. Real execution has surprises that paper trading does not. Scale up only after your results confirm the framework is working in practice.</p>
+   <div class="phase-grid">
+    <div class="phase-card">
+     <h4 style="color:var(--accent);">Phase 1 — Beginner<br><span style="font-weight:400;font-size:0.75rem;color:var(--muted);">Trades 1–10</span></h4>
+     <ul>
+      <li><span>→</span> 5% per position max</li>
+      <li><span>→</span> 1–2 positions only</li>
+      <li><span>→</span> ETH or BTC only</li>
+      <li><span>→</span> 40% reserve held</li>
+      <li><span>→</span> Journal every trade</li>
+     </ul>
+    </div>
+    <div class="phase-card">
+     <h4 style="color:#ffa040;">Phase 2 — Intermediate<br><span style="font-weight:400;font-size:0.75rem;color:var(--muted);">Trades 10–30</span></h4>
+     <ul>
+      <li><span>→</span> 10–15% per position</li>
+      <li><span>→</span> 2–3 positions</li>
+      <li><span>→</span> Add 1 altcoin pair</li>
+      <li><span>→</span> 25% reserve held</li>
+      <li><span>→</span> Track slippage</li>
+     </ul>
+    </div>
+    <div class="phase-card">
+     <h4 style="color:var(--accent2);">Phase 3 — Advanced<br><span style="font-weight:400;font-size:0.75rem;color:var(--muted);">30+ trades</span></h4>
+     <ul>
+      <li><span>→</span> 20–25% per position</li>
+      <li><span>→</span> 3–5 positions</li>
+      <li><span>→</span> Full pair diversity</li>
+      <li><span>→</span> 20% reserve held</li>
+      <li><span>→</span> Dynamic sizing active</li>
+     </ul>
+    </div>
+   </div>
+   <p>The phase progression is trade-count based — not time based. A trader who completes 10 trades in 2 weeks moves to Phase 2 faster than one who takes 3 months. What matters is <strong>completed trade experience</strong>, not time spent.</p>
+  </div>
+
+  <!-- 7. DYNAMIC SIZING -->
+  <div class="ps-section" id="ps-dynamic">
+   <h3><span>⚡</span><span style="color:var(--accent);">Dynamic Sizing Rules</span></h3>
+   <p>Once in Phase 3, you can actively adjust position sizes based on current market conditions. These rules help you press when conditions are favourable and pull back when risk is elevated.</p>
+   <div class="dynamic-grid">
+    <div class="dynamic-card increase">
+     <h4 style="color:var(--accent2);">✅ Increase Size When</h4>
+     <ul>
+      <li><span>→</span> Funding rate ≥ 0.08%/8h</li>
+      <li><span>→</span> Rate positive 10+ consecutive payments</li>
+      <li><span>→</span> OI rising (bull market)</li>
+      <li><span>→</span> 5+ consecutive profitable trades</li>
+      <li><span>→</span> Spread is 2%+ above your cost</li>
+     </ul>
+    </div>
+    <div class="dynamic-card decrease">
+     <h4 style="color:#ff7070;">⚠️ Decrease Size When</h4>
+     <ul>
+      <li><span>→</span> Funding rate below 0.03%/8h</li>
+      <li><span>→</span> Rate trending down 3+ payments</li>
+      <li><span>→</span> OI falling (bear pressure)</li>
+      <li><span>→</span> 2+ consecutive losing trades</li>
+      <li><span>→</span> Major news event expected</li>
+     </ul>
+    </div>
+   </div>
+   <p>Dynamic sizing should only <strong>scale within your phase limits</strong> — not beyond them. If you are in Phase 2 (15% max), dynamic sizing means varying between 8–15%, not exceeding 15%. The phase ceiling is a hard cap regardless of market conditions.</p>
+  </div>
+
+  <!-- FAQ -->
+  <div class="ps-faq" id="ps-faq">
+   <h3><span>❓</span> Frequently Asked Questions</h3>
+   <div class="ps-faq-item">
+    <div class="ps-faq-q">Should I use the same position size for every trade?</div>
+    <div class="ps-faq-a">Not in Phase 3 — but yes in Phase 1 and 2. Consistency early on removes one variable from your analysis. Once you have 30+ trades of data, you can start varying sizes based on signal quality and market conditions.</div>
+   </div>
+   <div class="ps-faq-item">
+    <div class="ps-faq-q">How do I size a cross-exchange spot arb trade?</div>
+    <div class="ps-faq-a">Position = the maximum amount you can execute on both exchanges within the spread window without moving the market. For BTC/ETH this is typically $10K–$50K. For altcoins, check order book depth — your order should not exceed 0.5% of the visible ask volume.</div>
+   </div>
+   <div class="ps-faq-item">
+    <div class="ps-faq-q">What if my position sizing feels too conservative?</div>
+    <div class="ps-faq-a">It probably is not. The biggest risk in trading is not missing gains — it is permanent capital loss. A 30% drawdown requires a 43% gain just to break even. Conservative sizing protects your ability to stay in the game long enough to compound.</div>
+   </div>
+   <div class="ps-faq-item">
+    <div class="ps-faq-q">Can I use leverage to increase position size?</div>
+    <div class="ps-faq-a">No — not on the futures leg of a funding rate arb trade. Leverage on the short leg destroys the delta-neutral hedge. A 10% price spike with 5× leverage liquidates your short before the spot leg compensates. Use 1× only. If you want larger returns, increase capital — not leverage.</div>
+   </div>
+   <div class="ps-faq-item">
+    <div class="ps-faq-q">How does exchange risk affect sizing?</div>
+    <div class="ps-faq-a">Single exchange exposure should never exceed 40% of your total portfolio — even across multiple positions on that exchange. If Binance goes down with 60% of your capital, you are stuck. Distribute across at least 2 exchanges at all times.</div>
+   </div>
+   <div class="ps-faq-item">
+    <div class="ps-faq-q">When should I increase my total portfolio allocation to arb?</div>
+    <div class="ps-faq-a">Only after completing Phase 2 (10–30 trades) with positive results. Start at 40–50% of your total crypto portfolio in arb positions. Move to 60–80% only in Phase 3 with 30+ completed trades and a consistent positive P&amp;L journal.</div>
+   </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="ps-cta">
+   <p>Ready to put your sizing framework into practice? ArbVertex signals include exact entry prices, fee-adjusted net profit, and position guidance — everything you need to execute with confidence.</p>
+   <a href="crypto-arbitrage-signals-pricing.html" class="btn-primary" style="text-decoration:none;display:inline-block;">View Plans → Join for $5/month</a>
+  </div>
+
+  <div class="ps-nav">
+   <a href="crypto-arbitrage-blog.html" class="ps-btn ps-btn-ghost">← Back to Blog</a>
+   <a href="live-crypto-arbitrage-scanner.html" class="ps-btn ps-btn-primary">Try Live Scanner →</a>
+  </div>
+
+ </div>
 </div>
 </div>
 <footer>
-<p>© 2026 ArbVertex — Not financial advice.</p>
+<p>© 2025 ArbVertex — Educational content only. Not financial advice.</p>
 <div class="footer-links">
-<a href="index.html">Home</a><a href="crypto-arbitrage-blog.html">Blog</a><a href="crypto-arbitrage-signals-pricing.html">Pricing</a>
+<a href="index.html">Home</a><a href="crypto-arbitrage-blog.html">Blog</a><a href="crypto-arbitrage-signals-pricing.html">Pricing</a><a href="about-arbvertex-crypto-signals.html">About</a>
 </div>
-<p style="font-size:0.75rem;">Educational content only. Always do your own research.</p>
+<p style="font-size:0.75rem;">Always do your own research before trading.</p>
 </footer>
-<script>(function(){
+<script>
+// Smooth scroll for TOC anchor links (offset for fixed nav)
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click', function(e){
+    var id = this.getAttribute('href').slice(1);
+    var el = document.getElementById(id);
+    if(!el) return;
+    e.preventDefault();
+    var offset = 80;
+    var top = el.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({ top: top, behavior: 'smooth' });
+  });
+});
+// Nav JS
+(function(){
  var hamburger = document.getElementById('avHamburger');
  var navLinks = document.getElementById('avNavLinks');
  if(hamburger && navLinks){
@@ -331,6 +638,7 @@ footer p{color:var(--muted);font-size:0.82rem;}
  document.querySelectorAll('.av-dropdown.av-open').forEach(function(d){ d.classList.remove('av-open'); });
  }
  });
-})();</script>
+})();
+</script>
 </body>
 </html>
