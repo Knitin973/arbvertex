@@ -27,305 +27,427 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Can I automate stop loss execution in arbitrage?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes \u2014 set price alerts and rate alerts through exchange interfaces or monitoring scripts."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What if my stop loss triggers during a brief rate dip?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Occasional false exits are preferable to holding through genuine reversals. Adjust your criteria if stop triggers too frequently on brief dips."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Is there a stop loss for exchange insolvency risk?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "The mitigation is diversification: never concentrate more than 30-40% of capital on any single exchange."
-      }
-    }
+    {"@type":"Question","name":"Can I automate stop loss execution in arbitrage?","acceptedAnswer":{"@type":"Answer","text":"Yes — set price alerts and rate alerts through exchange interfaces or monitoring scripts."}},
+    {"@type":"Question","name":"What if my stop loss triggers during a brief rate dip?","acceptedAnswer":{"@type":"Answer","text":"Occasional false exits are preferable to holding through genuine reversals. Adjust your criteria if stop triggers too frequently on brief dips."}},
+    {"@type":"Question","name":"Is there a stop loss for exchange insolvency risk?","acceptedAnswer":{"@type":"Answer","text":"The mitigation is diversification: never concentrate more than 30-40% of capital on any single exchange."}}
   ]
 }
 </script>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#050a0f;--surface:#0d1a24;--accent:#00e5ff;--accent2:#00ff88;--text:#e8f4f8;--muted:#6a8fa8;--border:#1a3a52;--orange:#ffa040;}
-*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+:root{
+  --bg:#050a0f;--surface:#0d1a24;--accent:#00e5ff;--accent2:#00ff88;
+  --text:#e8f4f8;--muted:#6a8fa8;--border:#1a3a52;--orange:#ffa040;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;line-height:1.6;overflow-x:hidden;padding-top:64px;}
+
+/* ── NAV ── */
 .av-nav-wrap{
- --av-bg:#050a0f; --av-surface:#0d1a24; --av-accent:#00e5ff; --av-accent2:#00ff88;
- --av-text:#e8f4f8; --av-muted:#8fb0c4; --av-border:#1a3a52;
- position:fixed; top:0; left:0; right:0; z-index:999;
- background:rgba(5,10,15,0.95); backdrop-filter:blur(14px);
- border-bottom:1px solid var(--av-border);
- font-family:'Space Grotesk',sans-serif;
+  --av-bg:#050a0f;--av-surface:#0d1a24;--av-accent:#00e5ff;--av-accent2:#00ff88;
+  --av-text:#e8f4f8;--av-muted:#8fb0c4;--av-border:#1a3a52;
+  position:fixed;top:0;left:0;right:0;z-index:999;
+  background:rgba(5,10,15,0.95);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--av-border);
+  font-family:'Space Grotesk',sans-serif;
 }
 .av-nav-inner{
- max-width:1400px; margin:0 auto; height:64px;
- display:flex; align-items:center; justify-content:space-between;
- padding:0 5%; gap:1rem;
+  max-width:1400px;margin:0 auto;height:64px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 5%;gap:1rem;
 }
 .av-logo{
- font-family:'JetBrains Mono',monospace; font-size:1.05rem; font-weight:700;
- color:var(--av-accent); text-decoration:none; letter-spacing:-0.02em; flex-shrink:0;
+  font-family:'JetBrains Mono',monospace;font-size:1.05rem;font-weight:700;
+  color:var(--av-accent);text-decoration:none;letter-spacing:-0.02em;flex-shrink:0;
 }
-.av-logo span{ color:var(--av-accent2); }
+.av-logo span{color:var(--av-accent2);}
 .av-nav-links{
- display:flex; align-items:center; gap:0.15rem; list-style:none; margin:0; padding:0;
+  display:flex;align-items:center;gap:0.15rem;list-style:none;margin:0;padding:0;
 }
-.av-nav-links > li{ position:relative; }
+.av-nav-links > li{position:relative;}
 .av-top-link{
- display:inline-flex; align-items:center; gap:0.3rem;
- color:var(--av-muted); text-decoration:none; font-size:0.85rem; font-weight:500;
- background:none; border:none; cursor:pointer; font-family:inherit;
- padding:0.55rem 0.65rem; border-radius:6px; transition:color .2s, background .2s;
- white-space:nowrap;
+  display:inline-flex;align-items:center;gap:0.3rem;
+  color:var(--av-muted);text-decoration:none;font-size:0.85rem;font-weight:500;
+  background:none;border:none;cursor:pointer;font-family:inherit;
+  padding:0.55rem 0.65rem;border-radius:6px;transition:color .2s,background .2s;
+  white-space:nowrap;
 }
-.av-top-link:hover{ color:var(--av-text); background:rgba(255,255,255,0.05); }
-.av-caret{ font-size:0.6rem; opacity:0.65; transition:transform .2s; margin-left:1px; }
+.av-top-link:hover{color:var(--av-text);background:rgba(255,255,255,0.05);}
+.av-caret{font-size:0.6rem;opacity:0.65;transition:transform .2s;margin-left:1px;}
 .av-dropdown:hover .av-caret,
-.av-dropdown.av-open .av-caret{ transform:rotate(180deg); }
-
-/* Mega dropdown panel */
+.av-dropdown.av-open .av-caret{transform:rotate(180deg);}
 .av-mega-panel{
- position:absolute; top:calc(100% + 10px); left:50%;
- transform:translateX(-50%) translateY(6px);
- background:var(--av-surface); border:1px solid var(--av-border); border-radius:10px;
- padding:0.55rem; min-width:290px;
- display:grid; gap:0.1rem;
- opacity:0; visibility:hidden; pointer-events:none;
- transition:opacity .16s ease, transform .16s ease;
- box-shadow:0 24px 48px rgba(0,0,0,0.45);
- max-height:80vh; overflow-y:auto;
+  position:absolute;top:calc(100% + 10px);left:50%;
+  transform:translateX(-50%) translateY(6px);
+  background:var(--av-surface);border:1px solid var(--av-border);border-radius:10px;
+  padding:0.55rem;min-width:290px;display:grid;gap:0.1rem;
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .16s ease,transform .16s ease;
+  box-shadow:0 24px 48px rgba(0,0,0,0.45);
+  max-height:80vh;overflow-y:auto;
 }
 .av-dropdown:hover .av-mega-panel,
 .av-dropdown.av-open .av-mega-panel{
- opacity:1; visibility:visible; pointer-events:auto; transform:translateX(-50%) translateY(0);
+  opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0);
 }
 .av-mega-link{
- display:flex; align-items:flex-start; gap:0.65rem;
- padding:0.55rem 0.65rem; border-radius:7px;
- color:var(--av-text); text-decoration:none; font-size:0.84rem; font-weight:600;
- transition:background .15s;
+  display:flex;align-items:flex-start;gap:0.65rem;
+  padding:0.55rem 0.65rem;border-radius:7px;
+  color:var(--av-text);text-decoration:none;font-size:0.84rem;font-weight:600;
+  transition:background .15s;
 }
-.av-mega-link:hover{ background:rgba(0,229,255,0.08); }
-.av-icon{ font-size:1rem; line-height:1.35; flex-shrink:0; }
-.av-desc{
- display:block; color:var(--av-muted); font-size:0.72rem; font-weight:400;
- margin-top:0.15rem; line-height:1.4;
-}
-
-.av-scanner-link{ color:var(--av-accent2)!important; font-weight:600!important; }
+.av-mega-link:hover{background:rgba(0,229,255,0.08);}
+.av-icon{font-size:1rem;line-height:1.35;flex-shrink:0;}
+.av-desc{display:block;color:var(--av-muted);font-size:0.72rem;font-weight:400;margin-top:0.15rem;line-height:1.4;}
+.av-scanner-link{color:var(--av-accent2)!important;font-weight:600!important;}
 .av-cta{
- background:var(--av-accent)!important; color:var(--av-bg)!important; text-decoration:none;
- padding:0.5rem 1.1rem!important; border-radius:6px; font-weight:700!important;
- font-size:0.85rem!important; white-space:nowrap;
+  background:var(--av-accent)!important;color:var(--av-bg)!important;
+  padding:0.5rem 1.1rem!important;border-radius:6px;font-weight:700!important;
+  font-size:0.85rem!important;white-space:nowrap;text-decoration:none;
 }
-
-.av-hamburger{
- display:none; flex-direction:column; gap:5px; background:none; border:none;
- cursor:pointer; padding:4px; flex-shrink:0;
+.av-hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;flex-shrink:0;}
+.av-hamburger span{display:block;width:22px;height:2px;background:var(--av-accent);border-radius:2px;}
+.av-blog-panel{min-width:260px;grid-template-columns:1fr;gap:0.1rem;}
+.av-blog-col-header{
+  font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;
+  letter-spacing:0.1em;text-transform:uppercase;color:var(--av-muted);
+  padding:0.3rem 0.65rem 0.15rem;border-bottom:1px solid var(--av-border);margin-bottom:0.1rem;
 }
-.av-hamburger span{ display:block; width:22px; height:2px; background:var(--av-accent); border-radius:2px; }
+.av-blog-col{display:flex;flex-direction:column;gap:0.05rem;}
 
 @media(max-width:980px){
- .av-nav-links{display:none!important;position:fixed;top:64px;left:0;right:0;height:calc(100vh - 64px);background:var(--bg);flex-direction:column;align-items:stretch;padding:1.2rem 5% 2rem;overflow-y:auto;overflow-x:hidden;gap:0.2rem;z-index:9999;border-top:1px solid var(--border);}
- .av-nav-links.av-mobile-open{display:flex!important;}
- .av-top-link{width:100%;justify-content:space-between;padding:0.9rem 0.6rem;font-size:0.95rem;}
- .av-mega-panel{position:static!important;left:auto!important;transform:none!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important;display:none;box-shadow:none;border:none;border-left:2px solid var(--border);background:rgba(255,255,255,0.02);margin:0 0 0.4rem 0.8rem;padding:0.3rem 0;min-width:0;width:auto;}
- .av-dropdown.av-open .av-mega-panel{display:grid;}
- .av-mega-link{padding:0.6rem 0.8rem;font-size:0.88rem;}
- .av-cta{display:block;text-align:center;margin-top:0.6rem;}
- .av-hamburger{display:flex;}
-}
- .av-cta{ display:block; text-align:center; margin-top:0.6rem; }
- .av-hamburger{ display:flex; }
+  .av-nav-links{display:none!important;position:fixed;top:64px;left:0;right:0;height:calc(100vh - 64px);background:var(--bg);flex-direction:column;align-items:stretch;padding:1.2rem 5% 2rem;overflow-y:auto;overflow-x:hidden;gap:0.2rem;z-index:9999;border-top:1px solid var(--border);}
+  .av-nav-links.av-mobile-open{display:flex!important;}
+  .av-top-link{width:100%;justify-content:space-between;padding:0.9rem 0.6rem;font-size:0.95rem;}
+  .av-mega-panel{position:static!important;left:auto!important;transform:none!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important;display:none;box-shadow:none;border:none;border-left:2px solid var(--border);background:rgba(255,255,255,0.02);margin:0 0 0.4rem 0.8rem;padding:0.3rem 0;min-width:0;width:auto;}
+  .av-dropdown.av-open .av-mega-panel{display:grid;}
+  .av-mega-link{padding:0.6rem 0.8rem;font-size:0.88rem;}
+  .av-cta{display:block;text-align:center;margin-top:0.6rem;}
+  .av-hamburger{display:flex;}
+  .av-blog-panel{min-width:0;grid-template-columns:1fr!important;}
+  .av-blog-col-header{display:none;}
 }
 
+/* ── ARTICLE ── */
 .inner-page{max-width:860px;margin:0 auto;padding:50px 5% 80px;}
 .breadcrumb{display:flex;align-items:center;gap:0.4rem;font-size:0.78rem;color:var(--muted);margin-bottom:1.5rem;flex-wrap:wrap;}
-.breadcrumb a{color:var(--muted);text-decoration:none;transition:color .2s;}.breadcrumb a:hover{color:var(--accent);}
+.breadcrumb a{color:var(--muted);text-decoration:none;transition:color .2s;}
+.breadcrumb a:hover{color:var(--accent);}
 .article-meta{display:flex;align-items:center;gap:0.6rem;margin-bottom:1rem;flex-wrap:wrap;}
 .meta-tag{font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.25rem 0.6rem;border-radius:3px;background:rgba(255,160,64,0.1);color:var(--orange);}
 h1{font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:800;line-height:1.25;letter-spacing:-0.02em;margin-bottom:0.8rem;}
 .article-intro{color:var(--muted);font-size:0.97rem;line-height:1.8;margin-bottom:2rem;border-left:3px solid var(--accent);padding-left:1rem;}
 .section-title{font-size:1.2rem;font-weight:700;margin:2.2rem 0 0.8rem;color:var(--text);}
-.body-text{color:var(--muted);font-size:0.93rem;line-height:1.85;margin-bottom:0.5rem;}
+.body-text{color:var(--muted);font-size:0.93rem;line-height:1.85;margin-bottom:0.75rem;}
+.body-list{color:var(--muted);font-size:0.93rem;line-height:1.85;margin:0.6rem 0 1rem 1.4rem;display:flex;flex-direction:column;gap:0.4rem;}
+.body-list li strong{color:var(--text);}
+.body-list.numbered{list-style:decimal;}
+
+/* TOC */
+.toc-box{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:8px;padding:1.4rem 1.6rem;margin-bottom:2.5rem;}
+.toc-title{font-family:'JetBrains Mono',monospace;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:0.8rem;}
+.toc-list{padding-left:1.2rem;display:flex;flex-direction:column;gap:0.4rem;}
+.toc-list li{color:var(--muted);font-size:0.88rem;}
+.toc-list a{color:var(--muted);text-decoration:none;transition:color .2s;}
+.toc-list a:hover{color:var(--accent);}
+
+/* Info cards */
+.info-card{display:flex;align-items:flex-start;gap:0.9rem;background:rgba(0,229,255,0.04);border:1px solid rgba(0,229,255,0.2);border-radius:8px;padding:1.1rem 1.3rem;margin:1.5rem 0;}
+.info-icon{font-size:1.15rem;flex-shrink:0;line-height:1.5;}
+.info-card strong{color:var(--text);}
+.info-card div{color:var(--muted);font-size:0.88rem;line-height:1.75;}
+
+/* Rule cards */
+.rule-card{background:rgba(0,229,255,0.03);border:1px solid var(--accent);border-radius:8px;padding:1rem 1.3rem;margin:1.5rem 0;}
+.rule-label{font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);margin-bottom:0.5rem;}
+.rule-text{color:var(--muted);font-size:0.88rem;line-height:1.75;}
+.rule-text strong{color:var(--text);}
+
+/* FAQ */
 .faq-section{margin-top:2.5rem;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.6rem;}
 .faq-section h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;color:var(--accent);}
-.faq-item{border-bottom:1px solid var(--border);padding:0.9rem 0;}.faq-item:last-child{border-bottom:none;}
+.faq-item{border-bottom:1px solid var(--border);padding:0.9rem 0;}
+.faq-item:last-child{border-bottom:none;}
 .faq-q{font-size:0.92rem;font-weight:600;color:var(--text);margin-bottom:0.35rem;}
 .faq-a{color:var(--muted);font-size:0.87rem;line-height:1.75;}
+
+/* CTA & Nav btns */
 .cta-box{background:linear-gradient(135deg,rgba(0,229,255,0.05),rgba(0,255,136,0.03));border:1px solid var(--accent);border-radius:10px;padding:1.6rem;margin:2.5rem 0;text-align:center;}
 .cta-box p{color:var(--muted);font-size:0.9rem;margin-bottom:1rem;}
-.cta-btn{background:var(--accent);color:var(--bg);padding:0.7rem 1.8rem;border-radius:4px;font-weight:700;text-decoration:none;display:inline-block;transition:opacity .2s;}.cta-btn:hover{opacity:0.85;}
+.cta-btn{background:var(--accent);color:var(--bg);padding:0.7rem 1.8rem;border-radius:4px;font-weight:700;text-decoration:none;display:inline-block;transition:opacity .2s;}
+.cta-btn:hover{opacity:0.85;}
 .nav-btns{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border);}
-.btn-outline{border:1px solid var(--border);color:var(--text);padding:0.65rem 1.4rem;border-radius:4px;font-weight:500;font-size:0.88rem;text-decoration:none;transition:border-color .2s;display:inline-block;}.btn-outline:hover{border-color:var(--accent);color:var(--accent);}
-.btn-primary{background:var(--accent);color:var(--bg);padding:0.65rem 1.4rem;border-radius:4px;font-weight:700;font-size:0.88rem;text-decoration:none;display:inline-block;transition:opacity .2s;}.btn-primary:hover{opacity:0.85;}
+.btn-outline{border:1px solid var(--border);color:var(--text);padding:0.65rem 1.4rem;border-radius:4px;font-weight:500;font-size:0.88rem;text-decoration:none;transition:border-color .2s;display:inline-block;}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent);}
+.btn-primary{background:var(--accent);color:var(--bg);padding:0.65rem 1.4rem;border-radius:4px;font-weight:700;font-size:0.88rem;text-decoration:none;display:inline-block;transition:opacity .2s;}
+.btn-primary:hover{opacity:0.85;}
+
+/* Footer */
 footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
 footer p{color:var(--muted);font-size:0.82rem;}
-.footer-links{display:flex;gap:1.5rem;}.footer-links a{color:var(--muted);text-decoration:none;font-size:0.82rem;transition:color .2s;}.footer-links a:hover{color:var(--accent);}
-@media(max-width:768px){.nav-btns{flex-direction:column;}footer{flex-direction:column;text-align:center;}}
+.footer-links{display:flex;gap:1.5rem;}
+.footer-links a{color:var(--muted);text-decoration:none;font-size:0.82rem;transition:color .2s;}
+.footer-links a:hover{color:var(--accent);}
 
-/* Blog dropdown wide panel */
-.av-blog-panel{min-width:260px;grid-template-columns:1fr;gap:0.1rem;}
-.av-blog-col-header{font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--av-muted, #8fb0c4);padding:0.3rem 0.65rem 0.15rem;border-bottom:1px solid var(--av-border, #1a3a52);margin-bottom:0.1rem;}
-.av-blog-col{display:flex;flex-direction:column;gap:0.05rem;}
-@media(max-width:980px){.av-blog-panel{min-width:0;grid-template-columns:1fr!important;}.av-blog-col-header{display:none;}}
+@media(max-width:768px){.nav-btns{flex-direction:column;}footer{flex-direction:column;text-align:center;}}
 </style>
 </head>
 <body>
+
+<!-- NAV -->
 <div class="av-nav-wrap">
- <div class="av-nav-inner">
- <a href="index.html" class="av-logo">Arb<span>Vertex</span></a>
- <ul class="av-nav-links" id="avNavLinks">
- <li><a href="index.html" class="av-top-link">Home</a></li>
+  <div class="av-nav-inner">
+    <a href="index.html" class="av-logo">Arb<span>Vertex</span></a>
+    <ul class="av-nav-links" id="avNavLinks">
+      <li><a href="index.html" class="av-top-link">Home</a></li>
 
- <li class="av-dropdown">
- <button type="button" class="av-top-link av-drop-trigger">Learn <span class="av-caret">▾</span></button>
- <div class="av-mega-panel">
- <a class="av-mega-link" href="what-is-crypto-futures-arbitrage.html"><span class="av-icon">📘</span><span>What is Arbitrage<span class="av-desc">Core concept explained</span></span></a>
- <a class="av-mega-link" href="how-crypto-arbitrage-signals-work.html"><span class="av-icon">⚙️</span><span>How It Works<span class="av-desc">Step-by-step process</span></span></a>
- <a class="av-mega-link" href="how-to-generate-profit-crypto-arbitrage.html"><span class="av-icon">💰</span><span>Generate Profit<span class="av-desc">Ways arbitrage earns</span></span></a>
- <a class="av-mega-link" href="crypto-arbitrage-risks-precautions.html"><span class="av-icon">⚠️</span><span>Risks &amp; Safety<span class="av-desc">What to watch for</span></span></a>
- <a class="av-mega-link" href="delisting-arbitrage-crypto-arbitrage-risks-precautions.html"><span class="av-icon">🚨</span><span>Delisting Risks<span class="av-desc">Avoid this trap</span></span></a>
- <a class="av-mega-link" href="rethink-traditional-trading.html"><span class="av-icon">🔄</span><span>Rethink Trading<span class="av-desc">Why arbitrage wins</span></span></a>
- <a class="av-mega-link" href="arbitrage-portfolio-growth.html"><span class="av-icon">📈</span><span>Portfolio Growth<span class="av-desc">Long-term strategy</span></span></a>
- </div>
- </li>
+      <li class="av-dropdown">
+        <button type="button" class="av-top-link av-drop-trigger">Learn <span class="av-caret">▾</span></button>
+        <div class="av-mega-panel">
+          <a class="av-mega-link" href="what-is-crypto-futures-arbitrage.html"><span class="av-icon">📘</span><span>What is Arbitrage<span class="av-desc">Core concept explained</span></span></a>
+          <a class="av-mega-link" href="how-crypto-arbitrage-signals-work.html"><span class="av-icon">⚙️</span><span>How It Works<span class="av-desc">Step-by-step process</span></span></a>
+          <a class="av-mega-link" href="how-to-generate-profit-crypto-arbitrage.html"><span class="av-icon">💰</span><span>Generate Profit<span class="av-desc">Ways arbitrage earns</span></span></a>
+          <a class="av-mega-link" href="crypto-arbitrage-risks-precautions.html"><span class="av-icon">⚠️</span><span>Risks &amp; Safety<span class="av-desc">What to watch for</span></span></a>
+          <a class="av-mega-link" href="delisting-arbitrage-crypto-arbitrage-risks-precautions.html"><span class="av-icon">🚨</span><span>Delisting Risks<span class="av-desc">Avoid this trap</span></span></a>
+          <a class="av-mega-link" href="rethink-traditional-trading.html"><span class="av-icon">🔄</span><span>Rethink Trading<span class="av-desc">Why arbitrage wins</span></span></a>
+          <a class="av-mega-link" href="arbitrage-portfolio-growth.html"><span class="av-icon">📈</span><span>Portfolio Growth<span class="av-desc">Long-term strategy</span></span></a>
+        </div>
+      </li>
 
- <li class="av-dropdown">
- <button type="button" class="av-top-link av-drop-trigger">Tools <span class="av-caret">▾</span></button>
- <div class="av-mega-panel">
- <a class="av-mega-link" href="live-crypto-arbitrage-scanner.html"><span class="av-icon">🔍</span><span>Live Scanner<span class="av-desc">Real-time price gaps</span></span></a>
- <a class="av-mega-link" href="arbitrage-calculator.html"><span class="av-icon">🧮</span><span>Profit Calculator<span class="av-desc">Calculate net gains</span></span></a>
- </div>
- </li>
+      <li class="av-dropdown">
+        <button type="button" class="av-top-link av-drop-trigger">Tools <span class="av-caret">▾</span></button>
+        <div class="av-mega-panel">
+          <a class="av-mega-link" href="live-crypto-arbitrage-scanner.html"><span class="av-icon">📊</span><span>Price Difference Scanner<span class="av-desc">Real-time cross-exchange spot price gaps</span></span></a>
+          <a class="av-mega-link" href="live-funding-gap-scanner.html"><span class="av-icon">💸</span><span>Funding Rate Scanner<span class="av-desc">Compare funding rates across 8 exchanges</span></span></a>
+          <a class="av-mega-link" href="advanced-arb-scanner.html"><span class="av-icon">⚡</span><span>Advanced Live Scanner<span class="av-desc">Price gap + funding rate combined</span></span></a>
+          <a class="av-mega-link" href="arbitrage-calculator.html"><span class="av-icon">🧮</span><span>Futures Arbitrage Calculator<span class="av-desc">Net profit after all fees &amp; slippage</span></span></a>
+        </div>
+      </li>
 
-    <li class="av-dropdown">
-    <button type="button" class="av-top-link av-drop-trigger">Blog <span class="av-caret">&#9662;</span></button>
-    <div class="av-mega-panel av-blog-panel">
-     <div class="av-blog-col">
-      <div class="av-blog-col-header">&#128216; Beginner</div>
-      <a class="av-mega-link" href="crypto-arbitrage-blog.html#beginner"><span class="av-icon">&#129094;</span><span>Beginner Guides<span class="av-desc">Start from zero &mdash; concepts &amp; first steps</span></span></a>
-      <div class="av-blog-col-header" style="margin-top:0.5rem;">&#128161; Strategy</div>
-      <a class="av-mega-link" href="crypto-arbitrage-blog.html#strategy"><span class="av-icon">&#129097;</span><span>Strategy Guides<span class="av-desc">Funding rate, basis trading, advanced tactics</span></span></a>
-     </div>
-     <div class="av-blog-col">
-      <div class="av-blog-col-header">&#128260; Exchange Guides</div>
-      <a class="av-mega-link" href="crypto-arbitrage-blog.html#exchange"><span class="av-icon">&#129095;</span><span>Exchange Guides<span class="av-desc">Binance, Bybit, OKX setup &amp; comparison</span></span></a>
-      <div class="av-blog-col-header" style="margin-top:0.5rem;">&#128737;&#65039; Risk &amp; Tools</div>
-      <a class="av-mega-link" href="crypto-arbitrage-blog.html#risk"><span class="av-icon">&#128101;</span><span>Risk &amp; Tools<span class="av-desc">Position sizing, stop loss, glossary</span></span></a>
-     </div>
-    </div>
-   </li>
+      <li class="av-dropdown">
+        <button type="button" class="av-top-link av-drop-trigger">Blog <span class="av-caret">▾</span></button>
+        <div class="av-mega-panel av-blog-panel">
+          <div class="av-blog-col">
+            <div class="av-blog-col-header">📖 Beginner</div>
+            <a class="av-mega-link" href="crypto-arbitrage-blog.html#beginner"><span class="av-icon">🐣</span><span>Beginner Guides<span class="av-desc">Start from zero — concepts &amp; first steps</span></span></a>
+            <div class="av-blog-col-header" style="margin-top:0.5rem;">💡 Strategy</div>
+            <a class="av-mega-link" href="crypto-arbitrage-blog.html#strategy"><span class="av-icon">🎯</span><span>Strategy Guides<span class="av-desc">Funding rate, basis trading, advanced tactics</span></span></a>
+          </div>
+          <div class="av-blog-col">
+            <div class="av-blog-col-header">🔄 Exchange Guides</div>
+            <a class="av-mega-link" href="crypto-arbitrage-blog.html#exchange"><span class="av-icon">🏦</span><span>Exchange Guides<span class="av-desc">Binance, Bybit, OKX setup &amp; comparison</span></span></a>
+            <div class="av-blog-col-header" style="margin-top:0.5rem;">🛡️ Risk &amp; Tools</div>
+            <a class="av-mega-link" href="crypto-arbitrage-blog.html#risk"><span class="av-icon">👥</span><span>Risk &amp; Tools<span class="av-desc">Position sizing, stop loss, glossary</span></span></a>
+          </div>
+        </div>
+      </li>
 
- <li class="av-dropdown">
- <button type="button" class="av-top-link av-drop-trigger">Signals <span class="av-caret">▾</span></button>
- <div class="av-mega-panel">
- <a class="av-mega-link" href="crypto-arbitrage-telegram-signals.html"><span class="av-icon">✈️</span><span>Telegram Bot<span class="av-desc">Get instant signals</span></span></a>
- <a class="av-mega-link" href="futures-signal-bot.html"><span class="av-icon">🚀</span><span>Free Futures Signal Bot<span class="av-desc">Live pump &amp; liq signals</span></span></a>
- <a class="av-mega-link" href="crypto-arbitrage-signals-pricing.html"><span class="av-icon">💳</span><span>Pricing<span class="av-desc">$5/month plans</span></span></a>
- </div>
- </li>
+      <li class="av-dropdown">
+        <button type="button" class="av-top-link av-drop-trigger">Signals <span class="av-caret">▾</span></button>
+        <div class="av-mega-panel">
+          <a class="av-mega-link" href="crypto-arbitrage-telegram-signals.html"><span class="av-icon">✈️</span><span>Telegram Bot<span class="av-desc">Get instant signals</span></span></a>
+          <a class="av-mega-link" href="futures-signal-bot.html"><span class="av-icon">🚀</span><span>Free Futures Signal Bot<span class="av-desc">Live pump &amp; liq signals</span></span></a>
+          <a class="av-mega-link" href="crypto-arbitrage-signals-pricing.html"><span class="av-icon">💳</span><span>Pricing<span class="av-desc">$5/month plans</span></span></a>
+        </div>
+      </li>
 
- <li class="av-dropdown">
- <button type="button" class="av-top-link av-drop-trigger">Company <span class="av-caret">▾</span></button>
- <div class="av-mega-panel">
- <a class="av-mega-link" href="about-arbvertex-crypto-signals.html"><span class="av-icon">🏢</span><span>About Us<span class="av-desc">Our story</span></span></a>
- <a class="av-mega-link" href="contact-arbvertex.html"><span class="av-icon">✉️</span><span>Contact<span class="av-desc">Get in touch</span></span></a>
- </div>
- </li>
+      <li class="av-dropdown">
+        <button type="button" class="av-top-link av-drop-trigger">Company <span class="av-caret">▾</span></button>
+        <div class="av-mega-panel">
+          <a class="av-mega-link" href="about-arbvertex-crypto-signals.html"><span class="av-icon">🏢</span><span>About Us<span class="av-desc">Our story</span></span></a>
+          <a class="av-mega-link" href="contact-arbvertex.html"><span class="av-icon">✉️</span><span>Contact<span class="av-desc">Get in touch</span></span></a>
+        </div>
+      </li>
 
- <li><a href="live-crypto-arbitrage-scanner.html" class="av-top-link av-scanner-link">🔍 Live Scanner</a></li>
- <li><a href="crypto-arbitrage-signals-pricing.html" class="av-top-link av-cta">Join Now</a></li>
- </ul>
- <button class="av-hamburger" id="avHamburger" type="button" aria-label="Toggle menu">
- <span></span><span></span><span></span>
- </button>
- </div>
+      <li><a href="live-crypto-arbitrage-scanner.html" class="av-top-link av-scanner-link">🔍 Live Scanner</a></li>
+      <li><a href="crypto-arbitrage-signals-pricing.html" class="av-top-link av-cta">Join Now</a></li>
+    </ul>
+    <button class="av-hamburger" id="avHamburger" type="button" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</div>
+<!-- END NAV -->
+
+<!-- ARTICLE -->
 <div class="inner-page">
-<nav class="breadcrumb">
-<a href="index.html">Home</a> / <a href="crypto-arbitrage-blog.html">Blog</a> / <span style="color:var(--accent);">Risk & Strategy</span>
-</nav>
-<div class="article-meta">
-<span class="meta-tag">📘 RISK & STRATEGY</span>
-<span class="meta-tag" style="background:rgba(0,229,255,0.08);color:var(--accent);">ArbVertex Blog</span>
-</div>
-<h1>Stop Loss Strategies for Crypto Arbitrage: When and How to Use Them</h1>
-<p class="article-intro">How to use stop losses in crypto arbitrage — when they're needed, how to set them, and protecting against unexpected events.</p>
-<h2 class="section-title">Do You Need Stop Losses in Hedged Arbitrage?</h2>
-<p class="body-text">For a perfectly hedged position (long spot + short futures equal size): Price movement risk is eliminated — no traditional stop loss needed.</p>
-<p class="body-text">However, you still need exit criteria for funding rate reversal and margin getting too close to liquidation..</p>
-<h2 class="section-title">Stop Loss for Cross-Exchange Arbitrage</h2>
-<p class="body-text">Cross-exchange arb involves brief price exposure during the execution window.</p>
-<p class="body-text">Use a time-based stop loss: If you haven't completed both legs within 60 seconds, exit the completed leg..</p>
-<h2 class="section-title">Funding Rate Stop Loss Rule</h2>
-<p class="body-text">Your stop loss in funding rate arb is a rate-based exit rule: Set your minimum acceptable rate before entering (e.g., 0.02%/8h).</p>
-<p class="body-text">If rate falls below this level for 2 consecutive payments: Exit both positions immediately..</p>
-<h2 class="section-title">Margin-Based Stop Loss</h2>
-<p class="body-text">Set a margin ratio alert at 30% above maintenance margin.</p>
-<p class="body-text">If your futures account margin ratio drops to this level: Add margin from spot profits.</p>
-<p class="body-text">If unable to add, reduce futures position size..</p>
-<h2 class="section-title">Exchange-Level Risk Management</h2>
-<p class="body-text">If an exchange announces maintenance, regulatory issues, or shows withdrawal difficulties: Exit positions on that exchange immediately.</p>
-<p class="body-text">Capital preservation over missing a few days of funding income..</p>
-<h2 class="section-title">Documentation and Review</h2>
-<p class="body-text">After every exit: Record why you exited, what the conditions were, how much you made or lost.</p>
-<p class="body-text">After 20+ exits, review your data and adjust criteria based on evidence..</p>
+  <nav class="breadcrumb">
+    <a href="index.html">Home</a> / <a href="crypto-arbitrage-blog.html">Blog</a> / <span style="color:var(--accent);">Risk &amp; Strategy</span>
+  </nav>
 
-<div class="faq-section">
-<h2>Frequently Asked Questions</h2>
-<div class="faq-item"><div class="faq-q">Can I automate stop loss execution in arbitrage?</div><div class="faq-a">Yes — set price alerts and rate alerts through exchange interfaces or monitoring scripts.</div></div>
-<div class="faq-item"><div class="faq-q">What if my stop loss triggers during a brief rate dip?</div><div class="faq-a">Occasional false exits are preferable to holding through genuine reversals. Adjust your criteria if stop triggers too frequently on brief dips.</div></div>
-<div class="faq-item"><div class="faq-q">Is there a stop loss for exchange insolvency risk?</div><div class="faq-a">The mitigation is diversification: never concentrate more than 30-40% of capital on any single exchange.</div></div>
+  <div class="article-meta">
+    <span class="meta-tag">📘 RISK &amp; STRATEGY</span>
+    <span class="meta-tag" style="background:rgba(0,229,255,0.08);color:var(--accent);">ArbVertex Blog</span>
+  </div>
 
+  <h1>Stop Loss Strategies for Crypto Arbitrage: When and How to Use Them</h1>
+  <p class="article-intro">Stop losses work differently in arbitrage than in directional trading. A hedged position eliminates price risk — but that doesn't mean you're risk-free. This guide covers every exit trigger you actually need: funding rate rules, margin alerts, time-based stops for cross-exchange arb, and how to respond when an exchange itself becomes the threat.</p>
+
+  <div class="toc-box">
+    <div class="toc-title">📋 In This Article</div>
+    <ol class="toc-list">
+      <li><a href="#hedged-arb">Do You Need Stop Losses in Hedged Arbitrage?</a></li>
+      <li><a href="#cross-exchange">Stop Loss for Cross-Exchange Arbitrage</a></li>
+      <li><a href="#funding-rate">Funding Rate Exit Rule</a></li>
+      <li><a href="#margin-based">Margin-Based Stop Loss</a></li>
+      <li><a href="#exchange-risk">Exchange-Level Risk Management</a></li>
+      <li><a href="#documentation">Documentation &amp; Review Process</a></li>
+    </ol>
+  </div>
+
+  <h2 class="section-title" id="hedged-arb">Do You Need Stop Losses in Hedged Arbitrage?</h2>
+  <p class="body-text">The short answer: not a traditional price-based stop loss. When you hold a long spot position and an equal-sized short futures position, price movements cancel out — BTC going up 20% gains on spot and loses on futures simultaneously, leaving your net PnL near zero.</p>
+  <p class="body-text">This is the fundamental advantage of delta-neutral arbitrage: you are not betting on price direction, so price-direction stops are irrelevant.</p>
+  <p class="body-text">However, a hedged position still carries real risks that <em>do</em> require exit rules:</p>
+  <ul class="body-list">
+    <li><strong>Funding rate reversal</strong> — the spread you're capturing can flip negative, turning your income into a cost</li>
+    <li><strong>Margin erosion</strong> — extreme short-term price spikes can push futures margin toward liquidation before the hedge fully offsets</li>
+    <li><strong>Exchange counterparty risk</strong> — the platform holding your capital can freeze withdrawals or fail entirely</li>
+  </ul>
+  <p class="body-text">Replacing "stop loss" with "exit criteria" is more accurate. The goal is the same — preserve capital — but the triggers are fundamentally different from directional trading.</p>
+
+  <div class="info-card">
+    <span class="info-icon">💡</span>
+    <div><strong>Key Principle:</strong> In hedged arbitrage, your stop loss is a <em>condition</em>, not a price level. You exit when the trade logic breaks down — not when the market moves against you.</div>
+  </div>
+
+  <h2 class="section-title" id="cross-exchange">Stop Loss for Cross-Exchange Arbitrage</h2>
+  <p class="body-text">Cross-exchange arbitrage — buying an asset on one exchange and simultaneously selling it on another — introduces a brief window of directional exposure. During the time between your first leg executing and your second leg filling, you are exposed to price movement.</p>
+  <p class="body-text">This window is typically 10–90 seconds depending on network congestion and order routing, but can extend significantly during high volatility or API delays.</p>
+  <p class="body-text"><strong>The primary tool here is a time-based stop loss:</strong></p>
+  <ul class="body-list">
+    <li>Define your maximum acceptable execution window before entering — typically 60 seconds</li>
+    <li>If the second leg has not filled within this window, exit the completed first leg at market</li>
+    <li>Accept a small loss on the exit rather than holding an unhedged position hoping the second leg fills</li>
+  </ul>
+  <p class="body-text">You should also set a <strong>spread-collapse stop</strong>: if the price gap between exchanges narrows below your total execution cost (fees + slippage + spread) before you complete both legs, abort the trade. A small guaranteed loss is always better than a larger uncertain one.</p>
+
+  <div class="rule-card">
+    <div class="rule-label">⏱ Time-Based Stop Rule</div>
+    <div class="rule-text">If both legs are not filled within <strong>60 seconds</strong> of the first execution, exit the open leg at market immediately.</div>
+  </div>
+
+  <h2 class="section-title" id="funding-rate">Funding Rate Exit Rule</h2>
+  <p class="body-text">In funding rate arbitrage, you earn income every 8 hours (or every hour on some exchanges) by holding the hedged position. The stop loss here is not price-based — it's a rate-based exit trigger defined before you enter.</p>
+  <p class="body-text"><strong>Setting your minimum threshold:</strong> Before entering any funding rate trade, decide the lowest rate at which the position still makes financial sense after accounting for fees and the cost of maintaining margin. A common starting point is <strong>0.02%/8h</strong> (~0.06%/day), but this depends on your fee tier and capital opportunity cost.</p>
+  <p class="body-text"><strong>The 2-consecutive-payment rule:</strong> Don't exit on a single low payment — funding rates fluctuate and one dip is normal. However, if the rate falls below your minimum threshold for <strong>two consecutive funding periods</strong>, the trend is meaningful. Exit both legs at the next opportunity.</p>
+  <p class="body-text">This two-payment buffer prevents premature exits during temporary rate compression while still protecting you from sustained deterioration.</p>
+
+  <div class="rule-card" style="border-color:var(--accent2);">
+    <div class="rule-label" style="color:var(--accent2);">📉 Funding Rate Stop Rule</div>
+    <div class="rule-text">Set your minimum acceptable rate <em>before</em> entering. If the rate falls below this threshold for <strong>2 consecutive payments</strong>, close both positions immediately.</div>
+  </div>
+
+  <p class="body-text">Additionally, watch for the <strong>rate trend</strong>, not just the current value. A rate that has declined from 0.08% → 0.05% → 0.03% over three periods signals a structural shift — consider exiting even before hitting your minimum if the directional pressure is clear.</p>
+
+  <h2 class="section-title" id="margin-based">Margin-Based Stop Loss</h2>
+  <p class="body-text">Even in a perfectly hedged position, sharp intraday price moves can temporarily create unrealised losses on the futures side before the spot side has been marked up equivalently. In extreme cases — a 30–40% price spike within minutes — this can push your futures margin ratio dangerously close to liquidation.</p>
+  <p class="body-text"><strong>Setting your margin alert:</strong> Configure an alert at 30% above your exchange's maintenance margin requirement. This gives you time to act before liquidation becomes a real risk.</p>
+  <p class="body-text"><strong>Response protocol, in order:</strong></p>
+  <ol class="body-list numbered">
+    <li>Transfer unrealised profit from the spot position to fund the futures account (most exchanges support cross-collateral)</li>
+    <li>If transfer is not available or insufficient, reduce the futures position size to bring margin ratio back to a safe level</li>
+    <li>If neither option is viable within a few minutes, close the entire position at the best available prices — a partial loss is recoverable; a liquidation wipes out your entire margin</li>
+  </ol>
+  <p class="body-text">The core principle: <strong>never allow a liquidation to happen</strong>. Liquidations in arbitrage are unforced losses — they only occur when margin management is neglected.</p>
+
+  <h2 class="section-title" id="exchange-risk">Exchange-Level Risk Management</h2>
+  <p class="body-text">Exchange counterparty risk is the one category that price hedging cannot protect you from. If an exchange freezes withdrawals, faces regulatory action, or becomes insolvent, both your spot and futures positions on that exchange are at risk simultaneously.</p>
+  <p class="body-text"><strong>Warning signs to monitor:</strong></p>
+  <ul class="body-list">
+    <li>Announced maintenance that extends beyond the stated window</li>
+    <li>Withdrawal delays or unusual processing times reported across community forums</li>
+    <li>Regulatory announcements targeting the exchange in a specific jurisdiction</li>
+    <li>Unusually elevated funding rates that may signal liquidity stress on the platform</li>
+    <li>Social media reports of failed KYC or account access issues at scale</li>
+  </ul>
+  <p class="body-text">The moment any of these signals appear, <strong>exit all positions on that exchange immediately</strong>. Missing a few funding payment cycles is a small cost. Being stuck with capital on a frozen exchange is not recoverable in the short term.</p>
+  <p class="body-text"><strong>Prevention through diversification:</strong> Never concentrate more than 30–40% of your total arbitrage capital on any single exchange. Spreading across three or more reputable platforms means no single exchange failure can be catastrophic for your portfolio.</p>
+
+  <div class="info-card" style="border-color:var(--orange);background:rgba(255,160,64,0.05);">
+    <span class="info-icon">⚠️</span>
+    <div><strong>Capital Preservation Rule:</strong> Exit an exchange at the first credible warning sign. The opportunity cost of a few missed funding payments is always lower than the risk of capital loss.</div>
+  </div>
+
+  <h2 class="section-title" id="documentation">Documentation &amp; Review Process</h2>
+  <p class="body-text">Your exit rules will only improve if you track what happened after each exit. Without data, you cannot distinguish between a stop that saved you from a real reversal and one that triggered on a temporary dip you should have held through.</p>
+  <p class="body-text"><strong>What to record after every exit:</strong></p>
+  <ul class="body-list">
+    <li>The specific trigger that caused the exit (rate threshold, margin alert, time-based, exchange warning)</li>
+    <li>The funding rate and margin ratio at exit</li>
+    <li>Net result: what you made or lost on the full round-trip trade</li>
+    <li>What the rate or conditions did in the 24–48 hours after you exited</li>
+  </ul>
+  <p class="body-text">After 20+ documented exits, review the data as a set. Look for patterns: are your rate thresholds triggering exits that you later regret (the rate recovered)? Or are you holding too long and exiting after more damage than necessary? Let the evidence adjust your thresholds — not intuition.</p>
+  <p class="body-text">This review process is what separates traders who improve systematically from those who repeat the same mistakes across cycles.</p>
+
+  <div class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-item">
+      <div class="faq-q">Can I automate stop loss execution in arbitrage?</div>
+      <div class="faq-a">Yes — most major exchanges offer conditional orders and API webhooks for rate-based and price-based alerts. For funding rate monitoring, a simple Python script checking the rate before each 8-hour settlement and triggering a close order is effective. Exchange-level risk (maintenance, withdrawals) still requires manual monitoring, as no API reliably surfaces early warning signals.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What if my stop loss triggers during a brief rate dip?</div>
+      <div class="faq-a">Occasional false exits are a feature, not a bug — they protect you from the cases where the dip is not brief. If your threshold is triggering exits too frequently on temporary dips, the correct response is to raise your threshold slightly or add the 2-consecutive-payment rule as a buffer, not to disable the exit criteria entirely.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Is there a stop loss for exchange insolvency risk?</div>
+      <div class="faq-a">The mitigation is structural, not reactive: never concentrate more than 30–40% of your total capital on any single exchange. Combined with active monitoring for early warning signs (withdrawal delays, regulatory news, abnormal funding rates), this limits your maximum possible loss from any single exchange failure to a manageable portion of your portfolio.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Should I use the same stop loss rules for all arbitrage strategies?</div>
+      <div class="faq-a">No — each strategy type has a different primary risk. Funding rate arb needs a rate-based exit. Cross-exchange arb needs a time-based stop. Basis trading needs a convergence-timeline rule. Match your exit criteria to the specific way each strategy can fail, rather than applying a generic rule across all trades.</div>
+    </div>
+  </div>
+
+  <div class="cta-box">
+    <p>Get pre-validated arbitrage signals with entry and exit criteria already built in — delivered directly to Telegram.</p>
+    <a href="crypto-arbitrage-signals-pricing.html" class="cta-btn">View Plans → Join for $5/month</a>
+  </div>
+
+  <div class="nav-btns">
+    <a href="crypto-arbitrage-blog.html" class="btn-outline">← Back to Blog</a>
+    <a href="live-crypto-arbitrage-scanner.html" class="btn-primary">Try Live Scanner →</a>
+  </div>
 </div>
-<div class="cta-box">
-<p>Ready to start earning from crypto arbitrage? Get pre-validated 2%+ signals delivered directly on Telegram.</p>
-<a href="crypto-arbitrage-signals-pricing.html" class="cta-btn">View Plans → Join for $5/month</a>
-</div>
-<div class="nav-btns">
-<a href="crypto-arbitrage-blog.html" class="btn-outline">← Back to Blog</a>
-<a href="live-crypto-arbitrage-scanner.html" class="btn-primary">Try Live Scanner →</a>
-</div>
-</div>
+<!-- END ARTICLE -->
+
 <footer>
-<p>© 2026 ArbVertex — Not financial advice.</p>
-<div class="footer-links">
-<a href="index.html">Home</a><a href="crypto-arbitrage-blog.html">Blog</a><a href="crypto-arbitrage-signals-pricing.html">Pricing</a>
-</div>
-<p style="font-size:0.75rem;">Educational content only. Always do your own research.</p>
+  <p>© 2026 ArbVertex — Not financial advice.</p>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="crypto-arbitrage-blog.html">Blog</a>
+    <a href="crypto-arbitrage-signals-pricing.html">Pricing</a>
+  </div>
+  <p style="font-size:0.75rem;">Educational content only. Always do your own research.</p>
 </footer>
-<script>(function(){
- var hamburger = document.getElementById('avHamburger');
- var navLinks = document.getElementById('avNavLinks');
- if(hamburger && navLinks){
- hamburger.addEventListener('click', function(){
- navLinks.classList.toggle('av-mobile-open');
- });
- }
- document.querySelectorAll('.av-drop-trigger').forEach(function(btn){
- btn.addEventListener('click', function(e){
- e.preventDefault();
- var parent = btn.closest('.av-dropdown');
- var wasOpen = parent.classList.contains('av-open');
- document.querySelectorAll('.av-dropdown.av-open').forEach(function(d){ d.classList.remove('av-open'); });
- if(!wasOpen){ parent.classList.add('av-open'); }
- });
- });
- document.addEventListener('click', function(e){
- if(!e.target.closest('.av-nav-wrap')){
- document.querySelectorAll('.av-dropdown.av-open').forEach(function(d){ d.classList.remove('av-open'); });
- }
- });
-})();</script>
+
+<script>
+(function(){
+  var hamburger = document.getElementById('avHamburger');
+  var navLinks  = document.getElementById('avNavLinks');
+  if(hamburger && navLinks){
+    hamburger.addEventListener('click', function(){
+      navLinks.classList.toggle('av-mobile-open');
+    });
+  }
+  document.querySelectorAll('.av-drop-trigger').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      var parent  = btn.closest('.av-dropdown');
+      var wasOpen = parent.classList.contains('av-open');
+      document.querySelectorAll('.av-dropdown.av-open').forEach(function(d){ d.classList.remove('av-open'); });
+      if(!wasOpen){ parent.classList.add('av-open'); }
+    });
+  });
+  document.addEventListener('click', function(e){
+    if(!e.target.closest('.av-nav-wrap')){
+      document.querySelectorAll('.av-dropdown.av-open').forEach(function(d){ d.classList.remove('av-open'); });
+    }
+  });
+})();
+</script>
 </body>
 </html>
