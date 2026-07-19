@@ -1,24 +1,25 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Perpetual Futures Arbitrage: Complete Strategy Guide (2026) | ArbVertex</title>
-<meta name="description" content="Learn perpetual futures arbitrage step-by-step — how funding rates create delta-neutral profit, exact execution on Binance & Bybit, risk management rules, and real examples.">
-<meta name="keywords" content="perpetual futures arbitrage, perp arbitrage, perpetual swap arbitrage, funding rate arbitrage strategy, delta neutral crypto, perp vs quarterly futures">
-<meta name="robots" content="index, follow">
-<meta name="author" content="ArbVertex">
-<link rel="canonical" href="https://arbvertex.com/perpetual-futures-arbitrage-guide.html">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Perpetual Futures Arbitrage: Complete Strategy Guide (2026) | ArbVertex">
-<meta property="og:description" content="Learn perpetual futures arbitrage step-by-step — how funding rates create delta-neutral profit, exact execution on Binance & Bybit, risk management rules, and real examples.">
-<meta property="og:url" content="https://arbvertex.com/perpetual-futures-arbitrage-guide.html">
-<meta property="og:image" content="https://arbvertex.com/og-image.png">
-<meta property="og:site_name" content="ArbVertex">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Perpetual Futures Arbitrage: Complete Strategy Guide (2026) | ArbVertex">
-<meta name="twitter:description" content="Learn perpetual futures arbitrage step-by-step — how funding rates create delta-neutral profit, exact execution on Binance & Bybit, risk management rules, and real examples.">
-<meta name="twitter:image" content="https://arbvertex.com/og-image.png">
+<meta content="Learn perpetual futures arbitrage step-by-step — how funding rates create delta-neutral profit, exact execution on Binance &amp; Bybit, risk management rules, and real examples." name="description"/>
+<meta content="perpetual futures arbitrage, perp arbitrage, perpetual swap arbitrage, funding rate arbitrage strategy, delta neutral crypto, perp vs quarterly futures" name="keywords"/>
+<meta content="index, follow" name="robots"/>
+<meta content="ArbVertex" name="author"/>
+<link href="https://arbvertex.com/perpetual-futures-arbitrage-guide.html" rel="canonical"/>
+<meta content="article" property="og:type"/>
+<meta content="Perpetual Futures Arbitrage: Complete Strategy Guide (2026) | ArbVertex" property="og:title"/>
+<meta content="Learn perpetual futures arbitrage step-by-step — how funding rates create delta-neutral profit, exact execution on Binance &amp; Bybit, risk management rules, and real examples." property="og:description"/>
+<meta content="https://arbvertex.com/perpetual-futures-arbitrage-guide.html" property="og:url"/>
+<meta content="https://arbvertex.com/og-image.png" property="og:image"/>
+<meta content="ArbVertex" property="og:site_name"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Perpetual Futures Arbitrage: Complete Strategy Guide (2026) | ArbVertex" name="twitter:title"/>
+<meta content="Learn perpetual futures arbitrage step-by-step — how funding rates create delta-neutral profit, exact execution on Binance &amp; Bybit, risk management rules, and real examples." name="twitter:description"/>
+<meta content="https://arbvertex.com/og-image.png" name="twitter:image"/>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Article","headline":"Perpetual Futures Arbitrage: Complete Strategy Guide","description":"Learn perpetual futures arbitrage step-by-step — how funding rates create delta-neutral profit, exact execution on Binance & Bybit, risk management rules, and real examples.","author":{"@type":"Organization","name":"ArbVertex","url":"https://arbvertex.com/"},"publisher":{"@type":"Organization","name":"ArbVertex","url":"https://arbvertex.com/"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://arbvertex.com/perpetual-futures-arbitrage-guide.html"}}
 </script>
@@ -86,7 +87,7 @@
   ]
 }
 </script>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
 <style>
 :root{--bg:#050a0f;--surface:#0d1a24;--accent:#00e5ff;--accent2:#00ff88;--text:#e8f4f8;--muted:#6a8fa8;--border:#1a3a52;--orange:#ffa040;}
 *{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
@@ -249,76 +250,69 @@ footer p{color:var(--muted);font-size:0.82rem;}
 </head>
 <body>
 <div class="av-nav-wrap">
- <div class="av-nav-inner">
- <a href="index.html" class="av-logo">Arb<span>Vertex</span></a>
- <ul class="av-nav-links" id="avNavLinks">
- <li><a href="index.html" class="av-top-link">Home</a></li>
-
- <li class="av-dropdown">
- <button type="button" class="av-top-link av-drop-trigger">Learn <span class="av-caret">▾</span></button>
- <div class="av-mega-panel">
- <a class="av-mega-link" href="what-is-crypto-futures-arbitrage.html"><span class="av-icon">📘</span><span>What is Arbitrage<span class="av-desc">Core concept explained</span></span></a>
- <a class="av-mega-link" href="how-crypto-arbitrage-signals-work.html"><span class="av-icon">⚙️</span><span>How It Works<span class="av-desc">Step-by-step process</span></span></a>
- <a class="av-mega-link" href="how-to-generate-profit-crypto-arbitrage.html"><span class="av-icon">💰</span><span>Generate Profit<span class="av-desc">Ways arbitrage earns</span></span></a>
- <a class="av-mega-link" href="crypto-arbitrage-risks-precautions.html"><span class="av-icon">⚠️</span><span>Risks &amp; Safety<span class="av-desc">What to watch for</span></span></a>
- <a class="av-mega-link" href="delisting-arbitrage-crypto-arbitrage-risks-precautions.html"><span class="av-icon">🚨</span><span>Delisting Risks<span class="av-desc">Avoid this trap</span></span></a>
- <a class="av-mega-link" href="rethink-traditional-trading.html"><span class="av-icon">🔄</span><span>Rethink Trading<span class="av-desc">Why arbitrage wins</span></span></a>
- <a class="av-mega-link" href="arbitrage-portfolio-growth.html"><span class="av-icon">📈</span><span>Portfolio Growth<span class="av-desc">Long-term strategy</span></span></a>
- </div>
- </li>
-
- <li class="av-dropdown">
- <button type="button" class="av-top-link av-drop-trigger">Tools <span class="av-caret">▾</span></button>
- <div class="av-mega-panel">
- <a class="av-mega-link" href="live-crypto-arbitrage-scanner.html"><span class="av-icon">🔍</span><span>Live Scanner<span class="av-desc">Real-time price gaps</span></span></a>
- <a class="av-mega-link" href="arbitrage-calculator.html"><span class="av-icon">🧮</span><span>Profit Calculator<span class="av-desc">Calculate net gains</span></span></a>
- </div>
- </li>
-
- <li class="av-dropdown">
- <button type="button" class="av-top-link av-drop-trigger">Blog <span class="av-caret">&#9662;</span></button>
- <div class="av-mega-panel av-blog-panel">
-  <div class="av-blog-col">
-   <div class="av-blog-col-header">&#128216; Beginner</div>
-   <a class="av-mega-link" href="crypto-arbitrage-blog.html#beginner"><span class="av-icon">&#129094;</span><span>Beginner Guides<span class="av-desc">Start from zero &mdash; concepts &amp; first steps</span></span></a>
-   <div class="av-blog-col-header" style="margin-top:0.5rem;">&#128161; Strategy</div>
-   <a class="av-mega-link" href="crypto-arbitrage-blog.html#strategy"><span class="av-icon">&#129097;</span><span>Strategy Guides<span class="av-desc">Funding rate, basis trading, advanced tactics</span></span></a>
-  </div>
-  <div class="av-blog-col">
-   <div class="av-blog-col-header">&#128260; Exchange Guides</div>
-   <a class="av-mega-link" href="crypto-arbitrage-blog.html#exchange"><span class="av-icon">&#129095;</span><span>Exchange Guides<span class="av-desc">Binance, Bybit, OKX setup &amp; comparison</span></span></a>
-   <div class="av-blog-col-header" style="margin-top:0.5rem;">&#128737;&#65039; Risk &amp; Tools</div>
-   <a class="av-mega-link" href="crypto-arbitrage-blog.html#risk"><span class="av-icon">&#128101;</span><span>Risk &amp; Tools<span class="av-desc">Position sizing, stop loss, glossary</span></span></a>
-  </div>
- </div>
- </li>
-
- <li class="av-dropdown">
- <button type="button" class="av-top-link av-drop-trigger">Signals <span class="av-caret">▾</span></button>
- <div class="av-mega-panel">
- <a class="av-mega-link" href="crypto-arbitrage-telegram-signals.html"><span class="av-icon">✈️</span><span>Telegram Bot<span class="av-desc">Get instant signals</span></span></a>
- <a class="av-mega-link" href="futures-signal-bot.html"><span class="av-icon">🚀</span><span>Free Futures Signal Bot<span class="av-desc">Live pump &amp; liq signals</span></span></a>
- <a class="av-mega-link" href="crypto-arbitrage-signals-pricing.html"><span class="av-icon">💳</span><span>Pricing<span class="av-desc">$5/month plans</span></span></a>
- </div>
- </li>
-
- <li class="av-dropdown">
- <button type="button" class="av-top-link av-drop-trigger">Company <span class="av-caret">▾</span></button>
- <div class="av-mega-panel">
- <a class="av-mega-link" href="about-arbvertex-crypto-signals.html"><span class="av-icon">🏢</span><span>About Us<span class="av-desc">Our story</span></span></a>
- <a class="av-mega-link" href="contact-arbvertex.html"><span class="av-icon">✉️</span><span>Contact<span class="av-desc">Get in touch</span></span></a>
- </div>
- </li>
-
- <li><a href="live-crypto-arbitrage-scanner.html" class="av-top-link av-scanner-link">🔍 Live Scanner</a></li>
- <li><a href="crypto-arbitrage-signals-pricing.html" class="av-top-link av-cta">Join Now</a></li>
- </ul>
- <button class="av-hamburger" id="avHamburger" type="button" aria-label="Toggle menu">
- <span></span><span></span><span></span>
- </button>
- </div>
+<div class="av-nav-inner">
+<a class="av-logo" href="index.html">Arb<span>Vertex</span></a>
+<ul class="av-nav-links" id="avNavLinks">
+<li><a class="av-top-link" href="index.html">Home</a></li>
+<li class="av-dropdown">
+<button class="av-top-link av-drop-trigger" type="button">Learn <span class="av-caret">▾</span></button>
+<div class="av-mega-panel">
+<a class="av-mega-link" href="what-is-crypto-futures-arbitrage.html"><span class="av-icon">📘</span><span>What is Arbitrage<span class="av-desc">Core concept explained</span></span></a>
+<a class="av-mega-link" href="how-crypto-arbitrage-signals-work.html"><span class="av-icon">⚙️</span><span>How It Works<span class="av-desc">Step-by-step process</span></span></a>
+<a class="av-mega-link" href="how-to-generate-profit-crypto-arbitrage.html"><span class="av-icon">💰</span><span>Generate Profit<span class="av-desc">Ways arbitrage earns</span></span></a>
+<a class="av-mega-link" href="crypto-arbitrage-risks-precautions.html"><span class="av-icon">⚠️</span><span>Risks &amp; Safety<span class="av-desc">What to watch for</span></span></a>
+<a class="av-mega-link" href="delisting-arbitrage-crypto-arbitrage-risks-precautions.html"><span class="av-icon">🚨</span><span>Delisting Risks<span class="av-desc">Avoid this trap</span></span></a>
+<a class="av-mega-link" href="rethink-traditional-trading.html"><span class="av-icon">🔄</span><span>Rethink Trading<span class="av-desc">Why arbitrage wins</span></span></a>
+<a class="av-mega-link" href="arbitrage-portfolio-growth.html"><span class="av-icon">📈</span><span>Portfolio Growth<span class="av-desc">Long-term strategy</span></span></a>
 </div>
-
+</li>
+<li class="av-dropdown">
+<button class="av-top-link av-drop-trigger" type="button">Tools <span class="av-caret">▾</span></button>
+<div class="av-mega-panel">
+<a class="av-mega-link" href="live-crypto-arbitrage-scanner.html"><span class="av-icon">🔍</span><span>Live Scanner<span class="av-desc">Real-time price gaps</span></span></a>
+<a class="av-mega-link" href="arbitrage-calculator.html"><span class="av-icon">🧮</span><span>Profit Calculator<span class="av-desc">Calculate net gains</span></span></a>
+</div>
+</li>
+<li class="av-dropdown">
+<button class="av-top-link av-drop-trigger" type="button">Blog <span class="av-caret">▾</span></button>
+<div class="av-mega-panel av-blog-panel">
+<div class="av-blog-col">
+<div class="av-blog-col-header">📘 Beginner</div>
+<a class="av-mega-link" href="crypto-arbitrage-blog.html#beginner"><span class="av-icon">🡆</span><span>Beginner Guides<span class="av-desc">Start from zero — concepts &amp; first steps</span></span></a>
+<div class="av-blog-col-header" style="margin-top:0.5rem;">💡 Strategy</div>
+<a class="av-mega-link" href="crypto-arbitrage-blog.html#strategy"><span class="av-icon">🡉</span><span>Strategy Guides<span class="av-desc">Funding rate, basis trading, advanced tactics</span></span></a>
+</div>
+<div class="av-blog-col">
+<div class="av-blog-col-header">🔄 Exchange Guides</div>
+<a class="av-mega-link" href="crypto-arbitrage-blog.html#exchange"><span class="av-icon">🡇</span><span>Exchange Guides<span class="av-desc">Binance, Bybit, OKX setup &amp; comparison</span></span></a>
+<div class="av-blog-col-header" style="margin-top:0.5rem;">🛡️ Risk &amp; Tools</div>
+<a class="av-mega-link" href="crypto-arbitrage-blog.html#risk"><span class="av-icon">👥</span><span>Risk &amp; Tools<span class="av-desc">Position sizing, stop loss, glossary</span></span></a>
+</div>
+</div>
+</li>
+<li class="av-dropdown">
+<button class="av-top-link av-drop-trigger" type="button">Signals <span class="av-caret">▾</span></button>
+<div class="av-mega-panel">
+<a class="av-mega-link" href="crypto-arbitrage-telegram-signals.html"><span class="av-icon">✈️</span><span>Telegram Bot<span class="av-desc">Get instant signals</span></span></a>
+<a class="av-mega-link" href="futures-signal-bot.html"><span class="av-icon">🚀</span><span>Free Futures Signal Bot<span class="av-desc">Live pump &amp; liq signals</span></span></a>
+<a class="av-mega-link" href="crypto-arbitrage-signals-pricing.html"><span class="av-icon">💳</span><span>Pricing<span class="av-desc">$5/month plans</span></span></a>
+</div>
+</li>
+<li class="av-dropdown">
+<button class="av-top-link av-drop-trigger" type="button">Company <span class="av-caret">▾</span></button>
+<div class="av-mega-panel">
+<a class="av-mega-link" href="about-arbvertex-crypto-signals.html"><span class="av-icon">🏢</span><span>About Us<span class="av-desc">Our story</span></span></a>
+<a class="av-mega-link" href="contact-arbvertex.html"><span class="av-icon">✉️</span><span>Contact<span class="av-desc">Get in touch</span></span></a>
+</div>
+</li>
+<li><a class="av-top-link av-scanner-link" href="live-crypto-arbitrage-scanner.html">🔍 Live Scanner</a></li>
+<li><a class="av-top-link av-cta" href="crypto-arbitrage-signals-pricing.html">Join Now</a></li>
+</ul>
+<button aria-label="Toggle menu" class="av-hamburger" id="avHamburger" type="button">
+<span></span><span></span><span></span>
+</button>
+</div>
+</div>
 <div class="inner-page">
 <nav class="breadcrumb">
 <a href="index.html">Home</a> / <a href="crypto-arbitrage-blog.html">Blog</a> / <span style="color:var(--accent);">Perpetual Futures Arbitrage</span>
@@ -327,34 +321,27 @@ footer p{color:var(--muted);font-size:0.82rem;}
 <span class="meta-tag">📘 FUTURES ARBITRAGE</span>
 <span class="meta-tag" style="background:rgba(0,229,255,0.08);color:var(--accent);">ArbVertex Blog</span>
 </div>
-
 <h1>Perpetual Futures Arbitrage: How to Profit from Perp Markets</h1>
 <p class="article-intro">Master perpetual futures arbitrage — how perpetuals differ from quarterly futures, why funding rates create predictable income, and the exact execution steps to build a delta-neutral position on any major exchange.</p>
-
 <!-- SECTION 1 -->
 <h2 class="section-title">What Are Perpetual Futures?</h2>
 <p class="body-text">Perpetual futures (commonly called "perps") are cryptocurrency derivatives that have no expiry date. Unlike traditional futures contracts — which settle on a specific day — perps let you hold a position indefinitely, for days, weeks, or months.</p>
 <p class="body-text">This makes them extremely popular with traders who want leveraged exposure to crypto without worrying about rolling positions every quarter. Today, perpetual futures account for the majority of crypto derivatives volume across Binance, Bybit, OKX, and other major exchanges.</p>
 <p class="body-text">But the key feature that makes perps useful for arbitrage is the <strong style="color:var(--text);">funding rate</strong> — a periodic payment mechanism that keeps the perp price anchored close to the underlying spot price. Understanding how this works is the foundation of everything in this guide.</p>
-
 <div class="highlight-box">
 <p><strong>Simple definition:</strong> A perpetual future is a futures contract that never expires. Instead of converging to spot price at expiry like quarterly futures, it stays pegged to spot price through automatic funding payments exchanged between long and short traders every 8 hours.</p>
 </div>
-
 <!-- SECTION 2 -->
 <h2 class="section-title">Why Perps Create Arbitrage Opportunities</h2>
 <p class="body-text">During bull markets, most retail traders want to go long — they're betting prices will rise. This demand pushes the perp price slightly above spot, creating a positive funding rate. To maintain the peg, the exchange forces longs to pay shorts every 8 hours.</p>
 <p class="body-text">This is where arbitrage comes in. If you hold a <strong style="color:var(--text);">spot long + perp short</strong> simultaneously, your positions cancel out directionally — you have no net market exposure. But you still collect the funding payment from longs, three times per day.</p>
 <p class="body-text">This strategy is called <strong style="color:var(--text);">delta-neutral funding rate arbitrage</strong>. You earn consistent yield without caring whether ETH goes up or down — because one leg profits exactly as much as the other loses.</p>
-
 <div class="highlight-box">
 <p><strong>The core logic:</strong> Spot long + Perp short = Zero directional risk + Funding income. When funding is positive (longs pay shorts), you collect payments every 8 hours just for holding this balanced position.</p>
 </div>
-
 <!-- SECTION 3 -->
 <h2 class="section-title">Perp vs Quarterly Futures — Key Differences</h2>
 <p class="body-text">Both perps and quarterly futures can be used for arbitrage, but they work differently. Understanding the distinction helps you choose the right strategy for your capital and risk tolerance.</p>
-
 <div style="overflow-x:auto;">
 <table class="comp-table">
 <thead>
@@ -375,26 +362,20 @@ footer p{color:var(--muted);font-size:0.82rem;}
 </tbody>
 </table>
 </div>
-
 <p class="body-text">For most traders, perp arb is more accessible because you can enter and exit freely. Quarterly basis trades require more capital planning and discipline to hold through expiry.</p>
-
 <!-- SECTION 4 -->
 <h2 class="section-title">How Funding Rates Are Calculated</h2>
 <p class="body-text">Funding rate is calculated based on the difference between the perpetual contract's mark price and the spot index price. The standard formula used by most major exchanges is:</p>
-
 <div class="highlight-box">
 <p><strong>Funding Rate = (Mark Price − Index Price) / Index Price × 100</strong></p>
 <p style="margin-top:0.6rem;">When Perp Price &gt; Spot Price → <strong>Positive funding</strong> → Longs pay Shorts</p>
 <p style="margin-top:0.3rem;">When Perp Price &lt; Spot Price → <strong>Negative funding</strong> → Shorts pay Longs</p>
 </div>
-
 <p class="body-text">Funding is typically paid every 8 hours — at 00:00, 08:00, and 16:00 UTC. This means you collect (or pay) funding three times per day. Most exchanges also include an interest rate component in the formula, usually around 0.01% per 8h, but this is minor compared to market-driven funding.</p>
 <p class="body-text">A typical positive funding rate during a bull market might be 0.05%–0.15% per 8 hours. Across three payments per day and 30 days per month, that translates to roughly 4.5%–13.5% monthly yield on your futures leg — without any directional price exposure.</p>
-
 <!-- SECTION 5 -->
 <h2 class="section-title">Real-World Example: ETHUSDT Perp Arb</h2>
 <p class="body-text">Let's walk through a concrete example using ETH to show exactly what this looks like in practice.</p>
-
 <div class="example-box">
 <div class="ex-title">📊 Example Trade — ETHUSDT Funding Rate Arb</div>
 <p><strong>Setup:</strong> ETH spot price = $3,200 | Funding rate = 0.08% per 8h | Capital = $5,000</p>
@@ -405,13 +386,10 @@ footer p{color:var(--muted);font-size:0.82rem;}
 <p><strong>Monthly income:</strong> ~$360/month on $5,000 capital = <strong>7.2% monthly / ~86% APR</strong></p>
 <p><strong>Net directional risk:</strong> Zero — if ETH drops $500, spot leg loses $781, perp short gains $781</p>
 </div>
-
 <p class="body-text">Of course, 0.08% funding is elevated — it occurs during strong bull markets. More typical sustained funding during moderate conditions is 0.03%–0.05% per 8h, giving roughly 2–3% monthly yield. Still very attractive compared to traditional savings.</p>
-
 <!-- SECTION 6 -->
 <h2 class="section-title">Step-by-Step Execution on Binance + Bybit</h2>
 <p class="body-text">Here's the exact sequence to open a delta-neutral perp arb position. Always execute both legs within minutes of each other to avoid price drift between entry points.</p>
-
 <ul class="step-list">
 <li><span class="step-num">1</span><span class="step-text"><strong>Check funding rate first.</strong> Go to Bybit → Derivatives → ETHUSDT-PERP → Funding Rate. Confirm the current rate is at least 0.03% per 8h before proceeding. Below that, fees may eat your profit.</span></li>
 <li><span class="step-num">2</span><span class="step-text"><strong>Decide your capital size.</strong> Both legs must be equal in USD value. If you have $5,000, you'll put $5,000 in spot and $5,000 notional in the perp short (use 1x leverage to match exactly).</span></li>
@@ -421,15 +399,12 @@ footer p{color:var(--muted);font-size:0.82rem;}
 <li><span class="step-num">6</span><span class="step-text"><strong>Set a funding rate alert.</strong> Use Bybit's price alert or check daily. If funding drops below 0.02% or goes negative, you'll want to exit.</span></li>
 <li><span class="step-num">7</span><span class="step-text"><strong>Collect funding every 8 hours.</strong> Payments are automatic — you don't need to do anything. Watch your futures wallet balance grow at 00:00, 08:00, 16:00 UTC.</span></li>
 </ul>
-
 <div class="warn-box">
 <p><strong>⚠️ Important:</strong> You can run this across two different exchanges (Binance spot + Bybit perp) OR on the same exchange if it offers both products. Cross-exchange setup is fine — price correlation between exchanges is near-perfect for majors like ETH and BTC.</p>
 </div>
-
 <!-- SECTION 7 -->
 <h2 class="section-title">Managing and Monitoring the Position</h2>
 <p class="body-text">Opening the trade is the easy part. The real skill is in monitoring and knowing when to adjust or exit. Here are the rules to follow once you're in the position.</p>
-
 <ul class="rule-list">
 <li><strong>Check funding rate daily.</strong> Funding changes every 8 hours based on market conditions. A rate that was 0.08% today can drop to 0.01% tomorrow if sentiment shifts.</li>
 <li><strong>Exit if funding drops below 0.02%.</strong> At very low rates, trading fees and slippage may make the trade unprofitable. Don't hold for the sake of staying in.</li>
@@ -439,24 +414,19 @@ footer p{color:var(--muted);font-size:0.82rem;}
 <li><strong>Never use more than 2x leverage on the perp leg.</strong> Higher leverage amplifies liquidation risk. The whole point of this strategy is steady low-risk yield — don't undermine that with leverage.</li>
 <li><strong>Rebalance quarterly.</strong> If ETH has moved significantly (up or down 30%+), consider adjusting your spot and perp sizes to stay balanced in USD terms.</li>
 </ul>
-
 <!-- SECTION 8 -->
 <h2 class="section-title">When to Exit the Trade</h2>
 <p class="body-text">Perp arb is not a "set and forget" strategy. You need clear exit conditions defined before you enter — so you're not making emotional decisions mid-trade.</p>
-
 <ul class="rule-list">
 <li><strong>Funding rate below your fee threshold.</strong> Calculate your break-even funding rate (consider maker/taker fees, withdrawal fees). Exit if funding stays below this for 24+ hours.</li>
 <li><strong>Market shifts to bearish sentiment.</strong> In bear markets, funding often turns negative as everyone wants to short. This flips your position from profitable to costly.</li>
 <li><strong>You need the capital.</strong> One major advantage of perp arb is liquidity. Unlike quarterly futures, you can exit in minutes with a market order on both legs.</li>
 <li><strong>Better opportunity available.</strong> If you spot a 2%+ cross-exchange price gap on our Live Scanner, it may be worth rotating capital into that instead.</li>
 </ul>
-
 <p class="body-text">To exit cleanly: close the perp short first (buy back), then sell the spot ETH. Doing it in this order minimizes your exposure window between legs.</p>
-
 <!-- SECTION 9: Exchange Comparison -->
 <h2 class="section-title">Which Exchange to Use for Perp Arb?</h2>
 <p class="body-text">Any major exchange works, but some are better suited for this strategy depending on your region, fees, and available pairs. Check current funding rates across exchanges before deciding — the rates differ based on each platform's user base and liquidity.</p>
-
 <div style="overflow-x:auto;">
 <table class="comp-table">
 <thead>
@@ -476,9 +446,7 @@ footer p{color:var(--muted);font-size:0.82rem;}
 </tbody>
 </table>
 </div>
-
 <p class="body-text">For BTC and ETH perp arb, any of the above works well. The key variable is which exchange has the highest funding rate on a given day — always check before entering.</p>
-
 <!-- FAQ -->
 <div class="faq-section">
 <h2>Frequently Asked Questions</h2>
@@ -511,18 +479,16 @@ footer p{color:var(--muted);font-size:0.82rem;}
 <div class="faq-a">If funding goes negative, your short perp position will start paying longs instead of receiving. This means you're losing money every 8 hours instead of gaining it. Exit the trade immediately when funding goes negative to protect your capital.</div>
 </div>
 </div>
-
 <div class="cta-box">
 <p>Ready to start earning from crypto arbitrage? Get pre-validated 2%+ signals delivered directly on Telegram.</p>
-<a href="crypto-arbitrage-signals-pricing.html" class="cta-btn">View Plans → Join for $5/month</a>
+<a class="cta-btn" href="crypto-arbitrage-signals-pricing.html">View Plans → Join for $5/month</a>
 </div>
 
 <div class="nav-btns">
-<a href="crypto-arbitrage-blog.html" class="btn-outline">← Back to Blog</a>
-<a href="live-crypto-arbitrage-scanner.html" class="btn-primary">Try Live Scanner →</a>
-</div>
-</div>
-
+<a class="nb-outline" href="crypto-arbitrage-blog.html">☰ Back to Blog</a>
+<a class="nb-outline" href="best-coins-funding-rate-arbitrage.html">← Best Coins for Funding Rate Arbitra…</a>
+<a class="nb-primary" href="basis-trading-crypto-explained.html">Basis Trading in Crypto: Profit fro… →</a>
+</div></div>
 <footer>
 <p>© 2026 ArbVertex — Not financial advice.</p>
 <div class="footer-links">
@@ -530,7 +496,6 @@ footer p{color:var(--muted);font-size:0.82rem;}
 </div>
 <p style="font-size:0.75rem;">Educational content only. Always do your own research.</p>
 </footer>
-
 <script>(function(){
  var hamburger = document.getElementById('avHamburger');
  var navLinks = document.getElementById('avNavLinks');

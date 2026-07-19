@@ -1,24 +1,25 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Position Sizing for Crypto Arbitrage — Kelly Criterion and Beyond | ArbVertex</title>
-<meta name="description" content="Learn how to size arbitrage positions correctly — Kelly Criterion, risk percentage methods, and practical frameworks for retail arbitrage traders.">
-<meta name="keywords" content="position sizing crypto arbitrage, kelly criterion crypto, arbitrage position size, risk management position sizing">
-<meta name="robots" content="index, follow">
-<meta name="author" content="ArbVertex">
-<link rel="canonical" href="https://arbvertex.com/crypto-arbitrage-position-sizing.html">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Position Sizing for Crypto Arbitrage — Kelly Criterion and Beyond | ArbVertex">
-<meta property="og:description" content="Learn how to size arbitrage positions correctly — Kelly Criterion, risk percentage methods, and practical frameworks for retail arbitrage traders.">
-<meta property="og:url" content="https://arbvertex.com/crypto-arbitrage-position-sizing.html">
-<meta property="og:image" content="https://arbvertex.com/og-image.png">
-<meta property="og:site_name" content="ArbVertex">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Position Sizing for Crypto Arbitrage — Kelly Criterion and Beyond | ArbVertex">
-<meta name="twitter:description" content="Learn how to size arbitrage positions correctly — Kelly Criterion, risk percentage methods, and practical frameworks for retail arbitrage traders.">
-<meta name="twitter:image" content="https://arbvertex.com/og-image.png">
+<meta content="Learn how to size arbitrage positions correctly — Kelly Criterion, risk percentage methods, and practical frameworks for retail arbitrage traders." name="description"/>
+<meta content="position sizing crypto arbitrage, kelly criterion crypto, arbitrage position size, risk management position sizing" name="keywords"/>
+<meta content="index, follow" name="robots"/>
+<meta content="ArbVertex" name="author"/>
+<link href="https://arbvertex.com/crypto-arbitrage-position-sizing.html" rel="canonical"/>
+<meta content="article" property="og:type"/>
+<meta content="Position Sizing for Crypto Arbitrage — Kelly Criterion and Beyond | ArbVertex" property="og:title"/>
+<meta content="Learn how to size arbitrage positions correctly — Kelly Criterion, risk percentage methods, and practical frameworks for retail arbitrage traders." property="og:description"/>
+<meta content="https://arbvertex.com/crypto-arbitrage-position-sizing.html" property="og:url"/>
+<meta content="https://arbvertex.com/og-image.png" property="og:image"/>
+<meta content="ArbVertex" property="og:site_name"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Position Sizing for Crypto Arbitrage — Kelly Criterion and Beyond | ArbVertex" name="twitter:title"/>
+<meta content="Learn how to size arbitrage positions correctly — Kelly Criterion, risk percentage methods, and practical frameworks for retail arbitrage traders." name="twitter:description"/>
+<meta content="https://arbvertex.com/og-image.png" name="twitter:image"/>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Article","headline":"Position Sizing for Crypto Arbitrage — Kelly Criterion and Beyond","description":"Learn how to size arbitrage positions correctly — Kelly Criterion, risk percentage methods, and practical frameworks for retail arbitrage traders.","author":{"@type":"Organization","name":"ArbVertex","url":"https://arbvertex.com/"},"publisher":{"@type":"Organization","name":"ArbVertex","url":"https://arbvertex.com/"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://arbvertex.com/crypto-arbitrage-position-sizing.html"}}
 </script>
@@ -54,8 +55,7 @@
   ]
 }
 </script>
-
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
 <style>
     :root {
       --bg: #050a0f;
@@ -230,7 +230,14 @@
     .footer-links a:hover{color:var(--accent);}
 
     @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
-  </style>
+  
+.nav-btns{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border,#1a3a52);}
+.nb-outline,.btn-outline{border:1px solid var(--border,#1a3a52);color:var(--text,#e8f4f8);padding:0.65rem 1.4rem;border-radius:4px;font-weight:500;font-size:0.85rem;text-decoration:none;transition:border-color .2s,color .2s;display:inline-block;white-space:nowrap;}
+.nb-outline:hover,.btn-outline:hover{border-color:var(--accent,#00e5ff);color:var(--accent,#00e5ff);}
+.nb-primary,.btn-primary{background:var(--accent,#00e5ff);color:#050a0f;padding:0.65rem 1.4rem;border-radius:4px;font-weight:700;font-size:0.85rem;text-decoration:none;display:inline-block;transition:opacity .2s;white-space:nowrap;}
+.nb-primary:hover,.btn-primary:hover{opacity:0.85;}
+@media(max-width:600px){.nav-btns{flex-direction:column;}}
+</style>
 <style>
 /* ── ARTICLE PAGE STYLES ── */
 :root{
@@ -313,140 +320,122 @@ footer p{color:var(--muted);font-size:0.82rem;}
 </style>
 </head>
 <body>
-
 <header>
-  <nav class="topnav">
-    <a class="logo" href="https://arbvertex.com/index.html">Arb<span>Vertex</span></a>
-
-    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
-
-    <ul class="nav-links" id="navLinks">
-      <li><a href="https://arbvertex.com/index.html">Home</a></li>
-
-      <li>
-        <button>Learn ▾</button>
-        <div class="dropdown-menu">
-          <a href="https://arbvertex.com/what-is-crypto-futures-arbitrage.html"><span class="dm-icon">📘</span><span class="dm-text"><strong>What is Arbitrage</strong><span>Core concept explained</span></span></a>
-          <a href="https://arbvertex.com/how-crypto-arbitrage-signals-work.html"><span class="dm-icon">⚙️</span><span class="dm-text"><strong>How It Works</strong><span>Step-by-step process</span></span></a>
-          <a href="https://arbvertex.com/how-to-generate-profit-crypto-arbitrage.html"><span class="dm-icon">💰</span><span class="dm-text"><strong>Generate Profit</strong><span>Ways arbitrage earns</span></span></a>
-          <a href="https://arbvertex.com/crypto-arbitrage-risks-precautions.html"><span class="dm-icon">⚠️</span><span class="dm-text"><strong>Risks &amp; Safety</strong><span>What to watch for</span></span></a>
-          <a href="https://arbvertex.com/delisting-arbitrage-risks.html"><span class="dm-icon">🚨</span><span class="dm-text"><strong>Delisting Risks</strong><span>Avoid this trap</span></span></a>
-          <a href="https://arbvertex.com/rethink-traditional-trading.html"><span class="dm-icon">🔄</span><span class="dm-text"><strong>Rethink Trading</strong><span>Why arbitrage wins</span></span></a>
-          <a href="https://arbvertex.com/arbitrage-portfolio-growth.html"><span class="dm-icon">📈</span><span class="dm-text"><strong>Portfolio Growth</strong><span>Long-term strategy</span></span></a>
-        </div>
-      </li>
-
-      <li>
-        <button>Tools ▾</button>
-        <div class="dropdown-menu">
-          <a href="https://arbvertex.com/live-crypto-arbitrage-scanner.html"><span class="dm-icon">📊</span><span class="dm-text"><strong>Price Difference Scanner</strong><span>Real-time cross-exchange spot price gaps</span></span></a>
-          <a href="https://arbvertex.com/live-funding-gap-scanner.html"><span class="dm-icon">💸</span><span class="dm-text"><strong>Funding Rate Scanner</strong><span>Compare funding rates across 8 exchanges</span></span></a>
-          <a href="https://arbvertex.com/advanced-arb-scanner.html"><span class="dm-icon">⚡</span><span class="dm-text"><strong>Advanced Live Scanner</strong><span>Price gap + funding rate combined</span></span></a>
-          <a href="https://arbvertex.com/arbitrage-calculator.html"><span class="dm-icon">🧮</span><span class="dm-text"><strong>Futures Arbitrage Calculator</strong><span>Net profit after all fees &amp; slippage</span></span></a>
-        </div>
-      </li>
-
-      <li>
-        <button>Blog ▾</button>
-        <div class="dropdown-menu">
-          <div class="dm-label">📘 Beginner</div>
-          <a href="https://arbvertex.com/crypto-arbitrage-blog.html#beginner"><span class="dm-icon">🡆</span><span class="dm-text"><strong>Beginner Guides</strong><span>Start from zero — concepts &amp; first steps</span></span></a>
-          <div class="dm-sep"></div>
-          <div class="dm-label">💡 Strategy</div>
-          <a href="https://arbvertex.com/crypto-arbitrage-blog.html#strategy"><span class="dm-icon">🡉</span><span class="dm-text"><strong>Strategy Guides</strong><span>Funding rate, basis trading, advanced tactics</span></span></a>
-          <div class="dm-sep"></div>
-          <div class="dm-label">🔄 Exchange Guides</div>
-          <a href="https://arbvertex.com/crypto-arbitrage-blog.html#exchange"><span class="dm-icon">🡇</span><span class="dm-text"><strong>Exchange Guides</strong><span>Binance, Bybit, OKX setup &amp; comparison</span></span></a>
-          <div class="dm-sep"></div>
-          <div class="dm-label">🛡️ Risk &amp; Tools</div>
-          <a href="https://arbvertex.com/crypto-arbitrage-blog.html#risk"><span class="dm-icon">👥</span><span class="dm-text"><strong>Risk &amp; Tools</strong><span>Position sizing, stop loss, glossary</span></span></a>
-        </div>
-      </li>
-
-      <li>
-        <button>Signals ▾</button>
-        <div class="dropdown-menu">
-          <a href="https://arbvertex.com/crypto-arbitrage-telegram-signals.html"><span class="dm-icon">✈️</span><span class="dm-text"><strong>Telegram Bot</strong><span>Get instant signals</span></span></a>
-          <a href="https://arbvertex.com/futures-signal-bot.html"><span class="dm-icon">🚀</span><span class="dm-text"><strong>Free Futures Signal Bot</strong><span>Live pump &amp; liq signals</span></span></a>
-          <a href="https://arbvertex.com/crypto-arbitrage-signals-pricing.html"><span class="dm-icon">💳</span><span class="dm-text"><strong>Pricing</strong><span>$5/month plans</span></span></a>
-        </div>
-      </li>
-
-      <li>
-        <button>Company ▾</button>
-        <div class="dropdown-menu">
-          <a href="https://arbvertex.com/about-arbvertex-crypto-signals.html"><span class="dm-icon">🏢</span><span class="dm-text"><strong>About Us</strong><span>Our story</span></span></a>
-          <a href="https://arbvertex.com/contact-arbvertex.html"><span class="dm-icon">✉️</span><span class="dm-text"><strong>Contact</strong><span>Get in touch</span></span></a>
-        </div>
-      </li>
-
-      <li><a class="nav-scanner" href="https://arbvertex.com/advanced-arb-scanner.html">⚡ Live Scanners</a></li>
-      <li><a class="nav-cta" href="https://arbvertex.com/crypto-arbitrage-signals-pricing.html">Join Now</a></li>
-    </ul>
-  </nav>
+<nav class="topnav">
+<a class="logo" href="https://arbvertex.com/index.html">Arb<span>Vertex</span></a>
+<button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+<ul class="nav-links" id="navLinks">
+<li><a href="https://arbvertex.com/index.html">Home</a></li>
+<li>
+<button>Learn ▾</button>
+<div class="dropdown-menu">
+<a href="https://arbvertex.com/what-is-crypto-futures-arbitrage.html"><span class="dm-icon">📘</span><span class="dm-text"><strong>What is Arbitrage</strong><span>Core concept explained</span></span></a>
+<a href="https://arbvertex.com/how-crypto-arbitrage-signals-work.html"><span class="dm-icon">⚙️</span><span class="dm-text"><strong>How It Works</strong><span>Step-by-step process</span></span></a>
+<a href="https://arbvertex.com/how-to-generate-profit-crypto-arbitrage.html"><span class="dm-icon">💰</span><span class="dm-text"><strong>Generate Profit</strong><span>Ways arbitrage earns</span></span></a>
+<a href="https://arbvertex.com/crypto-arbitrage-risks-precautions.html"><span class="dm-icon">⚠️</span><span class="dm-text"><strong>Risks &amp; Safety</strong><span>What to watch for</span></span></a>
+<a href="https://arbvertex.com/delisting-arbitrage-risks.html"><span class="dm-icon">🚨</span><span class="dm-text"><strong>Delisting Risks</strong><span>Avoid this trap</span></span></a>
+<a href="https://arbvertex.com/rethink-traditional-trading.html"><span class="dm-icon">🔄</span><span class="dm-text"><strong>Rethink Trading</strong><span>Why arbitrage wins</span></span></a>
+<a href="https://arbvertex.com/arbitrage-portfolio-growth.html"><span class="dm-icon">📈</span><span class="dm-text"><strong>Portfolio Growth</strong><span>Long-term strategy</span></span></a>
+</div>
+</li>
+<li>
+<button>Tools ▾</button>
+<div class="dropdown-menu">
+<a href="https://arbvertex.com/live-crypto-arbitrage-scanner.html"><span class="dm-icon">📊</span><span class="dm-text"><strong>Price Difference Scanner</strong><span>Real-time cross-exchange spot price gaps</span></span></a>
+<a href="https://arbvertex.com/live-funding-gap-scanner.html"><span class="dm-icon">💸</span><span class="dm-text"><strong>Funding Rate Scanner</strong><span>Compare funding rates across 8 exchanges</span></span></a>
+<a href="https://arbvertex.com/advanced-arb-scanner.html"><span class="dm-icon">⚡</span><span class="dm-text"><strong>Advanced Live Scanner</strong><span>Price gap + funding rate combined</span></span></a>
+<a href="https://arbvertex.com/arbitrage-calculator.html"><span class="dm-icon">🧮</span><span class="dm-text"><strong>Futures Arbitrage Calculator</strong><span>Net profit after all fees &amp; slippage</span></span></a>
+</div>
+</li>
+<li>
+<button>Blog ▾</button>
+<div class="dropdown-menu">
+<div class="dm-label">📘 Beginner</div>
+<a href="https://arbvertex.com/crypto-arbitrage-blog.html#beginner"><span class="dm-icon">🡆</span><span class="dm-text"><strong>Beginner Guides</strong><span>Start from zero — concepts &amp; first steps</span></span></a>
+<div class="dm-sep"></div>
+<div class="dm-label">💡 Strategy</div>
+<a href="https://arbvertex.com/crypto-arbitrage-blog.html#strategy"><span class="dm-icon">🡉</span><span class="dm-text"><strong>Strategy Guides</strong><span>Funding rate, basis trading, advanced tactics</span></span></a>
+<div class="dm-sep"></div>
+<div class="dm-label">🔄 Exchange Guides</div>
+<a href="https://arbvertex.com/crypto-arbitrage-blog.html#exchange"><span class="dm-icon">🡇</span><span class="dm-text"><strong>Exchange Guides</strong><span>Binance, Bybit, OKX setup &amp; comparison</span></span></a>
+<div class="dm-sep"></div>
+<div class="dm-label">🛡️ Risk &amp; Tools</div>
+<a href="https://arbvertex.com/crypto-arbitrage-blog.html#risk"><span class="dm-icon">👥</span><span class="dm-text"><strong>Risk &amp; Tools</strong><span>Position sizing, stop loss, glossary</span></span></a>
+</div>
+</li>
+<li>
+<button>Signals ▾</button>
+<div class="dropdown-menu">
+<a href="https://arbvertex.com/crypto-arbitrage-telegram-signals.html"><span class="dm-icon">✈️</span><span class="dm-text"><strong>Telegram Bot</strong><span>Get instant signals</span></span></a>
+<a href="https://arbvertex.com/futures-signal-bot.html"><span class="dm-icon">🚀</span><span class="dm-text"><strong>Free Futures Signal Bot</strong><span>Live pump &amp; liq signals</span></span></a>
+<a href="https://arbvertex.com/crypto-arbitrage-signals-pricing.html"><span class="dm-icon">💳</span><span class="dm-text"><strong>Pricing</strong><span>$5/month plans</span></span></a>
+</div>
+</li>
+<li>
+<button>Company ▾</button>
+<div class="dropdown-menu">
+<a href="https://arbvertex.com/about-arbvertex-crypto-signals.html"><span class="dm-icon">🏢</span><span class="dm-text"><strong>About Us</strong><span>Our story</span></span></a>
+<a href="https://arbvertex.com/contact-arbvertex.html"><span class="dm-icon">✉️</span><span class="dm-text"><strong>Contact</strong><span>Get in touch</span></span></a>
+</div>
+</li>
+<li><a class="nav-scanner" href="https://arbvertex.com/advanced-arb-scanner.html">⚡ Live Scanners</a></li>
+<li><a class="nav-cta" href="https://arbvertex.com/crypto-arbitrage-signals-pricing.html">Join Now</a></li>
+</ul>
+</nav>
 </header>
-
 <div class="page-body">
 <div class="ps-wrap">
-
 <nav class="breadcrumb">
- <a href="index.html">Home</a> <span class="sep">›</span> <a href="crypto-arbitrage-blog.html">Blog</a> <span class="sep">›</span> <span style="color:var(--accent);">Risk &amp; Strategy</span>
+<a href="index.html">Home</a> <span class="sep">›</span> <a href="crypto-arbitrage-blog.html">Blog</a> <span class="sep">›</span> <span style="color:var(--accent);">Risk &amp; Strategy</span>
 </nav>
-
 <div class="ps-meta">
- <span class="ps-tag ps-tag-green">📘 RISK &amp; STRATEGY</span>
- <span class="ps-tag ps-tag-blue">ArbVertex Blog</span>
- <span class="ps-tag-time">⏱ 7 min read</span>
+<span class="ps-tag ps-tag-green">📘 RISK &amp; STRATEGY</span>
+<span class="ps-tag ps-tag-blue">ArbVertex Blog</span>
+<span class="ps-tag-time">⏱ 7 min read</span>
 </div>
-
 <h1 class="ps-hero-title">Position Sizing for Crypto Arbitrage: A Practical Guide</h1>
 <p class="ps-lead">The difference between a profitable and unprofitable arbitrage trader often is not the strategy — it is position sizing. Too small and returns are insignificant. Too large and one bad period wipes out months of gains. This guide gives you exact frameworks with real numbers.</p>
-
 <div class="ps-toc">
- <h4>// In this article</h4>
- <ul>
-  <li><span class="n">01</span><a href="#ps-why">Why Position Sizing Matters</a></li>
-  <li><span class="n">02</span><a href="#ps-kelly">The Kelly Criterion</a></li>
-  <li><span class="n">03</span><a href="#ps-risk">Risk Percentage Method</a></li>
-  <li><span class="n">04</span><a href="#ps-funding">Funding Rate Arb Sizing</a></li>
-  <li><span class="n">05</span><a href="#ps-ref">Position Size Reference Table</a></li>
-  <li><span class="n">06</span><a href="#ps-scaling">Scaling Roadmap</a></li>
-  <li><span class="n">07</span><a href="#ps-dynamic">Dynamic Sizing Rules</a></li>
-  <li><span class="n">08</span><a href="#ps-faq">FAQ</a></li>
- </ul>
+<h4>// In this article</h4>
+<ul>
+<li><span class="n">01</span><a href="#ps-why">Why Position Sizing Matters</a></li>
+<li><span class="n">02</span><a href="#ps-kelly">The Kelly Criterion</a></li>
+<li><span class="n">03</span><a href="#ps-risk">Risk Percentage Method</a></li>
+<li><span class="n">04</span><a href="#ps-funding">Funding Rate Arb Sizing</a></li>
+<li><span class="n">05</span><a href="#ps-ref">Position Size Reference Table</a></li>
+<li><span class="n">06</span><a href="#ps-scaling">Scaling Roadmap</a></li>
+<li><span class="n">07</span><a href="#ps-dynamic">Dynamic Sizing Rules</a></li>
+<li><span class="n">08</span><a href="#ps-faq">FAQ</a></li>
+</ul>
 </div>
-
 <div class="ps-section" id="ps-why">
- <h3><span>📌</span><span style="color:var(--accent);">Why Position Sizing Matters</span></h3>
- <p>Most beginners focus entirely on finding good signals — and ignore how much capital to deploy per trade. This is backwards. Even a perfectly identified arbitrage opportunity can result in net losses if the position is too large relative to fees, slippage, or margin requirements.</p>
- <p>Consider two traders with the same $10,000 portfolio and the same 70% win rate signals. Trader A risks 5% per trade. Trader B risks 25% per trade. After 20 trades with identical signal quality, Trader A compounds steadily. Trader B may be wiped out by a single bad streak — even though their signals were correct 70% of the time.</p>
- <p>In arbitrage specifically, position sizing also determines your <strong>exchange exposure risk</strong>, <strong>margin buffer</strong>, and <strong>liquidity risk</strong> — all separate from price risk.</p>
+<h3><span>📌</span><span style="color:var(--accent);">Why Position Sizing Matters</span></h3>
+<p>Most beginners focus entirely on finding good signals — and ignore how much capital to deploy per trade. This is backwards. Even a perfectly identified arbitrage opportunity can result in net losses if the position is too large relative to fees, slippage, or margin requirements.</p>
+<p>Consider two traders with the same $10,000 portfolio and the same 70% win rate signals. Trader A risks 5% per trade. Trader B risks 25% per trade. After 20 trades with identical signal quality, Trader A compounds steadily. Trader B may be wiped out by a single bad streak — even though their signals were correct 70% of the time.</p>
+<p>In arbitrage specifically, position sizing also determines your <strong>exchange exposure risk</strong>, <strong>margin buffer</strong>, and <strong>liquidity risk</strong> — all separate from price risk.</p>
 </div>
-
 <div class="ps-section" id="ps-kelly">
- <h3><span>📐</span><span style="color:var(--accent);">The Kelly Criterion</span></h3>
- <p>The Kelly Criterion calculates the optimal fraction of your portfolio to risk on any trade, given a known win rate and reward-to-risk ratio.</p>
- <div class="ps-calc"><span class="label">Kelly Formula</span>f* = (b × p − q) / b
+<h3><span>📐</span><span style="color:var(--accent);">The Kelly Criterion</span></h3>
+<p>The Kelly Criterion calculates the optimal fraction of your portfolio to risk on any trade, given a known win rate and reward-to-risk ratio.</p>
+<div class="ps-calc"><span class="label">Kelly Formula</span>f* = (b × p − q) / b
 where: b = reward/risk ratio · p = win probability · q = 1−p
 <span class="sep"></span><span class="label">Example — 70% win rate, 2:1 reward/risk</span>f* = (2 × 0.70 − 0.30) / 2 = 1.10 / 2 = <strong>0.55 → 55% of portfolio</strong>
 <span class="sep"></span><span class="label">Half Kelly (recommended)</span>Full Kelly (55%) is too aggressive. Use ¼ to ½ Kelly → <strong>14% to 28% per position</strong></div>
- <p>Use Kelly as an upper bound, not a target. <strong>Half Kelly (25–28%) is the absolute maximum</strong> for a single position.</p>
+<p>Use Kelly as an upper bound, not a target. <strong>Half Kelly (25–28%) is the absolute maximum</strong> for a single position.</p>
 </div>
-
 <div class="ps-section" id="ps-risk">
- <h3><span>🎯</span><span style="color:var(--accent);">Risk Percentage Method</span></h3>
- <p>Simpler and more practical than Kelly. Risk a fixed percentage of your total portfolio on each trade — keeps drawdowns predictable.</p>
- <div class="ps-calc"><span class="label">Formula</span>Position Size = (Portfolio × Risk%) ÷ Max Loss per Unit
+<h3><span>🎯</span><span style="color:var(--accent);">Risk Percentage Method</span></h3>
+<p>Simpler and more practical than Kelly. Risk a fixed percentage of your total portfolio on each trade — keeps drawdowns predictable.</p>
+<div class="ps-calc"><span class="label">Formula</span>Position Size = (Portfolio × Risk%) ÷ Max Loss per Unit
 <span class="sep"></span><span class="label">Example — $10,000 portfolio, 2% risk, 1% stop loss</span>Risk amount:   $10,000 × 2% = <strong>$200</strong>
 Position size: $200 ÷ 1% = <strong>$20,000 notional</strong> (1× leverage = $10,000 each leg)
 <span class="sep"></span><span class="label">Hard cap</span>Directional trades: max <strong>10%</strong> per position
 Delta-neutral arb:  cap raises to <strong>20–30%</strong> per position</div>
 </div>
-
 <div class="ps-section" id="ps-funding">
- <h3><span>💰</span><span style="color:var(--accent2);">Funding Rate Arb Specific Sizing</span></h3>
- <p>Funding rate arbitrage is delta-neutral — near-zero price exposure. Larger positions are acceptable, but funding reversal, exchange risk, and margin liquidation still set the ceiling.</p>
- <div class="ps-calc"><span class="label">Recommended allocation</span>Total arb allocation:  <strong>60–80% of portfolio</strong>
+<h3><span>💰</span><span style="color:var(--accent2);">Funding Rate Arb Specific Sizing</span></h3>
+<p>Funding rate arbitrage is delta-neutral — near-zero price exposure. Larger positions are acceptable, but funding reversal, exchange risk, and margin liquidation still set the ceiling.</p>
+<div class="ps-calc"><span class="label">Recommended allocation</span>Total arb allocation:  <strong>60–80% of portfolio</strong>
 Per position max:      <strong>20–25% of portfolio</strong>
 Positions open:        <strong>3–5 simultaneous</strong>
 Single exchange max:   <strong>40% of portfolio</strong>
@@ -456,132 +445,128 @@ BTC/USDT:  $2,500 (25%)  Binance spot + Bybit short
 SOL/USDT:  $1,500 (15%)  Gate spot + Bybit short
 BNB/USDT:  $1,500 (15%)  Binance spot + Binance short
 Reserve:   $2,000 (20%)  Margin buffer + opportunity fund</div>
- <p>The 20% reserve is your margin top-up fund and dry powder for new opportunities.</p>
+<p>The 20% reserve is your margin top-up fund and dry powder for new opportunities.</p>
 </div>
-
 <div class="ps-section" id="ps-ref">
- <h3><span>📊</span><span style="color:var(--accent);">Position Size Reference Table</span></h3>
- <p>Recommended sizes — funding rate arbitrage, 4-position spread, 0.03% avg funding/8h:</p>
- <table class="ps-table">
-  <thead><tr><th>Portfolio</th><th>Per Position (20%)</th><th>Max (25%)</th><th>Reserve (20%)</th><th>Est. Monthly</th></tr></thead>
-  <tbody>
-   <tr><td class="rowhead">$1,000</td><td class="mono">$200</td><td class="mono">$250</td><td class="mono">$200</td><td class="good">~$27</td></tr>
-   <tr><td class="rowhead">$2,500</td><td class="mono">$500</td><td class="mono">$625</td><td class="mono">$500</td><td class="good">~$68</td></tr>
-   <tr><td class="rowhead">$5,000</td><td class="mono">$1,000</td><td class="mono">$1,250</td><td class="mono">$1,000</td><td class="good">~$135</td></tr>
-   <tr><td class="rowhead">$10,000</td><td class="mono">$2,000</td><td class="mono">$2,500</td><td class="mono">$2,000</td><td class="good">~$270</td></tr>
-   <tr><td class="rowhead">$25,000</td><td class="mono">$5,000</td><td class="mono">$6,250</td><td class="mono">$5,000</td><td class="good">~$675</td></tr>
-  </tbody>
- </table>
- <p style="font-size:0.82rem;color:var(--muted);">Estimates after fees. Not guaranteed — rates vary.</p>
+<h3><span>📊</span><span style="color:var(--accent);">Position Size Reference Table</span></h3>
+<p>Recommended sizes — funding rate arbitrage, 4-position spread, 0.03% avg funding/8h:</p>
+<table class="ps-table">
+<thead><tr><th>Portfolio</th><th>Per Position (20%)</th><th>Max (25%)</th><th>Reserve (20%)</th><th>Est. Monthly</th></tr></thead>
+<tbody>
+<tr><td class="rowhead">$1,000</td><td class="mono">$200</td><td class="mono">$250</td><td class="mono">$200</td><td class="good">~$27</td></tr>
+<tr><td class="rowhead">$2,500</td><td class="mono">$500</td><td class="mono">$625</td><td class="mono">$500</td><td class="good">~$68</td></tr>
+<tr><td class="rowhead">$5,000</td><td class="mono">$1,000</td><td class="mono">$1,250</td><td class="mono">$1,000</td><td class="good">~$135</td></tr>
+<tr><td class="rowhead">$10,000</td><td class="mono">$2,000</td><td class="mono">$2,500</td><td class="mono">$2,000</td><td class="good">~$270</td></tr>
+<tr><td class="rowhead">$25,000</td><td class="mono">$5,000</td><td class="mono">$6,250</td><td class="mono">$5,000</td><td class="good">~$675</td></tr>
+</tbody>
+</table>
+<p style="font-size:0.82rem;color:var(--muted);">Estimates after fees. Not guaranteed — rates vary.</p>
 </div>
-
 <div class="ps-section" id="ps-scaling">
- <h3><span>📈</span><span style="color:var(--accent2);">Scaling Roadmap</span></h3>
- <p>Start smaller than your framework suggests. Real execution has surprises paper trading does not. Scale up only after results confirm the framework works.</p>
- <div class="phase-grid">
-  <div class="phase-card">
-   <h4 style="color:var(--accent);">Phase 1 — Beginner<br><span style="font-weight:400;font-size:0.75rem;color:var(--muted);">Trades 1–10</span></h4>
-   <ul>
-    <li><span style="color:var(--accent);">→</span> 5% per position max</li>
-    <li><span style="color:var(--accent);">→</span> 1–2 positions only</li>
-    <li><span style="color:var(--accent);">→</span> ETH or BTC only</li>
-    <li><span style="color:var(--accent);">→</span> 40% reserve held</li>
-    <li><span style="color:var(--accent);">→</span> Journal every trade</li>
-   </ul>
-  </div>
-  <div class="phase-card">
-   <h4 style="color:#ffa040;">Phase 2 — Intermediate<br><span style="font-weight:400;font-size:0.75rem;color:var(--muted);">Trades 10–30</span></h4>
-   <ul>
-    <li><span style="color:#ffa040;">→</span> 10–15% per position</li>
-    <li><span style="color:#ffa040;">→</span> 2–3 positions</li>
-    <li><span style="color:#ffa040;">→</span> Add 1 altcoin pair</li>
-    <li><span style="color:#ffa040;">→</span> 25% reserve held</li>
-    <li><span style="color:#ffa040;">→</span> Track slippage data</li>
-   </ul>
-  </div>
-  <div class="phase-card">
-   <h4 style="color:var(--accent2);">Phase 3 — Advanced<br><span style="font-weight:400;font-size:0.75rem;color:var(--muted);">30+ trades</span></h4>
-   <ul>
-    <li><span style="color:var(--accent2);">→</span> 20–25% per position</li>
-    <li><span style="color:var(--accent2);">→</span> 3–5 positions</li>
-    <li><span style="color:var(--accent2);">→</span> Full pair diversity</li>
-    <li><span style="color:var(--accent2);">→</span> 20% reserve held</li>
-    <li><span style="color:var(--accent2);">→</span> Dynamic sizing active</li>
-   </ul>
-  </div>
- </div>
- <p>Phase progression is trade-count based — not time based. <strong>Completed trade experience</strong> is what matters.</p>
+<h3><span>📈</span><span style="color:var(--accent2);">Scaling Roadmap</span></h3>
+<p>Start smaller than your framework suggests. Real execution has surprises paper trading does not. Scale up only after results confirm the framework works.</p>
+<div class="phase-grid">
+<div class="phase-card">
+<h4 style="color:var(--accent);">Phase 1 — Beginner<br/><span style="font-weight:400;font-size:0.75rem;color:var(--muted);">Trades 1–10</span></h4>
+<ul>
+<li><span style="color:var(--accent);">→</span> 5% per position max</li>
+<li><span style="color:var(--accent);">→</span> 1–2 positions only</li>
+<li><span style="color:var(--accent);">→</span> ETH or BTC only</li>
+<li><span style="color:var(--accent);">→</span> 40% reserve held</li>
+<li><span style="color:var(--accent);">→</span> Journal every trade</li>
+</ul>
 </div>
-
+<div class="phase-card">
+<h4 style="color:#ffa040;">Phase 2 — Intermediate<br/><span style="font-weight:400;font-size:0.75rem;color:var(--muted);">Trades 10–30</span></h4>
+<ul>
+<li><span style="color:#ffa040;">→</span> 10–15% per position</li>
+<li><span style="color:#ffa040;">→</span> 2–3 positions</li>
+<li><span style="color:#ffa040;">→</span> Add 1 altcoin pair</li>
+<li><span style="color:#ffa040;">→</span> 25% reserve held</li>
+<li><span style="color:#ffa040;">→</span> Track slippage data</li>
+</ul>
+</div>
+<div class="phase-card">
+<h4 style="color:var(--accent2);">Phase 3 — Advanced<br/><span style="font-weight:400;font-size:0.75rem;color:var(--muted);">30+ trades</span></h4>
+<ul>
+<li><span style="color:var(--accent2);">→</span> 20–25% per position</li>
+<li><span style="color:var(--accent2);">→</span> 3–5 positions</li>
+<li><span style="color:var(--accent2);">→</span> Full pair diversity</li>
+<li><span style="color:var(--accent2);">→</span> 20% reserve held</li>
+<li><span style="color:var(--accent2);">→</span> Dynamic sizing active</li>
+</ul>
+</div>
+</div>
+<p>Phase progression is trade-count based — not time based. <strong>Completed trade experience</strong> is what matters.</p>
+</div>
 <div class="ps-section" id="ps-dynamic">
- <h3><span>⚡</span><span style="color:var(--accent);">Dynamic Sizing Rules</span></h3>
- <p>Once in Phase 3, adjust position sizes based on market conditions — press when favourable, pull back when risk is elevated.</p>
- <div class="dynamic-grid">
-  <div class="dynamic-card increase">
-   <h4 style="color:var(--accent2);">✅ Increase Size When</h4>
-   <ul>
-    <li><span>→</span> Funding rate ≥ 0.08%/8h</li>
-    <li><span>→</span> Rate positive 10+ payments</li>
-    <li><span>→</span> OI rising (bull market)</li>
-    <li><span>→</span> 5+ consecutive wins</li>
-    <li><span>→</span> Spread 2%+ above cost</li>
-   </ul>
-  </div>
-  <div class="dynamic-card decrease">
-   <h4 style="color:#ff4466;">⚠️ Decrease Size When</h4>
-   <ul>
-    <li><span>→</span> Funding rate below 0.03%/8h</li>
-    <li><span>→</span> Rate trending down 3+ payments</li>
-    <li><span>→</span> OI falling (bear pressure)</li>
-    <li><span>→</span> 2+ consecutive losses</li>
-    <li><span>→</span> Major news event expected</li>
-   </ul>
-  </div>
- </div>
- <p>Dynamic sizing stays <strong>within phase limits</strong> — the phase ceiling is a hard cap regardless of conditions.</p>
+<h3><span>⚡</span><span style="color:var(--accent);">Dynamic Sizing Rules</span></h3>
+<p>Once in Phase 3, adjust position sizes based on market conditions — press when favourable, pull back when risk is elevated.</p>
+<div class="dynamic-grid">
+<div class="dynamic-card increase">
+<h4 style="color:var(--accent2);">✅ Increase Size When</h4>
+<ul>
+<li><span>→</span> Funding rate ≥ 0.08%/8h</li>
+<li><span>→</span> Rate positive 10+ payments</li>
+<li><span>→</span> OI rising (bull market)</li>
+<li><span>→</span> 5+ consecutive wins</li>
+<li><span>→</span> Spread 2%+ above cost</li>
+</ul>
 </div>
-
+<div class="dynamic-card decrease">
+<h4 style="color:#ff4466;">⚠️ Decrease Size When</h4>
+<ul>
+<li><span>→</span> Funding rate below 0.03%/8h</li>
+<li><span>→</span> Rate trending down 3+ payments</li>
+<li><span>→</span> OI falling (bear pressure)</li>
+<li><span>→</span> 2+ consecutive losses</li>
+<li><span>→</span> Major news event expected</li>
+</ul>
+</div>
+</div>
+<p>Dynamic sizing stays <strong>within phase limits</strong> — the phase ceiling is a hard cap regardless of conditions.</p>
+</div>
 <div class="ps-faq" id="ps-faq">
- <h3><span>❓</span> Frequently Asked Questions</h3>
- <div class="ps-faq-item">
-  <div class="ps-faq-q">Should I use the same position size for every trade?</div>
-  <div class="ps-faq-a">Yes in Phase 1 and 2. Consistency removes one variable from analysis. In Phase 3, vary sizes based on signal quality and market conditions.</div>
- </div>
- <div class="ps-faq-item">
-  <div class="ps-faq-q">How do I size a cross-exchange spot arb trade?</div>
-  <div class="ps-faq-a">Position = the maximum you can execute on both exchanges within the spread window without moving the market. For BTC/ETH typically $10K–$50K. For altcoins your order should not exceed 0.5% of visible ask volume.</div>
- </div>
- <div class="ps-faq-item">
-  <div class="ps-faq-q">What if my position sizing feels too conservative?</div>
-  <div class="ps-faq-a">It probably is not. A 30% drawdown requires a 43% gain just to break even. Conservative sizing protects your ability to stay in the game long enough to compound.</div>
- </div>
- <div class="ps-faq-item">
-  <div class="ps-faq-q">Can I use leverage to increase position size?</div>
-  <div class="ps-faq-a">No — not on the futures leg. Leverage destroys the delta-neutral hedge. A 10% price spike with 5× leverage liquidates your short before the spot leg compensates. Use 1× only. Want larger returns? Increase capital, not leverage.</div>
- </div>
- <div class="ps-faq-item">
-  <div class="ps-faq-q">How does exchange risk affect sizing?</div>
-  <div class="ps-faq-a">Single exchange exposure should never exceed 40% of your total portfolio. Distribute across at least 2 exchanges at all times.</div>
- </div>
- <div class="ps-faq-item">
-  <div class="ps-faq-q">When should I increase total portfolio allocation to arb?</div>
-  <div class="ps-faq-a">Only after Phase 2 (10–30 trades) with positive results. Start at 40–50% of portfolio in arb. Move to 60–80% only in Phase 3 with 30+ completed trades and consistent positive P&amp;L.</div>
- </div>
+<h3><span>❓</span> Frequently Asked Questions</h3>
+<div class="ps-faq-item">
+<div class="ps-faq-q">Should I use the same position size for every trade?</div>
+<div class="ps-faq-a">Yes in Phase 1 and 2. Consistency removes one variable from analysis. In Phase 3, vary sizes based on signal quality and market conditions.</div>
 </div>
-
+<div class="ps-faq-item">
+<div class="ps-faq-q">How do I size a cross-exchange spot arb trade?</div>
+<div class="ps-faq-a">Position = the maximum you can execute on both exchanges within the spread window without moving the market. For BTC/ETH typically $10K–$50K. For altcoins your order should not exceed 0.5% of visible ask volume.</div>
+</div>
+<div class="ps-faq-item">
+<div class="ps-faq-q">What if my position sizing feels too conservative?</div>
+<div class="ps-faq-a">It probably is not. A 30% drawdown requires a 43% gain just to break even. Conservative sizing protects your ability to stay in the game long enough to compound.</div>
+</div>
+<div class="ps-faq-item">
+<div class="ps-faq-q">Can I use leverage to increase position size?</div>
+<div class="ps-faq-a">No — not on the futures leg. Leverage destroys the delta-neutral hedge. A 10% price spike with 5× leverage liquidates your short before the spot leg compensates. Use 1× only. Want larger returns? Increase capital, not leverage.</div>
+</div>
+<div class="ps-faq-item">
+<div class="ps-faq-q">How does exchange risk affect sizing?</div>
+<div class="ps-faq-a">Single exchange exposure should never exceed 40% of your total portfolio. Distribute across at least 2 exchanges at all times.</div>
+</div>
+<div class="ps-faq-item">
+<div class="ps-faq-q">When should I increase total portfolio allocation to arb?</div>
+<div class="ps-faq-a">Only after Phase 2 (10–30 trades) with positive results. Start at 40–50% of portfolio in arb. Move to 60–80% only in Phase 3 with 30+ completed trades and consistent positive P&amp;L.</div>
+</div>
+</div>
 <div class="ps-cta">
- <p>Ready to put your sizing framework into practice? ArbVertex signals include exact entry prices, fee-adjusted net profit, and position guidance.</p>
- <a href="crypto-arbitrage-signals-pricing.html" class="btn-primary">View Plans → Join for $5/month</a>
+<p>Ready to put your sizing framework into practice? ArbVertex signals include exact entry prices, fee-adjusted net profit, and position guidance.</p>
+<a class="btn-primary" href="crypto-arbitrage-signals-pricing.html">View Plans → Join for $5/month</a>
 </div>
-
 <div class="ps-nav">
- <a href="crypto-arbitrage-blog.html" class="ps-btn ps-btn-ghost">← Back to Blog</a>
- <a href="live-crypto-arbitrage-scanner.html" class="ps-btn ps-btn-primary">Try Live Scanner →</a>
-</div>
-
+<a class="ps-btn ps-btn-ghost" href="crypto-arbitrage-blog.html">← Back to Blog</a>
+<a class="ps-btn ps-btn-primary" href="live-crypto-arbitrage-scanner.html">Try Live Scanner →</a>
 </div>
 </div>
-
+<div class="nav-btns">
+<a class="nb-outline" href="crypto-arbitrage-blog.html">☰ Back to Blog</a>
+<a class="nb-outline" href="crypto-arbitrage-risks.html">← Crypto Arbitrage Risks</a>
+<a class="nb-primary" href="stop-loss-strategies-arbitrage.html">Stop Loss Strategies for Crypto Arb… →</a>
+</div></div>
 <footer>
 <p>© 2025 ArbVertex — Educational content only. Not financial advice.</p>
 <div class="footer-links">
@@ -589,7 +574,5 @@ Reserve:   $2,000 (20%)  Margin buffer + opportunity fund</div>
 </div>
 <p style="font-size:0.75rem;">Always do your own research before trading.</p>
 </footer>
-
-
 </body>
 </html>

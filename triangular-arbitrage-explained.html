@@ -1,26 +1,24 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Triangular Arbitrage Explained: 3-Pair Crypto Price Loops</title>
-<meta name="description" content="How triangular arbitrage works on a single exchange, with a step-by-step example, profit calculation, and why speed and low fees are critical.">
-<meta name="keywords" content="crypto futures arbitrage signals, bitcoin arbitrage telegram, crypto arbitrage bot, funding rate arbitrage, cross exchange arbitrage, bybit binance arbitrage, crypto signals telegram, arbitrage trading signals">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://arbvertex.com/triangular-arbitrage-explained.html">
-
+<meta content="How triangular arbitrage works on a single exchange, with a step-by-step example, profit calculation, and why speed and low fees are critical." name="description"/>
+<meta content="crypto futures arbitrage signals, bitcoin arbitrage telegram, crypto arbitrage bot, funding rate arbitrage, cross exchange arbitrage, bybit binance arbitrage, crypto signals telegram, arbitrage trading signals" name="keywords"/>
+<meta content="index, follow" name="robots"/>
+<link href="https://arbvertex.com/triangular-arbitrage-explained.html" rel="canonical"/>
 <!-- Open Graph -->
-<meta property="og:title" content="Triangular Arbitrage Explained: How to Profit From 3-Pair Price Loops | ArbVertex Blog">
-<meta property="og:description" content="Triangular Arbitrage Explained: How to Profit From 3-Pair Price Loops">
-<meta property="og:type" content="website">
-<meta property="og:url" content="triangular-arbitrage-explained.html">
-<meta property="og:image" content="https://arbvertex.com/og-image.png">
-
+<meta content="Triangular Arbitrage Explained: How to Profit From 3-Pair Price Loops | ArbVertex Blog" property="og:title"/>
+<meta content="Triangular Arbitrage Explained: How to Profit From 3-Pair Price Loops" property="og:description"/>
+<meta content="website" property="og:type"/>
+<meta content="triangular-arbitrage-explained.html" property="og:url"/>
+<meta content="https://arbvertex.com/og-image.png" property="og:image"/>
 <!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Triangular Arbitrage Explained: How to Profit From 3-Pair Price Loops | ArbVertex Blog">
-<meta name="twitter:description" content="Triangular Arbitrage Explained: How to Profit From 3-Pair Price Loops">
-
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Triangular Arbitrage Explained: How to Profit From 3-Pair Price Loops | ArbVertex Blog" name="twitter:title"/>
+<meta content="Triangular Arbitrage Explained: How to Profit From 3-Pair Price Loops" name="twitter:description"/>
 <!-- Schema: WebSite -->
 <script type="application/ld+json">
 {
@@ -36,7 +34,6 @@
  }
 }
 </script>
-
 <!-- Schema: Service -->
 <script type="application/ld+json">
 {
@@ -60,7 +57,6 @@
  "areaServed": "Worldwide"
 }
 </script>
-
 <!-- Schema: FAQPage -->
 <script type="application/ld+json">
 {
@@ -110,8 +106,7 @@
  ]
 }
 </script>
-
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
 <style>
 :root {
  --bg: #050a0f;
@@ -308,6 +303,13 @@ footer p{color:var(--muted);font-size:0.82rem;}
  footer{flex-direction:column;text-align:center;}
  .single-plan{padding:2rem 1.5rem;}
 }
+
+.nav-btns{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border,#1a3a52);}
+.nb-outline,.btn-outline{border:1px solid var(--border,#1a3a52);color:var(--text,#e8f4f8);padding:0.65rem 1.4rem;border-radius:4px;font-weight:500;font-size:0.85rem;text-decoration:none;transition:border-color .2s,color .2s;display:inline-block;white-space:nowrap;}
+.nb-outline:hover,.btn-outline:hover{border-color:var(--accent,#00e5ff);color:var(--accent,#00e5ff);}
+.nb-primary,.btn-primary{background:var(--accent,#00e5ff);color:#050a0f;padding:0.65rem 1.4rem;border-radius:4px;font-weight:700;font-size:0.85rem;text-decoration:none;display:inline-block;transition:opacity .2s;white-space:nowrap;}
+.nb-primary:hover,.btn-primary:hover{opacity:0.85;}
+@media(max-width:600px){.nav-btns{flex-direction:column;}}
 </style>
 <style>
 /* ══════════════════════════════════════════════════
@@ -409,84 +411,74 @@ footer p{color:var(--muted);font-size:0.82rem;}
  .av-hamburger{ display:flex; }
 }
 </style>
-
 </head>
 <body data-page="article-4">
-
 <div class="av-nav-wrap">
- <div class="av-nav-inner">
- <a href="index.html" class="av-logo">Arb<span>Vertex</span></a>
- <ul class="av-nav-links" id="avNavLinks">
- <li><a href="index.html" class="av-top-link">Home</a></li>
-
- <li class="av-dropdown">
- <button type="button" class="av-top-link av-drop-trigger">Learn <span class="av-caret">▾</span></button>
- <div class="av-mega-panel">
- <a class="av-mega-link" href="what-is-crypto-futures-arbitrage.html"><span class="av-icon">📘</span><span>What is Arbitrage<span class="av-desc">Core concept explained</span></span></a>
- <a class="av-mega-link" href="how-crypto-arbitrage-signals-work.html"><span class="av-icon">⚙️</span><span>How It Works<span class="av-desc">Step-by-step process</span></span></a>
- <a class="av-mega-link" href="how-to-generate-profit-crypto-arbitrage.html"><span class="av-icon">💰</span><span>Generate Profit<span class="av-desc">Ways arbitrage earns</span></span></a>
- <a class="av-mega-link" href="crypto-arbitrage-risks-precautions.html"><span class="av-icon">⚠️</span><span>Risks &amp; Safety<span class="av-desc">What to watch for</span></span></a>
- <a class="av-mega-link" href="delisting-arbitrage-crypto-arbitrage-risks-precautions.html"><span class="av-icon">🚨</span><span>Delisting Risks<span class="av-desc">Avoid this trap</span></span></a>
- <a class="av-mega-link" href="rethink-traditional-trading.html"><span class="av-icon">🔄</span><span>Rethink Trading<span class="av-desc">Why arbitrage wins</span></span></a>
- <a class="av-mega-link" href="arbitrage-portfolio-growth.html"><span class="av-icon">📈</span><span>Portfolio Growth<span class="av-desc">Long-term strategy</span></span></a>
- </div>
- </li>
-
- <li class="av-dropdown">
- <button type="button" class="av-top-link av-drop-trigger">Tools <span class="av-caret">▾</span></button>
- <div class="av-mega-panel">
-  <a class="av-mega-link" href="live-crypto-arbitrage-scanner.html"><span class="av-icon">📊</span><span>Price Difference Scanner<span class="av-desc">Real-time cross-exchange spot price gaps</span></span></a>
- <a class="av-mega-link" href="live-funding-gap-scanner.html"><span class="av-icon">💸</span><span>Funding Rate Scanner<span class="av-desc">Compare funding rates across 8 exchanges</span></span></a>
- <a class="av-mega-link" href="advanced-arb-scanner.html"><span class="av-icon">⚡</span><span>Advanced Live Scanner<span class="av-desc">Price gap + funding rate combined</span></span></a>
- <a class="av-mega-link" href="arbitrage-calculator.html"><span class="av-icon">🧮</span><span>Futures Arbitrage Calculator<span class="av-desc">Net profit after all fees &amp; slippage</span></span></a>
- </div>
- </li>
-
-    <li class="av-dropdown">
-    <button type="button" class="av-top-link av-drop-trigger">Blog <span class="av-caret">&#9662;</span></button>
-    <div class="av-mega-panel av-blog-panel">
-     <div class="av-blog-col">
-      <div class="av-blog-col-header">&#128216; Beginner</div>
-      <a class="av-mega-link" href="crypto-arbitrage-blog.html#beginner"><span class="av-icon">&#129094;</span><span>Beginner Guides<span class="av-desc">Start from zero &mdash; concepts &amp; first steps</span></span></a>
-      <div class="av-blog-col-header" style="margin-top:0.5rem;">&#128161; Strategy</div>
-      <a class="av-mega-link" href="crypto-arbitrage-blog.html#strategy"><span class="av-icon">&#129097;</span><span>Strategy Guides<span class="av-desc">Funding rate, basis trading, advanced tactics</span></span></a>
-     </div>
-     <div class="av-blog-col">
-      <div class="av-blog-col-header">&#128260; Exchange Guides</div>
-      <a class="av-mega-link" href="crypto-arbitrage-blog.html#exchange"><span class="av-icon">&#129095;</span><span>Exchange Guides<span class="av-desc">Binance, Bybit, OKX setup &amp; comparison</span></span></a>
-      <div class="av-blog-col-header" style="margin-top:0.5rem;">&#128737;&#65039; Risk &amp; Tools</div>
-      <a class="av-mega-link" href="crypto-arbitrage-blog.html#risk"><span class="av-icon">&#128101;</span><span>Risk &amp; Tools<span class="av-desc">Position sizing, stop loss, glossary</span></span></a>
-     </div>
-    </div>
-   </li>
-
- <li class="av-dropdown">
- <button type="button" class="av-top-link av-drop-trigger">Signals <span class="av-caret">▾</span></button>
- <div class="av-mega-panel">
- <a class="av-mega-link" href="crypto-arbitrage-telegram-signals.html"><span class="av-icon">✈️</span><span>Telegram Bot<span class="av-desc">Get instant signals</span></span></a>
- <a class="av-mega-link" href="futures-signal-bot.html"><span class="av-icon">🚀</span><span>Free Futures Signal Bot<span class="av-desc">Live pump &amp; liq signals</span></span></a>
- <a class="av-mega-link" href="crypto-arbitrage-signals-pricing.html"><span class="av-icon">💳</span><span>Pricing<span class="av-desc">$5/month plans</span></span></a>
- </div>
- </li>
-
- <li class="av-dropdown">
- <button type="button" class="av-top-link av-drop-trigger">Company <span class="av-caret">▾</span></button>
- <div class="av-mega-panel">
- <a class="av-mega-link" href="about-arbvertex-crypto-signals.html"><span class="av-icon">🏢</span><span>About Us<span class="av-desc">Our story</span></span></a>
- <a class="av-mega-link" href="contact-arbvertex.html"><span class="av-icon">✉️</span><span>Contact<span class="av-desc">Get in touch</span></span></a>
- </div>
- </li>
-
- <li><a href="advanced-arb-scanner.html" class="av-top-link av-scanner-link">⚡ Live Scanners</a></li>
- <li><a href="crypto-arbitrage-signals-pricing.html" class="av-top-link av-cta">Join Now</a></li>
- </ul>
- <button class="av-hamburger" id="avHamburger" type="button" aria-label="Toggle menu">
- <span></span><span></span><span></span>
- </button>
- </div>
+<div class="av-nav-inner">
+<a class="av-logo" href="index.html">Arb<span>Vertex</span></a>
+<ul class="av-nav-links" id="avNavLinks">
+<li><a class="av-top-link" href="index.html">Home</a></li>
+<li class="av-dropdown">
+<button class="av-top-link av-drop-trigger" type="button">Learn <span class="av-caret">▾</span></button>
+<div class="av-mega-panel">
+<a class="av-mega-link" href="what-is-crypto-futures-arbitrage.html"><span class="av-icon">📘</span><span>What is Arbitrage<span class="av-desc">Core concept explained</span></span></a>
+<a class="av-mega-link" href="how-crypto-arbitrage-signals-work.html"><span class="av-icon">⚙️</span><span>How It Works<span class="av-desc">Step-by-step process</span></span></a>
+<a class="av-mega-link" href="how-to-generate-profit-crypto-arbitrage.html"><span class="av-icon">💰</span><span>Generate Profit<span class="av-desc">Ways arbitrage earns</span></span></a>
+<a class="av-mega-link" href="crypto-arbitrage-risks-precautions.html"><span class="av-icon">⚠️</span><span>Risks &amp; Safety<span class="av-desc">What to watch for</span></span></a>
+<a class="av-mega-link" href="delisting-arbitrage-crypto-arbitrage-risks-precautions.html"><span class="av-icon">🚨</span><span>Delisting Risks<span class="av-desc">Avoid this trap</span></span></a>
+<a class="av-mega-link" href="rethink-traditional-trading.html"><span class="av-icon">🔄</span><span>Rethink Trading<span class="av-desc">Why arbitrage wins</span></span></a>
+<a class="av-mega-link" href="arbitrage-portfolio-growth.html"><span class="av-icon">📈</span><span>Portfolio Growth<span class="av-desc">Long-term strategy</span></span></a>
 </div>
-
-
+</li>
+<li class="av-dropdown">
+<button class="av-top-link av-drop-trigger" type="button">Tools <span class="av-caret">▾</span></button>
+<div class="av-mega-panel">
+<a class="av-mega-link" href="live-crypto-arbitrage-scanner.html"><span class="av-icon">📊</span><span>Price Difference Scanner<span class="av-desc">Real-time cross-exchange spot price gaps</span></span></a>
+<a class="av-mega-link" href="live-funding-gap-scanner.html"><span class="av-icon">💸</span><span>Funding Rate Scanner<span class="av-desc">Compare funding rates across 8 exchanges</span></span></a>
+<a class="av-mega-link" href="advanced-arb-scanner.html"><span class="av-icon">⚡</span><span>Advanced Live Scanner<span class="av-desc">Price gap + funding rate combined</span></span></a>
+<a class="av-mega-link" href="arbitrage-calculator.html"><span class="av-icon">🧮</span><span>Futures Arbitrage Calculator<span class="av-desc">Net profit after all fees &amp; slippage</span></span></a>
+</div>
+</li>
+<li class="av-dropdown">
+<button class="av-top-link av-drop-trigger" type="button">Blog <span class="av-caret">▾</span></button>
+<div class="av-mega-panel av-blog-panel">
+<div class="av-blog-col">
+<div class="av-blog-col-header">📘 Beginner</div>
+<a class="av-mega-link" href="crypto-arbitrage-blog.html#beginner"><span class="av-icon">🡆</span><span>Beginner Guides<span class="av-desc">Start from zero — concepts &amp; first steps</span></span></a>
+<div class="av-blog-col-header" style="margin-top:0.5rem;">💡 Strategy</div>
+<a class="av-mega-link" href="crypto-arbitrage-blog.html#strategy"><span class="av-icon">🡉</span><span>Strategy Guides<span class="av-desc">Funding rate, basis trading, advanced tactics</span></span></a>
+</div>
+<div class="av-blog-col">
+<div class="av-blog-col-header">🔄 Exchange Guides</div>
+<a class="av-mega-link" href="crypto-arbitrage-blog.html#exchange"><span class="av-icon">🡇</span><span>Exchange Guides<span class="av-desc">Binance, Bybit, OKX setup &amp; comparison</span></span></a>
+<div class="av-blog-col-header" style="margin-top:0.5rem;">🛡️ Risk &amp; Tools</div>
+<a class="av-mega-link" href="crypto-arbitrage-blog.html#risk"><span class="av-icon">👥</span><span>Risk &amp; Tools<span class="av-desc">Position sizing, stop loss, glossary</span></span></a>
+</div>
+</div>
+</li>
+<li class="av-dropdown">
+<button class="av-top-link av-drop-trigger" type="button">Signals <span class="av-caret">▾</span></button>
+<div class="av-mega-panel">
+<a class="av-mega-link" href="crypto-arbitrage-telegram-signals.html"><span class="av-icon">✈️</span><span>Telegram Bot<span class="av-desc">Get instant signals</span></span></a>
+<a class="av-mega-link" href="futures-signal-bot.html"><span class="av-icon">🚀</span><span>Free Futures Signal Bot<span class="av-desc">Live pump &amp; liq signals</span></span></a>
+<a class="av-mega-link" href="crypto-arbitrage-signals-pricing.html"><span class="av-icon">💳</span><span>Pricing<span class="av-desc">$5/month plans</span></span></a>
+</div>
+</li>
+<li class="av-dropdown">
+<button class="av-top-link av-drop-trigger" type="button">Company <span class="av-caret">▾</span></button>
+<div class="av-mega-panel">
+<a class="av-mega-link" href="about-arbvertex-crypto-signals.html"><span class="av-icon">🏢</span><span>About Us<span class="av-desc">Our story</span></span></a>
+<a class="av-mega-link" href="contact-arbvertex.html"><span class="av-icon">✉️</span><span>Contact<span class="av-desc">Get in touch</span></span></a>
+</div>
+</li>
+<li><a class="av-top-link av-scanner-link" href="advanced-arb-scanner.html">⚡ Live Scanners</a></li>
+<li><a class="av-top-link av-cta" href="crypto-arbitrage-signals-pricing.html">Join Now</a></li>
+</ul>
+<button aria-label="Toggle menu" class="av-hamburger" id="avHamburger" type="button">
+<span></span><span></span><span></span>
+</button>
+</div>
+</div>
 <style>
 /* ── ARTICLE LAYOUT ── */
 .article-wrap{max-width:760px;margin:0 auto;padding:60px 5% 80px;}
@@ -589,260 +581,229 @@ footer p{color:var(--muted);font-size:0.82rem;}
  .math-row{flex-direction:column;gap:0.1rem;}
 }
 </style>
-
 <div class="page active" id="page-article-4">
- <div class="article-wrap">
-
-  <!-- Back -->
-  <a href="crypto-arbitrage-blog.html" class="back-btn" style="display:inline-flex;align-items:center;gap:0.4rem;color:var(--muted);font-size:0.83rem;text-decoration:none;margin-bottom:2rem;transition:color .2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'">← Back to Blog</a>
-
-  <!-- Meta -->
-  <div class="article-meta">
-   <span class="meta-pill pill-step">STEP 5 OF 16</span>
-   <span class="meta-pill pill-level">🟩 STRATEGY</span>
-   <span class="meta-pill pill-time">⏱ 10 MIN READ</span>
-  </div>
-
-  <!-- Title -->
-  <h1 class="article-h1">Triangular Arbitrage Explained:<br>How to Profit From 3-Pair Price Loops</h1>
-  <p class="article-lead">No coin transfers, no second exchange, no withdrawal delays. Everything happens in one loop on a single exchange — if the math works out in your favour.</p>
-
-  <!-- 1. What is it -->
-  <h2 class="article-h2">What Is Triangular Arbitrage?</h2>
-  <p class="article-p">Most crypto arbitrage exploits price differences between two exchanges for the same asset. Triangular arbitrage is different — it exploits price inconsistencies between three trading pairs that exist on a single exchange at the same time.</p>
-  <p class="article-p">The idea is simple: if you trade USDT → BTC → ETH → USDT in a complete loop, you should end up with exactly as much USDT as you started with, since all three exchange rates should be perfectly consistent with each other. When they're not — even briefly — the loop produces a profit.</p>
-
-  <div class="callout callout-def">
-   <div class="callout-label label-def">Definition</div>
-   <h3>Triangular Arbitrage</h3>
-   <p>A strategy that executes three sequential trades on a single exchange — converting Asset A → B → C → A — to exploit temporary price misalignments between the three pairs. If the cross-rates are inconsistent, the trader ends the loop with more of Asset A than they started with.</p>
-  </div>
-
-  <!-- 2. Visual loop diagram -->
-  <h2 class="article-h2">The Trade Loop — Visualised</h2>
-  <p class="article-p">Every triangular trade follows the same triangular structure. Here's the classic USDT → BTC → ETH → USDT loop:</p>
-
-  <div class="loop-diagram">
-   <div class="loop-diagram-label">Triangular arbitrage loop — single exchange</div>
-   <div class="loop-svg-wrap">
-    <svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg" width="100%" style="max-width:520px;">
-     <!-- Triangle lines -->
-     <line x1="260" y1="40" x2="70" y2="240" stroke="#1a3a52" stroke-width="2"/>
-     <line x1="260" y1="40" x2="450" y2="240" stroke="#1a3a52" stroke-width="2"/>
-     <line x1="70" y1="240" x2="450" y2="240" stroke="#1a3a52" stroke-width="2"/>
-     <!-- Animated arrows on each edge -->
-     <!-- Top-left edge: USDT→BTC -->
-     <line x1="255" y1="48" x2="82" y2="228" stroke="#00e5ff" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.6"/>
-     <polygon points="78,237 75,220 90,227" fill="#00e5ff" opacity="0.8"/>
-     <!-- Bottom edge: BTC→ETH -->
-     <line x1="88" y1="244" x2="438" y2="244" stroke="#00ff88" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.6"/>
-     <polygon points="445,244 432,238 432,250" fill="#00ff88" opacity="0.8"/>
-     <!-- Top-right edge: ETH→USDT -->
-     <line x1="442" y1="232" x2="270" y2="50" stroke="#ffa040" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.6"/>
-     <polygon points="263,44 278,54 265,64" fill="#ffa040" opacity="0.8"/>
-     <!-- Node: USDT (top) -->
-     <circle cx="260" cy="40" r="34" fill="#0d1a24" stroke="#00e5ff" stroke-width="1.5"/>
-     <text x="260" y="35" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#00e5ff" font-weight="700">USDT</text>
-     <text x="260" y="50" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#6a8fa8">START</text>
-     <!-- Node: BTC (bottom-left) -->
-     <circle cx="70" cy="240" r="34" fill="#0d1a24" stroke="#00e5ff" stroke-width="1.5"/>
-     <text x="70" y="235" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#e8f4f8" font-weight="700">BTC</text>
-     <text x="70" y="250" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#6a8fa8">LEG 1</text>
-     <!-- Node: ETH (bottom-right) -->
-     <circle cx="450" cy="240" r="34" fill="#0d1a24" stroke="#00e5ff" stroke-width="1.5"/>
-     <text x="450" y="235" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#e8f4f8" font-weight="700">ETH</text>
-     <text x="450" y="250" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#6a8fa8">LEG 2</text>
-     <!-- Edge labels -->
-     <text x="148" y="148" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#00e5ff" transform="rotate(-54,148,148)">BTC/USDT</text>
-     <text x="260" y="270" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#00ff88">ETH/BTC</text>
-     <text x="370" y="148" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#ffa040" transform="rotate(54,370,148)">ETH/USDT</text>
-     <!-- Result label -->
-     <rect x="185" y="122" width="150" height="36" rx="5" fill="#0d1a24" stroke="#1a3a52"/>
-     <text x="260" y="137" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#6a8fa8">IF LOOP MISALIGNED</text>
-     <text x="260" y="151" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#00ff88" font-weight="700">USDT(end) &gt; USDT(start)</text>
-    </svg>
-   </div>
-  </div>
-
-  <p class="article-p">Each edge of the triangle represents one trade. The direction of the arrows shows which way the conversion flows. The profit comes from the fact that the implied exchange rate from going around the loop doesn't quite equal 1.0 — it equals 1.003, or 1.005, or whatever the current misalignment happens to be.</p>
-
-  <!-- 3. Step by step example -->
-  <h2 class="article-h2">Step-by-Step Example With Real Numbers</h2>
-  <p class="article-p">Let's walk through a concrete trade on a single exchange. Assume you start with $1,000 USDT and spot the following live rates:</p>
-
-  <div class="math-block">
-   <div class="math-row"><span class="math-label">BTC/USDT price</span><span class="math-val neutral">$68,000</span></div>
-   <div class="math-row"><span class="math-label">ETH/BTC price</span><span class="math-val neutral">0.0522 BTC per ETH</span></div>
-   <div class="math-row"><span class="math-label">ETH/USDT price</span><span class="math-val neutral">$3,570 (should be 68,000 × 0.0522 = $3,549.60 — but it's higher)</span></div>
-  </div>
-
-  <p class="article-p">The ETH/USDT price of $3,570 is slightly above where it "should" be given the BTC/USDT and ETH/BTC rates. This misalignment is the opportunity. Here's the full trade:</p>
-
-  <div class="trade-flow">
-   <div class="tf-step">
-    <div class="tf-left"><div class="tf-node tf-node-start">①</div><div class="tf-line"></div></div>
-    <div class="tf-body">
-     <h4>Leg 1 — Buy BTC with USDT</h4>
-     <p>Spend $1,000 USDT on the BTC/USDT market at $68,000</p>
-     <div class="mono">$1,000 ÷ $68,000 = 0.014706 BTC</div>
-     <p style="margin-top:0.4rem;font-size:0.82rem;">After 0.1% fee: <span class="mono">0.014691 BTC</span></p>
-    </div>
-   </div>
-   <div class="tf-step">
-    <div class="tf-left"><div class="tf-node tf-node-mid">②</div><div class="tf-line"></div></div>
-    <div class="tf-body">
-     <h4>Leg 2 — Convert BTC to ETH</h4>
-     <p>Sell 0.014691 BTC on the ETH/BTC market at 0.0522 BTC per ETH</p>
-     <div class="mono">0.014691 ÷ 0.0522 = 0.28143 ETH</div>
-     <p style="margin-top:0.4rem;font-size:0.82rem;">After 0.1% fee: <span class="mono">0.28115 ETH</span></p>
-    </div>
-   </div>
-   <div class="tf-step">
-    <div class="tf-left"><div class="tf-node tf-node-end">③</div><div class="tf-line"></div></div>
-    <div class="tf-body">
-     <h4>Leg 3 — Sell ETH back to USDT</h4>
-     <p>Sell 0.28115 ETH on the ETH/USDT market at $3,570</p>
-     <div class="mono">0.28115 × $3,570 = $1,003.70 USDT</div>
-     <p style="margin-top:0.4rem;font-size:0.82rem;">After 0.1% fee: <span class="mono">$1,002.70 USDT</span></p>
-    </div>
-   </div>
-  </div>
-
-  <div class="math-block">
-   <div class="math-row"><span class="math-label">Started with</span><span class="math-val">$1,000.00 USDT</span></div>
-   <div class="math-row"><span class="math-label">Gross result (3 legs)</span><span class="math-val">$1,003.70 USDT</span></div>
-   <div class="math-row"><span class="math-label">Total fees (0.1% × 3 trades)</span><span class="math-val negative">−$1.00</span></div>
-   <div class="math-row math-total"><span class="math-label" style="font-weight:600;color:var(--text);">Net profit</span><span class="math-val positive">+$2.70 (+0.27%)</span></div>
-  </div>
-
-  <p class="article-p">$2.70 on $1,000 in a single loop. That might not sound like much — but the loop takes under a second, and the same trade can theoretically run many times per minute if automated.</p>
-
-  <div class="stat-row">
-   <div class="stat-box"><span class="num">&lt;1s</span><div class="lbl">Typical execution window before gap closes</div></div>
-   <div class="stat-box"><span class="num">0.1–0.5%</span><div class="lbl">Typical profit range per successful loop</div></div>
-   <div class="stat-box"><span class="num">3×</span><div class="lbl">Trading fees paid per loop (one per leg)</div></div>
-  </div>
-
-  <hr class="article-divider">
-
-  <!-- 4. Why it's hard manually -->
-  <h2 class="article-h2">Why Manual Execution Is Nearly Impossible</h2>
-  <p class="article-p">The reason triangular arbitrage is considered an advanced strategy comes down to one fundamental constraint: speed. The misalignment that creates the opportunity is typically corrected within milliseconds on active exchanges, because automated bots from market makers and other arbitrageurs are constantly scanning for exactly these situations.</p>
-  <p class="article-p">By the time a human identifies the opportunity, calculates the expected profit, and places three separate orders — the gap is almost certainly already gone. What's worse, if Leg 1 fills but Leg 2 no longer shows a profit, you're now holding BTC with no exit plan that preserves your original USDT balance.</p>
-
-  <div class="callout callout-warning">
-   <div class="callout-label label-warning">⚠ The Partial-Fill Problem</div>
-   <p>If Leg 1 fills but Leg 2 or 3 becomes unprofitable or doesn't fill at your expected price, you're left with an unhedged position. In a volatile market, BTC or ETH could move against you while you're mid-loop. This is why most serious triangular arbitrage is fully automated — all three orders are pre-computed and submitted simultaneously or sequentially at machine speed.</p>
-  </div>
-
-  <!-- 5. When it works / doesn't work -->
-  <h2 class="article-h2">When Triangular Arbitrage Works</h2>
-  <p class="article-p">Opportunities are more likely to appear — and survive long enough to act on — under specific market conditions.</p>
-
-  <div class="conditions-grid">
-   <div class="cond-card">
-    <div class="cond-card-title good">✓ Favourable conditions</div>
-    <ul class="cond-list good-list">
-     <li>High market volatility — prices move faster than bots can correct</li>
-     <li>Newly listed altcoins with thin order books</li>
-     <li>Exchange API latency spikes causing temporary rate mismatches</li>
-     <li>Low-fee accounts (VIP tiers) that keep net profit positive even on small gaps</li>
-     <li>Automated execution via bot or script</li>
-    </ul>
-   </div>
-   <div class="cond-card">
-    <div class="cond-card-title bad">✗ Unfavourable conditions</div>
-    <ul class="cond-list bad-list">
-     <li>Stable, low-volatility markets — gaps close instantly</li>
-     <li>High trading fees eating the entire spread</li>
-     <li>Manual execution — too slow vs algorithmic competition</li>
-     <li>Low-liquidity pairs where your order moves the price</li>
-     <li>Wide bid/ask spreads that eliminate apparent profit on execution</li>
-    </ul>
-   </div>
-  </div>
-
-  <hr class="article-divider">
-
-  <!-- 6. vs cross-exchange -->
-  <h2 class="article-h2">Triangular vs Cross-Exchange Arbitrage</h2>
-  <p class="article-p">These are the two most common forms of crypto arbitrage, and they're often confused. Here's the key structural difference:</p>
-
-  <div class="vs-row">
-   <div class="vs-card">
-    <div class="vs-card-label" style="color:var(--accent);">Cross-Exchange</div>
-    <div class="vs-card-title">Same asset, two exchanges</div>
-    <div class="vs-card-desc">BTC costs $68,200 on Exchange A and $68,600 on Exchange B. Buy on A, sell on B. Requires capital on both exchanges and typically involves coin transfers or pre-positioned funds.</div>
-   </div>
-   <div class="vs-divider">VS</div>
-   <div class="vs-card">
-    <div class="vs-card-label" style="color:var(--accent2);">Triangular</div>
-    <div class="vs-card-title">Three pairs, one exchange</div>
-    <div class="vs-card-desc">BTC/USDT, ETH/BTC, and ETH/USDT rates are briefly inconsistent on the same exchange. Execute three trades in a loop. No second exchange needed, no transfers.</div>
-   </div>
-  </div>
-
-  <div class="callout callout-tip">
-   <div class="callout-label label-tip">Which Is Better for Beginners?</div>
-   <p>Cross-exchange arbitrage (especially funding rate arb) is generally more accessible. Triangular arb requires either very fast manual execution or coding a bot — and even then, you're competing against institutional-grade algorithms that have been doing this for years. It's worth understanding triangular arb deeply, but it's rarely the first strategy to deploy real capital on.</p>
-  </div>
-
-  <hr class="article-divider">
-
-  <!-- 7. How to identify opportunities -->
-  <h2 class="article-h2">How to Spot a Triangular Opportunity</h2>
-  <p class="article-p">The mathematical test is straightforward. For any three pairs A/B, B/C, and A/C, calculate the <strong style="color:var(--text);">implied cross-rate</strong> and compare it to the actual market rate.</p>
-
-  <div class="callout callout-example">
-   <div class="callout-label label-example">📐 The Cross-Rate Formula</div>
-   <p>For the USDT → BTC → ETH → USDT loop:</p>
-   <p style="margin-top:0.7rem;font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--text);">Implied ETH/USDT = BTC/USDT × ETH/BTC</p>
-   <p style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--text);">= $68,000 × 0.0522 = $3,549.60</p>
-   <p style="margin-top:0.7rem;">If the actual ETH/USDT market price is <strong style="color:var(--accent2);">$3,570</strong> — that's $20.40 above implied. The loop will be profitable in the direction that exploits this gap (USDT → BTC → ETH → USDT).</p>
-   <p style="margin-top:0.7rem;">If actual ETH/USDT is <strong style="color:#ff7070;">$3,530</strong> — below implied — the loop runs in the opposite direction: USDT → ETH → BTC → USDT.</p>
-  </div>
-
-  <p class="article-p">Most traders who do this seriously build a script that monitors 20–50 coin triplets simultaneously, recalculates the cross-rate every 100ms, and fires orders automatically when the spread exceeds a set threshold (e.g. 0.4% after fees).</p>
-
-  <hr class="article-divider">
-
-  <!-- FAQ -->
-  <h2 class="article-h2">Frequently Asked Questions</h2>
-  <div class="faq-list">
-   <div class="faq-item">
-    <div class="faq-q">Can I do triangular arbitrage manually?</div>
-    <div class="faq-a">In theory yes, but in practice it's extremely difficult. Gaps close in milliseconds on major exchanges. Some traders have success on lower-volume exchanges where the competition is thinner, but even there, it requires very fast execution. Most practitioners use automated bots.</div>
-   </div>
-   <div class="faq-item">
-    <div class="faq-q">Which exchanges are best for triangular arb?</div>
-    <div class="faq-a">Exchanges with the most trading pairs and the highest API rate limits — Binance leads here. More pairs means more possible triplets to scan. Binance also offers a WebSocket feed for real-time price updates, which is essential for low-latency scanning.</div>
-   </div>
-   <div class="faq-item">
-    <div class="faq-q">How much capital do I need?</div>
-    <div class="faq-a">The strategy itself has no hard minimum, but trading fees become proportionally more damaging at small sizes. With $500–$1,000 and a 0.27% edge after fees, you'd net $1.35–$2.70 per loop. Capital of $5,000–$10,000+ makes it meaningfully profitable per trade.</div>
-   </div>
-   <div class="faq-item">
-    <div class="faq-q">Does ArbVertex signal triangular arbitrage opportunities?</div>
-    <div class="faq-a">ArbVertex signals focus primarily on cross-exchange and funding rate arbitrage, which offer more consistent and accessible opportunities for individual traders. Triangular arb is covered as an educational topic so you understand the full spectrum of arbitrage strategies.</div>
-   </div>
-   <div class="faq-item">
-    <div class="faq-q">What happens if one of the three legs doesn't fill?</div>
-    <div class="faq-a">This is the core execution risk. If Leg 1 fills (you bought BTC) but Leg 2 can't fill at a profitable rate, you're holding BTC with directional exposure. You can either hold and wait, or sell back to USDT at a small loss. This is why having limit orders ready for all three legs before executing is important — or using a bot that handles this automatically.</div>
-   </div>
-  </div>
-
-  <!-- Article nav -->
-  <div class="article-nav">
-   <a href="crypto-arbitrage-blog.html" style="border:1px solid var(--border);color:var(--muted);padding:0.75rem 1.2rem;border-radius:4px;font-weight:500;font-size:0.86rem;text-decoration:none;transition:border-color .2s,color .2s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">☰ Blog</a>
-   <a href="funding-rate-arbitrage.html" style="border:1px solid var(--border);color:var(--text);padding:0.75rem 1.2rem;border-radius:4px;font-weight:500;font-size:0.86rem;text-decoration:none;transition:border-color .2s,color .2s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">← Prev: Funding Rate Arbitrage</a>
-   <a href="cross-exchange-arbitrage-guide.html" style="background:var(--accent);color:var(--bg);padding:0.75rem 1.4rem;border-radius:4px;font-weight:700;font-size:0.86rem;text-decoration:none;transition:opacity .2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">Next: Cross-Exchange Arbitrage →</a>
-  </div>
-
- </div><!-- /.article-wrap -->
-
- <footer><p>© 2025 ArbVertex</p><div class="footer-links"><a href="crypto-arbitrage-blog.html">Blog</a><a href="index.html">Home</a><a href="contact-arbvertex.html">Contact</a></div><p style="font-size:0.75rem;">Not financial advice.</p></footer>
+<div class="article-wrap">
+<!-- Back -->
+<a class="back-btn" href="crypto-arbitrage-blog.html" onmouseout="this.style.color='var(--muted)'" onmouseover="this.style.color='var(--accent)'" style="display:inline-flex;align-items:center;gap:0.4rem;color:var(--muted);font-size:0.83rem;text-decoration:none;margin-bottom:2rem;transition:color .2s;">← Back to Blog</a>
+<!-- Meta -->
+<div class="article-meta">
+<span class="meta-pill pill-step">STEP 5 OF 16</span>
+<span class="meta-pill pill-level">🟩 STRATEGY</span>
+<span class="meta-pill pill-time">⏱ 10 MIN READ</span>
 </div>
-
+<!-- Title -->
+<h1 class="article-h1">Triangular Arbitrage Explained:<br/>How to Profit From 3-Pair Price Loops</h1>
+<p class="article-lead">No coin transfers, no second exchange, no withdrawal delays. Everything happens in one loop on a single exchange — if the math works out in your favour.</p>
+<!-- 1. What is it -->
+<h2 class="article-h2">What Is Triangular Arbitrage?</h2>
+<p class="article-p">Most crypto arbitrage exploits price differences between two exchanges for the same asset. Triangular arbitrage is different — it exploits price inconsistencies between three trading pairs that exist on a single exchange at the same time.</p>
+<p class="article-p">The idea is simple: if you trade USDT → BTC → ETH → USDT in a complete loop, you should end up with exactly as much USDT as you started with, since all three exchange rates should be perfectly consistent with each other. When they're not — even briefly — the loop produces a profit.</p>
+<div class="callout callout-def">
+<div class="callout-label label-def">Definition</div>
+<h3>Triangular Arbitrage</h3>
+<p>A strategy that executes three sequential trades on a single exchange — converting Asset A → B → C → A — to exploit temporary price misalignments between the three pairs. If the cross-rates are inconsistent, the trader ends the loop with more of Asset A than they started with.</p>
+</div>
+<!-- 2. Visual loop diagram -->
+<h2 class="article-h2">The Trade Loop — Visualised</h2>
+<p class="article-p">Every triangular trade follows the same triangular structure. Here's the classic USDT → BTC → ETH → USDT loop:</p>
+<div class="loop-diagram">
+<div class="loop-diagram-label">Triangular arbitrage loop — single exchange</div>
+<div class="loop-svg-wrap">
+<svg style="max-width:520px;" viewbox="0 0 520 300" width="100%" xmlns="http://www.w3.org/2000/svg">
+<!-- Triangle lines -->
+<line stroke="#1a3a52" stroke-width="2" x1="260" x2="70" y1="40" y2="240"></line>
+<line stroke="#1a3a52" stroke-width="2" x1="260" x2="450" y1="40" y2="240"></line>
+<line stroke="#1a3a52" stroke-width="2" x1="70" x2="450" y1="240" y2="240"></line>
+<!-- Animated arrows on each edge -->
+<!-- Top-left edge: USDT→BTC -->
+<line opacity="0.6" stroke="#00e5ff" stroke-dasharray="6,4" stroke-width="1.5" x1="255" x2="82" y1="48" y2="228"></line>
+<polygon fill="#00e5ff" opacity="0.8" points="78,237 75,220 90,227"></polygon>
+<!-- Bottom edge: BTC→ETH -->
+<line opacity="0.6" stroke="#00ff88" stroke-dasharray="6,4" stroke-width="1.5" x1="88" x2="438" y1="244" y2="244"></line>
+<polygon fill="#00ff88" opacity="0.8" points="445,244 432,238 432,250"></polygon>
+<!-- Top-right edge: ETH→USDT -->
+<line opacity="0.6" stroke="#ffa040" stroke-dasharray="6,4" stroke-width="1.5" x1="442" x2="270" y1="232" y2="50"></line>
+<polygon fill="#ffa040" opacity="0.8" points="263,44 278,54 265,64"></polygon>
+<!-- Node: USDT (top) -->
+<circle cx="260" cy="40" fill="#0d1a24" r="34" stroke="#00e5ff" stroke-width="1.5"></circle>
+<text fill="#00e5ff" font-family="JetBrains Mono, monospace" font-size="12" font-weight="700" text-anchor="middle" x="260" y="35">USDT</text>
+<text fill="#6a8fa8" font-family="JetBrains Mono, monospace" font-size="9" text-anchor="middle" x="260" y="50">START</text>
+<!-- Node: BTC (bottom-left) -->
+<circle cx="70" cy="240" fill="#0d1a24" r="34" stroke="#00e5ff" stroke-width="1.5"></circle>
+<text fill="#e8f4f8" font-family="JetBrains Mono, monospace" font-size="12" font-weight="700" text-anchor="middle" x="70" y="235">BTC</text>
+<text fill="#6a8fa8" font-family="JetBrains Mono, monospace" font-size="9" text-anchor="middle" x="70" y="250">LEG 1</text>
+<!-- Node: ETH (bottom-right) -->
+<circle cx="450" cy="240" fill="#0d1a24" r="34" stroke="#00e5ff" stroke-width="1.5"></circle>
+<text fill="#e8f4f8" font-family="JetBrains Mono, monospace" font-size="12" font-weight="700" text-anchor="middle" x="450" y="235">ETH</text>
+<text fill="#6a8fa8" font-family="JetBrains Mono, monospace" font-size="9" text-anchor="middle" x="450" y="250">LEG 2</text>
+<!-- Edge labels -->
+<text fill="#00e5ff" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle" transform="rotate(-54,148,148)" x="148" y="148">BTC/USDT</text>
+<text fill="#00ff88" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle" x="260" y="270">ETH/BTC</text>
+<text fill="#ffa040" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle" transform="rotate(54,370,148)" x="370" y="148">ETH/USDT</text>
+<!-- Result label -->
+<rect fill="#0d1a24" height="36" rx="5" stroke="#1a3a52" width="150" x="185" y="122"></rect>
+<text fill="#6a8fa8" font-family="JetBrains Mono, monospace" font-size="9" text-anchor="middle" x="260" y="137">IF LOOP MISALIGNED</text>
+<text fill="#00ff88" font-family="JetBrains Mono, monospace" font-size="10" font-weight="700" text-anchor="middle" x="260" y="151">USDT(end) &gt; USDT(start)</text>
+</svg>
+</div>
+</div>
+<p class="article-p">Each edge of the triangle represents one trade. The direction of the arrows shows which way the conversion flows. The profit comes from the fact that the implied exchange rate from going around the loop doesn't quite equal 1.0 — it equals 1.003, or 1.005, or whatever the current misalignment happens to be.</p>
+<!-- 3. Step by step example -->
+<h2 class="article-h2">Step-by-Step Example With Real Numbers</h2>
+<p class="article-p">Let's walk through a concrete trade on a single exchange. Assume you start with $1,000 USDT and spot the following live rates:</p>
+<div class="math-block">
+<div class="math-row"><span class="math-label">BTC/USDT price</span><span class="math-val neutral">$68,000</span></div>
+<div class="math-row"><span class="math-label">ETH/BTC price</span><span class="math-val neutral">0.0522 BTC per ETH</span></div>
+<div class="math-row"><span class="math-label">ETH/USDT price</span><span class="math-val neutral">$3,570 (should be 68,000 × 0.0522 = $3,549.60 — but it's higher)</span></div>
+</div>
+<p class="article-p">The ETH/USDT price of $3,570 is slightly above where it "should" be given the BTC/USDT and ETH/BTC rates. This misalignment is the opportunity. Here's the full trade:</p>
+<div class="trade-flow">
+<div class="tf-step">
+<div class="tf-left"><div class="tf-node tf-node-start">①</div><div class="tf-line"></div></div>
+<div class="tf-body">
+<h4>Leg 1 — Buy BTC with USDT</h4>
+<p>Spend $1,000 USDT on the BTC/USDT market at $68,000</p>
+<div class="mono">$1,000 ÷ $68,000 = 0.014706 BTC</div>
+<p style="margin-top:0.4rem;font-size:0.82rem;">After 0.1% fee: <span class="mono">0.014691 BTC</span></p>
+</div>
+</div>
+<div class="tf-step">
+<div class="tf-left"><div class="tf-node tf-node-mid">②</div><div class="tf-line"></div></div>
+<div class="tf-body">
+<h4>Leg 2 — Convert BTC to ETH</h4>
+<p>Sell 0.014691 BTC on the ETH/BTC market at 0.0522 BTC per ETH</p>
+<div class="mono">0.014691 ÷ 0.0522 = 0.28143 ETH</div>
+<p style="margin-top:0.4rem;font-size:0.82rem;">After 0.1% fee: <span class="mono">0.28115 ETH</span></p>
+</div>
+</div>
+<div class="tf-step">
+<div class="tf-left"><div class="tf-node tf-node-end">③</div><div class="tf-line"></div></div>
+<div class="tf-body">
+<h4>Leg 3 — Sell ETH back to USDT</h4>
+<p>Sell 0.28115 ETH on the ETH/USDT market at $3,570</p>
+<div class="mono">0.28115 × $3,570 = $1,003.70 USDT</div>
+<p style="margin-top:0.4rem;font-size:0.82rem;">After 0.1% fee: <span class="mono">$1,002.70 USDT</span></p>
+</div>
+</div>
+</div>
+<div class="math-block">
+<div class="math-row"><span class="math-label">Started with</span><span class="math-val">$1,000.00 USDT</span></div>
+<div class="math-row"><span class="math-label">Gross result (3 legs)</span><span class="math-val">$1,003.70 USDT</span></div>
+<div class="math-row"><span class="math-label">Total fees (0.1% × 3 trades)</span><span class="math-val negative">−$1.00</span></div>
+<div class="math-row math-total"><span class="math-label" style="font-weight:600;color:var(--text);">Net profit</span><span class="math-val positive">+$2.70 (+0.27%)</span></div>
+</div>
+<p class="article-p">$2.70 on $1,000 in a single loop. That might not sound like much — but the loop takes under a second, and the same trade can theoretically run many times per minute if automated.</p>
+<div class="stat-row">
+<div class="stat-box"><span class="num">&lt;1s</span><div class="lbl">Typical execution window before gap closes</div></div>
+<div class="stat-box"><span class="num">0.1–0.5%</span><div class="lbl">Typical profit range per successful loop</div></div>
+<div class="stat-box"><span class="num">3×</span><div class="lbl">Trading fees paid per loop (one per leg)</div></div>
+</div>
+<hr class="article-divider"/>
+<!-- 4. Why it's hard manually -->
+<h2 class="article-h2">Why Manual Execution Is Nearly Impossible</h2>
+<p class="article-p">The reason triangular arbitrage is considered an advanced strategy comes down to one fundamental constraint: speed. The misalignment that creates the opportunity is typically corrected within milliseconds on active exchanges, because automated bots from market makers and other arbitrageurs are constantly scanning for exactly these situations.</p>
+<p class="article-p">By the time a human identifies the opportunity, calculates the expected profit, and places three separate orders — the gap is almost certainly already gone. What's worse, if Leg 1 fills but Leg 2 no longer shows a profit, you're now holding BTC with no exit plan that preserves your original USDT balance.</p>
+<div class="callout callout-warning">
+<div class="callout-label label-warning">⚠ The Partial-Fill Problem</div>
+<p>If Leg 1 fills but Leg 2 or 3 becomes unprofitable or doesn't fill at your expected price, you're left with an unhedged position. In a volatile market, BTC or ETH could move against you while you're mid-loop. This is why most serious triangular arbitrage is fully automated — all three orders are pre-computed and submitted simultaneously or sequentially at machine speed.</p>
+</div>
+<!-- 5. When it works / doesn't work -->
+<h2 class="article-h2">When Triangular Arbitrage Works</h2>
+<p class="article-p">Opportunities are more likely to appear — and survive long enough to act on — under specific market conditions.</p>
+<div class="conditions-grid">
+<div class="cond-card">
+<div class="cond-card-title good">✓ Favourable conditions</div>
+<ul class="cond-list good-list">
+<li>High market volatility — prices move faster than bots can correct</li>
+<li>Newly listed altcoins with thin order books</li>
+<li>Exchange API latency spikes causing temporary rate mismatches</li>
+<li>Low-fee accounts (VIP tiers) that keep net profit positive even on small gaps</li>
+<li>Automated execution via bot or script</li>
+</ul>
+</div>
+<div class="cond-card">
+<div class="cond-card-title bad">✗ Unfavourable conditions</div>
+<ul class="cond-list bad-list">
+<li>Stable, low-volatility markets — gaps close instantly</li>
+<li>High trading fees eating the entire spread</li>
+<li>Manual execution — too slow vs algorithmic competition</li>
+<li>Low-liquidity pairs where your order moves the price</li>
+<li>Wide bid/ask spreads that eliminate apparent profit on execution</li>
+</ul>
+</div>
+</div>
+<hr class="article-divider"/>
+<!-- 6. vs cross-exchange -->
+<h2 class="article-h2">Triangular vs Cross-Exchange Arbitrage</h2>
+<p class="article-p">These are the two most common forms of crypto arbitrage, and they're often confused. Here's the key structural difference:</p>
+<div class="vs-row">
+<div class="vs-card">
+<div class="vs-card-label" style="color:var(--accent);">Cross-Exchange</div>
+<div class="vs-card-title">Same asset, two exchanges</div>
+<div class="vs-card-desc">BTC costs $68,200 on Exchange A and $68,600 on Exchange B. Buy on A, sell on B. Requires capital on both exchanges and typically involves coin transfers or pre-positioned funds.</div>
+</div>
+<div class="vs-divider">VS</div>
+<div class="vs-card">
+<div class="vs-card-label" style="color:var(--accent2);">Triangular</div>
+<div class="vs-card-title">Three pairs, one exchange</div>
+<div class="vs-card-desc">BTC/USDT, ETH/BTC, and ETH/USDT rates are briefly inconsistent on the same exchange. Execute three trades in a loop. No second exchange needed, no transfers.</div>
+</div>
+</div>
+<div class="callout callout-tip">
+<div class="callout-label label-tip">Which Is Better for Beginners?</div>
+<p>Cross-exchange arbitrage (especially funding rate arb) is generally more accessible. Triangular arb requires either very fast manual execution or coding a bot — and even then, you're competing against institutional-grade algorithms that have been doing this for years. It's worth understanding triangular arb deeply, but it's rarely the first strategy to deploy real capital on.</p>
+</div>
+<hr class="article-divider"/>
+<!-- 7. How to identify opportunities -->
+<h2 class="article-h2">How to Spot a Triangular Opportunity</h2>
+<p class="article-p">The mathematical test is straightforward. For any three pairs A/B, B/C, and A/C, calculate the <strong style="color:var(--text);">implied cross-rate</strong> and compare it to the actual market rate.</p>
+<div class="callout callout-example">
+<div class="callout-label label-example">📐 The Cross-Rate Formula</div>
+<p>For the USDT → BTC → ETH → USDT loop:</p>
+<p style="margin-top:0.7rem;font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--text);">Implied ETH/USDT = BTC/USDT × ETH/BTC</p>
+<p style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--text);">= $68,000 × 0.0522 = $3,549.60</p>
+<p style="margin-top:0.7rem;">If the actual ETH/USDT market price is <strong style="color:var(--accent2);">$3,570</strong> — that's $20.40 above implied. The loop will be profitable in the direction that exploits this gap (USDT → BTC → ETH → USDT).</p>
+<p style="margin-top:0.7rem;">If actual ETH/USDT is <strong style="color:#ff7070;">$3,530</strong> — below implied — the loop runs in the opposite direction: USDT → ETH → BTC → USDT.</p>
+</div>
+<p class="article-p">Most traders who do this seriously build a script that monitors 20–50 coin triplets simultaneously, recalculates the cross-rate every 100ms, and fires orders automatically when the spread exceeds a set threshold (e.g. 0.4% after fees).</p>
+<hr class="article-divider"/>
+<!-- FAQ -->
+<h2 class="article-h2">Frequently Asked Questions</h2>
+<div class="faq-list">
+<div class="faq-item">
+<div class="faq-q">Can I do triangular arbitrage manually?</div>
+<div class="faq-a">In theory yes, but in practice it's extremely difficult. Gaps close in milliseconds on major exchanges. Some traders have success on lower-volume exchanges where the competition is thinner, but even there, it requires very fast execution. Most practitioners use automated bots.</div>
+</div>
+<div class="faq-item">
+<div class="faq-q">Which exchanges are best for triangular arb?</div>
+<div class="faq-a">Exchanges with the most trading pairs and the highest API rate limits — Binance leads here. More pairs means more possible triplets to scan. Binance also offers a WebSocket feed for real-time price updates, which is essential for low-latency scanning.</div>
+</div>
+<div class="faq-item">
+<div class="faq-q">How much capital do I need?</div>
+<div class="faq-a">The strategy itself has no hard minimum, but trading fees become proportionally more damaging at small sizes. With $500–$1,000 and a 0.27% edge after fees, you'd net $1.35–$2.70 per loop. Capital of $5,000–$10,000+ makes it meaningfully profitable per trade.</div>
+</div>
+<div class="faq-item">
+<div class="faq-q">Does ArbVertex signal triangular arbitrage opportunities?</div>
+<div class="faq-a">ArbVertex signals focus primarily on cross-exchange and funding rate arbitrage, which offer more consistent and accessible opportunities for individual traders. Triangular arb is covered as an educational topic so you understand the full spectrum of arbitrage strategies.</div>
+</div>
+<div class="faq-item">
+<div class="faq-q">What happens if one of the three legs doesn't fill?</div>
+<div class="faq-a">This is the core execution risk. If Leg 1 fills (you bought BTC) but Leg 2 can't fill at a profitable rate, you're holding BTC with directional exposure. You can either hold and wait, or sell back to USDT at a small loss. This is why having limit orders ready for all three legs before executing is important — or using a bot that handles this automatically.</div>
+</div>
+</div>
+<!-- Article nav -->
+<div class="article-nav">
+<a href="crypto-arbitrage-blog.html" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" style="border:1px solid var(--border);color:var(--muted);padding:0.75rem 1.2rem;border-radius:4px;font-weight:500;font-size:0.86rem;text-decoration:none;transition:border-color .2s,color .2s;">☰ Blog</a>
+<a href="funding-rate-arbitrage.html" onmouseout="this.style.borderColor='var(--border)'" onmouseover="this.style.borderColor='var(--accent)'" style="border:1px solid var(--border);color:var(--text);padding:0.75rem 1.2rem;border-radius:4px;font-weight:500;font-size:0.86rem;text-decoration:none;transition:border-color .2s,color .2s;">← Prev: Funding Rate Arbitrage</a>
+<a href="cross-exchange-arbitrage-guide.html" onmouseout="this.style.opacity='1'" onmouseover="this.style.opacity='0.85'" style="background:var(--accent);color:var(--bg);padding:0.75rem 1.4rem;border-radius:4px;font-weight:700;font-size:0.86rem;text-decoration:none;transition:opacity .2s;">Next: Cross-Exchange Arbitrage →</a>
+</div>
+<div class="nav-btns">
+<a class="nb-outline" href="crypto-arbitrage-blog.html">☰ Back to Blog</a>
+<a class="nb-outline" href="cex-dex-futures-arbitrage.html">← CEX vs DEX Futures Price Difference…</a>
+<a class="nb-primary" href="triangular-arbitrage-crypto.html">Triangular Arbitrage in Crypto: How… →</a>
+</div></div><!-- /.article-wrap -->
+<footer><p>© 2025 ArbVertex</p><div class="footer-links"><a href="crypto-arbitrage-blog.html">Blog</a><a href="index.html">Home</a><a href="contact-arbvertex.html">Contact</a></div><p style="font-size:0.75rem;">Not financial advice.</p></footer>
+</div>
 <script>
 // ── CONTACT FORM ──
 function handleFormSubmit(e) {
@@ -1220,6 +1181,5 @@ document.addEventListener('DOMContentLoaded', () => {
  });
 })();
 </script>
-
 </body>
 </html>

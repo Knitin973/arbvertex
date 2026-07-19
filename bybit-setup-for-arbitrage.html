@@ -1,25 +1,25 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Bybit Setup for Crypto Arbitrage — Complete 2026 Guide | ArbVertex</title>
-<meta name="description" content="Step-by-step Bybit setup guide for crypto arbitrage in 2026 — account creation, KYC, Unified Trading Account, fee reduction, margin modes, leverage settings, and your first delta-neutral short position.">
-<meta name="keywords" content="bybit setup arbitrage, bybit futures arbitrage 2026, bybit unified trading account, bybit margin mode, bybit leverage 1x, bybit fee reduction, bybit funding rate arbitrage, bybit vs binance arbitrage">
-<meta name="robots" content="index, follow">
-<meta name="author" content="ArbVertex">
-<link rel="canonical" href="https://arbvertex.com/bybit-setup-for-arbitrage.html">
-<meta property="og:title" content="Bybit Setup for Crypto Arbitrage — Complete 2026 Guide | ArbVertex">
-<meta property="og:description" content="Step-by-step Bybit setup for funding rate arbitrage — Unified Trading Account, fee reduction, margin modes, and your first delta-neutral position.">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://arbvertex.com/bybit-setup-for-arbitrage.html">
-<meta property="og:image" content="https://arbvertex.com/og-image.png">
-<meta property="og:site_name" content="ArbVertex">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Bybit Setup for Crypto Arbitrage — Complete 2026 Guide | ArbVertex">
-<meta name="twitter:description" content="Step-by-step Bybit setup for funding rate arbitrage — UTA, fee reduction, margin modes, and your first delta-neutral position.">
-<meta name="twitter:image" content="https://arbvertex.com/og-image.png">
-
+<meta content="Step-by-step Bybit setup guide for crypto arbitrage in 2026 — account creation, KYC, Unified Trading Account, fee reduction, margin modes, leverage settings, and your first delta-neutral short position." name="description"/>
+<meta content="bybit setup arbitrage, bybit futures arbitrage 2026, bybit unified trading account, bybit margin mode, bybit leverage 1x, bybit fee reduction, bybit funding rate arbitrage, bybit vs binance arbitrage" name="keywords"/>
+<meta content="index, follow" name="robots"/>
+<meta content="ArbVertex" name="author"/>
+<link href="https://arbvertex.com/bybit-setup-for-arbitrage.html" rel="canonical"/>
+<meta content="Bybit Setup for Crypto Arbitrage — Complete 2026 Guide | ArbVertex" property="og:title"/>
+<meta content="Step-by-step Bybit setup for funding rate arbitrage — Unified Trading Account, fee reduction, margin modes, and your first delta-neutral position." property="og:description"/>
+<meta content="article" property="og:type"/>
+<meta content="https://arbvertex.com/bybit-setup-for-arbitrage.html" property="og:url"/>
+<meta content="https://arbvertex.com/og-image.png" property="og:image"/>
+<meta content="ArbVertex" property="og:site_name"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Bybit Setup for Crypto Arbitrage — Complete 2026 Guide | ArbVertex" name="twitter:title"/>
+<meta content="Step-by-step Bybit setup for funding rate arbitrage — UTA, fee reduction, margin modes, and your first delta-neutral position." name="twitter:description"/>
+<meta content="https://arbvertex.com/og-image.png" name="twitter:image"/>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -34,7 +34,6 @@
   "image": "https://arbvertex.com/og-image.png"
 }
 </script>
-
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -49,9 +48,7 @@
   ]
 }
 </script>
-
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
 <style>
 /* ── VARIABLES ── */
 :root{
@@ -237,536 +234,490 @@ footer p{color:var(--muted);font-size:0.82rem;}
 .footer-links a{color:var(--muted);text-decoration:none;font-size:0.82rem;transition:color .2s;}
 .footer-links a:hover{color:var(--accent);}
 @media(max-width:600px){footer{flex-direction:column;text-align:center;}.post-nav{flex-direction:column;}}
+
+.nav-btns{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border,#1a3a52);}
+.nb-outline,.btn-outline{border:1px solid var(--border,#1a3a52);color:var(--text,#e8f4f8);padding:0.65rem 1.4rem;border-radius:4px;font-weight:500;font-size:0.85rem;text-decoration:none;transition:border-color .2s,color .2s;display:inline-block;white-space:nowrap;}
+.nb-outline:hover,.btn-outline:hover{border-color:var(--accent,#00e5ff);color:var(--accent,#00e5ff);}
+.nb-primary,.btn-primary{background:var(--accent,#00e5ff);color:#050a0f;padding:0.65rem 1.4rem;border-radius:4px;font-weight:700;font-size:0.85rem;text-decoration:none;display:inline-block;transition:opacity .2s;white-space:nowrap;}
+.nb-primary:hover,.btn-primary:hover{opacity:0.85;}
+@media(max-width:600px){.nav-btns{flex-direction:column;}}
 </style>
 </head>
 <body>
-
 <!-- ── NAV ── -->
 <div class="av-nav-wrap">
-  <div class="av-nav-inner">
-    <a href="index.html" class="av-logo">Arb<span>Vertex</span></a>
-    <ul class="av-nav-links" id="avNavLinks">
-      <li><a href="index.html" class="av-top-link">Home</a></li>
-
-      <li class="av-dropdown">
-        <button type="button" class="av-top-link av-drop-trigger">Learn <span class="av-caret">&#9662;</span></button>
-        <div class="av-mega-panel">
-          <a class="av-mega-link" href="what-is-crypto-futures-arbitrage.html"><span class="av-icon">📘</span><span>What is Arbitrage<span class="av-desc">Core concept explained</span></span></a>
-          <a class="av-mega-link" href="how-crypto-arbitrage-signals-work.html"><span class="av-icon">⚙️</span><span>How It Works<span class="av-desc">Step-by-step process</span></span></a>
-          <a class="av-mega-link" href="how-to-generate-profit-crypto-arbitrage.html"><span class="av-icon">💰</span><span>Generate Profit<span class="av-desc">Ways arbitrage earns</span></span></a>
-          <a class="av-mega-link" href="crypto-arbitrage-risks-precautions.html"><span class="av-icon">⚠️</span><span>Risks &amp; Safety<span class="av-desc">What to watch for</span></span></a>
-          <a class="av-mega-link" href="rethink-traditional-trading.html"><span class="av-icon">🔄</span><span>Rethink Trading<span class="av-desc">Why arbitrage wins</span></span></a>
-          <a class="av-mega-link" href="arbitrage-portfolio-growth.html"><span class="av-icon">📈</span><span>Portfolio Growth<span class="av-desc">Long-term strategy</span></span></a>
-        </div>
-      </li>
-
-      <li class="av-dropdown">
-        <button type="button" class="av-top-link av-drop-trigger">Tools <span class="av-caret">&#9662;</span></button>
-        <div class="av-mega-panel">
-          <a class="av-mega-link" href="live-crypto-arbitrage-scanner.html"><span class="av-icon">📊</span><span>Price Difference Scanner<span class="av-desc">Real-time cross-exchange spot price gaps</span></span></a>
-          <a class="av-mega-link" href="live-funding-gap-scanner.html"><span class="av-icon">💸</span><span>Funding Rate Scanner<span class="av-desc">Compare funding rates across 8 exchanges</span></span></a>
-          <a class="av-mega-link" href="advanced-arb-scanner.html"><span class="av-icon">⚡</span><span>Advanced Live Scanner<span class="av-desc">Price gap + funding rate combined</span></span></a>
-          <a class="av-mega-link" href="arbitrage-calculator.html"><span class="av-icon">🧮</span><span>Futures Arbitrage Calculator<span class="av-desc">Net profit after all fees &amp; slippage</span></span></a>
-        </div>
-      </li>
-
-      <li class="av-dropdown">
-        <button type="button" class="av-top-link av-drop-trigger">Blog <span class="av-caret">&#9662;</span></button>
-        <div class="av-mega-panel">
-          <a class="av-mega-link" href="crypto-arbitrage-blog.html"><span class="av-icon">📰</span><span>All Articles<span class="av-desc">Full blog — all categories</span></span></a>
-          <a class="av-mega-link" href="crypto-arbitrage-blog.html#beginner"><span class="av-icon">📘</span><span>Beginner Guides<span class="av-desc">Start from zero</span></span></a>
-          <a class="av-mega-link" href="crypto-arbitrage-blog.html#strategy"><span class="av-icon">💡</span><span>Strategy Guides<span class="av-desc">Funding rate, basis trading, advanced</span></span></a>
-          <a class="av-mega-link" href="crypto-arbitrage-blog.html#exchange"><span class="av-icon">🔄</span><span>Exchange Guides<span class="av-desc">Binance, Bybit, OKX setup</span></span></a>
-          <a class="av-mega-link" href="crypto-arbitrage-blog.html#risk"><span class="av-icon">🛡️</span><span>Risk &amp; Tools<span class="av-desc">Position sizing, stop loss, glossary</span></span></a>
-        </div>
-      </li>
-
-      <li class="av-dropdown">
-        <button type="button" class="av-top-link av-drop-trigger">Signals <span class="av-caret">&#9662;</span></button>
-        <div class="av-mega-panel">
-          <a class="av-mega-link" href="crypto-arbitrage-telegram-signals.html"><span class="av-icon">✈️</span><span>Telegram Bot<span class="av-desc">Get instant signals</span></span></a>
-          <a class="av-mega-link" href="futures-signal-bot.html"><span class="av-icon">🚀</span><span>Free Futures Signal Bot<span class="av-desc">Live pump &amp; liq signals</span></span></a>
-          <a class="av-mega-link" href="crypto-arbitrage-signals-pricing.html"><span class="av-icon">💳</span><span>Pricing<span class="av-desc">$5/month plans</span></span></a>
-        </div>
-      </li>
-
-      <li class="av-dropdown">
-        <button type="button" class="av-top-link av-drop-trigger">Company <span class="av-caret">&#9662;</span></button>
-        <div class="av-mega-panel">
-          <a class="av-mega-link" href="about-arbvertex-crypto-signals.html"><span class="av-icon">🏢</span><span>About Us<span class="av-desc">Our story</span></span></a>
-          <a class="av-mega-link" href="contact-arbvertex.html"><span class="av-icon">✉️</span><span>Contact<span class="av-desc">Get in touch</span></span></a>
-        </div>
-      </li>
-
-      <li><a href="advanced-arb-scanner.html" class="av-top-link av-scanner-link">⚡ Live Scanners</a></li>
-      <li><a href="crypto-arbitrage-signals-pricing.html" class="av-top-link av-cta">Join Now</a></li>
-    </ul>
-    <button class="av-hamburger" id="avHamburger" type="button" aria-label="Toggle menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
+<div class="av-nav-inner">
+<a class="av-logo" href="index.html">Arb<span>Vertex</span></a>
+<ul class="av-nav-links" id="avNavLinks">
+<li><a class="av-top-link" href="index.html">Home</a></li>
+<li class="av-dropdown">
+<button class="av-top-link av-drop-trigger" type="button">Learn <span class="av-caret">▾</span></button>
+<div class="av-mega-panel">
+<a class="av-mega-link" href="what-is-crypto-futures-arbitrage.html"><span class="av-icon">📘</span><span>What is Arbitrage<span class="av-desc">Core concept explained</span></span></a>
+<a class="av-mega-link" href="how-crypto-arbitrage-signals-work.html"><span class="av-icon">⚙️</span><span>How It Works<span class="av-desc">Step-by-step process</span></span></a>
+<a class="av-mega-link" href="how-to-generate-profit-crypto-arbitrage.html"><span class="av-icon">💰</span><span>Generate Profit<span class="av-desc">Ways arbitrage earns</span></span></a>
+<a class="av-mega-link" href="crypto-arbitrage-risks-precautions.html"><span class="av-icon">⚠️</span><span>Risks &amp; Safety<span class="av-desc">What to watch for</span></span></a>
+<a class="av-mega-link" href="rethink-traditional-trading.html"><span class="av-icon">🔄</span><span>Rethink Trading<span class="av-desc">Why arbitrage wins</span></span></a>
+<a class="av-mega-link" href="arbitrage-portfolio-growth.html"><span class="av-icon">📈</span><span>Portfolio Growth<span class="av-desc">Long-term strategy</span></span></a>
 </div>
-
+</li>
+<li class="av-dropdown">
+<button class="av-top-link av-drop-trigger" type="button">Tools <span class="av-caret">▾</span></button>
+<div class="av-mega-panel">
+<a class="av-mega-link" href="live-crypto-arbitrage-scanner.html"><span class="av-icon">📊</span><span>Price Difference Scanner<span class="av-desc">Real-time cross-exchange spot price gaps</span></span></a>
+<a class="av-mega-link" href="live-funding-gap-scanner.html"><span class="av-icon">💸</span><span>Funding Rate Scanner<span class="av-desc">Compare funding rates across 8 exchanges</span></span></a>
+<a class="av-mega-link" href="advanced-arb-scanner.html"><span class="av-icon">⚡</span><span>Advanced Live Scanner<span class="av-desc">Price gap + funding rate combined</span></span></a>
+<a class="av-mega-link" href="arbitrage-calculator.html"><span class="av-icon">🧮</span><span>Futures Arbitrage Calculator<span class="av-desc">Net profit after all fees &amp; slippage</span></span></a>
+</div>
+</li>
+<li class="av-dropdown">
+<button class="av-top-link av-drop-trigger" type="button">Blog <span class="av-caret">▾</span></button>
+<div class="av-mega-panel">
+<a class="av-mega-link" href="crypto-arbitrage-blog.html"><span class="av-icon">📰</span><span>All Articles<span class="av-desc">Full blog — all categories</span></span></a>
+<a class="av-mega-link" href="crypto-arbitrage-blog.html#beginner"><span class="av-icon">📘</span><span>Beginner Guides<span class="av-desc">Start from zero</span></span></a>
+<a class="av-mega-link" href="crypto-arbitrage-blog.html#strategy"><span class="av-icon">💡</span><span>Strategy Guides<span class="av-desc">Funding rate, basis trading, advanced</span></span></a>
+<a class="av-mega-link" href="crypto-arbitrage-blog.html#exchange"><span class="av-icon">🔄</span><span>Exchange Guides<span class="av-desc">Binance, Bybit, OKX setup</span></span></a>
+<a class="av-mega-link" href="crypto-arbitrage-blog.html#risk"><span class="av-icon">🛡️</span><span>Risk &amp; Tools<span class="av-desc">Position sizing, stop loss, glossary</span></span></a>
+</div>
+</li>
+<li class="av-dropdown">
+<button class="av-top-link av-drop-trigger" type="button">Signals <span class="av-caret">▾</span></button>
+<div class="av-mega-panel">
+<a class="av-mega-link" href="crypto-arbitrage-telegram-signals.html"><span class="av-icon">✈️</span><span>Telegram Bot<span class="av-desc">Get instant signals</span></span></a>
+<a class="av-mega-link" href="futures-signal-bot.html"><span class="av-icon">🚀</span><span>Free Futures Signal Bot<span class="av-desc">Live pump &amp; liq signals</span></span></a>
+<a class="av-mega-link" href="crypto-arbitrage-signals-pricing.html"><span class="av-icon">💳</span><span>Pricing<span class="av-desc">$5/month plans</span></span></a>
+</div>
+</li>
+<li class="av-dropdown">
+<button class="av-top-link av-drop-trigger" type="button">Company <span class="av-caret">▾</span></button>
+<div class="av-mega-panel">
+<a class="av-mega-link" href="about-arbvertex-crypto-signals.html"><span class="av-icon">🏢</span><span>About Us<span class="av-desc">Our story</span></span></a>
+<a class="av-mega-link" href="contact-arbvertex.html"><span class="av-icon">✉️</span><span>Contact<span class="av-desc">Get in touch</span></span></a>
+</div>
+</li>
+<li><a class="av-top-link av-scanner-link" href="advanced-arb-scanner.html">⚡ Live Scanners</a></li>
+<li><a class="av-top-link av-cta" href="crypto-arbitrage-signals-pricing.html">Join Now</a></li>
+</ul>
+<button aria-label="Toggle menu" class="av-hamburger" id="avHamburger" type="button">
+<span></span><span></span><span></span>
+</button>
+</div>
+</div>
 <!-- ── PAGE HEADER ── -->
 <div class="page-header">
-  <div class="page-header-inner">
-    <nav class="breadcrumb" aria-label="Breadcrumb">
-      <a href="index.html">Home</a><span class="sep">/</span>
-      <a href="crypto-arbitrage-blog.html">Blog</a><span class="sep">/</span>
-      <a href="crypto-arbitrage-blog.html#exchange">Exchange Guides</a><span class="sep">/</span>
-      <span>Bybit Setup</span>
-    </nav>
-    <div class="article-tag">🔄 Exchange Guide</div>
-    <h1>Bybit Setup for <span class="hl">Crypto Arbitrage</span>: Complete Step-by-Step Guide</h1>
-    <p class="article-lead">Bybit is the second-largest derivatives exchange globally and one of the best platforms for funding rate arbitrage. This guide covers everything — from account creation and KYC, to Unified Trading Account activation, fee reduction, margin modes, and placing your first delta-neutral position.</p>
-    <div class="meta-row">
-      <span>📅 Updated July 2026</span>
-      <span>⏱ 9 min read</span>
-      <span>🏷 Bybit · Futures · Exchange Guide</span>
-    </div>
-  </div>
+<div class="page-header-inner">
+<nav aria-label="Breadcrumb" class="breadcrumb">
+<a href="index.html">Home</a><span class="sep">/</span>
+<a href="crypto-arbitrage-blog.html">Blog</a><span class="sep">/</span>
+<a href="crypto-arbitrage-blog.html#exchange">Exchange Guides</a><span class="sep">/</span>
+<span>Bybit Setup</span>
+</nav>
+<div class="article-tag">🔄 Exchange Guide</div>
+<h1>Bybit Setup for <span class="hl">Crypto Arbitrage</span>: Complete Step-by-Step Guide</h1>
+<p class="article-lead">Bybit is the second-largest derivatives exchange globally and one of the best platforms for funding rate arbitrage. This guide covers everything — from account creation and KYC, to Unified Trading Account activation, fee reduction, margin modes, and placing your first delta-neutral position.</p>
+<div class="meta-row">
+<span>📅 Updated July 2026</span>
+<span>⏱ 9 min read</span>
+<span>🏷 Bybit · Futures · Exchange Guide</span>
 </div>
-
+</div>
+</div>
 <!-- ── MAIN ── -->
 <main>
-  <a href="crypto-arbitrage-blog.html" class="back-link">← Back to Blog</a>
-
-  <!-- TOC -->
-  <div class="toc">
-    <div class="toc-title">// In This Guide</div>
-    <ol>
-      <li><a href="#why-bybit">Why Bybit for Arbitrage</a></li>
-      <li><a href="#account">Creating Your Bybit Account</a></li>
-      <li><a href="#uta">Activating Unified Trading Account</a></li>
-      <li><a href="#margin-mode">Setting Margin Mode</a></li>
-      <li><a href="#leverage">Setting Leverage to 1x</a></li>
-      <li><a href="#fees">Fee Structure &amp; Reduction</a></li>
-      <li><a href="#deposit">Depositing &amp; Funding</a></li>
-      <li><a href="#first-trade">First Arbitrage Trade</a></li>
-      <li><a href="#monitor">Monitoring Your Position</a></li>
-      <li><a href="#faq">Frequently Asked Questions</a></li>
-    </ol>
-  </div>
-
-  <!-- SECTION 1: WHY BYBIT -->
-  <section class="article-section" id="why-bybit">
-    <div class="step-eyebrow">
-      <div class="step-badge">01</div>
-      <div class="step-eyebrow-label">Why Bybit</div>
-    </div>
-    <h2 class="section-title">Why Bybit Is Excellent for Arbitrage Trading</h2>
-    <p class="body-p">Bybit has grown from a derivatives-only exchange into a full-featured platform with spot, perps, options, and copy trading — all unified under one margin account. For arbitrage traders, three things stand out: consistently competitive funding rates, a Unified Trading Account that eliminates internal wallet transfers, and a clean interface designed for futures trading.</p>
-
-    <div class="stat-grid">
-      <div class="stat-box"><div class="stat-label">Futures Maker Fee</div><div class="stat-value">0.020%</div><div class="stat-sub">Among the lowest globally</div></div>
-      <div class="stat-box"><div class="stat-label">Futures Taker Fee</div><div class="stat-value">0.055%</div><div class="stat-sub">Competitive rate</div></div>
-      <div class="stat-box"><div class="stat-label">Daily Derivatives Volume</div><div class="stat-value">$15B+</div><div class="stat-sub">Deep liquidity on all pairs</div></div>
-      <div class="stat-box"><div class="stat-label">USDT Perpetual Pairs</div><div class="stat-value">500+</div><div class="stat-sub">Wide altcoin coverage</div></div>
-    </div>
-
-    <div class="callout tip">
-      <span class="callout-icon">💡</span>
-      <p>Use referral code <strong>NRBX7</strong> when signing up on Bybit to receive a fee discount and new-user bonus rewards from day one.</p>
-    </div>
-  </section>
-
-  <!-- SECTION 2: ACCOUNT -->
-  <section class="article-section" id="account">
-    <div class="step-eyebrow">
-      <div class="step-badge">02</div>
-      <div class="step-eyebrow-label">Step One</div>
-    </div>
-    <h2 class="section-title">Creating Your Bybit Account</h2>
-    <p class="body-p">The process takes about 20–30 minutes including KYC verification. Bybit is available in most countries — restricted in the United States and a few other jurisdictions.</p>
-
-    <ul class="step-list">
-      <li>
-        <div class="sn">1</div>
-        <div class="sb"><strong>Register at bybit.com</strong>Enter your email address and create a strong password. Use an email you actively monitor — all account alerts go here.</div>
-      </li>
-      <li>
-        <div class="sn">2</div>
-        <div class="sb"><strong>Verify your email immediately</strong>Bybit sends a confirmation link that expires in 30 minutes. Click it before doing anything else.</div>
-      </li>
-      <li>
-        <div class="sn">3</div>
-        <div class="sb"><strong>Complete Level 1 KYC (mandatory)</strong>Upload a government-issued ID — passport, national ID card, or driver's licence. Level 1 KYC unlocks standard withdrawal limits and is required for futures access. Auto-approval typically takes 5–60 minutes.</div>
-      </li>
-      <li>
-        <div class="sn">4</div>
-        <div class="sb"><strong>Consider Level 2 KYC</strong>Level 2 (selfie verification) increases daily withdrawal limits significantly. Recommended for any position size above $5,000.</div>
-      </li>
-      <li>
-        <div class="sn">5</div>
-        <div class="sb"><strong>Enable Google Authenticator 2FA</strong>Go to Account Security → Authenticator App. Connect Google Authenticator — not SMS (SIM swap attacks are a real risk). 2FA is required before any withdrawal can be processed.</div>
-      </li>
-    </ul>
-
-    <div class="callout warn">
-      <span class="callout-icon">⚠️</span>
-      <p><strong>Never use SMS 2FA for an exchange account.</strong> SIM swapping can give attackers full access within minutes. Google Authenticator or a hardware key (YubiKey) only.</p>
-    </div>
-  </section>
-
-  <!-- SECTION 3: UTA -->
-  <section class="article-section" id="uta">
-    <div class="step-eyebrow">
-      <div class="step-badge">03</div>
-      <div class="step-eyebrow-label">Step Two</div>
-    </div>
-    <h2 class="section-title">Activating the Unified Trading Account (UTA)</h2>
-    <p class="body-p">The Unified Trading Account is Bybit's flagship account type — and its biggest advantage for arbitrage traders. Without UTA, you need separate Spot and Futures wallets and must manually transfer USDT between them before every trade. With UTA, a single USDT balance backs all your positions simultaneously.</p>
-
-    <div class="info-box green">
-      <strong>UTA vs Standard Account — What Changes</strong>
-      <ul>
-        <li>One margin pool covers spot buys, perp shorts, and options simultaneously</li>
-        <li>No internal transfers needed before opening either leg of an arbitrage trade</li>
-        <li>Cross-margin netting: your spot ETH holding automatically reduces margin requirement for your short ETH perp</li>
-        <li>Unified position view — see all legs of your arbitrage at once in the Positions tab</li>
-      </ul>
-    </div>
-
-    <ul class="step-list">
-      <li>
-        <div class="sn">1</div>
-        <div class="sb"><strong>Go to Account &rarr; Upgrade to UTA</strong>Find the upgrade option in your account dashboard. It is free and instant — no funds are affected.</div>
-      </li>
-      <li>
-        <div class="sn">2</div>
-        <div class="sb"><strong>Read the cross-margin implications</strong>In UTA, positions default to cross-margin (shared pool). For arbitrage, you will switch each pair to Isolated Margin — covered in the next section.</div>
-      </li>
-      <li>
-        <div class="sn">3</div>
-        <div class="sb"><strong>Confirm the upgrade</strong>Existing balances carry over automatically. If you have open positions, they migrate to UTA without closing.</div>
-      </li>
-    </ul>
-
-    <div class="callout info">
-      <span class="callout-icon">📌</span>
-      <p>After UTA activation, deposit USDT once and it immediately serves as margin for both your spot buy and your futures short. No separate wallet transfers needed — ever.</p>
-    </div>
-  </section>
-
-  <!-- SECTION 4: MARGIN MODE -->
-  <section class="article-section" id="margin-mode">
-    <div class="step-eyebrow">
-      <div class="step-badge">04</div>
-      <div class="step-eyebrow-label">Step Three</div>
-    </div>
-    <h2 class="section-title">Setting the Correct Margin Mode</h2>
-    <p class="body-p">Even with UTA, each futures position has its own margin mode setting. Choosing correctly is critical — it determines how much risk one bad position can cause to your entire portfolio.</p>
-
-    <div class="card-grid">
-      <div class="mcard">
-        <div class="mcard-icon">🔗</div>
-        <h3>Cross Margin</h3>
-        <p>All positions share a single margin pool — your full wallet balance backs every trade. Capital-efficient but a liquidation in one position can drain funds meant for all others.</p>
-      </div>
-      <div class="mcard rec">
-        <div class="rec-pill">✅ RECOMMENDED</div>
-        <div class="mcard-icon">🛡️</div>
-        <h3>Isolated Margin</h3>
-        <p>Each position has its own dedicated margin. Maximum loss is capped at exactly what you allocated to that specific trade. Risk-per-trade is completely predictable.</p>
-      </div>
-    </div>
-
-    <div class="callout info">
-      <span class="callout-icon">📌</span>
-      <p><strong>For all arbitrage positions: use Isolated Margin.</strong> To set it — open the futures trading interface, click the margin mode label (shows "Cross" by default) → select "Isolated" → confirm. This must be set per trading pair.</p>
-    </div>
-  </section>
-
-  <!-- SECTION 5: LEVERAGE -->
-  <section class="article-section" id="leverage">
-    <div class="step-eyebrow">
-      <div class="step-badge">05</div>
-      <div class="step-eyebrow-label">Step Four</div>
-    </div>
-    <h2 class="section-title">Setting Leverage to 1x — Always</h2>
-    <p class="body-p">For funding rate arbitrage, leverage must be set to <strong>1x</strong> on the futures short leg. The entire point of the strategy is market neutrality — you are not speculating on price direction. High leverage adds liquidation risk without adding any profit potential.</p>
-
-    <div class="callout warn">
-      <span class="callout-icon">⚠️</span>
-      <p><strong>High leverage is not for arbitrage.</strong> If you short 1 ETH at 10x leverage and ETH jumps 10%, you get liquidated — and your spot position's gain doesn't help your futures margin. At 1x, your liquidation price is so far from current market that it effectively cannot happen unless the exchange itself has issues.</p>
-    </div>
-
-    <ul class="step-list">
-      <li>
-        <div class="sn">1</div>
-        <div class="sb"><strong>In the order panel, click the leverage number</strong>Bybit defaults to 10x or 20x. Click the leverage label to open the slider.</div>
-      </li>
-      <li>
-        <div class="sn">2</div>
-        <div class="sb"><strong>Drag to 1x or type "1"</strong>Bybit will warn you about low leverage — this is expected and intentional. Confirm the setting.</div>
-      </li>
-      <li>
-        <div class="sn">3</div>
-        <div class="sb"><strong>Set per contract</strong>ETHUSDT and SOLUSDT have independent leverage settings. You must set 1x for each pair you trade on Bybit.</div>
-      </li>
-    </ul>
-  </section>
-
-  <!-- SECTION 6: FEES -->
-  <section class="article-section" id="fees">
-    <div class="step-eyebrow">
-      <div class="step-badge">06</div>
-      <div class="step-eyebrow-label">Step Five</div>
-    </div>
-    <h2 class="section-title">Bybit Fee Structure &amp; How to Reduce It</h2>
-    <p class="body-p">In arbitrage, fees are a direct deduction from every trade's profit. Understanding Bybit's fee structure and using it to your advantage is non-negotiable.</p>
-
-    <div class="table-wrap">
-      <table class="data-table">
-        <thead>
-          <tr><th>Order Type</th><th>Spot</th><th>USDT Perp (Maker)</th><th>USDT Perp (Taker)</th><th>After VIP 1</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Standard</td><td>0.100%</td><td class="td-g">0.020%</td><td>0.055%</td><td class="td-b">0.016% maker</td></tr>
-          <tr><td>With MNT</td><td class="td-g">0.090%</td><td class="td-g">0.018%</td><td class="td-g">0.050%</td><td>—</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <ul class="check-list">
-      <li><strong>Always use Limit orders on futures</strong> — qualifies for 0.020% maker fee vs 0.055% taker. On a $5,000 position, this saves $1.75 per leg.</li>
-      <li>Hold Bybit's native <strong>MNT token</strong> for an additional fee discount (similar to BNB on Binance). Small amount sufficient.</li>
-      <li>VIP 1 unlocks at $1M monthly volume — realistic for active arbitrage traders with larger capital.</li>
-      <li class="no">Never use Market orders on Bybit — taker fee (0.055%) is nearly 3x the maker fee. Always place limit orders and wait for fill.</li>
-    </ul>
-
-    <div class="info-box orange">
-      <strong>Round-Trip Fee Example — $5,000 Position (Limit Orders)</strong>
-      <ul>
-        <li>Spot buy entry: 0.10% × $5,000 = $5.00</li>
-        <li>Perp short entry (maker): 0.020% × $5,000 = $1.00</li>
-        <li>Spot sell exit: 0.10% × $5,000 = $5.00</li>
-        <li>Perp close exit (maker): 0.020% × $5,000 = $1.00</li>
-        <li><strong>Total round-trip: $12.00 (0.24%)</strong></li>
-        <li>At 0.05%/8h funding rate, fees recovered in &lt;24 hours</li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- SECTION 7: DEPOSIT -->
-  <section class="article-section" id="deposit">
-    <div class="step-eyebrow">
-      <div class="step-badge">07</div>
-      <div class="step-eyebrow-label">Step Six</div>
-    </div>
-    <h2 class="section-title">Depositing and Funding Your Account</h2>
-    <p class="body-p">Bybit accepts USDT deposits via multiple blockchain networks. With UTA active, your deposit immediately serves as margin for all trading activities — no internal transfers needed.</p>
-
-    <div class="info-box green">
-      <strong>Recommended Deposit Method</strong>
-      <ul>
-        <li><strong>Network: TRC-20 (Tron)</strong> — fee ~$1, settlement in under 2 minutes. Best option for most users.</li>
-        <li><strong>Alternative: BEP-20 (BSC)</strong> — fee ~$0.10, equally fast. Good if your sending exchange supports it.</li>
-        <li><strong>Avoid: ERC-20 (Ethereum)</strong> — fees $10–50 during peak congestion. Only use if no other option available.</li>
-        <li><strong>Minimum deposit</strong>: $10 USDT. Practical minimum for real trading: <strong>$500+</strong>. Fees consume too much of smaller amounts.</li>
-      </ul>
-    </div>
-
-    <ul class="step-list">
-      <li>
-        <div class="sn">1</div>
-        <div class="sb"><strong>Go to Assets &rarr; Deposit &rarr; USDT</strong>Select TRC-20 network. Copy your Bybit USDT TRC-20 deposit address.</div>
-      </li>
-      <li>
-        <div class="sn">2</div>
-        <div class="sb"><strong>Send from your source wallet or exchange</strong>Paste the Bybit address carefully. Double-check the first and last 6 characters. Wrong address = permanent loss of funds.</div>
-      </li>
-      <li>
-        <div class="sn">3</div>
-        <div class="sb"><strong>Wait for confirmation</strong>TRC-20 confirms in under 2 minutes. USDT appears in your Unified Account automatically — no manual allocation needed.</div>
-      </li>
-    </ul>
-
-    <div class="callout tip">
-      <span class="callout-icon">💡</span>
-      <p><strong>How much to start with?</strong> For meaningful returns at 0.05%/8h funding rate: $1,000 earns ~$45/month, $5,000 earns ~$225/month, $10,000 earns ~$450/month — before fees. Start with $500–1,000 to learn, then scale once comfortable.</p>
-    </div>
-  </section>
-
-  <!-- SECTION 8: FIRST TRADE -->
-  <section class="article-section" id="first-trade">
-    <div class="step-eyebrow">
-      <div class="step-badge">08</div>
-      <div class="step-eyebrow-label">Step Seven</div>
-    </div>
-    <h2 class="section-title">Your First Arbitrage Trade on Bybit</h2>
-    <p class="body-p">For funding rate arbitrage: you buy the coin on spot and simultaneously short its USDT perpetual. The short collects funding payments every 8 hours while price exposure is fully hedged.</p>
-
-    <div class="callout info">
-      <span class="callout-icon">📌</span>
-      <p><strong>Example:</strong> ETH funding rate on Bybit is +0.08% per 8 hours. You buy 1 ETH on Bybit Spot and short 1 ETH USDT perpetual on Bybit Derivatives. You collect $X funding every 8 hours while your net price exposure is zero.</p>
-    </div>
-
-    <p class="body-p"><strong style="color:var(--text)">Step A — Open the Bybit Spot Buy:</strong></p>
-    <ul class="step-list">
-      <li>
-        <div class="sn">1</div>
-        <div class="sb"><strong>Go to Spot Trading &rarr; search your coin (e.g. ETHUSDT)</strong>Use whichever coin ArbVertex's signal specifies, or any coin meeting your own screening criteria.</div>
-      </li>
-      <li>
-        <div class="sn">2</div>
-        <div class="sb"><strong>Select Limit order, set price near current market</strong>Place 0.01–0.05% below current ask for fast fill at maker rate.</div>
-      </li>
-      <li>
-        <div class="sn">3</div>
-        <div class="sb"><strong>Enter your USDT amount and click Buy</strong>Note the notional value — you will match this exactly on the futures side.</div>
-      </li>
-    </ul>
-
-    <p class="body-p"><strong style="color:var(--text)">Step B — Open the Futures Short:</strong></p>
-    <ul class="step-list">
-      <li>
-        <div class="sn">1</div>
-        <div class="sb"><strong>Go to Derivatives &rarr; USDT Perpetual &rarr; ETHUSDT</strong>Same coin, different market type.</div>
-      </li>
-      <li>
-        <div class="sn">2</div>
-        <div class="sb"><strong>Verify: Isolated Margin + 1x Leverage</strong>Check both settings before placing any order. These should already be set from the previous steps.</div>
-      </li>
-      <li>
-        <div class="sn">3</div>
-        <div class="sb"><strong>Select Limit order, set price near current market</strong>Maker order = 0.020% fee vs 0.055% taker.</div>
-      </li>
-      <li>
-        <div class="sn">4</div>
-        <div class="sb"><strong>Enter the same notional value as your spot buy</strong>If you bought $2,000 worth of ETH on spot, short $2,000 notional on perp. Both legs must be balanced.</div>
-      </li>
-      <li>
-        <div class="sn">5</div>
-        <div class="sb"><strong>Click Sell / Short and confirm</strong>Your short position appears in the Positions tab with entry price, unrealized PnL, and liquidation price.</div>
-      </li>
-      <li>
-        <div class="sn">6</div>
-        <div class="sb"><strong>Verify both legs are filled</strong>Check Spot Holdings (your ETH) and Futures Positions (your short). If one leg is missing, complete it immediately — a single open leg leaves you with directional exposure.</div>
-      </li>
-    </ul>
-
-    <div class="callout warn">
-      <span class="callout-icon">⚠️</span>
-      <p><strong>Leg risk is real.</strong> If your spot buy fills but the futures short doesn't (or vice versa), you are no longer hedged. You hold a naked directional position. Complete the missing leg immediately using a market order if necessary — the taker fee is worth eliminating the exposure.</p>
-    </div>
-  </section>
-
-  <!-- SECTION 9: MONITOR -->
-  <section class="article-section" id="monitor">
-    <div class="step-eyebrow">
-      <div class="step-badge">09</div>
-      <div class="step-eyebrow-label">Step Eight</div>
-    </div>
-    <h2 class="section-title">Monitoring Your Position on Bybit</h2>
-    <p class="body-p">Once both legs are open, check these metrics before every 8-hour funding settlement (00:00, 08:00, 16:00 UTC). This takes 5–10 minutes per check.</p>
-
-    <div class="monitor-grid">
-      <div class="monitor-item"><div class="mi-label">Funding Rate</div><div class="mi-val">Current &amp; predicted next</div></div>
-      <div class="monitor-item"><div class="mi-label">Next Settlement</div><div class="mi-val">Countdown timer in UI</div></div>
-      <div class="monitor-item"><div class="mi-label">Unrealized PnL</div><div class="mi-val">Should be ≈ zero</div></div>
-      <div class="monitor-item"><div class="mi-label">Liquidation Price</div><div class="mi-val">Very far at 1x</div></div>
-      <div class="monitor-item"><div class="mi-label">Open Interest</div><div class="mi-val">Growing = rate stable</div></div>
-      <div class="monitor-item"><div class="mi-label">Margin Ratio</div><div class="mi-val">Should stay very low</div></div>
-    </div>
-
-    <div class="info-box green">
-      <strong>Where to See Funding Rate on Bybit</strong>
-      <ul>
-        <li>Open the ETHUSDT Perpetual trading interface</li>
-        <li>Look at the top bar — "Funding Rate" shows current rate + time until next payment</li>
-        <li>Click the rate to see the full history for that contract</li>
-        <li>The "Est. Funding Rate" shows what the next period rate is predicted to be</li>
-      </ul>
-    </div>
-
-    <div class="info-box red">
-      <strong>Exit Immediately If:</strong>
-      <ul>
-        <li>Predicted funding rate for next period is <strong>negative or zero</strong></li>
-        <li>Rate has dropped 60%+ from your entry rate over 2–3 consecutive periods</li>
-        <li>Open Interest drops 20%+ in 24 hours (longs exiting = rate collapse incoming)</li>
-        <li>Bybit shows any unusual alerts, maintenance announcements, or withdrawal delays</li>
-      </ul>
-    </div>
-
-    <p class="body-p"><strong style="color:var(--text)">How to exit cleanly:</strong> Close the futures short first (fills instantly as a market or limit order) → then sell your spot ETH (allow 5–10 minutes for a limit order). If spot doesn't fill within 10 minutes at limit price, switch to market order — the extra 0.035% taker cost is worth clean closure.</p>
-  </section>
-
-  <!-- FAQ -->
-  <div class="faq-wrap" id="faq">
-    <h2>// Frequently Asked Questions</h2>
-
-    <div class="faq-item open">
-      <div class="faq-q">Is Bybit safe for large arbitrage positions?<span class="faq-icon">+</span></div>
-      <div class="faq-a">Bybit is a top-3 derivatives exchange by volume with third-party verified Proof of Reserves published monthly. For amounts above $50,000, split your exposure across Bybit and Binance — never put more on any single exchange than you're actively trading. Withdraw profits regularly to a personal wallet.</div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q">What is the UTA advantage in practical terms for arbitrage?<span class="faq-icon">+</span></div>
-      <div class="faq-a">Without UTA: deposit USDT → transfer from Funding wallet to Spot wallet → buy ETH → transfer from Funding wallet to Derivatives wallet → short ETH perp. That's 4 steps before you even open a position. With UTA: deposit USDT → buy ETH spot and short ETH perp simultaneously. Two steps. The margin is shared automatically, and Bybit even recognizes the offsetting positions to reduce your required collateral.</div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q">Can I use Bybit without completing KYC?<span class="faq-icon">+</span></div>
-      <div class="faq-a">Bybit allows limited trading without KYC but enforces very low withdrawal limits ($20,000 equivalent daily without KYC vs $1M+ with Level 2 KYC). For any serious arbitrage account, complete at minimum Level 1 KYC immediately after registration. The process takes under 30 minutes.</div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q">What margin mode should I use for arbitrage on Bybit?<span class="faq-icon">+</span></div>
-      <div class="faq-a">Always use Isolated Margin for each arbitrage position. This caps your maximum loss to the margin you allocated to that specific trade. Cross margin shares your entire wallet as collateral — meaning a bad altcoin position could drain funds meant for your BTC or ETH arbitrage positions. Set Isolated per-contract in the trading interface.</div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q">How does Bybit compare to Binance for funding rate arbitrage?<span class="faq-icon">+</span></div>
-      <div class="faq-a">Bybit's maker fee (0.020%) is slightly higher than Binance with BNB discount (0.015%), but Bybit's funding rates tend to be more extreme during volatile periods — creating larger income opportunities. Bybit's UTA also eliminates the internal wallet transfer friction that Binance users face. Both are excellent; many serious arbitrage traders use both simultaneously.</div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q">Does Bybit have a demo/testnet for practice?<span class="faq-icon">+</span></div>
-      <div class="faq-a">Yes — testnet.bybit.com offers a complete simulated trading environment with virtual funds. Order types, fee calculations, liquidation mechanics, and UTA all work identically to mainnet. Practice placing both legs of a funding rate arbitrage trade for 1–2 weeks before committing real capital. It's one of the better testnets in the industry.</div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q">What happens to my position if Bybit has a maintenance window?<span class="faq-icon">+</span></div>
-      <div class="faq-a">Bybit announces maintenance windows 24–48 hours in advance. During maintenance, trading pauses but positions remain open and funding payments that fall during maintenance are typically processed after the window closes. Check Bybit's status page and official announcements before each 8-hour settlement if you're holding an active position.</div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q">Can I run Bybit + Binance arbitrage simultaneously?<span class="faq-icon">+</span></div>
-      <div class="faq-a">Yes — this is a popular setup. Buy spot on Binance (deeper spot liquidity) and short the perp on Bybit (if Bybit's funding rate is higher), or vice versa. Always compare rates on both exchanges before entry and short on whichever pays more. The only added complexity is holding USDT on both exchanges — pre-position capital on each before you start.</div>
-    </div>
-  </div>
-
-  <!-- CTA -->
-  <div class="cta-box">
-    <h3>Ready to Trade Arbitrage Signals?</h3>
-    <p>Get pre-validated 2%+ funding rate signals on Telegram. We scan 8 exchanges 24/7 and alert you when rates are worth acting on.</p>
-    <a href="crypto-arbitrage-signals-pricing.html" class="btn-primary">View Plans — $5/month</a>
-    <a href="advanced-arb-scanner.html" class="btn-outline">Try Free Scanner</a>
-  </div>
-
-  <!-- POST NAV -->
-  <nav class="post-nav" aria-label="Post navigation">
-    <a href="crypto-arbitrage-blog.html">&larr; All Articles</a>
-    <a href="binance-futures-setup-arbitrage.html">&larr; Binance Futures Setup</a>
-    <a href="okx-arbitrage-guide.html" class="next-btn">OKX Arbitrage Guide &rarr;</a>
-  </nav>
+<a class="back-link" href="crypto-arbitrage-blog.html">← Back to Blog</a>
+<!-- TOC -->
+<div class="toc">
+<div class="toc-title">// In This Guide</div>
+<ol>
+<li><a href="#why-bybit">Why Bybit for Arbitrage</a></li>
+<li><a href="#account">Creating Your Bybit Account</a></li>
+<li><a href="#uta">Activating Unified Trading Account</a></li>
+<li><a href="#margin-mode">Setting Margin Mode</a></li>
+<li><a href="#leverage">Setting Leverage to 1x</a></li>
+<li><a href="#fees">Fee Structure &amp; Reduction</a></li>
+<li><a href="#deposit">Depositing &amp; Funding</a></li>
+<li><a href="#first-trade">First Arbitrage Trade</a></li>
+<li><a href="#monitor">Monitoring Your Position</a></li>
+<li><a href="#faq">Frequently Asked Questions</a></li>
+</ol>
+</div>
+<!-- SECTION 1: WHY BYBIT -->
+<section class="article-section" id="why-bybit">
+<div class="step-eyebrow">
+<div class="step-badge">01</div>
+<div class="step-eyebrow-label">Why Bybit</div>
+</div>
+<h2 class="section-title">Why Bybit Is Excellent for Arbitrage Trading</h2>
+<p class="body-p">Bybit has grown from a derivatives-only exchange into a full-featured platform with spot, perps, options, and copy trading — all unified under one margin account. For arbitrage traders, three things stand out: consistently competitive funding rates, a Unified Trading Account that eliminates internal wallet transfers, and a clean interface designed for futures trading.</p>
+<div class="stat-grid">
+<div class="stat-box"><div class="stat-label">Futures Maker Fee</div><div class="stat-value">0.020%</div><div class="stat-sub">Among the lowest globally</div></div>
+<div class="stat-box"><div class="stat-label">Futures Taker Fee</div><div class="stat-value">0.055%</div><div class="stat-sub">Competitive rate</div></div>
+<div class="stat-box"><div class="stat-label">Daily Derivatives Volume</div><div class="stat-value">$15B+</div><div class="stat-sub">Deep liquidity on all pairs</div></div>
+<div class="stat-box"><div class="stat-label">USDT Perpetual Pairs</div><div class="stat-value">500+</div><div class="stat-sub">Wide altcoin coverage</div></div>
+</div>
+<div class="callout tip">
+<span class="callout-icon">💡</span>
+<p>Use referral code <strong>NRBX7</strong> when signing up on Bybit to receive a fee discount and new-user bonus rewards from day one.</p>
+</div>
+</section>
+<!-- SECTION 2: ACCOUNT -->
+<section class="article-section" id="account">
+<div class="step-eyebrow">
+<div class="step-badge">02</div>
+<div class="step-eyebrow-label">Step One</div>
+</div>
+<h2 class="section-title">Creating Your Bybit Account</h2>
+<p class="body-p">The process takes about 20–30 minutes including KYC verification. Bybit is available in most countries — restricted in the United States and a few other jurisdictions.</p>
+<ul class="step-list">
+<li>
+<div class="sn">1</div>
+<div class="sb"><strong>Register at bybit.com</strong>Enter your email address and create a strong password. Use an email you actively monitor — all account alerts go here.</div>
+</li>
+<li>
+<div class="sn">2</div>
+<div class="sb"><strong>Verify your email immediately</strong>Bybit sends a confirmation link that expires in 30 minutes. Click it before doing anything else.</div>
+</li>
+<li>
+<div class="sn">3</div>
+<div class="sb"><strong>Complete Level 1 KYC (mandatory)</strong>Upload a government-issued ID — passport, national ID card, or driver's licence. Level 1 KYC unlocks standard withdrawal limits and is required for futures access. Auto-approval typically takes 5–60 minutes.</div>
+</li>
+<li>
+<div class="sn">4</div>
+<div class="sb"><strong>Consider Level 2 KYC</strong>Level 2 (selfie verification) increases daily withdrawal limits significantly. Recommended for any position size above $5,000.</div>
+</li>
+<li>
+<div class="sn">5</div>
+<div class="sb"><strong>Enable Google Authenticator 2FA</strong>Go to Account Security → Authenticator App. Connect Google Authenticator — not SMS (SIM swap attacks are a real risk). 2FA is required before any withdrawal can be processed.</div>
+</li>
+</ul>
+<div class="callout warn">
+<span class="callout-icon">⚠️</span>
+<p><strong>Never use SMS 2FA for an exchange account.</strong> SIM swapping can give attackers full access within minutes. Google Authenticator or a hardware key (YubiKey) only.</p>
+</div>
+</section>
+<!-- SECTION 3: UTA -->
+<section class="article-section" id="uta">
+<div class="step-eyebrow">
+<div class="step-badge">03</div>
+<div class="step-eyebrow-label">Step Two</div>
+</div>
+<h2 class="section-title">Activating the Unified Trading Account (UTA)</h2>
+<p class="body-p">The Unified Trading Account is Bybit's flagship account type — and its biggest advantage for arbitrage traders. Without UTA, you need separate Spot and Futures wallets and must manually transfer USDT between them before every trade. With UTA, a single USDT balance backs all your positions simultaneously.</p>
+<div class="info-box green">
+<strong>UTA vs Standard Account — What Changes</strong>
+<ul>
+<li>One margin pool covers spot buys, perp shorts, and options simultaneously</li>
+<li>No internal transfers needed before opening either leg of an arbitrage trade</li>
+<li>Cross-margin netting: your spot ETH holding automatically reduces margin requirement for your short ETH perp</li>
+<li>Unified position view — see all legs of your arbitrage at once in the Positions tab</li>
+</ul>
+</div>
+<ul class="step-list">
+<li>
+<div class="sn">1</div>
+<div class="sb"><strong>Go to Account → Upgrade to UTA</strong>Find the upgrade option in your account dashboard. It is free and instant — no funds are affected.</div>
+</li>
+<li>
+<div class="sn">2</div>
+<div class="sb"><strong>Read the cross-margin implications</strong>In UTA, positions default to cross-margin (shared pool). For arbitrage, you will switch each pair to Isolated Margin — covered in the next section.</div>
+</li>
+<li>
+<div class="sn">3</div>
+<div class="sb"><strong>Confirm the upgrade</strong>Existing balances carry over automatically. If you have open positions, they migrate to UTA without closing.</div>
+</li>
+</ul>
+<div class="callout info">
+<span class="callout-icon">📌</span>
+<p>After UTA activation, deposit USDT once and it immediately serves as margin for both your spot buy and your futures short. No separate wallet transfers needed — ever.</p>
+</div>
+</section>
+<!-- SECTION 4: MARGIN MODE -->
+<section class="article-section" id="margin-mode">
+<div class="step-eyebrow">
+<div class="step-badge">04</div>
+<div class="step-eyebrow-label">Step Three</div>
+</div>
+<h2 class="section-title">Setting the Correct Margin Mode</h2>
+<p class="body-p">Even with UTA, each futures position has its own margin mode setting. Choosing correctly is critical — it determines how much risk one bad position can cause to your entire portfolio.</p>
+<div class="card-grid">
+<div class="mcard">
+<div class="mcard-icon">🔗</div>
+<h3>Cross Margin</h3>
+<p>All positions share a single margin pool — your full wallet balance backs every trade. Capital-efficient but a liquidation in one position can drain funds meant for all others.</p>
+</div>
+<div class="mcard rec">
+<div class="rec-pill">✅ RECOMMENDED</div>
+<div class="mcard-icon">🛡️</div>
+<h3>Isolated Margin</h3>
+<p>Each position has its own dedicated margin. Maximum loss is capped at exactly what you allocated to that specific trade. Risk-per-trade is completely predictable.</p>
+</div>
+</div>
+<div class="callout info">
+<span class="callout-icon">📌</span>
+<p><strong>For all arbitrage positions: use Isolated Margin.</strong> To set it — open the futures trading interface, click the margin mode label (shows "Cross" by default) → select "Isolated" → confirm. This must be set per trading pair.</p>
+</div>
+</section>
+<!-- SECTION 5: LEVERAGE -->
+<section class="article-section" id="leverage">
+<div class="step-eyebrow">
+<div class="step-badge">05</div>
+<div class="step-eyebrow-label">Step Four</div>
+</div>
+<h2 class="section-title">Setting Leverage to 1x — Always</h2>
+<p class="body-p">For funding rate arbitrage, leverage must be set to <strong>1x</strong> on the futures short leg. The entire point of the strategy is market neutrality — you are not speculating on price direction. High leverage adds liquidation risk without adding any profit potential.</p>
+<div class="callout warn">
+<span class="callout-icon">⚠️</span>
+<p><strong>High leverage is not for arbitrage.</strong> If you short 1 ETH at 10x leverage and ETH jumps 10%, you get liquidated — and your spot position's gain doesn't help your futures margin. At 1x, your liquidation price is so far from current market that it effectively cannot happen unless the exchange itself has issues.</p>
+</div>
+<ul class="step-list">
+<li>
+<div class="sn">1</div>
+<div class="sb"><strong>In the order panel, click the leverage number</strong>Bybit defaults to 10x or 20x. Click the leverage label to open the slider.</div>
+</li>
+<li>
+<div class="sn">2</div>
+<div class="sb"><strong>Drag to 1x or type "1"</strong>Bybit will warn you about low leverage — this is expected and intentional. Confirm the setting.</div>
+</li>
+<li>
+<div class="sn">3</div>
+<div class="sb"><strong>Set per contract</strong>ETHUSDT and SOLUSDT have independent leverage settings. You must set 1x for each pair you trade on Bybit.</div>
+</li>
+</ul>
+</section>
+<!-- SECTION 6: FEES -->
+<section class="article-section" id="fees">
+<div class="step-eyebrow">
+<div class="step-badge">06</div>
+<div class="step-eyebrow-label">Step Five</div>
+</div>
+<h2 class="section-title">Bybit Fee Structure &amp; How to Reduce It</h2>
+<p class="body-p">In arbitrage, fees are a direct deduction from every trade's profit. Understanding Bybit's fee structure and using it to your advantage is non-negotiable.</p>
+<div class="table-wrap">
+<table class="data-table">
+<thead>
+<tr><th>Order Type</th><th>Spot</th><th>USDT Perp (Maker)</th><th>USDT Perp (Taker)</th><th>After VIP 1</th></tr>
+</thead>
+<tbody>
+<tr><td>Standard</td><td>0.100%</td><td class="td-g">0.020%</td><td>0.055%</td><td class="td-b">0.016% maker</td></tr>
+<tr><td>With MNT</td><td class="td-g">0.090%</td><td class="td-g">0.018%</td><td class="td-g">0.050%</td><td>—</td></tr>
+</tbody>
+</table>
+</div>
+<ul class="check-list">
+<li><strong>Always use Limit orders on futures</strong> — qualifies for 0.020% maker fee vs 0.055% taker. On a $5,000 position, this saves $1.75 per leg.</li>
+<li>Hold Bybit's native <strong>MNT token</strong> for an additional fee discount (similar to BNB on Binance). Small amount sufficient.</li>
+<li>VIP 1 unlocks at $1M monthly volume — realistic for active arbitrage traders with larger capital.</li>
+<li class="no">Never use Market orders on Bybit — taker fee (0.055%) is nearly 3x the maker fee. Always place limit orders and wait for fill.</li>
+</ul>
+<div class="info-box orange">
+<strong>Round-Trip Fee Example — $5,000 Position (Limit Orders)</strong>
+<ul>
+<li>Spot buy entry: 0.10% × $5,000 = $5.00</li>
+<li>Perp short entry (maker): 0.020% × $5,000 = $1.00</li>
+<li>Spot sell exit: 0.10% × $5,000 = $5.00</li>
+<li>Perp close exit (maker): 0.020% × $5,000 = $1.00</li>
+<li><strong>Total round-trip: $12.00 (0.24%)</strong></li>
+<li>At 0.05%/8h funding rate, fees recovered in &lt;24 hours</li>
+</ul>
+</div>
+</section>
+<!-- SECTION 7: DEPOSIT -->
+<section class="article-section" id="deposit">
+<div class="step-eyebrow">
+<div class="step-badge">07</div>
+<div class="step-eyebrow-label">Step Six</div>
+</div>
+<h2 class="section-title">Depositing and Funding Your Account</h2>
+<p class="body-p">Bybit accepts USDT deposits via multiple blockchain networks. With UTA active, your deposit immediately serves as margin for all trading activities — no internal transfers needed.</p>
+<div class="info-box green">
+<strong>Recommended Deposit Method</strong>
+<ul>
+<li><strong>Network: TRC-20 (Tron)</strong> — fee ~$1, settlement in under 2 minutes. Best option for most users.</li>
+<li><strong>Alternative: BEP-20 (BSC)</strong> — fee ~$0.10, equally fast. Good if your sending exchange supports it.</li>
+<li><strong>Avoid: ERC-20 (Ethereum)</strong> — fees $10–50 during peak congestion. Only use if no other option available.</li>
+<li><strong>Minimum deposit</strong>: $10 USDT. Practical minimum for real trading: <strong>$500+</strong>. Fees consume too much of smaller amounts.</li>
+</ul>
+</div>
+<ul class="step-list">
+<li>
+<div class="sn">1</div>
+<div class="sb"><strong>Go to Assets → Deposit → USDT</strong>Select TRC-20 network. Copy your Bybit USDT TRC-20 deposit address.</div>
+</li>
+<li>
+<div class="sn">2</div>
+<div class="sb"><strong>Send from your source wallet or exchange</strong>Paste the Bybit address carefully. Double-check the first and last 6 characters. Wrong address = permanent loss of funds.</div>
+</li>
+<li>
+<div class="sn">3</div>
+<div class="sb"><strong>Wait for confirmation</strong>TRC-20 confirms in under 2 minutes. USDT appears in your Unified Account automatically — no manual allocation needed.</div>
+</li>
+</ul>
+<div class="callout tip">
+<span class="callout-icon">💡</span>
+<p><strong>How much to start with?</strong> For meaningful returns at 0.05%/8h funding rate: $1,000 earns ~$45/month, $5,000 earns ~$225/month, $10,000 earns ~$450/month — before fees. Start with $500–1,000 to learn, then scale once comfortable.</p>
+</div>
+</section>
+<!-- SECTION 8: FIRST TRADE -->
+<section class="article-section" id="first-trade">
+<div class="step-eyebrow">
+<div class="step-badge">08</div>
+<div class="step-eyebrow-label">Step Seven</div>
+</div>
+<h2 class="section-title">Your First Arbitrage Trade on Bybit</h2>
+<p class="body-p">For funding rate arbitrage: you buy the coin on spot and simultaneously short its USDT perpetual. The short collects funding payments every 8 hours while price exposure is fully hedged.</p>
+<div class="callout info">
+<span class="callout-icon">📌</span>
+<p><strong>Example:</strong> ETH funding rate on Bybit is +0.08% per 8 hours. You buy 1 ETH on Bybit Spot and short 1 ETH USDT perpetual on Bybit Derivatives. You collect $X funding every 8 hours while your net price exposure is zero.</p>
+</div>
+<p class="body-p"><strong style="color:var(--text)">Step A — Open the Bybit Spot Buy:</strong></p>
+<ul class="step-list">
+<li>
+<div class="sn">1</div>
+<div class="sb"><strong>Go to Spot Trading → search your coin (e.g. ETHUSDT)</strong>Use whichever coin ArbVertex's signal specifies, or any coin meeting your own screening criteria.</div>
+</li>
+<li>
+<div class="sn">2</div>
+<div class="sb"><strong>Select Limit order, set price near current market</strong>Place 0.01–0.05% below current ask for fast fill at maker rate.</div>
+</li>
+<li>
+<div class="sn">3</div>
+<div class="sb"><strong>Enter your USDT amount and click Buy</strong>Note the notional value — you will match this exactly on the futures side.</div>
+</li>
+</ul>
+<p class="body-p"><strong style="color:var(--text)">Step B — Open the Futures Short:</strong></p>
+<ul class="step-list">
+<li>
+<div class="sn">1</div>
+<div class="sb"><strong>Go to Derivatives → USDT Perpetual → ETHUSDT</strong>Same coin, different market type.</div>
+</li>
+<li>
+<div class="sn">2</div>
+<div class="sb"><strong>Verify: Isolated Margin + 1x Leverage</strong>Check both settings before placing any order. These should already be set from the previous steps.</div>
+</li>
+<li>
+<div class="sn">3</div>
+<div class="sb"><strong>Select Limit order, set price near current market</strong>Maker order = 0.020% fee vs 0.055% taker.</div>
+</li>
+<li>
+<div class="sn">4</div>
+<div class="sb"><strong>Enter the same notional value as your spot buy</strong>If you bought $2,000 worth of ETH on spot, short $2,000 notional on perp. Both legs must be balanced.</div>
+</li>
+<li>
+<div class="sn">5</div>
+<div class="sb"><strong>Click Sell / Short and confirm</strong>Your short position appears in the Positions tab with entry price, unrealized PnL, and liquidation price.</div>
+</li>
+<li>
+<div class="sn">6</div>
+<div class="sb"><strong>Verify both legs are filled</strong>Check Spot Holdings (your ETH) and Futures Positions (your short). If one leg is missing, complete it immediately — a single open leg leaves you with directional exposure.</div>
+</li>
+</ul>
+<div class="callout warn">
+<span class="callout-icon">⚠️</span>
+<p><strong>Leg risk is real.</strong> If your spot buy fills but the futures short doesn't (or vice versa), you are no longer hedged. You hold a naked directional position. Complete the missing leg immediately using a market order if necessary — the taker fee is worth eliminating the exposure.</p>
+</div>
+</section>
+<!-- SECTION 9: MONITOR -->
+<section class="article-section" id="monitor">
+<div class="step-eyebrow">
+<div class="step-badge">09</div>
+<div class="step-eyebrow-label">Step Eight</div>
+</div>
+<h2 class="section-title">Monitoring Your Position on Bybit</h2>
+<p class="body-p">Once both legs are open, check these metrics before every 8-hour funding settlement (00:00, 08:00, 16:00 UTC). This takes 5–10 minutes per check.</p>
+<div class="monitor-grid">
+<div class="monitor-item"><div class="mi-label">Funding Rate</div><div class="mi-val">Current &amp; predicted next</div></div>
+<div class="monitor-item"><div class="mi-label">Next Settlement</div><div class="mi-val">Countdown timer in UI</div></div>
+<div class="monitor-item"><div class="mi-label">Unrealized PnL</div><div class="mi-val">Should be ≈ zero</div></div>
+<div class="monitor-item"><div class="mi-label">Liquidation Price</div><div class="mi-val">Very far at 1x</div></div>
+<div class="monitor-item"><div class="mi-label">Open Interest</div><div class="mi-val">Growing = rate stable</div></div>
+<div class="monitor-item"><div class="mi-label">Margin Ratio</div><div class="mi-val">Should stay very low</div></div>
+</div>
+<div class="info-box green">
+<strong>Where to See Funding Rate on Bybit</strong>
+<ul>
+<li>Open the ETHUSDT Perpetual trading interface</li>
+<li>Look at the top bar — "Funding Rate" shows current rate + time until next payment</li>
+<li>Click the rate to see the full history for that contract</li>
+<li>The "Est. Funding Rate" shows what the next period rate is predicted to be</li>
+</ul>
+</div>
+<div class="info-box red">
+<strong>Exit Immediately If:</strong>
+<ul>
+<li>Predicted funding rate for next period is <strong>negative or zero</strong></li>
+<li>Rate has dropped 60%+ from your entry rate over 2–3 consecutive periods</li>
+<li>Open Interest drops 20%+ in 24 hours (longs exiting = rate collapse incoming)</li>
+<li>Bybit shows any unusual alerts, maintenance announcements, or withdrawal delays</li>
+</ul>
+</div>
+<p class="body-p"><strong style="color:var(--text)">How to exit cleanly:</strong> Close the futures short first (fills instantly as a market or limit order) → then sell your spot ETH (allow 5–10 minutes for a limit order). If spot doesn't fill within 10 minutes at limit price, switch to market order — the extra 0.035% taker cost is worth clean closure.</p>
+</section>
+<!-- FAQ -->
+<div class="faq-wrap" id="faq">
+<h2>// Frequently Asked Questions</h2>
+<div class="faq-item open">
+<div class="faq-q">Is Bybit safe for large arbitrage positions?<span class="faq-icon">+</span></div>
+<div class="faq-a">Bybit is a top-3 derivatives exchange by volume with third-party verified Proof of Reserves published monthly. For amounts above $50,000, split your exposure across Bybit and Binance — never put more on any single exchange than you're actively trading. Withdraw profits regularly to a personal wallet.</div>
+</div>
+<div class="faq-item">
+<div class="faq-q">What is the UTA advantage in practical terms for arbitrage?<span class="faq-icon">+</span></div>
+<div class="faq-a">Without UTA: deposit USDT → transfer from Funding wallet to Spot wallet → buy ETH → transfer from Funding wallet to Derivatives wallet → short ETH perp. That's 4 steps before you even open a position. With UTA: deposit USDT → buy ETH spot and short ETH perp simultaneously. Two steps. The margin is shared automatically, and Bybit even recognizes the offsetting positions to reduce your required collateral.</div>
+</div>
+<div class="faq-item">
+<div class="faq-q">Can I use Bybit without completing KYC?<span class="faq-icon">+</span></div>
+<div class="faq-a">Bybit allows limited trading without KYC but enforces very low withdrawal limits ($20,000 equivalent daily without KYC vs $1M+ with Level 2 KYC). For any serious arbitrage account, complete at minimum Level 1 KYC immediately after registration. The process takes under 30 minutes.</div>
+</div>
+<div class="faq-item">
+<div class="faq-q">What margin mode should I use for arbitrage on Bybit?<span class="faq-icon">+</span></div>
+<div class="faq-a">Always use Isolated Margin for each arbitrage position. This caps your maximum loss to the margin you allocated to that specific trade. Cross margin shares your entire wallet as collateral — meaning a bad altcoin position could drain funds meant for your BTC or ETH arbitrage positions. Set Isolated per-contract in the trading interface.</div>
+</div>
+<div class="faq-item">
+<div class="faq-q">How does Bybit compare to Binance for funding rate arbitrage?<span class="faq-icon">+</span></div>
+<div class="faq-a">Bybit's maker fee (0.020%) is slightly higher than Binance with BNB discount (0.015%), but Bybit's funding rates tend to be more extreme during volatile periods — creating larger income opportunities. Bybit's UTA also eliminates the internal wallet transfer friction that Binance users face. Both are excellent; many serious arbitrage traders use both simultaneously.</div>
+</div>
+<div class="faq-item">
+<div class="faq-q">Does Bybit have a demo/testnet for practice?<span class="faq-icon">+</span></div>
+<div class="faq-a">Yes — testnet.bybit.com offers a complete simulated trading environment with virtual funds. Order types, fee calculations, liquidation mechanics, and UTA all work identically to mainnet. Practice placing both legs of a funding rate arbitrage trade for 1–2 weeks before committing real capital. It's one of the better testnets in the industry.</div>
+</div>
+<div class="faq-item">
+<div class="faq-q">What happens to my position if Bybit has a maintenance window?<span class="faq-icon">+</span></div>
+<div class="faq-a">Bybit announces maintenance windows 24–48 hours in advance. During maintenance, trading pauses but positions remain open and funding payments that fall during maintenance are typically processed after the window closes. Check Bybit's status page and official announcements before each 8-hour settlement if you're holding an active position.</div>
+</div>
+<div class="faq-item">
+<div class="faq-q">Can I run Bybit + Binance arbitrage simultaneously?<span class="faq-icon">+</span></div>
+<div class="faq-a">Yes — this is a popular setup. Buy spot on Binance (deeper spot liquidity) and short the perp on Bybit (if Bybit's funding rate is higher), or vice versa. Always compare rates on both exchanges before entry and short on whichever pays more. The only added complexity is holding USDT on both exchanges — pre-position capital on each before you start.</div>
+</div>
+</div>
+<!-- CTA -->
+<div class="cta-box">
+<h3>Ready to Trade Arbitrage Signals?</h3>
+<p>Get pre-validated 2%+ funding rate signals on Telegram. We scan 8 exchanges 24/7 and alert you when rates are worth acting on.</p>
+<a class="btn-primary" href="crypto-arbitrage-signals-pricing.html">View Plans — $5/month</a>
+<a class="btn-outline" href="advanced-arb-scanner.html">Try Free Scanner</a>
+</div>
+<!-- POST NAV -->
+<nav aria-label="Post navigation" class="post-nav">
+<a href="crypto-arbitrage-blog.html">← All Articles</a>
+<a href="binance-futures-setup-arbitrage.html">← Binance Futures Setup</a>
+<a class="next-btn" href="okx-arbitrage-guide.html">OKX Arbitrage Guide →</a>
+</nav>
 </main>
-
 <!-- FOOTER -->
-<footer>
-  <p>&copy; 2026 ArbVertex &mdash; All rights reserved</p>
-  <div class="footer-links">
-    <a href="crypto-arbitrage-blog.html">Blog</a>
-    <a href="index.html">Home</a>
-    <a href="crypto-arbitrage-signals-pricing.html">Pricing</a>
-    <a href="advanced-arb-scanner.html">Live Scanner</a>
-    <a href="contact-arbvertex.html">Contact</a>
-  </div>
-  <p style="font-size:0.75rem;">Educational content only. Not financial advice. Always do your own research.</p>
+<div class="nav-btns">
+<a class="nb-outline" href="crypto-arbitrage-blog.html">☰ Back to Blog</a>
+<a class="nb-outline" href="binance-futures-setup-arbitrage.html">← How to Set Up Binance Futures for A…</a>
+<a class="nb-primary" href="okx-arbitrage-guide.html">OKX Arbitrage Guide: Setup, Portfol… →</a>
+</div><footer>
+<p>© 2026 ArbVertex — All rights reserved</p>
+<div class="footer-links">
+<a href="crypto-arbitrage-blog.html">Blog</a>
+<a href="index.html">Home</a>
+<a href="crypto-arbitrage-signals-pricing.html">Pricing</a>
+<a href="advanced-arb-scanner.html">Live Scanner</a>
+<a href="contact-arbvertex.html">Contact</a>
+</div>
+<p style="font-size:0.75rem;">Educational content only. Not financial advice. Always do your own research.</p>
 </footer>
-
 <script>
 (function(){
   // Hamburger
@@ -795,6 +746,5 @@ footer p{color:var(--muted);font-size:0.82rem;}
   });
 })();
 </script>
-
 </body>
 </html>

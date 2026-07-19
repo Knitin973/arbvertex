@@ -1,26 +1,24 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Funding Rate Arbitrage — Earn Passive Crypto Income | ArbVertex</title>
-<meta name="description" content="Learn how funding rate arbitrage works — hold spot + short perps to collect funding fees every 8 hours. Realistic APR calculations and entry/exit rules.">
-<meta name="keywords" content="funding rate arbitrage, crypto funding rate, perpetual futures funding, passive crypto income, cash and carry trade crypto, funding rate trading">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://arbvertex.com/funding-rate-arbitrage.html">
-
+<meta content="Learn how funding rate arbitrage works — hold spot + short perps to collect funding fees every 8 hours. Realistic APR calculations and entry/exit rules." name="description"/>
+<meta content="funding rate arbitrage, crypto funding rate, perpetual futures funding, passive crypto income, cash and carry trade crypto, funding rate trading" name="keywords"/>
+<meta content="index, follow" name="robots"/>
+<link href="https://arbvertex.com/funding-rate-arbitrage.html" rel="canonical"/>
 <!-- Open Graph -->
-<meta property="og:title" content="Funding Rate Arbitrage — Earn Passive Crypto Income | ArbVertex">
-<meta property="og:description" content="Learn how funding rate arbitrage works — hold spot + short perps to collect funding fees every 8 hours. Realistic APR calculations and entry/exit rules.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="funding-rate-arbitrage.html">
-<meta property="og:image" content="https://arbvertex.com/og-image.png">
-
+<meta content="Funding Rate Arbitrage — Earn Passive Crypto Income | ArbVertex" property="og:title"/>
+<meta content="Learn how funding rate arbitrage works — hold spot + short perps to collect funding fees every 8 hours. Realistic APR calculations and entry/exit rules." property="og:description"/>
+<meta content="website" property="og:type"/>
+<meta content="funding-rate-arbitrage.html" property="og:url"/>
+<meta content="https://arbvertex.com/og-image.png" property="og:image"/>
 <!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Funding Rate Arbitrage — Earn Passive Crypto Income | ArbVertex">
-<meta name="twitter:description" content="Learn how funding rate arbitrage works — hold spot + short perps to collect funding fees every 8 hours. Realistic APR calculations and entry/exit rules.">
-
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Funding Rate Arbitrage — Earn Passive Crypto Income | ArbVertex" name="twitter:title"/>
+<meta content="Learn how funding rate arbitrage works — hold spot + short perps to collect funding fees every 8 hours. Realistic APR calculations and entry/exit rules." name="twitter:description"/>
 <!-- Schema: WebSite -->
 <script type="application/ld+json">
 {
@@ -36,7 +34,6 @@
  }
 }
 </script>
-
 <!-- Schema: Service -->
 <script type="application/ld+json">
 {
@@ -60,7 +57,6 @@
  "areaServed": "Worldwide"
 }
 </script>
-
 <!-- Schema: FAQPage -->
 <script type="application/ld+json">
 {
@@ -110,8 +106,7 @@
  ]
 }
 </script>
-
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
 <style>
 :root {
  --bg: #050a0f;
@@ -308,6 +303,13 @@ footer p{color:var(--muted);font-size:0.82rem;}
  footer{flex-direction:column;text-align:center;}
  .single-plan{padding:2rem 1.5rem;}
 }
+
+.nav-btns{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border,#1a3a52);}
+.nb-outline,.btn-outline{border:1px solid var(--border,#1a3a52);color:var(--text,#e8f4f8);padding:0.65rem 1.4rem;border-radius:4px;font-weight:500;font-size:0.85rem;text-decoration:none;transition:border-color .2s,color .2s;display:inline-block;white-space:nowrap;}
+.nb-outline:hover,.btn-outline:hover{border-color:var(--accent,#00e5ff);color:var(--accent,#00e5ff);}
+.nb-primary,.btn-primary{background:var(--accent,#00e5ff);color:#050a0f;padding:0.65rem 1.4rem;border-radius:4px;font-weight:700;font-size:0.85rem;text-decoration:none;display:inline-block;transition:opacity .2s;white-space:nowrap;}
+.nb-primary:hover,.btn-primary:hover{opacity:0.85;}
+@media(max-width:600px){.nav-btns{flex-direction:column;}}
 </style>
 <style>
 /* ══════════════════════════════════════════════════
@@ -409,84 +411,74 @@ footer p{color:var(--muted);font-size:0.82rem;}
  .av-hamburger{ display:flex; }
 }
 </style>
-
 </head>
 <body data-page="article-3">
-
 <div class="av-nav-wrap">
- <div class="av-nav-inner">
- <a href="index.html" class="av-logo">Arb<span>Vertex</span></a>
- <ul class="av-nav-links" id="avNavLinks">
- <li><a href="index.html" class="av-top-link">Home</a></li>
-
- <li class="av-dropdown">
- <button type="button" class="av-top-link av-drop-trigger">Learn <span class="av-caret">▾</span></button>
- <div class="av-mega-panel">
- <a class="av-mega-link" href="what-is-crypto-futures-arbitrage.html"><span class="av-icon">📘</span><span>What is Arbitrage<span class="av-desc">Core concept explained</span></span></a>
- <a class="av-mega-link" href="how-crypto-arbitrage-signals-work.html"><span class="av-icon">⚙️</span><span>How It Works<span class="av-desc">Step-by-step process</span></span></a>
- <a class="av-mega-link" href="how-to-generate-profit-crypto-arbitrage.html"><span class="av-icon">💰</span><span>Generate Profit<span class="av-desc">Ways arbitrage earns</span></span></a>
- <a class="av-mega-link" href="crypto-arbitrage-risks-precautions.html"><span class="av-icon">⚠️</span><span>Risks &amp; Safety<span class="av-desc">What to watch for</span></span></a>
- <a class="av-mega-link" href="delisting-arbitrage-crypto-arbitrage-risks-precautions.html"><span class="av-icon">🚨</span><span>Delisting Risks<span class="av-desc">Avoid this trap</span></span></a>
- <a class="av-mega-link" href="rethink-traditional-trading.html"><span class="av-icon">🔄</span><span>Rethink Trading<span class="av-desc">Why arbitrage wins</span></span></a>
- <a class="av-mega-link" href="arbitrage-portfolio-growth.html"><span class="av-icon">📈</span><span>Portfolio Growth<span class="av-desc">Long-term strategy</span></span></a>
- </div>
- </li>
-
- <li class="av-dropdown">
- <button type="button" class="av-top-link av-drop-trigger">Tools <span class="av-caret">▾</span></button>
- <div class="av-mega-panel">
-  <a class="av-mega-link" href="live-crypto-arbitrage-scanner.html"><span class="av-icon">📊</span><span>Price Difference Scanner<span class="av-desc">Real-time cross-exchange spot price gaps</span></span></a>
- <a class="av-mega-link" href="live-funding-gap-scanner.html"><span class="av-icon">💸</span><span>Funding Rate Scanner<span class="av-desc">Compare funding rates across 8 exchanges</span></span></a>
- <a class="av-mega-link" href="advanced-arb-scanner.html"><span class="av-icon">⚡</span><span>Advanced Live Scanner<span class="av-desc">Price gap + funding rate combined</span></span></a>
- <a class="av-mega-link" href="arbitrage-calculator.html"><span class="av-icon">🧮</span><span>Futures Arbitrage Calculator<span class="av-desc">Net profit after all fees &amp; slippage</span></span></a>
- </div>
- </li>
-
-    <li class="av-dropdown">
-    <button type="button" class="av-top-link av-drop-trigger">Blog <span class="av-caret">&#9662;</span></button>
-    <div class="av-mega-panel av-blog-panel">
-     <div class="av-blog-col">
-      <div class="av-blog-col-header">&#128216; Beginner</div>
-      <a class="av-mega-link" href="crypto-arbitrage-blog.html#beginner"><span class="av-icon">&#129094;</span><span>Beginner Guides<span class="av-desc">Start from zero &mdash; concepts &amp; first steps</span></span></a>
-      <div class="av-blog-col-header" style="margin-top:0.5rem;">&#128161; Strategy</div>
-      <a class="av-mega-link" href="crypto-arbitrage-blog.html#strategy"><span class="av-icon">&#129097;</span><span>Strategy Guides<span class="av-desc">Funding rate, basis trading, advanced tactics</span></span></a>
-     </div>
-     <div class="av-blog-col">
-      <div class="av-blog-col-header">&#128260; Exchange Guides</div>
-      <a class="av-mega-link" href="crypto-arbitrage-blog.html#exchange"><span class="av-icon">&#129095;</span><span>Exchange Guides<span class="av-desc">Binance, Bybit, OKX setup &amp; comparison</span></span></a>
-      <div class="av-blog-col-header" style="margin-top:0.5rem;">&#128737;&#65039; Risk &amp; Tools</div>
-      <a class="av-mega-link" href="crypto-arbitrage-blog.html#risk"><span class="av-icon">&#128101;</span><span>Risk &amp; Tools<span class="av-desc">Position sizing, stop loss, glossary</span></span></a>
-     </div>
-    </div>
-   </li>
-
- <li class="av-dropdown">
- <button type="button" class="av-top-link av-drop-trigger">Signals <span class="av-caret">▾</span></button>
- <div class="av-mega-panel">
- <a class="av-mega-link" href="crypto-arbitrage-telegram-signals.html"><span class="av-icon">✈️</span><span>Telegram Bot<span class="av-desc">Get instant signals</span></span></a>
- <a class="av-mega-link" href="futures-signal-bot.html"><span class="av-icon">🚀</span><span>Free Futures Signal Bot<span class="av-desc">Live pump &amp; liq signals</span></span></a>
- <a class="av-mega-link" href="crypto-arbitrage-signals-pricing.html"><span class="av-icon">💳</span><span>Pricing<span class="av-desc">$5/month plans</span></span></a>
- </div>
- </li>
-
- <li class="av-dropdown">
- <button type="button" class="av-top-link av-drop-trigger">Company <span class="av-caret">▾</span></button>
- <div class="av-mega-panel">
- <a class="av-mega-link" href="about-arbvertex-crypto-signals.html"><span class="av-icon">🏢</span><span>About Us<span class="av-desc">Our story</span></span></a>
- <a class="av-mega-link" href="contact-arbvertex.html"><span class="av-icon">✉️</span><span>Contact<span class="av-desc">Get in touch</span></span></a>
- </div>
- </li>
-
- <li><a href="advanced-arb-scanner.html" class="av-top-link av-scanner-link">⚡ Live Scanners</a></li>
- <li><a href="crypto-arbitrage-signals-pricing.html" class="av-top-link av-cta">Join Now</a></li>
- </ul>
- <button class="av-hamburger" id="avHamburger" type="button" aria-label="Toggle menu">
- <span></span><span></span><span></span>
- </button>
- </div>
+<div class="av-nav-inner">
+<a class="av-logo" href="index.html">Arb<span>Vertex</span></a>
+<ul class="av-nav-links" id="avNavLinks">
+<li><a class="av-top-link" href="index.html">Home</a></li>
+<li class="av-dropdown">
+<button class="av-top-link av-drop-trigger" type="button">Learn <span class="av-caret">▾</span></button>
+<div class="av-mega-panel">
+<a class="av-mega-link" href="what-is-crypto-futures-arbitrage.html"><span class="av-icon">📘</span><span>What is Arbitrage<span class="av-desc">Core concept explained</span></span></a>
+<a class="av-mega-link" href="how-crypto-arbitrage-signals-work.html"><span class="av-icon">⚙️</span><span>How It Works<span class="av-desc">Step-by-step process</span></span></a>
+<a class="av-mega-link" href="how-to-generate-profit-crypto-arbitrage.html"><span class="av-icon">💰</span><span>Generate Profit<span class="av-desc">Ways arbitrage earns</span></span></a>
+<a class="av-mega-link" href="crypto-arbitrage-risks-precautions.html"><span class="av-icon">⚠️</span><span>Risks &amp; Safety<span class="av-desc">What to watch for</span></span></a>
+<a class="av-mega-link" href="delisting-arbitrage-crypto-arbitrage-risks-precautions.html"><span class="av-icon">🚨</span><span>Delisting Risks<span class="av-desc">Avoid this trap</span></span></a>
+<a class="av-mega-link" href="rethink-traditional-trading.html"><span class="av-icon">🔄</span><span>Rethink Trading<span class="av-desc">Why arbitrage wins</span></span></a>
+<a class="av-mega-link" href="arbitrage-portfolio-growth.html"><span class="av-icon">📈</span><span>Portfolio Growth<span class="av-desc">Long-term strategy</span></span></a>
 </div>
-
-
+</li>
+<li class="av-dropdown">
+<button class="av-top-link av-drop-trigger" type="button">Tools <span class="av-caret">▾</span></button>
+<div class="av-mega-panel">
+<a class="av-mega-link" href="live-crypto-arbitrage-scanner.html"><span class="av-icon">📊</span><span>Price Difference Scanner<span class="av-desc">Real-time cross-exchange spot price gaps</span></span></a>
+<a class="av-mega-link" href="live-funding-gap-scanner.html"><span class="av-icon">💸</span><span>Funding Rate Scanner<span class="av-desc">Compare funding rates across 8 exchanges</span></span></a>
+<a class="av-mega-link" href="advanced-arb-scanner.html"><span class="av-icon">⚡</span><span>Advanced Live Scanner<span class="av-desc">Price gap + funding rate combined</span></span></a>
+<a class="av-mega-link" href="arbitrage-calculator.html"><span class="av-icon">🧮</span><span>Futures Arbitrage Calculator<span class="av-desc">Net profit after all fees &amp; slippage</span></span></a>
+</div>
+</li>
+<li class="av-dropdown">
+<button class="av-top-link av-drop-trigger" type="button">Blog <span class="av-caret">▾</span></button>
+<div class="av-mega-panel av-blog-panel">
+<div class="av-blog-col">
+<div class="av-blog-col-header">📘 Beginner</div>
+<a class="av-mega-link" href="crypto-arbitrage-blog.html#beginner"><span class="av-icon">🡆</span><span>Beginner Guides<span class="av-desc">Start from zero — concepts &amp; first steps</span></span></a>
+<div class="av-blog-col-header" style="margin-top:0.5rem;">💡 Strategy</div>
+<a class="av-mega-link" href="crypto-arbitrage-blog.html#strategy"><span class="av-icon">🡉</span><span>Strategy Guides<span class="av-desc">Funding rate, basis trading, advanced tactics</span></span></a>
+</div>
+<div class="av-blog-col">
+<div class="av-blog-col-header">🔄 Exchange Guides</div>
+<a class="av-mega-link" href="crypto-arbitrage-blog.html#exchange"><span class="av-icon">🡇</span><span>Exchange Guides<span class="av-desc">Binance, Bybit, OKX setup &amp; comparison</span></span></a>
+<div class="av-blog-col-header" style="margin-top:0.5rem;">🛡️ Risk &amp; Tools</div>
+<a class="av-mega-link" href="crypto-arbitrage-blog.html#risk"><span class="av-icon">👥</span><span>Risk &amp; Tools<span class="av-desc">Position sizing, stop loss, glossary</span></span></a>
+</div>
+</div>
+</li>
+<li class="av-dropdown">
+<button class="av-top-link av-drop-trigger" type="button">Signals <span class="av-caret">▾</span></button>
+<div class="av-mega-panel">
+<a class="av-mega-link" href="crypto-arbitrage-telegram-signals.html"><span class="av-icon">✈️</span><span>Telegram Bot<span class="av-desc">Get instant signals</span></span></a>
+<a class="av-mega-link" href="futures-signal-bot.html"><span class="av-icon">🚀</span><span>Free Futures Signal Bot<span class="av-desc">Live pump &amp; liq signals</span></span></a>
+<a class="av-mega-link" href="crypto-arbitrage-signals-pricing.html"><span class="av-icon">💳</span><span>Pricing<span class="av-desc">$5/month plans</span></span></a>
+</div>
+</li>
+<li class="av-dropdown">
+<button class="av-top-link av-drop-trigger" type="button">Company <span class="av-caret">▾</span></button>
+<div class="av-mega-panel">
+<a class="av-mega-link" href="about-arbvertex-crypto-signals.html"><span class="av-icon">🏢</span><span>About Us<span class="av-desc">Our story</span></span></a>
+<a class="av-mega-link" href="contact-arbvertex.html"><span class="av-icon">✉️</span><span>Contact<span class="av-desc">Get in touch</span></span></a>
+</div>
+</li>
+<li><a class="av-top-link av-scanner-link" href="advanced-arb-scanner.html">⚡ Live Scanners</a></li>
+<li><a class="av-top-link av-cta" href="crypto-arbitrage-signals-pricing.html">Join Now</a></li>
+</ul>
+<button aria-label="Toggle menu" class="av-hamburger" id="avHamburger" type="button">
+<span></span><span></span><span></span>
+</button>
+</div>
+</div>
 <style>
 .article-wrap{max-width:820px;margin:0 auto;}
 .article-meta{display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;margin-bottom:1.5rem;}
@@ -551,206 +543,174 @@ footer p{color:var(--muted);font-size:0.82rem;}
   .exchange-table th,.exchange-table td{padding:0.5rem 0.6rem;}
 }
 </style>
-
 <div class="page active" id="page-article-3">
- <div class="inner-page">
-  <div class="article-wrap">
-
-   <button class="back-btn" onclick="showPage('blog')">← Back to Blog</button>
-
-   <div class="article-meta">
-    <span class="meta-tag meta-green">STEP 4 OF 16</span>
-    <span class="meta-tag meta-blue">🟩 STRATEGY</span>
-    <span style="font-size:0.75rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">⏱ 8 min read</span>
-   </div>
-
-   <h2 class="article-hero-title">Funding Rate Arbitrage: Earn Passive Crypto Income Without Price Risk</h2>
-   <p class="article-lead">How funding rates work across 1h, 4h, and 8h intervals — when to enter, what APR to expect, what negative funding means, and how to protect against reversals. With real numbers.</p>
-
-   <!-- TABLE OF CONTENTS -->
-   <div class="toc-box">
-    <h4>// In this article</h4>
-    <ul class="toc-list">
-     <li><a href="#what-is"><span class="toc-num">01</span> What is a funding rate?</a></li>
-     <li><a href="#intervals"><span class="toc-num">02</span> 1h, 4h & 8h funding intervals explained</a></li>
-     <li><a href="#how-it-works"><span class="toc-num">03</span> How the arbitrage works</a></li>
-     <li><a href="#real-numbers"><span class="toc-num">04</span> Real numbers & APR calculation</a></li>
-     <li><a href="#negative"><span class="toc-num">05</span> Negative funding rate — what it means & how to use it</a></li>
-     <li><a href="#entry-exit"><span class="toc-num">06</span> Entry & exit rules</a></li>
-    </ul>
-   </div>
-
-   <!-- SECTION 1 -->
-   <div class="section-block" id="what-is">
-    <h3><span>📘</span> <span class="blue-h">What is a Funding Rate?</span></h3>
-    <p>Perpetual futures contracts never expire — unlike traditional futures. To keep the perpetual price anchored to the spot price, exchanges use a <strong>funding rate mechanism</strong>: a periodic fee paid between long and short traders.</p>
-    <p>When the perpetual price is above spot (bullish market), funding is <strong>positive</strong> — longs pay shorts. When it's below spot (bearish market), funding is <strong>negative</strong> — shorts pay longs.</p>
-    <p>This fee is not paid to the exchange. It flows directly between traders. This is the key insight funding rate arbitrage is built on.</p>
-   </div>
-
-   <!-- SECTION 2 -->
-   <div class="section-block" id="intervals">
-    <h3><span>⏱</span> <span class="blue-h">1h, 4h & 8h Funding Intervals Explained</span></h3>
-    <p>Different exchanges settle funding at different intervals. This affects how often you collect — and how you compare rates across exchanges.</p>
-
-    <div class="interval-grid">
-     <div class="interval-card">
-      <div class="int-label">1-Hour</div>
-      <div class="int-value">24×</div>
-      <div class="int-sub">payments per day</div>
-     </div>
-     <div class="interval-card">
-      <div class="int-label">4-Hour</div>
-      <div class="int-value">6×</div>
-      <div class="int-sub">payments per day</div>
-     </div>
-     <div class="interval-card">
-      <div class="int-label">8-Hour</div>
-      <div class="int-value">3×</div>
-      <div class="int-sub">payments per day</div>
-     </div>
-    </div>
-
-    <p>To compare rates fairly, always <strong>annualize</strong> them:</p>
-
-    <div class="calc-box">
-     <span class="label">1h interval (e.g. OKX, dYdX)</span>
+<div class="inner-page">
+<div class="article-wrap">
+<button class="back-btn" onclick="showPage('blog')">← Back to Blog</button>
+<div class="article-meta">
+<span class="meta-tag meta-green">STEP 4 OF 16</span>
+<span class="meta-tag meta-blue">🟩 STRATEGY</span>
+<span style="font-size:0.75rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">⏱ 8 min read</span>
+</div>
+<h2 class="article-hero-title">Funding Rate Arbitrage: Earn Passive Crypto Income Without Price Risk</h2>
+<p class="article-lead">How funding rates work across 1h, 4h, and 8h intervals — when to enter, what APR to expect, what negative funding means, and how to protect against reversals. With real numbers.</p>
+<!-- TABLE OF CONTENTS -->
+<div class="toc-box">
+<h4>// In this article</h4>
+<ul class="toc-list">
+<li><a href="#what-is"><span class="toc-num">01</span> What is a funding rate?</a></li>
+<li><a href="#intervals"><span class="toc-num">02</span> 1h, 4h &amp; 8h funding intervals explained</a></li>
+<li><a href="#how-it-works"><span class="toc-num">03</span> How the arbitrage works</a></li>
+<li><a href="#real-numbers"><span class="toc-num">04</span> Real numbers &amp; APR calculation</a></li>
+<li><a href="#negative"><span class="toc-num">05</span> Negative funding rate — what it means &amp; how to use it</a></li>
+<li><a href="#entry-exit"><span class="toc-num">06</span> Entry &amp; exit rules</a></li>
+</ul>
+</div>
+<!-- SECTION 1 -->
+<div class="section-block" id="what-is">
+<h3><span>📘</span> <span class="blue-h">What is a Funding Rate?</span></h3>
+<p>Perpetual futures contracts never expire — unlike traditional futures. To keep the perpetual price anchored to the spot price, exchanges use a <strong>funding rate mechanism</strong>: a periodic fee paid between long and short traders.</p>
+<p>When the perpetual price is above spot (bullish market), funding is <strong>positive</strong> — longs pay shorts. When it's below spot (bearish market), funding is <strong>negative</strong> — shorts pay longs.</p>
+<p>This fee is not paid to the exchange. It flows directly between traders. This is the key insight funding rate arbitrage is built on.</p>
+</div>
+<!-- SECTION 2 -->
+<div class="section-block" id="intervals">
+<h3><span>⏱</span> <span class="blue-h">1h, 4h &amp; 8h Funding Intervals Explained</span></h3>
+<p>Different exchanges settle funding at different intervals. This affects how often you collect — and how you compare rates across exchanges.</p>
+<div class="interval-grid">
+<div class="interval-card">
+<div class="int-label">1-Hour</div>
+<div class="int-value">24×</div>
+<div class="int-sub">payments per day</div>
+</div>
+<div class="interval-card">
+<div class="int-label">4-Hour</div>
+<div class="int-value">6×</div>
+<div class="int-sub">payments per day</div>
+</div>
+<div class="interval-card">
+<div class="int-label">8-Hour</div>
+<div class="int-value">3×</div>
+<div class="int-sub">payments per day</div>
+</div>
+</div>
+<p>To compare rates fairly, always <strong>annualize</strong> them:</p>
+<div class="calc-box">
+<span class="label">1h interval (e.g. OKX, dYdX)</span>
      Rate shown: 0.01% per 1h → Daily: 0.24% → APR: <strong>~87.6%</strong>
-     <span class="label">4h interval (e.g. Bitget, some pairs)</span>
+<span class="label">4h interval (e.g. Bitget, some pairs)</span>
      Rate shown: 0.03% per 4h → Daily: 0.045% × 6 = 0.18% → APR: <strong>~65.7%</strong>
-     <span class="label">8h interval (e.g. Binance, Bybit, Gate)</span>
+<span class="label">8h interval (e.g. Binance, Bybit, Gate)</span>
      Rate shown: 0.05% per 8h → Daily: 0.15% → APR: <strong>~54.75%</strong>
-    </div>
-
-    <p style="margin-top:0.5rem;">Exchange reference — which interval each major exchange uses:</p>
-
-    <table class="exchange-table">
-     <thead>
-      <tr>
-       <th>Exchange</th>
-       <th>Interval</th>
-       <th>Settlement Times (UTC)</th>
-       <th>Notes</th>
-      </tr>
-     </thead>
-     <tbody>
-      <tr><td>Binance</td><td class="mono">8h</td><td>00:00 / 08:00 / 16:00</td><td>Most liquid, default choice</td></tr>
-      <tr><td>Bybit</td><td class="mono">8h</td><td>00:00 / 08:00 / 16:00</td><td>Same schedule as Binance</td></tr>
-      <tr><td>Gate.io</td><td class="mono">8h</td><td>00:00 / 08:00 / 16:00</td><td>Good for altcoins</td></tr>
-      <tr><td>OKX</td><td class="mono">1h</td><td>Every hour</td><td>More frequent, smaller per payment</td></tr>
-      <tr><td>Bitget</td><td class="mono">8h</td><td>00:00 / 08:00 / 16:00</td><td>Some pairs differ</td></tr>
-      <tr><td>dYdX</td><td class="mono">1h</td><td>Every hour</td><td>Decentralized, higher rates possible</td></tr>
-     </tbody>
-    </table>
-
-    <p>Always check the exchange's funding page directly — intervals can vary per contract.</p>
-   </div>
-
-   <!-- SECTION 3 -->
-   <div class="section-block" id="how-it-works">
-    <h3><span>⚙️</span> <span class="accent-h">How the Arbitrage Works</span></h3>
-    <p>The strategy is simple and market-neutral. You open two opposite positions simultaneously:</p>
-    <div class="pill-row">
-     <span class="pill good">✅ Buy spot (hold the asset)</span>
-     <span class="pill good">✅ Short perpetual futures (same size)</span>
-    </div>
-    <p>Because the two positions cancel each other out, you have <strong>zero price exposure</strong>. If BTC drops 20%, your spot loss is offset by your short profit. Your only income is the funding fee collected every interval.</p>
-    <p>This is also called a <strong>cash-and-carry trade</strong> or <strong>delta-neutral strategy</strong>. It works as long as funding stays positive.</p>
-   </div>
-
-   <!-- SECTION 4 -->
-   <div class="section-block" id="real-numbers">
-    <h3><span>📊</span> <span class="accent-h">Real Numbers & APR Calculation</span></h3>
-    <p>Let's run the numbers on a $1,000 position at different funding intervals:</p>
-
-    <div class="calc-box">
-     <span class="label">Example — 8h interval at +0.05% per period (Binance/Bybit)</span>
+</div>
+<p style="margin-top:0.5rem;">Exchange reference — which interval each major exchange uses:</p>
+<table class="exchange-table">
+<thead>
+<tr>
+<th>Exchange</th>
+<th>Interval</th>
+<th>Settlement Times (UTC)</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>Binance</td><td class="mono">8h</td><td>00:00 / 08:00 / 16:00</td><td>Most liquid, default choice</td></tr>
+<tr><td>Bybit</td><td class="mono">8h</td><td>00:00 / 08:00 / 16:00</td><td>Same schedule as Binance</td></tr>
+<tr><td>Gate.io</td><td class="mono">8h</td><td>00:00 / 08:00 / 16:00</td><td>Good for altcoins</td></tr>
+<tr><td>OKX</td><td class="mono">1h</td><td>Every hour</td><td>More frequent, smaller per payment</td></tr>
+<tr><td>Bitget</td><td class="mono">8h</td><td>00:00 / 08:00 / 16:00</td><td>Some pairs differ</td></tr>
+<tr><td>dYdX</td><td class="mono">1h</td><td>Every hour</td><td>Decentralized, higher rates possible</td></tr>
+</tbody>
+</table>
+<p>Always check the exchange's funding page directly — intervals can vary per contract.</p>
+</div>
+<!-- SECTION 3 -->
+<div class="section-block" id="how-it-works">
+<h3><span>⚙️</span> <span class="accent-h">How the Arbitrage Works</span></h3>
+<p>The strategy is simple and market-neutral. You open two opposite positions simultaneously:</p>
+<div class="pill-row">
+<span class="pill good">✅ Buy spot (hold the asset)</span>
+<span class="pill good">✅ Short perpetual futures (same size)</span>
+</div>
+<p>Because the two positions cancel each other out, you have <strong>zero price exposure</strong>. If BTC drops 20%, your spot loss is offset by your short profit. Your only income is the funding fee collected every interval.</p>
+<p>This is also called a <strong>cash-and-carry trade</strong> or <strong>delta-neutral strategy</strong>. It works as long as funding stays positive.</p>
+</div>
+<!-- SECTION 4 -->
+<div class="section-block" id="real-numbers">
+<h3><span>📊</span> <span class="accent-h">Real Numbers &amp; APR Calculation</span></h3>
+<p>Let's run the numbers on a $1,000 position at different funding intervals:</p>
+<div class="calc-box">
+<span class="label">Example — 8h interval at +0.05% per period (Binance/Bybit)</span>
      Per 8h: 0.05% × $1,000 = $0.50
      Per day (3×): <strong>$1.50</strong>
      Per month: <strong>~$45</strong>
      Annualized APR: <strong>~54.75%</strong>
-
-     <span class="label">Example — 4h interval at +0.03% per period</span>
+<span class="label">Example — 4h interval at +0.03% per period</span>
      Per 4h: 0.03% × $1,000 = $0.30
      Per day (6×): <strong>$1.80</strong>
      Per month: <strong>~$54</strong>
      Annualized APR: <strong>~65.7%</strong>
-
-     <span class="label">Example — 1h interval at +0.01% per period (OKX)</span>
+<span class="label">Example — 1h interval at +0.01% per period (OKX)</span>
      Per 1h: 0.01% × $1,000 = $0.10
      Per day (24×): <strong>$2.40</strong>
      Per month: <strong>~$72</strong>
      Annualized APR: <strong>~87.6%</strong>
-    </div>
-
-    <p>Note: These are gross returns. Always subtract maker/taker fees (typically 0.02–0.05% per entry/exit) and any borrowing fees if using leverage.</p>
-   </div>
-
-   <!-- SECTION 5 — NEGATIVE FUNDING -->
-   <div class="neg-box" id="negative">
-    <h3><span>⚠️</span> Negative Funding Rate — What It Means & How to Use It</h3>
-    <p>A <strong>negative funding rate</strong> means the perpetual futures price is trading <em>below</em> the spot price. This happens during strong bearish sentiment — when more traders are shorting than going long.</p>
-    <p>In this scenario, the direction reverses: <strong>shorts pay longs</strong>. If you are holding a short position (as in the standard strategy), you are now the one paying — not collecting.</p>
-
-    <div class="calc-box" style="background:rgba(255,85,85,0.04);border-color:rgba(255,85,85,0.2);">
+</div>
+<p>Note: These are gross returns. Always subtract maker/taker fees (typically 0.02–0.05% per entry/exit) and any borrowing fees if using leverage.</p>
+</div>
+<!-- SECTION 5 — NEGATIVE FUNDING -->
+<div class="neg-box" id="negative">
+<h3><span>⚠️</span> Negative Funding Rate — What It Means &amp; How to Use It</h3>
+<p>A <strong>negative funding rate</strong> means the perpetual futures price is trading <em>below</em> the spot price. This happens during strong bearish sentiment — when more traders are shorting than going long.</p>
+<p>In this scenario, the direction reverses: <strong>shorts pay longs</strong>. If you are holding a short position (as in the standard strategy), you are now the one paying — not collecting.</p>
+<div class="calc-box" style="background:rgba(255,85,85,0.04);border-color:rgba(255,85,85,0.2);">
      Funding rate: −0.05% per 8h
      Standard strategy (long spot + short perp): <span style="color:#ff7070;">PAYING $1.50/day ❌</span>
      You are losing money — exit immediately.
     </div>
-
-    <p>Most traders treat negative funding as a signal to exit. But experienced arbitrageurs use it differently:</p>
-
-    <div class="neg-strategy">
-     <h4>// Reverse Strategy — Profit from Negative Funding</h4>
-     <p>When funding is strongly negative (e.g. −0.05% or lower), you can flip the trade: <strong>short spot</strong> (borrow and sell) + <strong>long the perpetual</strong>. Now you collect the funding fee that shorts are paying. This requires margin borrowing on the spot side and is more complex — suitable only for experienced traders.</p>
-    </div>
-
-    <p style="margin-top:1rem;">Key signals that funding is turning negative:</p>
-    <ul class="rule-list">
-     <li><span class="rule-icon">📉</span> Market-wide crash or sharp sell-off</li>
-     <li><span class="rule-icon">📊</span> Open interest rising while price falls</li>
-     <li><span class="rule-icon">🔔</span> Funding rate approaching 0% from positive — a warning sign</li>
-     <li><span class="rule-icon">📰</span> Major negative news event (regulation, hack, macro shock)</li>
-    </ul>
-
-    <p>Always monitor funding before each settlement. ArbVertex Telegram bot alerts you automatically when rates approach dangerous levels.</p>
-   </div>
-
-   <!-- SECTION 6 -->
-   <div class="section-block" id="entry-exit">
-    <h3><span>🎯</span> <span class="accent-h">Entry & Exit Rules</span></h3>
-
-    <p><strong style="color:var(--accent2);">Entry conditions (all must be true):</strong></p>
-    <ul class="rule-list">
-     <li><span class="rule-icon">✅</span> Funding rate is +0.03% or higher per interval</li>
-     <li><span class="rule-icon">✅</span> Rate has been positive for at least 2 consecutive periods</li>
-     <li><span class="rule-icon">✅</span> Sufficient liquidity on both spot and futures markets</li>
-     <li><span class="rule-icon">✅</span> No major news event in the next 24h (avoid volatility)</li>
-    </ul>
-
-    <p style="margin-top:1rem;"><strong style="color:var(--red);">Exit conditions (any one triggers exit):</strong></p>
-    <ul class="rule-list">
-     <li><span class="rule-icon bad">🚨</span> Funding drops below +0.01% per interval</li>
-     <li><span class="rule-icon bad">🚨</span> Funding turns negative for any single period</li>
-     <li><span class="rule-icon bad">🚨</span> Open interest drops sharply (traders exiting — rate may flip)</li>
-     <li><span class="rule-icon bad">🚨</span> Exchange risk increases (withdrawal issues, hack rumours)</li>
-    </ul>
-
-    <p style="margin-top:1rem;">Check funding rates <strong>30 minutes before</strong> each settlement window. For 8h exchanges (Binance, Bybit), that means checking at 07:30, 15:30, and 23:30 UTC.</p>
-   </div>
-
-   <!-- NAV BUTTONS -->
-   <div class="nav-btns">
-    <a href="blog.html" class="nav-btn nav-btn-ghost">☰ Back to Blog</a>
-    <a href="how-to-start-crypto-futures-arbitrage.html" class="nav-btn nav-btn-outline">← Prev: How to Start</a>
-    <a href="triangular-arbitrage-explained.html" class="nav-btn nav-btn-primary">Next: Triangular Arbitrage →</a>
-   </div>
-
-  </div>
- </div>
- <footer><p>© 2026 ArbVertex</p><div class="footer-links"><a onclick="showPage('blog')">Blog</a><a onclick="showPage('home')">Home</a><a onclick="showPage('contact')">Contact</a></div><p style="font-size:0.75rem;">Not financial advice.</p></footer>
+<p>Most traders treat negative funding as a signal to exit. But experienced arbitrageurs use it differently:</p>
+<div class="neg-strategy">
+<h4>// Reverse Strategy — Profit from Negative Funding</h4>
+<p>When funding is strongly negative (e.g. −0.05% or lower), you can flip the trade: <strong>short spot</strong> (borrow and sell) + <strong>long the perpetual</strong>. Now you collect the funding fee that shorts are paying. This requires margin borrowing on the spot side and is more complex — suitable only for experienced traders.</p>
 </div>
+<p style="margin-top:1rem;">Key signals that funding is turning negative:</p>
+<ul class="rule-list">
+<li><span class="rule-icon">📉</span> Market-wide crash or sharp sell-off</li>
+<li><span class="rule-icon">📊</span> Open interest rising while price falls</li>
+<li><span class="rule-icon">🔔</span> Funding rate approaching 0% from positive — a warning sign</li>
+<li><span class="rule-icon">📰</span> Major negative news event (regulation, hack, macro shock)</li>
+</ul>
+<p>Always monitor funding before each settlement. ArbVertex Telegram bot alerts you automatically when rates approach dangerous levels.</p>
+</div>
+<!-- SECTION 6 -->
+<div class="section-block" id="entry-exit">
+<h3><span>🎯</span> <span class="accent-h">Entry &amp; Exit Rules</span></h3>
+<p><strong style="color:var(--accent2);">Entry conditions (all must be true):</strong></p>
+<ul class="rule-list">
+<li><span class="rule-icon">✅</span> Funding rate is +0.03% or higher per interval</li>
+<li><span class="rule-icon">✅</span> Rate has been positive for at least 2 consecutive periods</li>
+<li><span class="rule-icon">✅</span> Sufficient liquidity on both spot and futures markets</li>
+<li><span class="rule-icon">✅</span> No major news event in the next 24h (avoid volatility)</li>
+</ul>
+<p style="margin-top:1rem;"><strong style="color:var(--red);">Exit conditions (any one triggers exit):</strong></p>
+<ul class="rule-list">
+<li><span class="rule-icon bad">🚨</span> Funding drops below +0.01% per interval</li>
+<li><span class="rule-icon bad">🚨</span> Funding turns negative for any single period</li>
+<li><span class="rule-icon bad">🚨</span> Open interest drops sharply (traders exiting — rate may flip)</li>
+<li><span class="rule-icon bad">🚨</span> Exchange risk increases (withdrawal issues, hack rumours)</li>
+</ul>
+<p style="margin-top:1rem;">Check funding rates <strong>30 minutes before</strong> each settlement window. For 8h exchanges (Binance, Bybit), that means checking at 07:30, 15:30, and 23:30 UTC.</p>
+</div>
+<!-- NAV BUTTONS -->
 
+</div>
+<div class="nav-btns">
+<a class="nb-outline" href="crypto-arbitrage-blog.html">☰ Back to Blog</a>
+<span class="nb-outline" style="opacity:0.35;cursor:default;">← First Article</span>
+<a class="nb-primary" href="funding-rate-arbitrage-guide.html">Funding Rate Arbitrage Guide: Earn … →</a>
+</div></div>
+<footer><p>© 2026 ArbVertex</p><div class="footer-links"><a onclick="showPage('blog')">Blog</a><a onclick="showPage('home')">Home</a><a onclick="showPage('contact')">Contact</a></div><p style="font-size:0.75rem;">Not financial advice.</p></footer>
+</div>
 <script>
 // ── CONTACT FORM ──
 function handleFormSubmit(e) {
@@ -1128,6 +1088,5 @@ document.addEventListener('DOMContentLoaded', () => {
  });
 })();
 </script>
-
 </body>
 </html>

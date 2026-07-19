@@ -1,22 +1,23 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Arbitrage Profit Calculator Guide: Net Profit After Fees</title>
-<meta name="description" content="The exact formula to calculate real profit from futures arbitrage — including funding rates, taker fees, rollover costs, and slippage adjustments.">
-<meta name="keywords" content="crypto futures arbitrage signals, bitcoin 2026arbitrage telegram, crypto arbitrage bot, funding rate arbitrage, cross exchange arbitrage, bybit binance arbitrage, crypto signals telegram, arbitrage trading signals">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://arbvertex.com/arbitrage-profit-calculator-guide.html">
-<meta property="og:title" content="Futures Arbitrage Profit Calculator Guide | ArbVertex Blog">
-<meta property="og:description" content="The exact formula to calculate real profit from futures arbitrage including funding rate income, taker fees, and slippage.">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://arbvertex.com/arbitrage-profit-calculator-guide.html">
-<meta property="og:image" content="https://arbvertex.com/og-image.png">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Futures Arbitrage Profit Calculator Guide | ArbVertex Blog">
-<meta name="twitter:description" content="The exact formula to calculate real profit from futures arbitrage including funding rate income, taker fees, and slippage.">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<meta content="The exact formula to calculate real profit from futures arbitrage — including funding rates, taker fees, rollover costs, and slippage adjustments." name="description"/>
+<meta content="crypto futures arbitrage signals, bitcoin 2026arbitrage telegram, crypto arbitrage bot, funding rate arbitrage, cross exchange arbitrage, bybit binance arbitrage, crypto signals telegram, arbitrage trading signals" name="keywords"/>
+<meta content="index, follow" name="robots"/>
+<link href="https://arbvertex.com/arbitrage-profit-calculator-guide.html" rel="canonical"/>
+<meta content="Futures Arbitrage Profit Calculator Guide | ArbVertex Blog" property="og:title"/>
+<meta content="The exact formula to calculate real profit from futures arbitrage including funding rate income, taker fees, and slippage." property="og:description"/>
+<meta content="article" property="og:type"/>
+<meta content="https://arbvertex.com/arbitrage-profit-calculator-guide.html" property="og:url"/>
+<meta content="https://arbvertex.com/og-image.png" property="og:image"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Futures Arbitrage Profit Calculator Guide | ArbVertex Blog" name="twitter:title"/>
+<meta content="The exact formula to calculate real profit from futures arbitrage including funding rate income, taker fees, and slippage." name="twitter:description"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
 <style>
 :root{--bg:#050a0f;--surface:#0d1a24;--accent:#00e5ff;--accent2:#00ff88;--text:#e8f4f8;--muted:#6a8fa8;--border:#1a3a52;--red:#ff5555;--glow:0 0 30px rgba(0,229,255,0.15);}
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -148,157 +149,142 @@ footer p{color:var(--muted);font-size:0.82rem;}
 </script>
 </head>
 <body>
-
 <div class="av-nav-wrap">
- <div class="av-nav-inner">
- <a href="index.html" class="av-logo">Arb<span>Vertex</span></a>
- <ul class="av-nav-links" id="avNavLinks">
- <li><a href="index.html" class="av-top-link">Home</a></li>
-
- <li class="av-dropdown">
- <button type="button" class="av-top-link av-drop-trigger">Learn <span class="av-caret">▾</span></button>
- <div class="av-mega-panel">
- <a class="av-mega-link" href="what-is-crypto-futures-arbitrage.html"><span class="av-icon">📘</span><span>What is Arbitrage<span class="av-desc">Core concept explained</span></span></a>
- <a class="av-mega-link" href="how-crypto-arbitrage-signals-work.html"><span class="av-icon">⚙️</span><span>How It Works<span class="av-desc">Step-by-step process</span></span></a>
- <a class="av-mega-link" href="how-to-generate-profit-crypto-arbitrage.html"><span class="av-icon">💰</span><span>Generate Profit<span class="av-desc">Ways arbitrage earns</span></span></a>
- <a class="av-mega-link" href="crypto-arbitrage-risks-precautions.html"><span class="av-icon">⚠️</span><span>Risks &amp; Safety<span class="av-desc">What to watch for</span></span></a>
- <a class="av-mega-link" href="delisting-arbitrage-crypto-arbitrage-risks-precautions.html"><span class="av-icon">🚨</span><span>Delisting Risks<span class="av-desc">Avoid this trap</span></span></a>
- <a class="av-mega-link" href="rethink-traditional-trading.html"><span class="av-icon">🔄</span><span>Rethink Trading<span class="av-desc">Why arbitrage wins</span></span></a>
- <a class="av-mega-link" href="arbitrage-portfolio-growth.html"><span class="av-icon">📈</span><span>Portfolio Growth<span class="av-desc">Long-term strategy</span></span></a>
- </div>
- </li>
-
- <li class="av-dropdown">
- <button type="button" class="av-top-link av-drop-trigger">Tools <span class="av-caret">▾</span></button>
- <div class="av-mega-panel">
-  <a class="av-mega-link" href="live-crypto-arbitrage-scanner.html"><span class="av-icon">📊</span><span>Price Difference Scanner<span class="av-desc">Real-time cross-exchange spot price gaps</span></span></a>
- <a class="av-mega-link" href="live-funding-gap-scanner.html"><span class="av-icon">💸</span><span>Funding Rate Scanner<span class="av-desc">Compare funding rates across 8 exchanges</span></span></a>
- <a class="av-mega-link" href="advanced-arb-scanner.html"><span class="av-icon">⚡</span><span>Advanced Live Scanner<span class="av-desc">Price gap + funding rate combined</span></span></a>
- <a class="av-mega-link" href="arbitrage-calculator.html"><span class="av-icon">🧮</span><span>Futures Arbitrage Calculator<span class="av-desc">Net profit after all fees &amp; slippage</span></span></a>
- </div>
- </li>
-
-    <li class="av-dropdown">
-    <button type="button" class="av-top-link av-drop-trigger">Blog <span class="av-caret">&#9662;</span></button>
-    <div class="av-mega-panel av-blog-panel">
-     <div class="av-blog-col">
-      <div class="av-blog-col-header">&#128216; Beginner</div>
-      <a class="av-mega-link" href="crypto-arbitrage-blog.html#beginner"><span class="av-icon">&#129094;</span><span>Beginner Guides<span class="av-desc">Start from zero &mdash; concepts &amp; first steps</span></span></a>
-      <div class="av-blog-col-header" style="margin-top:0.5rem;">&#128161; Strategy</div>
-      <a class="av-mega-link" href="crypto-arbitrage-blog.html#strategy"><span class="av-icon">&#129097;</span><span>Strategy Guides<span class="av-desc">Funding rate, basis trading, advanced tactics</span></span></a>
-     </div>
-     <div class="av-blog-col">
-      <div class="av-blog-col-header">&#128260; Exchange Guides</div>
-      <a class="av-mega-link" href="crypto-arbitrage-blog.html#exchange"><span class="av-icon">&#129095;</span><span>Exchange Guides<span class="av-desc">Binance, Bybit, OKX setup &amp; comparison</span></span></a>
-      <div class="av-blog-col-header" style="margin-top:0.5rem;">&#128737;&#65039; Risk &amp; Tools</div>
-      <a class="av-mega-link" href="crypto-arbitrage-blog.html#risk"><span class="av-icon">&#128101;</span><span>Risk &amp; Tools<span class="av-desc">Position sizing, stop loss, glossary</span></span></a>
-     </div>
-    </div>
-   </li>
-
- <li class="av-dropdown">
- <button type="button" class="av-top-link av-drop-trigger">Signals <span class="av-caret">▾</span></button>
- <div class="av-mega-panel">
- <a class="av-mega-link" href="crypto-arbitrage-telegram-signals.html"><span class="av-icon">✈️</span><span>Telegram Bot<span class="av-desc">Get instant signals</span></span></a>
- <a class="av-mega-link" href="futures-signal-bot.html"><span class="av-icon">🚀</span><span>Free Futures Signal Bot<span class="av-desc">Live pump &amp; liq signals</span></span></a>
- <a class="av-mega-link" href="crypto-arbitrage-signals-pricing.html"><span class="av-icon">💳</span><span>Pricing<span class="av-desc">$5/month plans</span></span></a>
- </div>
- </li>
-
- <li class="av-dropdown">
- <button type="button" class="av-top-link av-drop-trigger">Company <span class="av-caret">▾</span></button>
- <div class="av-mega-panel">
- <a class="av-mega-link" href="about-arbvertex-crypto-signals.html"><span class="av-icon">🏢</span><span>About Us<span class="av-desc">Our story</span></span></a>
- <a class="av-mega-link" href="contact-arbvertex.html"><span class="av-icon">✉️</span><span>Contact<span class="av-desc">Get in touch</span></span></a>
- </div>
- </li>
-
- <li><a href="advanced-arb-scanner.html" class="av-top-link av-scanner-link">⚡ Live Scanners</a></li>
- <li><a href="crypto-arbitrage-signals-pricing.html" class="av-top-link av-cta">Join Now</a></li>
- </ul>
- <button class="av-hamburger" id="avHamburger" type="button" aria-label="Toggle menu">
- <span></span><span></span><span></span>
- </button>
- </div>
+<div class="av-nav-inner">
+<a class="av-logo" href="index.html">Arb<span>Vertex</span></a>
+<ul class="av-nav-links" id="avNavLinks">
+<li><a class="av-top-link" href="index.html">Home</a></li>
+<li class="av-dropdown">
+<button class="av-top-link av-drop-trigger" type="button">Learn <span class="av-caret">▾</span></button>
+<div class="av-mega-panel">
+<a class="av-mega-link" href="what-is-crypto-futures-arbitrage.html"><span class="av-icon">📘</span><span>What is Arbitrage<span class="av-desc">Core concept explained</span></span></a>
+<a class="av-mega-link" href="how-crypto-arbitrage-signals-work.html"><span class="av-icon">⚙️</span><span>How It Works<span class="av-desc">Step-by-step process</span></span></a>
+<a class="av-mega-link" href="how-to-generate-profit-crypto-arbitrage.html"><span class="av-icon">💰</span><span>Generate Profit<span class="av-desc">Ways arbitrage earns</span></span></a>
+<a class="av-mega-link" href="crypto-arbitrage-risks-precautions.html"><span class="av-icon">⚠️</span><span>Risks &amp; Safety<span class="av-desc">What to watch for</span></span></a>
+<a class="av-mega-link" href="delisting-arbitrage-crypto-arbitrage-risks-precautions.html"><span class="av-icon">🚨</span><span>Delisting Risks<span class="av-desc">Avoid this trap</span></span></a>
+<a class="av-mega-link" href="rethink-traditional-trading.html"><span class="av-icon">🔄</span><span>Rethink Trading<span class="av-desc">Why arbitrage wins</span></span></a>
+<a class="av-mega-link" href="arbitrage-portfolio-growth.html"><span class="av-icon">📈</span><span>Portfolio Growth<span class="av-desc">Long-term strategy</span></span></a>
 </div>
-
-
-
-
+</li>
+<li class="av-dropdown">
+<button class="av-top-link av-drop-trigger" type="button">Tools <span class="av-caret">▾</span></button>
+<div class="av-mega-panel">
+<a class="av-mega-link" href="live-crypto-arbitrage-scanner.html"><span class="av-icon">📊</span><span>Price Difference Scanner<span class="av-desc">Real-time cross-exchange spot price gaps</span></span></a>
+<a class="av-mega-link" href="live-funding-gap-scanner.html"><span class="av-icon">💸</span><span>Funding Rate Scanner<span class="av-desc">Compare funding rates across 8 exchanges</span></span></a>
+<a class="av-mega-link" href="advanced-arb-scanner.html"><span class="av-icon">⚡</span><span>Advanced Live Scanner<span class="av-desc">Price gap + funding rate combined</span></span></a>
+<a class="av-mega-link" href="arbitrage-calculator.html"><span class="av-icon">🧮</span><span>Futures Arbitrage Calculator<span class="av-desc">Net profit after all fees &amp; slippage</span></span></a>
+</div>
+</li>
+<li class="av-dropdown">
+<button class="av-top-link av-drop-trigger" type="button">Blog <span class="av-caret">▾</span></button>
+<div class="av-mega-panel av-blog-panel">
+<div class="av-blog-col">
+<div class="av-blog-col-header">📘 Beginner</div>
+<a class="av-mega-link" href="crypto-arbitrage-blog.html#beginner"><span class="av-icon">🡆</span><span>Beginner Guides<span class="av-desc">Start from zero — concepts &amp; first steps</span></span></a>
+<div class="av-blog-col-header" style="margin-top:0.5rem;">💡 Strategy</div>
+<a class="av-mega-link" href="crypto-arbitrage-blog.html#strategy"><span class="av-icon">🡉</span><span>Strategy Guides<span class="av-desc">Funding rate, basis trading, advanced tactics</span></span></a>
+</div>
+<div class="av-blog-col">
+<div class="av-blog-col-header">🔄 Exchange Guides</div>
+<a class="av-mega-link" href="crypto-arbitrage-blog.html#exchange"><span class="av-icon">🡇</span><span>Exchange Guides<span class="av-desc">Binance, Bybit, OKX setup &amp; comparison</span></span></a>
+<div class="av-blog-col-header" style="margin-top:0.5rem;">🛡️ Risk &amp; Tools</div>
+<a class="av-mega-link" href="crypto-arbitrage-blog.html#risk"><span class="av-icon">👥</span><span>Risk &amp; Tools<span class="av-desc">Position sizing, stop loss, glossary</span></span></a>
+</div>
+</div>
+</li>
+<li class="av-dropdown">
+<button class="av-top-link av-drop-trigger" type="button">Signals <span class="av-caret">▾</span></button>
+<div class="av-mega-panel">
+<a class="av-mega-link" href="crypto-arbitrage-telegram-signals.html"><span class="av-icon">✈️</span><span>Telegram Bot<span class="av-desc">Get instant signals</span></span></a>
+<a class="av-mega-link" href="futures-signal-bot.html"><span class="av-icon">🚀</span><span>Free Futures Signal Bot<span class="av-desc">Live pump &amp; liq signals</span></span></a>
+<a class="av-mega-link" href="crypto-arbitrage-signals-pricing.html"><span class="av-icon">💳</span><span>Pricing<span class="av-desc">$5/month plans</span></span></a>
+</div>
+</li>
+<li class="av-dropdown">
+<button class="av-top-link av-drop-trigger" type="button">Company <span class="av-caret">▾</span></button>
+<div class="av-mega-panel">
+<a class="av-mega-link" href="about-arbvertex-crypto-signals.html"><span class="av-icon">🏢</span><span>About Us<span class="av-desc">Our story</span></span></a>
+<a class="av-mega-link" href="contact-arbvertex.html"><span class="av-icon">✉️</span><span>Contact<span class="av-desc">Get in touch</span></span></a>
+</div>
+</li>
+<li><a class="av-top-link av-scanner-link" href="advanced-arb-scanner.html">⚡ Live Scanners</a></li>
+<li><a class="av-top-link av-cta" href="crypto-arbitrage-signals-pricing.html">Join Now</a></li>
+</ul>
+<button aria-label="Toggle menu" class="av-hamburger" id="avHamburger" type="button">
+<span></span><span></span><span></span>
+</button>
+</div>
+</div>
 <main>
-  <a href="crypto-arbitrage-blog.html" class="back-link">← Back to Blog</a>
-
-  <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:1rem;">
-    <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;background:rgba(249,115,22,0.1);color:var(--orange);padding:0.3rem 0.7rem;border-radius:3px;">STEP 8 OF 16</span>
-    <span style="font-size:0.7rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">🟥 TOOLS</span>
-  </div>
-
-  <h1 style="font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;line-height:1.15;letter-spacing:-0.02em;margin-bottom:1rem;">Futures Arbitrage Profit Calculator Guide: Calculate Net Profit After All Fees</h1>
-  <p style="color:var(--muted);font-size:0.95rem;line-height:1.8;margin-bottom:2rem;">The exact formula to calculate real profit from futures arbitrage — including funding rate income, taker fees, and slippage. Know your net gain 2026before entering any trade.</p>
-
-  <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.8rem;margin-bottom:1.5rem;">
-    <h2 style="font-size:1.1rem;font-weight:700;margin-bottom:1rem;color:var(--accent);">📐 Futures Arbitrage Profit Formula</h2>
-    <div style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:1.2rem;font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--accent2);line-height:2;">
-      Net Profit = Funding Income − Taker Fee (both legs) − Slippage<br>
-      <span style="color:var(--muted);font-size:0.78rem;">= (Funding Rate × Capital × 3/day) − (0.04% + 0.055%) × Capital − Est. Slippage</span>
-    </div>
-  </div>
-
-  <div style="display:flex;flex-direction:column;gap:1rem;margin-bottom:1.5rem;">
-    <div style="background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:10px;padding:1.4rem;">
-      <strong style="color:var(--text);">Step 1 — Check Funding Rate</strong>
-      <p style="color:var(--muted);font-size:0.88rem;margin-top:0.4rem;line-height:1.7;">Go to Binance or Bybit → Futures market → Check funding rate. Target: 0.05%+ per 8 hours (3x/day = 0.15%/day). Below 0.03% is not worth the fee risk.</p>
-    </div>
-    <div style="background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:10px;padding:1.4rem;">
-      <strong style="color:var(--text);">Step 2 — Calculate Funding Income</strong>
-      <p style="color:var(--muted);font-size:0.88rem;margin-top:0.4rem;line-height:1.7;">Formula: Capital × Funding Rate × 3 payments/day. Example: $10,000 × 0.05% × 3 = $15/day = $450/month gross income.</p>
-    </div>
-    <div style="background:var(--surface);border:1px solid var(--border);border-left:3px solid #ffa040;border-radius:10px;padding:1.4rem;">
-      <strong style="color:var(--text);">Step 3 — Subtract Entry Fees</strong>
-      <p style="color:var(--muted);font-size:0.88rem;margin-top:0.4rem;line-height:1.7;">You pay taker fee on both legs (spot buy + futures short). Binance+Bybit: ~0.095% total. On $10,000 = $9.50 one-time entry cost. Recovered in 2026~15 hours at 0.05% rate.</p>
-    </div>
-    <div style="background:var(--surface);border:1px solid var(--border);border-left:3px solid #ffa040;border-radius:10px;padding:1.4rem;">
-      <strong style="color:var(--text);">Step 4 — Account for Slippage</strong>
-      <p style="color:var(--muted);font-size:0.88rem;margin-top:0.4rem;line-height:1.7;">Use BTC/ETH for near-zero slippage. For altcoins, estimate 0.05–0.2% depending on liquidity. Avoid coins with daily volume under $50M for trades over $5,000.</p>
-    </div>
-  </div>
-
-  <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.8rem;margin-bottom:1.5rem;">
-    <h2 style="font-size:1.1rem;font-weight:700;margin-bottom:1rem;color:var(--accent2);">📊 Real Example: ETHUSDT Funding Rate Arb</h2>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;font-size:0.88rem;">
-      <div style="background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:1rem;">
-        <div style="color:var(--muted);font-size:0.72rem;font-family:'JetBrains Mono',monospace;margin-bottom:0.4rem;">TRADE SETUP</div>
-        <div style="color:var(--text);line-height:1.9;">Capital: $10,000<br>Funding Rate: 0.06%/8h<br>Duration: 7 days<br>Exchange: Binance + Bybit</div>
-      </div>
-      <div style="background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:1rem;">
-        <div style="color:var(--muted);font-size:0.72rem;font-family:'JetBrains Mono',monospace;margin-bottom:0.4rem;">P&amp;L BREAKDOWN</div>
-        <div style="line-height:1.9;">
-          <span style="color:var(--accent2);">+ $126.00</span> funding (21 payments)<br>
-          <span style="color:#ff7070;">− $9.50</span> entry fees<br>
-          <span style="color:#ff7070;">− $9.50</span> exit fees<br>
-          <span style="color:var(--accent2);font-weight:700;">= $107 net profit</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border);">
-      <a href="blog.html" style="border:1px solid var(--border);color:var(--muted);padding:0.7rem 1.5rem;border-radius:4px;font-weight:500;font-size:0.9rem;text-decoration:none;background:none;transition:border-color .2s,color .2s;">☰ Back to Blog</a>
-      <a href="best-crypto-arbitrage-exchanges.html" style="border:1px solid var(--border);color:var(--text);padding:0.7rem 1.5rem;border-radius:4px;font-weight:500;font-size:0.9rem;text-decoration:none;background:none;transition:border-color .2s,color .2s;">← Prev: Best Exchanges</a>
-      <a href="arbitrage-trading-fees-explained.html" style="background:var(--accent);color:var(--bg);padding:0.7rem 1.5rem;border-radius:4px;font-weight:700;font-size:0.9rem;text-decoration:none;transition:opacity .2s;">Next: Trading Fees →</a>
-    </div>
+<a class="back-link" href="crypto-arbitrage-blog.html">← Back to Blog</a>
+<div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:1rem;">
+<span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;background:rgba(249,115,22,0.1);color:var(--orange);padding:0.3rem 0.7rem;border-radius:3px;">STEP 8 OF 16</span>
+<span style="font-size:0.7rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">🟥 TOOLS</span>
+</div>
+<h1 style="font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;line-height:1.15;letter-spacing:-0.02em;margin-bottom:1rem;">Futures Arbitrage Profit Calculator Guide: Calculate Net Profit After All Fees</h1>
+<p style="color:var(--muted);font-size:0.95rem;line-height:1.8;margin-bottom:2rem;">The exact formula to calculate real profit from futures arbitrage — including funding rate income, taker fees, and slippage. Know your net gain 2026before entering any trade.</p>
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.8rem;margin-bottom:1.5rem;">
+<h2 style="font-size:1.1rem;font-weight:700;margin-bottom:1rem;color:var(--accent);">📐 Futures Arbitrage Profit Formula</h2>
+<div style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:1.2rem;font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--accent2);line-height:2;">
+      Net Profit = Funding Income − Taker Fee (both legs) − Slippage<br/>
+<span style="color:var(--muted);font-size:0.78rem;">= (Funding Rate × Capital × 3/day) − (0.04% + 0.055%) × Capital − Est. Slippage</span>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:1rem;margin-bottom:1.5rem;">
+<div style="background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:10px;padding:1.4rem;">
+<strong style="color:var(--text);">Step 1 — Check Funding Rate</strong>
+<p style="color:var(--muted);font-size:0.88rem;margin-top:0.4rem;line-height:1.7;">Go to Binance or Bybit → Futures market → Check funding rate. Target: 0.05%+ per 8 hours (3x/day = 0.15%/day). Below 0.03% is not worth the fee risk.</p>
+</div>
+<div style="background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:10px;padding:1.4rem;">
+<strong style="color:var(--text);">Step 2 — Calculate Funding Income</strong>
+<p style="color:var(--muted);font-size:0.88rem;margin-top:0.4rem;line-height:1.7;">Formula: Capital × Funding Rate × 3 payments/day. Example: $10,000 × 0.05% × 3 = $15/day = $450/month gross income.</p>
+</div>
+<div style="background:var(--surface);border:1px solid var(--border);border-left:3px solid #ffa040;border-radius:10px;padding:1.4rem;">
+<strong style="color:var(--text);">Step 3 — Subtract Entry Fees</strong>
+<p style="color:var(--muted);font-size:0.88rem;margin-top:0.4rem;line-height:1.7;">You pay taker fee on both legs (spot buy + futures short). Binance+Bybit: ~0.095% total. On $10,000 = $9.50 one-time entry cost. Recovered in 2026~15 hours at 0.05% rate.</p>
+</div>
+<div style="background:var(--surface);border:1px solid var(--border);border-left:3px solid #ffa040;border-radius:10px;padding:1.4rem;">
+<strong style="color:var(--text);">Step 4 — Account for Slippage</strong>
+<p style="color:var(--muted);font-size:0.88rem;margin-top:0.4rem;line-height:1.7;">Use BTC/ETH for near-zero slippage. For altcoins, estimate 0.05–0.2% depending on liquidity. Avoid coins with daily volume under $50M for trades over $5,000.</p>
+</div>
+</div>
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.8rem;margin-bottom:1.5rem;">
+<h2 style="font-size:1.1rem;font-weight:700;margin-bottom:1rem;color:var(--accent2);">📊 Real Example: ETHUSDT Funding Rate Arb</h2>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;font-size:0.88rem;">
+<div style="background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:1rem;">
+<div style="color:var(--muted);font-size:0.72rem;font-family:'JetBrains Mono',monospace;margin-bottom:0.4rem;">TRADE SETUP</div>
+<div style="color:var(--text);line-height:1.9;">Capital: $10,000<br/>Funding Rate: 0.06%/8h<br/>Duration: 7 days<br/>Exchange: Binance + Bybit</div>
+</div>
+<div style="background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:1rem;">
+<div style="color:var(--muted);font-size:0.72rem;font-family:'JetBrains Mono',monospace;margin-bottom:0.4rem;">P&amp;L BREAKDOWN</div>
+<div style="line-height:1.9;">
+<span style="color:var(--accent2);">+ $126.00</span> funding (21 payments)<br/>
+<span style="color:#ff7070;">− $9.50</span> entry fees<br/>
+<span style="color:#ff7070;">− $9.50</span> exit fees<br/>
+<span style="color:var(--accent2);font-weight:700;">= $107 net profit</span>
+</div>
+</div>
+</div>
+</div>
+<div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border);">
+<a href="blog.html" style="border:1px solid var(--border);color:var(--muted);padding:0.7rem 1.5rem;border-radius:4px;font-weight:500;font-size:0.9rem;text-decoration:none;background:none;transition:border-color .2s,color .2s;">☰ Back to Blog</a>
+<a href="best-crypto-arbitrage-exchanges.html" style="border:1px solid var(--border);color:var(--text);padding:0.7rem 1.5rem;border-radius:4px;font-weight:500;font-size:0.9rem;text-decoration:none;background:none;transition:border-color .2s,color .2s;">← Prev: Best Exchanges</a>
+<a href="arbitrage-trading-fees-explained.html" style="background:var(--accent);color:var(--bg);padding:0.7rem 1.5rem;border-radius:4px;font-weight:700;font-size:0.9rem;text-decoration:none;transition:opacity .2s;">Next: Trading Fees →</a>
+</div>
 </main>
-
-<footer>
-  <p>© 2026 ArbVertex</p>
-  <div class="footer-links">
-    <a href="crypto-arbitrage-blog.html">Blog</a>
-    <a href="index.html">Home</a>
-    <a href="contact-arbvertex.html">Contact</a>
-  </div>
-  <p style="font-size:0.75rem;">Not financial advice.</p>
+<div class="nav-btns">
+<a class="nb-outline" href="crypto-arbitrage-blog.html">☰ Back to Blog</a>
+<a class="nb-outline" href="arbitrage-calculator-guide.html">← Arbitrage Calculator Guide: Calcula…</a>
+<a class="nb-primary" href="crypto-arbitrage-trading-consistent-income.html">How Crypto Arbitrage Trading Turns … →</a>
+</div><footer>
+<p>© 2026 ArbVertex</p>
+<div class="footer-links">
+<a href="crypto-arbitrage-blog.html">Blog</a>
+<a href="index.html">Home</a>
+<a href="contact-arbvertex.html">Contact</a>
+</div>
+<p style="font-size:0.75rem;">Not financial advice.</p>
 </footer>
-
 <script>
 var hamburger = document.getElementById('avHamburger');
  var navLinks = document.getElementById('avNavLinks');
