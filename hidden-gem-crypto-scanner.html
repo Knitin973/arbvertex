@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hidden Gem Crypto Scanner: Low Cap Coins on 4+ Exchanges | ArbVertex</title>
-<meta name="description" content="Find coins with market cap under $5M listed on 4+ major exchanges. Real-time CoinGecko data. Ideal for crypto arbitrage opportunities with high price gaps.">
+<meta name="description" content="Find coins with market cap under $5M listed on 4+ major exchanges. Real-time CoinMarketCap data. Ideal for crypto arbitrage opportunities with high price gaps.">
 <meta name="keywords" content="crypto futures arbitrage signals, bitcoin arbitrage telegram, crypto arbitrage bot, funding rate arbitrage, cross exchange arbitrage, bybit binance arbitrage, crypto signals telegram, arbitrage trading signals">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://arbvertex.com/crypto-arbitrage-risks-precautions.html">
@@ -776,7 +776,7 @@ table.sct tbody td { padding: 0.7rem 0.9rem; vertical-align: middle; }
     <h1>Hidden Gem Crypto Scanner<br><span>Low Cap Coins on 4+ Exchanges</span></h1>
     <p>Find coins with market cap ≤$5M that are actively listed on 4+ major exchanges — prime candidates for cross-exchange arbitrage with high price gap potential and low competition from institutional traders.</p>
     <div class="sc-hero-chips">
-      <span class="sc-chip green">✦ Live CoinGecko Data</span>
+      <span class="sc-chip green">✦ Live CMC Data</span>
       <span class="sc-chip">Market Cap ≤ $5M</span>
       <span class="sc-chip">4+ Exchanges</span>
       <span class="sc-chip">10 Major Exchanges Checked</span>
@@ -906,20 +906,23 @@ table.sct tbody td { padding: 0.7rem 0.9rem; vertical-align: middle; }
 </div><!-- end sc-wrapper -->
 
 <footer>
-  <p>© 2025 ArbVertex · Hidden Gem Scanner · Data: CoinGecko API</p>
+  <p>© 2025 ArbVertex · Hidden Gem Scanner · Data: CoinMarketCap API</p>
   <div class="footer-links">
     <a href="index.html">Home</a>
     <a href="crypto-arbitrage-blog.html">Blog</a>
     <a href="advanced-arb-scanner.html">Live Scanner</a>
     <a href="crypto-arbitrage-signals-pricing.html">Pricing</a>
   </div>
-  <p style="font-size:0.75rem;">Not financial advice. Market cap data from CoinGecko.</p>
+  <p style="font-size:0.75rem;">Not financial advice. Market cap data from CoinMarketCap.</p>
 </footer>
 
 </div>
 
 <script>
-// ── HIDDEN GEM SCANNER v4 ── Exchange APIs (no CoinGecko for coin lists)
+// ── HIDDEN GEM SCANNER v5 — CMC API (No CoinGecko) ──
+// API key is read-only, only fetches price/mcap data
+const CMC_API_KEY = 'cd65db2f05f34cdda965e34edd750cfb';
+
 let allCoins = [];
 let filteredCoins = [];
 let activeExchFilter = 'all';
@@ -965,7 +968,6 @@ async function fetchExchangeSymbols(key) {
         return new Set((d.data || []).filter(s => s.quoteCcy === 'USDT' && s.state === 'live').map(s => s.baseCcy.toUpperCase()));
       }
       case 'gateio': {
-        // Gate.io tickers endpoint - CORS friendly
         const r = await fetch('https://api.gateio.ws/api/v4/spot/tickers', { signal: AbortSignal.timeout(15000) });
         if (!r.ok) return new Set();
         const d = await r.json();
@@ -990,26 +992,20 @@ async function fetchExchangeSymbols(key) {
         return new Set((d.data || []).filter(s => s.quoteCoin === 'USDT' && s.status === 'online').map(s => s.baseCoin.toUpperCase()));
       }
       case 'huobi': {
-        // HTX market tickers - more CORS friendly
         const r = await fetch('https://api.huobi.pro/market/tickers', { signal: AbortSignal.timeout(15000) });
         if (!r.ok) return new Set();
         const d = await r.json();
         return new Set((d.data || []).filter(s => s.symbol && s.symbol.endsWith('usdt')).map(s => s.symbol.replace('usdt','').toUpperCase()));
       }
       case 'coinbase': {
-        // Coinbase Advanced API - USDT pairs
         try {
           const r = await fetch('https://api.coinbase.com/api/v3/brokerage/market/products?product_type=SPOT&limit=500', { signal: AbortSignal.timeout(15000) });
           if (!r.ok) throw new Error('coinbase v3 failed');
           const d = await r.json();
           return new Set((d.products||[]).filter(s=>s.quote_currency_id==='USDT'&&!s.is_disabled).map(s=>s.base_currency_id.toUpperCase()));
-        } catch(e) {
-          // fallback
-          return new Set();
-        }
+        } catch(e) { return new Set(); }
       }
       case 'kraken': {
-        // Kraken - use CORS proxy
         try {
           const url = 'https://corsproxy.io/?url=' + encodeURIComponent('https://api.kraken.com/0/public/AssetPairs');
           const r = await fetch(url, { signal: AbortSignal.timeout(15000) });
@@ -1026,57 +1022,78 @@ async function fetchExchangeSymbols(key) {
   }
 }
 
-// CoinGecko — fetch top coins by market cap, match by symbol
-// /coins/markets with top 2000 coins covers 99% of exchange-listed tokens
-async function cgFetch(url) {
-  const proxies = [
-    url,
-    'https://corsproxy.io/?url=' + encodeURIComponent(url),
-    'https://api.allorigins.win/raw?url=' + encodeURIComponent(url),
-  ];
-  for (const p of proxies) {
-    try {
-      const r = await fetch(p, { signal: AbortSignal.timeout(20000) });
-      if (!r.ok) continue;
-      const text = await r.text();
-      try { return JSON.parse(text); } catch(e) {
-        try { const w = JSON.parse(text); if (w.contents) return JSON.parse(w.contents); } catch(e2) {}
-      }
-    } catch(e) { continue; }
-  }
-  return null;
-}
-
-async function fetchMarketData(symbols) {
-  // CoinGecko /coins/markets — fetch top coins by mcap, match by symbol
-  // Fetch top 2000 coins in batches of 250 (8 calls max, but cached well)
+// ── CMC MARKET DATA (replaces CoinGecko) ──
+// Uses CMC /v1/cryptocurrency/quotes/latest with symbol list
+// Free plan: 10,000 credits/month, each call = 1 credit per symbol
+async function fetchMarketDataCMC(symbols) {
   const result = {};
-  const symbolSet = new Set(symbols.map(s => s.toUpperCase()));
+  const BATCH = 100; // CMC allows up to 200 symbols per call on free plan
   
-  // Fetch pages until we have all our symbols or exhausted top 2000
-  for (let page = 1; page <= 8; page++) {
-    setStatus(`Fetching market data (page ${page}/8)...`, 'loading');
-    const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=${page}&sparkline=false`;
-    const data = await cgFetch(url);
-    if (!Array.isArray(data) || data.length === 0) break;
+  for (let i = 0; i < symbols.length; i += BATCH) {
+    const batch = symbols.slice(i, i + BATCH);
+    const symbolStr = batch.join(',');
     
-    data.forEach(c => {
-      const sym = (c.symbol || '').toUpperCase();
-      if (symbolSet.has(sym) && !result[sym]) {
-        result[sym] = c;
+    setStatus(`Fetching market caps via CMC (${i+batch.length}/${symbols.length})...`, 'loading');
+    
+    // CMC requires server-side call due to CORS
+    // We use a CORS proxy for browser-side usage
+    const cmcUrl = `https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=${encodeURIComponent(symbolStr)}&convert=USD`;
+    
+    // Try direct first (works if running on server), then CORS proxy
+    const proxies = [
+      { url: cmcUrl, headers: { 'X-CMC_PRO_API_KEY': CMC_API_KEY, 'Accept': 'application/json' } },
+      { url: 'https://corsproxy.io/?url=' + encodeURIComponent(cmcUrl), headers: { 'X-CMC_PRO_API_KEY': CMC_API_KEY, 'Accept': 'application/json' } },
+      { url: 'https://api.allorigins.win/get?url=' + encodeURIComponent(cmcUrl + '&CMC_PRO_API_KEY=' + CMC_API_KEY), headers: {} },
+    ];
+    
+    let data = null;
+    for (const proxy of proxies) {
+      try {
+        const r = await fetch(proxy.url, { 
+          headers: proxy.headers,
+          signal: AbortSignal.timeout(20000)
+        });
+        if (!r.ok) continue;
+        const text = await r.text();
+        let parsed;
+        try { parsed = JSON.parse(text); } 
+        catch(e) { 
+          try { const w = JSON.parse(text); parsed = w.contents ? JSON.parse(w.contents) : null; } 
+          catch(e2) { continue; }
+        }
+        if (parsed?.data) { data = parsed.data; break; }
+        if (parsed?.status?.error_code) {
+          console.warn('CMC error:', parsed.status.error_message);
+          break;
+        }
+      } catch(e) { console.warn('Proxy failed:', e.message); continue; }
+    }
+    
+    if (data) {
+      // CMC returns object keyed by symbol (uppercase)
+      // If same symbol has multiple coins, it returns an array
+      for (const [sym, coinOrArr] of Object.entries(data)) {
+        const coin = Array.isArray(coinOrArr) ? coinOrArr[0] : coinOrArr;
+        if (!coin) continue;
+        const mcap = coin.quote?.USD?.market_cap || 0;
+        const price = coin.quote?.USD?.price || 0;
+        const vol24h = coin.quote?.USD?.volume_24h || 0;
+        const chg24h = coin.quote?.USD?.percent_change_24h || 0;
+        result[sym.toUpperCase()] = {
+          id: coin.id,
+          name: coin.name,
+          symbol: sym.toUpperCase(),
+          market_cap: mcap,
+          current_price: price,
+          total_volume: vol24h,
+          price_change_24h: chg24h,
+        };
       }
-    });
+    }
     
-    // If last coin mcap < 50K, no point fetching more
-    const lastMcap = data[data.length-1]?.market_cap || 0;
-    if (lastMcap < 50000) break;
-    
-    // Stop early if we found all symbols
-    const found = Object.keys(result).length;
-    if (found >= symbolSet.size * 0.9) break; // 90% found = good enough
-    
-    if (page < 8) await sleep(1200); // respect rate limit
+    if (i + BATCH < symbols.length) await sleep(300); // small delay between batches
   }
+  
   return result;
 }
 
@@ -1137,7 +1154,7 @@ async function runScanner() {
     <div class="sc-empty">
       <div class="sc-spinner"></div>
       Fetching symbol lists from exchanges...<br>
-      <span style="font-size:0.75rem;margin-top:0.3rem;display:block;">~5–10 seconds</span>
+      <span style="font-size:0.75rem;margin-top:0.3rem;display:block;">~10–20 seconds</span>
     </div>`;
 
   try {
@@ -1147,7 +1164,6 @@ async function runScanner() {
 
     // STEP 1: Fetch symbol lists from all exchanges in parallel
     setStatus('Fetching symbol lists from all exchanges in parallel...', 'loading');
-    // Run all in parallel for speed
     const results = await Promise.allSettled(exchKeys.map(k => fetchExchangeSymbols(k)));
     const exchSymbolSets = {};
     let liveCount = 0;
@@ -1157,7 +1173,7 @@ async function runScanner() {
       exchSymbolSets[key] = set;
       if (set.size > 0) liveCount++;
     });
-    setStatus(`✓ ${liveCount}/${exchKeys.length} exchanges live. Checking multi-exchange coins...`, 'loading');
+    setStatus(`✓ ${liveCount}/${exchKeys.length} exchanges live. Finding multi-exchange coins...`, 'loading');
 
     // STEP 2: Find coins on minEx+ exchanges
     const symbolExchangeMap = {};
@@ -1172,20 +1188,24 @@ async function runScanner() {
       .filter(([, exchs]) => exchs.length >= minEx)
       .map(([sym, exchs]) => ({ sym, exchanges: exchs }));
 
-    setStatus(`${candidates.length} coins on ${minEx}+ exchanges. Fetching market caps...`, 'loading');
+    setStatus(`${candidates.length} coins on ${minEx}+ exchanges. Fetching market caps from CMC...`, 'loading');
 
     if (candidates.length === 0) {
       showError(`No coins found on ${minEx}+ exchanges. Try lowering Min Exchanges to 4.`);
       btn.disabled = false; btn.innerHTML = '⚡ Scan Now'; return;
     }
 
-    // STEP 3: Get market cap from CoinGecko (1-2 calls only)
+    // STEP 3: Get market cap from CoinMarketCap
     const allSymbols = candidates.map(c => c.sym);
-    const marketData = await fetchMarketData(allSymbols);
+    const marketData = await fetchMarketDataCMC(allSymbols);
+
+    const foundCount = Object.keys(marketData).length;
+    setStatus(`CMC returned ${foundCount} coins. Applying market cap filter...`, 'loading');
 
     // STEP 4: Filter by market cap
     const filtered = candidates.map(c => {
       const m = marketData[c.sym];
+      // If CMC doesn't have market cap data, skip (likely very obscure coin with $0 mcap)
       if (!m || !m.market_cap || m.market_cap <= 0 || m.market_cap > maxMcap) return null;
       return {
         id: m.id,
@@ -1194,7 +1214,7 @@ async function runScanner() {
         market_cap: m.market_cap,
         current_price: m.current_price,
         total_volume: m.total_volume,
-        price_change_24h: m.price_change_percentage_24h,
+        price_change_24h: m.price_change_24h,
         exchanges: c.exchanges,
         exchangeCount: c.exchanges.length,
         gemScore: null,
@@ -1203,7 +1223,12 @@ async function runScanner() {
     }).filter(Boolean);
 
     if (filtered.length === 0) {
-      showError(`No coins with mcap ≤ ${fmtMcap(maxMcap)} on ${minEx}+ exchanges. Try raising Max Market Cap.`);
+      // Check if CMC returned any data at all
+      if (foundCount === 0) {
+        showError('CMC API returned no data. This may be a CORS issue. Try again or check your API key.');
+      } else {
+        showError(`No coins with market cap ≤ ${fmtMcap(maxMcap)} on ${minEx}+ exchanges. CMC found ${foundCount} coins but none matched the filter. Try raising Max Market Cap.`);
+      }
       btn.disabled = false; btn.innerHTML = '⚡ Scan Now'; return;
     }
 
@@ -1216,7 +1241,7 @@ async function runScanner() {
     setStatus(`Found ${filtered.length} gems! Calculating technical scores...`, 'loading');
     await fetchIndicatorsForAll(filtered);
     applyFiltersAndRender();
-    setStatus(`✓ Scan complete — ${filtered.length} hidden gems (≤${fmtMcap(maxMcap)}, ${minEx}+ exchanges)`, 'live');
+    setStatus(`✓ Scan complete — ${filtered.length} hidden gems (≤${fmtMcap(maxMcap)}, ${minEx}+ exchanges) · CMC Data`, 'live');
 
   } catch(err) {
     console.error('Scanner error:', err);
@@ -1227,7 +1252,7 @@ async function runScanner() {
   btn.innerHTML = '⚡ Scan Now';
 }
 
-// ── BINANCE INDICATORS ──
+// ── BINANCE INDICATORS (unchanged from original) ──
 async function fetchBinanceCandles(symbol, interval='15m', limit=210) {
   try {
     const r = await fetch(`https://api.binance.com/api/v3/klines?symbol=${symbol}USDT&interval=${interval}&limit=${limit}`);
@@ -1311,7 +1336,7 @@ async function fetchIndicatorsForAll(coins) {
   }
 }
 
-// ── GEM SCORING ──
+// ── GEM SCORING (unchanged from original) ──
 function scoreGem(coin, ind) {
   let score=0;
   const breakdown=[];
@@ -1390,137 +1415,191 @@ function indicatorPills(coin) {
   const pills=[];
   if (ind.rsi!=null) {
     const c=ind.rsi>50?'#00ff88':ind.rsi<30?'#ff5555':'#ffa040';
-    pills.push(`<span style="background:rgba(0,0,0,0.3);border:1px solid ${c};color:${c};font-size:0.62rem;padding:1px 5px;border-radius:2px;font-family:'JetBrains Mono',monospace;">RSI ${ind.rsi.toFixed(0)}</span>`);
+    pills.push(`<span style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;padding:0.15rem 0.45rem;border-radius:3px;border:1px solid ${c}20;color:${c};background:${c}10;">RSI ${ind.rsi.toFixed(0)}</span>`);
+  }
+  if (ind.volSpike!=null) {
+    const c=ind.volSpike>=2?'#00ff88':ind.volSpike>=1.5?'#ffa040':'var(--muted)';
+    pills.push(`<span style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;padding:0.15rem 0.45rem;border-radius:3px;border:1px solid ${c}20;color:${c};background:${c}10;">Vol ${ind.volSpike.toFixed(1)}x</span>`);
   }
   if (ind.macd!=null) {
     const c=ind.macd.bullish?'#00ff88':'#ff5555';
-    pills.push(`<span style="background:rgba(0,0,0,0.3);border:1px solid ${c};color:${c};font-size:0.62rem;padding:1px 5px;border-radius:2px;font-family:'JetBrains Mono',monospace;">MACD ${ind.macd.bullish?'↑':'↓'}</span>`);
-  }
-  if (ind.ema20!=null&&ind.ema50!=null) {
-    const ok=ind.ema20>ind.ema50, c=ok?'#00ff88':'#ff5555';
-    pills.push(`<span style="background:rgba(0,0,0,0.3);border:1px solid ${c};color:${c};font-size:0.62rem;padding:1px 5px;border-radius:2px;font-family:'JetBrains Mono',monospace;">EMA ${ok?'✓':'✗'}</span>`);
-  }
-  if (ind.volSpike!=null) {
-    const c=ind.volSpike>=1.5?'#00ff88':'#6a8fa8';
-    pills.push(`<span style="background:rgba(0,0,0,0.3);border:1px solid ${c};color:${c};font-size:0.62rem;padding:1px 5px;border-radius:2px;font-family:'JetBrains Mono',monospace;">VOL ${ind.volSpike.toFixed(1)}x</span>`);
+    pills.push(`<span style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;padding:0.15rem 0.45rem;border-radius:3px;border:1px solid ${c}20;color:${c};background:${c}10;">MACD ${ind.macd.bullish?'↑':'↓'}</span>`);
   }
   if (ind.oiChange!=null) {
-    const c=ind.oiChange>3?'#00ff88':ind.oiChange<0?'#ff5555':'#ffa040';
-    pills.push(`<span style="background:rgba(0,0,0,0.3);border:1px solid ${c};color:${c};font-size:0.62rem;padding:1px 5px;border-radius:2px;font-family:'JetBrains Mono',monospace;">OI ${ind.oiChange>0?'+':''}${ind.oiChange.toFixed(1)}%</span>`);
+    const c=ind.oiChange>5?'#00ff88':ind.oiChange>2?'#ffa040':'var(--muted)';
+    pills.push(`<span style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;padding:0.15rem 0.45rem;border-radius:3px;border:1px solid ${c}20;color:${c};background:${c}10;">OI ${ind.oiChange>0?'+':''}${ind.oiChange.toFixed(1)}%</span>`);
   }
-  return pills.length
-    ? `<div style="display:flex;flex-wrap:wrap;gap:3px;">${pills.join('')}</div>`
-    : '<span style="font-size:0.7rem;color:var(--muted);">No futures data</span>';
+  if (pills.length===0) return '<span style="font-size:0.7rem;color:var(--muted);">Calc...</span>';
+  return `<div style="display:flex;flex-wrap:wrap;gap:3px;">${pills.join('')}</div>`;
+}
+
+function arbScore(coin) {
+  // Arb score based on exchange count + market cap (lower = better arb potential)
+  let s = 0;
+  s += Math.min(coin.exchangeCount * 10, 50);
+  if (coin.market_cap < 500000) s += 50;
+  else if (coin.market_cap < 1000000) s += 35;
+  else if (coin.market_cap < 2000000) s += 20;
+  else if (coin.market_cap < 5000000) s += 10;
+  return Math.min(s, 99);
+}
+
+// ── SORT & FILTER ──
+let currentSort = 'gem';
+let currentSortDir = -1;
+
+function sortCoins(coins, sortBy) {
+  return [...coins].sort((a, b) => {
+    if (sortBy === 'gem') return (b.gemScore?.score||0) - (a.gemScore?.score||0);
+    if (sortBy === 'exchanges') return b.exchangeCount - a.exchangeCount;
+    if (sortBy === 'mcap') return (a.market_cap||Infinity) - (b.market_cap||Infinity);
+    if (sortBy === 'volume') return (b.total_volume||0) - (a.total_volume||0);
+    if (sortBy === 'arb') return arbScore(b) - arbScore(a);
+    return 0;
+  });
 }
 
 function applyFiltersAndRender() {
-  const sortBy=document.getElementById('sc-sort').value;
-  filteredCoins=allCoins.filter(c => activeExchFilter==='all' || c.exchanges.includes(activeExchFilter));
-  filteredCoins.sort((a,b)=>{
-    if (sortBy==='mcap')   return a.market_cap-b.market_cap;
-    if (sortBy==='volume') return (b.total_volume||0)-(a.total_volume||0);
-    if (sortBy==='arb')    return (b.gemScore?.score||0)-(a.gemScore?.score||0);
-    if (sortBy==='gem')    return (b.gemScore?.score||0)-(a.gemScore?.score||0);
-    return b.exchangeCount-a.exchangeCount;
-  });
-  if (filteredCoins.length>0) {
-    const avgMcap=filteredCoins.reduce((s,c)=>s+c.market_cap,0)/filteredCoins.length;
-    const maxEx=Math.max(...filteredCoins.map(c=>c.exchangeCount));
-    const highScore=filteredCoins.filter(c=>(c.gemScore?.score||0)>=60).length;
-    const avgEx=(filteredCoins.reduce((s,c)=>s+c.exchangeCount,0)/filteredCoins.length).toFixed(1);
-    document.getElementById('sum-total').textContent=filteredCoins.length;
-    document.getElementById('sum-high-arb').textContent=highScore;
-    document.getElementById('sum-avg-mcap').textContent=fmtMcap(avgMcap);
-    document.getElementById('sum-max-ex').textContent=maxEx;
-    document.getElementById('sc-count').textContent=filteredCoins.length;
-    document.getElementById('sc-avg-ex').textContent=avgEx;
-    document.getElementById('sc-summary').style.display='grid';
+  const sortBy = document.getElementById('sc-sort')?.value || 'gem';
+  const searchVal = (document.getElementById('sc-search')?.value || '').toUpperCase();
+
+  let coins = allCoins;
+  if (activeExchFilter !== 'all') {
+    coins = coins.filter(c => c.exchanges.includes(activeExchFilter));
   }
-  currentPage=1;
-  renderTable();
+  if (searchVal) {
+    coins = coins.filter(c => c.symbol.includes(searchVal) || (c.name||'').toUpperCase().includes(searchVal));
+  }
+  filteredCoins = sortCoins(coins, sortBy);
+  currentPage = 1;
+  renderSummary();
+  renderPage();
 }
 
-function filterTable(query) {
-  if (!query) { applyFiltersAndRender(); return; }
-  const q=query.toLowerCase();
-  filteredCoins=allCoins.filter(c=>c.symbol.toLowerCase().includes(q)||c.name.toLowerCase().includes(q));
-  currentPage=1;
-  renderTable();
+function filterTable(val) {
+  applyFiltersAndRender();
 }
 
-function renderTable() {
-  const start=(currentPage-1)*PAGE_SIZE;
-  const pageData=filteredCoins.slice(start,start+PAGE_SIZE);
-  if (filteredCoins.length===0) {
-    document.getElementById('sc-table-container').innerHTML='<div class="sc-empty">No coins found matching your filters.</div>';
-    document.getElementById('sc-pagination').style.display='none';
+function renderSummary() {
+  const sum = document.getElementById('sc-summary');
+  if (!sum || filteredCoins.length === 0) { if(sum) sum.style.display='none'; return; }
+  sum.style.display = 'grid';
+  document.getElementById('sum-total').textContent = filteredCoins.length;
+  const highArb = filteredCoins.filter(c => arbScore(c) >= 70).length;
+  document.getElementById('sum-high-arb').textContent = highArb;
+  const avgMcap = filteredCoins.reduce((a,c) => a + (c.market_cap||0), 0) / filteredCoins.length;
+  document.getElementById('sum-avg-mcap').textContent = fmtMcap(avgMcap);
+  const maxEx = Math.max(...filteredCoins.map(c => c.exchangeCount));
+  document.getElementById('sum-max-ex').textContent = maxEx;
+
+  // Update sc-avg-ex stat chip
+  const avgEx = filteredCoins.reduce((a,c) => a + c.exchangeCount, 0) / filteredCoins.length;
+  const avgExEl = document.getElementById('sc-avg-ex');
+  if (avgExEl) avgExEl.textContent = avgEx.toFixed(1);
+}
+
+function renderPage() {
+  const container = document.getElementById('sc-table-container');
+  if (!container) return;
+  
+  if (filteredCoins.length === 0) {
+    container.innerHTML = `<div class="sc-empty">No coins match the current filter.</div>`;
+    document.getElementById('sc-pagination').style.display = 'none';
     return;
   }
-  const rows=pageData.map(coin=>{
-    const mcapPct=Math.min(100,(coin.market_cap/5000000)*100);
-    const exchTags=coin.exchanges.map(key=>{
-      const info=EXCHANGE_IDS[key];
-      if (!info) return '';
-      return `<span class="exch-tag ${info.cls}">${info.label}</span>`;
-    }).join('');
-    const pchg=coin.price_change_24h;
-    const pchgStr=pchg!=null
-      ?`<span style="color:${pchg>=0?'var(--accent2)':'#ff6080'};font-size:0.75rem;">${pchg>=0?'+':''}${pchg.toFixed(2)}%</span>`:'';
-    return `<tr>
-      <td><div class="coin-cell">
-        <div class="coin-icon">${coin.symbol.slice(0,2)}</div>
-        <div><div class="coin-sym">${coin.symbol}</div><div class="coin-name">${coin.name}</div></div>
-      </div></td>
-      <td><div class="price-cell">${fmtPrice(coin.current_price)}</div><div style="margin-top:2px;">${pchgStr}</div></td>
-      <td><div class="mcap-bar-wrap"><span class="vol-cell">${fmtMcap(coin.market_cap)}</span>
-        <div class="mcap-bar"><div class="mcap-bar-fill" style="width:${mcapPct}%;"></div></div></div></td>
-      <td><span class="vol-cell">${fmtVol(coin.total_volume)}</span></td>
-      <td>
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px;">
-          <span style="font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--accent2);font-size:0.9rem;">${coin.exchangeCount}</span>
-          <span style="font-size:0.7rem;color:var(--muted);">exchanges</span>
-        </div>
-        <div class="exch-tags">${exchTags}</div>
-      </td>
-      <td style="text-align:center;min-width:90px;">${gemScoreBadge(coin)}</td>
-      <td style="min-width:140px;">${indicatorPills(coin)}</td>
-    </tr>`;
-  }).join('');
 
-  document.getElementById('sc-table-container').innerHTML=`
-    <table class="sct">
-      <thead><tr>
-        <th>COIN</th><th>PRICE</th><th>MARKET CAP</th><th>24H VOLUME</th>
-        <th>LISTED ON</th><th style="text-align:center;">GEM SCORE</th><th>INDICATORS</th>
-      </tr></thead>
-      <tbody>${rows}</tbody>
-    </table>`;
+  const totalPages = Math.ceil(filteredCoins.length / PAGE_SIZE);
+  const pageCoins = filteredCoins.slice((currentPage-1)*PAGE_SIZE, currentPage*PAGE_SIZE);
 
-  const totalPages=Math.ceil(filteredCoins.length/PAGE_SIZE);
-  const pag=document.getElementById('sc-pagination');
-  if (totalPages>1) {
-    let h=`<span class="sc-page-info">Page ${currentPage}/${totalPages} · ${filteredCoins.length} coins</span>`;
-    if (currentPage>1) h+=`<button class="sc-page-btn" onclick="goPage(${currentPage-1})">← Prev</button>`;
-    for (let p=Math.max(1,currentPage-2);p<=Math.min(totalPages,currentPage+2);p++)
-      h+=`<button class="sc-page-btn ${p===currentPage?'active':''}" onclick="goPage(${p})">${p}</button>`;
-    if (currentPage<totalPages) h+=`<button class="sc-page-btn" onclick="goPage(${currentPage+1})">Next →</button>`;
-    pag.innerHTML=h; pag.style.display='flex';
-  } else { pag.style.display='none'; }
+  const exchClsMap = { binance:'bn', bybit:'bb', okx:'okx', gateio:'gt', kucoin:'ku', mexc:'mx', bitget:'bg', huobi:'ht', coinbase:'cb', kraken:'kr' };
+  
+  container.innerHTML = `
+  <div style="overflow-x:auto;">
+  <table class="sct">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th onclick="applyFiltersAndRender()">COIN</th>
+        <th onclick="applyFiltersAndRender()">PRICE</th>
+        <th onclick="applyFiltersAndRender()">MARKET CAP</th>
+        <th onclick="applyFiltersAndRender()">24H VOL</th>
+        <th onclick="applyFiltersAndRender()">24H CHG</th>
+        <th onclick="applyFiltersAndRender()">EXCHANGES</th>
+        <th onclick="applyFiltersAndRender()">INDICATORS</th>
+        <th onclick="applyFiltersAndRender()">ARB SCORE</th>
+        <th onclick="applyFiltersAndRender()">GEM SCORE</th>
+      </tr>
+    </thead>
+    <tbody>
+    ${pageCoins.map((coin, idx) => {
+      const rank = (currentPage-1)*PAGE_SIZE + idx + 1;
+      const initials = coin.symbol.slice(0,3);
+      const chgColor = (coin.price_change_24h||0) >= 0 ? 'var(--accent2)' : 'var(--red)';
+      const chgSign  = (coin.price_change_24h||0) >= 0 ? '+' : '';
+      const arb = arbScore(coin);
+      const arbCls = arb>=70?'high':arb>=40?'med':'low';
+      const mcapPct = Math.min((coin.market_cap||0)/5000000*100, 100);
+      const exchTags = coin.exchanges.map(e => {
+        const ex = EXCHANGES[e];
+        if (!ex) return '';
+        const cls = exchClsMap[e] || '';
+        return `<span class="exch-tag ${cls}">${ex.label.split('/')[0]}</span>`;
+      }).join('');
+      return `
+      <tr>
+        <td style="color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:0.75rem;">${rank}</td>
+        <td>
+          <div class="coin-cell">
+            <div class="coin-icon">${initials}</div>
+            <div>
+              <div class="coin-sym">${coin.symbol}</div>
+              <div class="coin-name">${coin.name||'—'}</div>
+            </div>
+          </div>
+        </td>
+        <td class="price-cell">${fmtPrice(coin.current_price)}</td>
+        <td>
+          <div class="mcap-bar-wrap">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;">${fmtMcap(coin.market_cap)}</div>
+            <div class="mcap-bar"><div class="mcap-bar-fill" style="width:${mcapPct}%;"></div></div>
+          </div>
+        </td>
+        <td class="vol-cell">${fmtVol(coin.total_volume)}</td>
+        <td style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:${chgColor};">${chgSign}${(coin.price_change_24h||0).toFixed(2)}%</td>
+        <td>
+          <div style="margin-bottom:4px;font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--accent2);">${coin.exchangeCount} exchanges</div>
+          <div class="exch-tags">${exchTags}</div>
+        </td>
+        <td>${indicatorPills(coin)}</td>
+        <td><div class="arb-score ${arbCls}">${arb}</div></td>
+        <td>${gemScoreBadge(coin)}</td>
+      </tr>`;
+    }).join('')}
+    </tbody>
+  </table>
+  </div>`;
+
+  // Pagination
+  const pag = document.getElementById('sc-pagination');
+  if (totalPages <= 1) { pag.style.display='none'; return; }
+  pag.style.display = 'flex';
+  let pagHtml = `<span class="sc-page-info">${filteredCoins.length} coins</span>`;
+  pagHtml += `<button class="sc-page-btn" onclick="goPage(${currentPage-1})" ${currentPage===1?'disabled':''}>←</button>`;
+  for (let p = Math.max(1,currentPage-2); p <= Math.min(totalPages,currentPage+2); p++) {
+    pagHtml += `<button class="sc-page-btn${p===currentPage?' active':''}" onclick="goPage(${p})">${p}</button>`;
+  }
+  pagHtml += `<button class="sc-page-btn" onclick="goPage(${currentPage+1})" ${currentPage===totalPages?'disabled':''}>→</button>`;
+  pag.innerHTML = pagHtml;
 }
 
 function goPage(p) {
-  currentPage=p;
-  renderTable();
-  document.querySelector('.sc-table-wrap')?.scrollIntoView({behavior:'smooth',block:'start'});
+  const totalPages = Math.ceil(filteredCoins.length / PAGE_SIZE);
+  if (p < 1 || p > totalPages) return;
+  currentPage = p;
+  renderPage();
+  document.getElementById('sc-table-container').scrollIntoView({behavior:'smooth', block:'start'});
 }
-
-document.getElementById('sc-sort')?.addEventListener('change',()=>{
-  if (allCoins.length>0) applyFiltersAndRender();
-});
 </script>
-</script>
-
-
 <script>
 // ── CONTACT FORM ──
 function handleFormSubmit(e) {
