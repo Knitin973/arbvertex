@@ -906,7 +906,7 @@ table.sct tbody td { padding: 0.7rem 0.9rem; vertical-align: middle; }
 </div><!-- end sc-wrapper -->
 
 <footer>
-  <p>© 2026 ArbVertex · Hidden Gem Scanner · Data: CoinGecko API</p>
+  <p>© 2025 ArbVertex · Hidden Gem Scanner · Data: CoinGecko API</p>
   <div class="footer-links">
     <a href="index.html">Home</a>
     <a href="crypto-arbitrage-blog.html">Blog</a>
@@ -919,74 +919,73 @@ table.sct tbody td { padding: 0.7rem 0.9rem; vertical-align: middle; }
 </div>
 
 <script>
-// ── SMALL CAP MULTI-EXCHANGE SCANNER ──
+// ── HIDDEN GEM SCANNER v3 ──
+// Fix: per-exchange API calls (10 total) instead of per-coin (100s of calls)
+// Fix: cgFetch already returns parsed JSON — no .json()/.ok needed
+// Fix: proper CORS proxy rotation with fallback
 let allCoins = [];
 let filteredCoins = [];
 let activeExchFilter = 'all';
 let currentPage = 1;
 const PAGE_SIZE = 50;
 
-
-// ── COINGECKO CORS-PROXY HELPER ──
-// CoinGecko blocks direct browser requests from arbvertex.com (CORS).
-// We use multiple proxy options with automatic fallback.
+// ── CORS PROXY HELPER ──
 const CG_PROXIES = [
-  url => `https://api.coingecko.com${url}`,                          // Direct (works locally)
-  url => `https://corsproxy.io/?url=${encodeURIComponent('https://api.coingecko.com' + url)}`,
-  url => `https://api.allorigins.win/raw?url=${encodeURIComponent('https://api.coingecko.com' + url)}`,
-  url => `https://thingproxy.freeboard.io/fetch/https://api.coingecko.com${url}`,
+  path => `https://api.coingecko.com${path}`,
+  path => `https://corsproxy.io/?url=${encodeURIComponent('https://api.coingecko.com' + path)}`,
+  path => `https://api.allorigins.win/raw?url=${encodeURIComponent('https://api.coingecko.com' + path)}`,
+  path => `https://thingproxy.freeboard.io/fetch/https://api.coingecko.com${path}`,
 ];
-
 let _cgProxyIdx = 0;
 
-async function cgFetch(path, retries = 2) {
+async function cgFetch(path, retries = 3) {
   for (let attempt = 0; attempt <= retries; attempt++) {
     const proxyIdx = (_cgProxyIdx + attempt) % CG_PROXIES.length;
     const url = CG_PROXIES[proxyIdx](path);
     try {
-      const r = await fetch(url, { signal: AbortSignal.timeout(18000) });
+      const r = await fetch(url, { signal: AbortSignal.timeout(20000) });
       if (r.status === 429) {
-        console.warn(`[CG] Rate limit on proxy ${proxyIdx}, waiting 10s...`);
-        await new Promise(res => setTimeout(res, 10000));
+        console.warn(`[CG] 429 on proxy ${proxyIdx}, waiting 12s...`);
+        await sleep(12000);
         continue;
       }
-      if (r.status === 200) {
-        // If this proxy worked, remember it
-        _cgProxyIdx = proxyIdx;
-        const text = await r.text();
-        try { return JSON.parse(text); } catch(e) {
-          // allorigins sometimes wraps in {contents:'...'}
-          try {
-            const wrapped = JSON.parse(text);
-            if (wrapped && wrapped.contents) return JSON.parse(wrapped.contents);
-          } catch(e2) {}
-          throw new Error('Invalid JSON from proxy');
-        }
+      if (!r.ok) { console.warn(`[CG] HTTP ${r.status} on proxy ${proxyIdx}`); continue; }
+      _cgProxyIdx = proxyIdx; // remember working proxy
+      const text = await r.text();
+      try {
+        return JSON.parse(text);
+      } catch(e) {
+        // allorigins wraps in {contents:'...'}
+        try {
+          const w = JSON.parse(text);
+          if (w && w.contents) return JSON.parse(w.contents);
+        } catch(e2) {}
+        throw new Error('Invalid JSON');
       }
-      // Try next proxy
     } catch(e) {
-      console.warn(`[CG] Proxy ${proxyIdx} failed:`, e.message);
-      // Try next proxy on next attempt
+      console.warn(`[CG] Proxy ${proxyIdx} error:`, e.message);
       _cgProxyIdx = (proxyIdx + 1) % CG_PROXIES.length;
+      if (attempt < retries) await sleep(2000);
     }
   }
   throw new Error('All CoinGecko proxies failed');
 }
 
-const EXCHANGE_IDS = {
-  binance:  { id: 'binance',        label: 'Binance',  cls: 'bn'  },
-  bybit:    { id: 'bybit_spot',     label: 'Bybit',    cls: 'bb'  },
-  okx:      { id: 'okex',           label: 'OKX',      cls: 'okx' },
-  gateio:   { id: 'gate',           label: 'Gate.io',  cls: 'gt'  },
-  kucoin:   { id: 'kucoin',         label: 'KuCoin',   cls: 'ku'  },
-  mexc:     { id: 'mxc',            label: 'MEXC',     cls: 'mx'  },
-  bitget:   { id: 'bitget',         label: 'Bitget',   cls: 'bg'  },
-  huobi:    { id: 'huobi',          label: 'HTX',      cls: 'ht'  },
-  coinbase: { id: 'gdax',           label: 'Coinbase', cls: 'cb'  },
-  kraken:   { id: 'kraken',         label: 'Kraken',   cls: 'kr'  },
-};
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
-const EXCHANGE_KEYS = Object.keys(EXCHANGE_IDS);
+const EXCHANGE_IDS = {
+  binance:  { cgId: 'binance',    label: 'Binance',  cls: 'bn'  },
+  bybit:    { cgId: 'bybit_spot', label: 'Bybit',    cls: 'bb'  },
+  okx:      { cgId: 'okex',       label: 'OKX',      cls: 'okx' },
+  gateio:   { cgId: 'gate',       label: 'Gate.io',  cls: 'gt'  },
+  kucoin:   { cgId: 'kucoin',     label: 'KuCoin',   cls: 'ku'  },
+  mexc:     { cgId: 'mxc',        label: 'MEXC',     cls: 'mx'  },
+  bitget:   { cgId: 'bitget',     label: 'Bitget',   cls: 'bg'  },
+  huobi:    { cgId: 'huobi',      label: 'HTX',      cls: 'ht'  },
+  coinbase: { cgId: 'gdax',       label: 'Coinbase', cls: 'cb'  },
+  kraken:   { cgId: 'kraken',     label: 'Kraken',   cls: 'kr'  },
+};
+const EXCH_KEYS = Object.keys(EXCHANGE_IDS);
 
 function fmtMcap(v) {
   if (!v) return '—';
@@ -1010,8 +1009,20 @@ function fmtPrice(v) {
 function setStatus(text, state) {
   const dot = document.getElementById('sc-dot');
   const st  = document.getElementById('sc-status');
-  st.textContent = text;
-  dot.className = 'sc-dot' + (state === 'live' ? ' live' : state === 'loading' ? ' loading' : '');
+  if (st) st.textContent = text;
+  if (dot) dot.className = 'sc-dot' + (state==='live'?' live':state==='loading'?' loading':'');
+}
+
+function showError(msg) {
+  setStatus('⚠ ' + msg, '');
+  document.getElementById('sc-table-container').innerHTML =
+    `<div class="sc-empty">
+      <div style="font-size:2rem;margin-bottom:0.8rem;">⚠️</div>
+      ${msg}<br>
+      <span style="font-size:0.78rem;margin-top:0.5rem;display:block;color:var(--muted);">
+        CoinGecko free API: ~30 req/min. Wait 60s then try again.
+      </span>
+    </div>`;
 }
 
 function toggleExchFilter(el) {
@@ -1021,201 +1032,132 @@ function toggleExchFilter(el) {
   applyFiltersAndRender();
 }
 
+// ── MAIN SCANNER ──
+// KEY CHANGE: 1 API call per exchange (10 total) → NOT 1 per coin (100s of calls)
+// This is why old version hit rate limits — checking per-coin is ~200 calls for 200 coins
 async function runScanner() {
   const btn = document.getElementById('sc-run-btn');
   btn.disabled = true;
   btn.textContent = '⏳ Scanning...';
-  setStatus('Fetching coins from CoinGecko...', 'loading');
+  allCoins = []; filteredCoins = [];
+  document.getElementById('sc-summary').style.display = 'none';
+  document.getElementById('sc-pagination').style.display = 'none';
   document.getElementById('sc-table-container').innerHTML = `
     <div class="sc-empty">
       <div class="sc-spinner"></div>
-      Fetching live data from CoinGecko API...<br>
-      <span style="font-size:0.75rem;margin-top:0.3rem;display:block;">This may take 5–15 seconds</span>
+      Fetching coin lists from exchanges (10 calls total)...<br>
+      <span style="font-size:0.75rem;margin-top:0.3rem;display:block;">~15–25 seconds</span>
     </div>`;
-  document.getElementById('sc-summary').style.display = 'none';
-  document.getElementById('sc-pagination').style.display = 'none';
 
   try {
     const maxMcap = parseInt(document.getElementById('sc-mcap-input').value) || 5000000;
-    const minEx   = parseInt(document.getElementById('sc-min-ex').value) || 5;
+    const minEx   = parseInt(document.getElementById('sc-min-ex').value) || 4;
 
-    // Fetch coins with market cap <= maxMcap from CoinGecko
-    // Sequential fetch with delay to avoid rate limiting
-    let allFetched = [];
-    const pagesToFetch = 6;
-    
-    setStatus('Fetching coin list...', 'loading');
+    // STEP 1: Fetch each exchange's ticker list (1 call per exchange = 10 calls total)
+    setStatus(`Fetching ticker lists from ${EXCH_KEYS.length} exchanges...`, 'loading');
+    const exchCoinSets = {};
 
-    for (let p = 1; p <= pagesToFetch; p++) {
+    for (const key of EXCH_KEYS) {
+      const info = EXCHANGE_IDS[key];
+      const coinSet = new Set();
       try {
-        setStatus(`Fetching coin list (page ${p}/${pagesToFetch})...`, 'loading');
-        const r = await cgFetch(`/api/v3/coins/markets?vs_currency=usd&order=market_cap_asc&per_page=250&page=${p}&sparkline=false`);
-        if (r.status === 429) {
-          setStatus(`Rate limited by CoinGecko — waiting 15s before retry...`, 'loading');
-          await new Promise(res => setTimeout(res, 15000));
-          const r2 = await cgFetch(`/api/v3/coins/markets?vs_currency=usd&order=market_cap_asc&per_page=250&page=${p}&sparkline=false`);
-          const data2 = await r2.json();
-          if (Array.isArray(data2)) allFetched = allFetched.concat(data2);
-        } else {
-          const data = await r.json();
-          if (Array.isArray(data)) allFetched = allFetched.concat(data);
+        // Fetch pages until we get all coins (each page = 100 tickers)
+        for (let page = 1; page <= 4; page++) {
+          const data = await cgFetch(`/api/v3/exchanges/${info.cgId}/tickers?depth=false&page=${page}`);
+          if (!data || !data.tickers || data.tickers.length === 0) break;
+          data.tickers
+            .filter(t => t.target === 'USDT' || t.target === 'USD' || t.target === 'BTC')
+            .forEach(t => { if (t.coin_id) coinSet.add(t.coin_id); });
+          if (data.tickers.length < 100) break; // last page
+          await sleep(400);
         }
-        // Delay between pages to avoid rate limit
-        if (p < pagesToFetch) await new Promise(res => setTimeout(res, 1500));
+        exchCoinSets[key] = coinSet;
+        setStatus(`✓ ${info.label}: ${coinSet.size} coins`, 'loading');
       } catch(e) {
-        console.warn(`Page ${p} failed:`, e);
+        console.warn(`Exchange ${key} failed:`, e.message);
+        exchCoinSets[key] = new Set();
+      }
+      await sleep(500); // 500ms between exchanges = safe rate limit
+    }
+
+    // STEP 2: Count exchanges per coin, keep those on minEx+
+    const coinExchangeMap = {};
+    for (const [key, set] of Object.entries(exchCoinSets)) {
+      for (const coinId of set) {
+        if (!coinExchangeMap[coinId]) coinExchangeMap[coinId] = [];
+        coinExchangeMap[coinId].push(key);
       }
     }
 
-    // Also fetch high-volume small caps (2 pages only)
-    for (let p = 1; p <= 2; p++) {
+    const candidates = Object.entries(coinExchangeMap)
+      .filter(([, exchs]) => exchs.length >= minEx)
+      .map(([id, exchs]) => ({ id, exchanges: exchs }));
+
+    setStatus(`${candidates.length} coins on ${minEx}+ exchanges. Fetching market data...`, 'loading');
+
+    if (candidates.length === 0) {
+      showError(`No coins found on ${minEx}+ exchanges. Try lowering "Min Exchanges" to 4.`);
+      btn.disabled = false; btn.innerHTML = '⚡ Scan Now'; return;
+    }
+
+    // STEP 3: Get market caps in batches (200 ids per call)
+    const allIds = candidates.map(c => c.id);
+    const marketData = {};
+    const BATCH = 200;
+
+    for (let i = 0; i < allIds.length; i += BATCH) {
+      const ids = allIds.slice(i, i + BATCH).join(',');
+      setStatus(`Market data: ${Math.min(i+BATCH, allIds.length)}/${allIds.length}...`, 'loading');
       try {
-        await new Promise(res => setTimeout(res, 1500));
-        const r = await cgFetch(`/api/v3/coins/markets?vs_currency=usd&order=volume_desc&per_page=250&page=${p}&sparkline=false`);
-        if (!r.ok) break;
-        const data = await r.json();
-        if (Array.isArray(data)) {
-          data.forEach(c => {
-            if (!allFetched.find(x => x.id === c.id)) allFetched.push(c);
-          });
-        }
-      } catch(e) {}
-    }
-
-    // Filter by market cap
-    const smallCaps = allFetched.filter(c =>
-      c.market_cap !== null &&
-      c.market_cap !== undefined &&
-      c.market_cap > 0 &&
-      c.market_cap <= maxMcap
-    );
-
-    setStatus(`Found ${smallCaps.length} coins ≤ ${fmtMcap(maxMcap)}. Checking exchanges...`, 'loading');
-
-    if (smallCaps.length === 0) {
-      setStatus('No coins found — CoinGecko may be rate limiting. Wait 60 seconds and try again.', '');
-      document.getElementById('sc-table-container').innerHTML = `
-        <div class="sc-empty">
-          <div style="font-size:2rem;margin-bottom:0.8rem;">⏳</div>
-          <strong>No data received from CoinGecko.</strong><br>
-          <span style="font-size:0.82rem;color:var(--muted);margin-top:0.5rem;display:block;">
-            Free API rate limit hit (30 req/min). Wait 60 seconds then click Scan Now again.
-          </span>
-        </div>`;
-      btn.disabled = false;
-      btn.innerHTML = '⚡ Scan Now';
-      return;
-    }
-
-    // Check exchanges for each coin using tickers endpoint
-    // Process in batches to avoid rate limits
-    const results = [];
-    const batchSize = 5; // reduced from 10 to avoid rate limit
-    let processed = 0;
-
-    for (let i = 0; i < smallCaps.length; i += batchSize) {
-      const batch = smallCaps.slice(i, i + batchSize);
-      
-      await Promise.all(batch.map(async (coin) => {
-        try {
-          let resp = await cgFetch(`/api/v3/coins/${coin.id}/tickers?include_exchange_logo=false&depth=false`);
-          
-          // Handle rate limiting
-          if (resp.status === 429) {
-            await new Promise(r => setTimeout(r, 12000));
-            resp = await cgFetch(`/api/v3/coins/${coin.id}/tickers?include_exchange_logo=false&depth=false`);
-          }
-          
-          if (!resp.ok) return;
-          const data = await resp.json();
-          
-          if (!data.tickers || !Array.isArray(data.tickers)) return;
-          
-          // Find which of our target exchanges have this coin
-          const foundOnExchanges = {};
-          const exchangeNames = [];
-          
-          EXCHANGE_KEYS.forEach(key => {
-            const info = EXCHANGE_IDS[key];
-            const ticker = data.tickers.find(t =>
-              t.market && t.market.identifier &&
-              t.market.identifier.toLowerCase() === info.id.toLowerCase() &&
-              t.target && (t.target === 'USDT' || t.target === 'USD' || t.target === 'BTC')
-            );
-            if (ticker) {
-              foundOnExchanges[key] = ticker.last || 0;
-              exchangeNames.push(key);
-            }
-          });
-          
-          if (exchangeNames.length >= minEx) {
-            // Calculate arb score: spread between min/max price across exchanges
-            const prices = Object.values(foundOnExchanges).filter(p => p > 0);
-            let arbScore = 0;
-            if (prices.length >= 2) {
-              const minP = Math.min(...prices);
-              const maxP = Math.max(...prices);
-              arbScore = minP > 0 ? ((maxP - minP) / minP * 100) : 0;
-            }
-            
-            results.push({
-              id: coin.id,
-              name: coin.name,
-              symbol: coin.symbol.toUpperCase(),
-              market_cap: coin.market_cap,
-              current_price: coin.current_price,
-              total_volume: coin.total_volume,
-              price_change_24h: coin.price_change_percentage_24h,
-              exchanges: exchangeNames,
-              exchangeCount: exchangeNames.length,
-              prices: foundOnExchanges,
-              arbScore: arbScore,
-              gemScore: null,
-              indicators: null,
-            });
-          }
-        } catch(e) {
-          // Skip failed coins silently
-        }
-        processed++;
-      }));
-
-      setStatus(`Checking exchanges... ${processed}/${smallCaps.length} coins checked (${results.length} matched)`, 'loading');
-      
-      // Delay between batches to avoid CoinGecko rate limit (30 req/min free tier)
-      if (i + batchSize < smallCaps.length) {
-        await new Promise(r => setTimeout(r, 2000));
+        const data = await cgFetch(`/api/v3/coins/markets?vs_currency=usd&ids=${ids}&per_page=250&page=1&sparkline=false`);
+        if (Array.isArray(data)) data.forEach(c => { marketData[c.id] = c; });
+        if (i + BATCH < allIds.length) await sleep(1500);
+      } catch(e) {
+        console.warn('Market data batch failed:', e.message);
       }
+    }
+
+    // STEP 4: Filter by market cap, build results
+    const results = candidates.map(c => {
+      const m = marketData[c.id];
+      if (!m || !m.market_cap || m.market_cap <= 0 || m.market_cap > maxMcap) return null;
+      return {
+        id: c.id, name: m.name, symbol: m.symbol.toUpperCase(),
+        market_cap: m.market_cap, current_price: m.current_price,
+        total_volume: m.total_volume, price_change_24h: m.price_change_percentage_24h,
+        exchanges: c.exchanges, exchangeCount: c.exchanges.length,
+        gemScore: null, indicators: null,
+      };
+    }).filter(Boolean);
+
+    if (results.length === 0) {
+      showError(`No coins with mcap ≤ ${fmtMcap(maxMcap)} on ${minEx}+ exchanges. Try raising Max Market Cap or lowering Min Exchanges.`);
+      btn.disabled = false; btn.innerHTML = '⚡ Scan Now'; return;
     }
 
     allCoins = results;
-    applyFiltersAndRender();
-    
+    document.getElementById('sc-count').textContent = results.length;
     document.getElementById('sc-time').textContent = new Date().toLocaleTimeString();
-    setStatus(`Scan complete — ${results.length} coins matched. Fetching indicators...`, 'loading');
+    // Initial scores (exchange count + mcap only, no indicators yet)
+    results.forEach(c => { c.gemScore = scoreGem(c, null); });
+    applyFiltersAndRender();
 
-    // Fetch indicators for each coin and compute gem score
+    setStatus(`Found ${results.length} gems! Calculating technical scores...`, 'loading');
     await fetchIndicatorsForAll(results);
     applyFiltersAndRender();
-    setStatus(`Scan complete — ${results.length} coins matched (≤${fmtMcap(maxMcap)}, ${minEx}+ exchanges)`, 'live');
+    setStatus(`✓ Scan complete — ${results.length} hidden gems (≤${fmtMcap(maxMcap)}, ${minEx}+ exchanges)`, 'live');
 
   } catch(err) {
     console.error('Scanner error:', err);
-    setStatus('Error fetching data. CoinGecko may be rate-limiting. Try again in 60 seconds.', '');
-    document.getElementById('sc-table-container').innerHTML = `
-      <div class="sc-empty">
-        ⚠️ Could not fetch data.<br>
-        <span style="font-size:0.78rem;margin-top:0.4rem;display:block;">CoinGecko free API has rate limits. Please wait 60 seconds and try again.</span>
-      </div>`;
+    showError('Scan failed: ' + err.message);
   }
 
   btn.disabled = false;
   btn.innerHTML = '⚡ Scan Now';
 }
 
-// ── INDICATOR FETCH + GEM SCORING ENGINE ──
-
-async function fetchBinanceCandles(symbol, interval='15m', limit=50) {
+// ── BINANCE INDICATORS ──
+async function fetchBinanceCandles(symbol, interval='15m', limit=210) {
   try {
     const r = await fetch(`https://api.binance.com/api/v3/klines?symbol=${symbol}USDT&interval=${interval}&limit=${limit}`);
     if (!r.ok) return null;
@@ -1231,316 +1173,236 @@ async function fetchBinanceOI(symbol) {
   } catch(e) { return null; }
 }
 
-async function fetchBinanceOrderBook(symbol) {
-  try {
-    const r = await fetch(`https://api.binance.com/api/v3/depth?symbol=${symbol}USDT&limit=20`);
-    if (!r.ok) return null;
-    return await r.json();
-  } catch(e) { return null; }
-}
-
 function calcRSI(closes, period=14) {
-  if (closes.length < period + 1) return null;
-  let gains = 0, losses = 0;
-  for (let i = closes.length - period; i < closes.length; i++) {
-    const diff = closes[i] - closes[i-1];
-    if (diff > 0) gains += diff; else losses += Math.abs(diff);
+  if (closes.length < period+1) return null;
+  let g=0, l=0;
+  for (let i=closes.length-period; i<closes.length; i++) {
+    const d=closes[i]-closes[i-1];
+    if (d>0) g+=d; else l+=Math.abs(d);
   }
-  const avgGain = gains / period;
-  const avgLoss = losses / period;
-  if (avgLoss === 0) return 100;
-  const rs = avgGain / avgLoss;
-  return 100 - (100 / (1 + rs));
+  const ag=g/period, al=l/period;
+  if (al===0) return 100;
+  return 100-(100/(1+ag/al));
 }
 
 function calcEMA(closes, period) {
-  if (closes.length < period) return null;
-  const k = 2 / (period + 1);
-  let ema = closes.slice(0, period).reduce((a, b) => a + b, 0) / period;
-  for (let i = period; i < closes.length; i++) {
-    ema = closes[i] * k + ema * (1 - k);
-  }
+  if (closes.length<period) return null;
+  const k=2/(period+1);
+  let ema=closes.slice(0,period).reduce((a,b)=>a+b,0)/period;
+  for (let i=period; i<closes.length; i++) ema=closes[i]*k+ema*(1-k);
   return ema;
 }
 
 function calcMACD(closes) {
-  if (closes.length < 26) return null;
-  const ema12 = calcEMA(closes, 12);
-  const ema26 = calcEMA(closes, 26);
-  if (!ema12 || !ema26) return null;
-  const macdLine = ema12 - ema26;
-  // signal = 9-period EMA of MACD (simplified: use last 9 MACD values)
-  const macdValues = [];
-  for (let i = closes.length - 9; i <= closes.length; i++) {
-    const sl = closes.slice(0, i);
-    const e12 = calcEMA(sl, 12);
-    const e26 = calcEMA(sl, 26);
-    if (e12 && e26) macdValues.push(e12 - e26);
-  }
-  const signalLine = macdValues.length >= 9
-    ? calcEMA(macdValues, 9)
-    : macdValues.reduce((a,b)=>a+b,0) / macdValues.length;
-  return { macd: macdLine, signal: signalLine, bullish: macdLine > signalLine };
+  if (closes.length<26) return null;
+  const e12=calcEMA(closes,12), e26=calcEMA(closes,26);
+  if (!e12||!e26) return null;
+  return { bullish: e12>e26, macd: e12-e26 };
 }
 
 function calcVolSpike(volumes) {
-  if (volumes.length < 21) return null;
-  const recent = volumes[volumes.length - 1];
-  const avg = volumes.slice(-21, -1).reduce((a,b)=>a+b,0) / 20;
-  return avg > 0 ? recent / avg : null;
-}
-
-function scoreGem(coin, ind) {
-  let score = 0;
-  const breakdown = [];
-
-  // Exchange coverage (from CoinGecko data — always available)
-  if (coin.exchangeCount >= 5) {
-    score += 20; breakdown.push({label:'5+ Exchanges', pts:20, hit:true});
-  } else if (coin.exchangeCount >= 4) {
-    score += 10; breakdown.push({label:'4 Exchanges', pts:10, hit:true});
-  } else {
-    breakdown.push({label:'Exchanges', pts:0, hit:false});
-  }
-
-  // Market cap (always available)
-  if (coin.market_cap > 0 && coin.market_cap < 1000000) {
-    score += 20; breakdown.push({label:'MCap <$1M', pts:20, hit:true});
-  } else if (coin.market_cap > 0 && coin.market_cap < 5000000) {
-    score += 10; breakdown.push({label:'MCap <$5M', pts:10, hit:true});
-  } else {
-    breakdown.push({label:'Market Cap', pts:0, hit:false});
-  }
-
-  if (!ind) {
-    // No Binance data — mark remaining as N/A
-    ['Volume Spike','OI Increase','MACD Cross','EMA Align','RSI >50'].forEach(l =>
-      breakdown.push({label:l, pts:'N/A', hit:null})
-    );
-    return { score, max: 100, breakdown, signal: getSignal(score) };
-  }
-
-  // Volume Spike 1.5x+
-  if (ind.volSpike !== null) {
-    if (ind.volSpike >= 1.5) { score += 20; breakdown.push({label:`Vol Spike ${ind.volSpike.toFixed(1)}x`, pts:20, hit:true}); }
-    else breakdown.push({label:`Vol ${ind.volSpike.toFixed(1)}x`, pts:0, hit:false});
-  } else breakdown.push({label:'Volume', pts:'N/A', hit:null});
-
-  // OI Increase >3%
-  if (ind.oiChange !== null) {
-    if (ind.oiChange > 3) { score += 20; breakdown.push({label:`OI +${ind.oiChange.toFixed(1)}%`, pts:20, hit:true}); }
-    else breakdown.push({label:`OI ${ind.oiChange.toFixed(1)}%`, pts:0, hit:false});
-  } else breakdown.push({label:'OI', pts:'N/A', hit:null});
-
-  // MACD Crossover
-  if (ind.macd !== null) {
-    if (ind.macd.bullish) { score += 15; breakdown.push({label:'MACD Bullish', pts:15, hit:true}); }
-    else breakdown.push({label:'MACD Bearish', pts:0, hit:false});
-  } else breakdown.push({label:'MACD', pts:'N/A', hit:null});
-
-  // EMA Alignment EMA20 > EMA50 > EMA200 — use 15m candles
-  if (ind.ema20 !== null && ind.ema50 !== null && ind.ema200 !== null) {
-    if (ind.ema20 > ind.ema50 && ind.ema50 > ind.ema200) {
-      score += 15; breakdown.push({label:'EMA Aligned', pts:15, hit:true});
-    } else breakdown.push({label:'EMA Misaligned', pts:0, hit:false});
-  } else breakdown.push({label:'EMA', pts:'N/A', hit:null});
-
-  // RSI >50
-  if (ind.rsi !== null) {
-    if (ind.rsi > 50) { score += 10; breakdown.push({label:`RSI ${ind.rsi.toFixed(0)}`, pts:10, hit:true}); }
-    else breakdown.push({label:`RSI ${ind.rsi.toFixed(0)}`, pts:0, hit:false});
-  } else breakdown.push({label:'RSI', pts:'N/A', hit:null});
-
-  return { score, max: 100, breakdown, signal: getSignal(score) };
-}
-
-function getSignal(score) {
-  if (score >= 80) return { label:'🔥 STRONG GEM', cls:'strong', color:'#00ff88' };
-  if (score >= 60) return { label:'⚡ MEDIUM', cls:'medium', color:'#00e5ff' };
-  if (score >= 40) return { label:'👀 WATCH', cls:'watch', color:'#ffa040' };
-  return { label:'❌ WEAK', cls:'weak', color:'#6a8fa8' };
+  if (volumes.length<21) return null;
+  const recent=volumes[volumes.length-1];
+  const avg=volumes.slice(-21,-1).reduce((a,b)=>a+b,0)/20;
+  return avg>0 ? recent/avg : null;
 }
 
 async function fetchIndicatorsForAll(coins) {
-  // Process in small batches to avoid rate limiting
-  const BATCH = 5;
-  for (let i = 0; i < coins.length; i += BATCH) {
-    const batch = coins.slice(i, i + BATCH);
-    await Promise.all(batch.map(async (coin) => {
+  const BATCH=5;
+  for (let i=0; i<coins.length; i+=BATCH) {
+    await Promise.all(coins.slice(i,i+BATCH).map(async (coin) => {
       try {
-        const sym = coin.symbol.replace('USDT','');
-        // Fetch 15m candles (50 candles = ~12h data)
-        const candles15 = await fetchBinanceCandles(sym, '15m', 210);
-        let ind = { rsi:null, macd:null, ema20:null, ema50:null, ema200:null, volSpike:null, oiChange:null, orderBook:null };
-
-        if (candles15 && candles15.length >= 20) {
-          const closes  = candles15.map(c => parseFloat(c[4]));
-          const volumes = candles15.map(c => parseFloat(c[5]));
-          ind.rsi      = calcRSI(closes, 14);
-          ind.macd     = calcMACD(closes);
-          ind.ema20    = calcEMA(closes, 20);
-          ind.ema50    = calcEMA(closes, 50);
-          ind.ema200   = closes.length >= 200 ? calcEMA(closes, 200) : null;
-          ind.volSpike = calcVolSpike(volumes);
+        const sym=coin.symbol.replace('USDT','');
+        const candles=await fetchBinanceCandles(sym,'15m',210);
+        let ind={rsi:null,macd:null,ema20:null,ema50:null,volSpike:null,oiChange:null};
+        if (candles&&candles.length>=20) {
+          const closes=candles.map(c=>parseFloat(c[4]));
+          const vols=candles.map(c=>parseFloat(c[5]));
+          ind.rsi=calcRSI(closes);
+          ind.macd=calcMACD(closes);
+          ind.ema20=calcEMA(closes,20);
+          ind.ema50=calcEMA(closes,50);
+          ind.volSpike=calcVolSpike(vols);
         }
-
-        // OI (futures only — may not exist for all coins)
-        const oiData = await fetchBinanceOI(sym);
-        if (oiData && Array.isArray(oiData) && oiData.length >= 2) {
-          const first = parseFloat(oiData[0].sumOpenInterest);
-          const last  = parseFloat(oiData[oiData.length-1].sumOpenInterest);
-          ind.oiChange = first > 0 ? ((last - first) / first * 100) : null;
+        const oiData=await fetchBinanceOI(sym);
+        if (oiData&&Array.isArray(oiData)&&oiData.length>=2) {
+          const first=parseFloat(oiData[0].sumOpenInterest);
+          const last=parseFloat(oiData[oiData.length-1].sumOpenInterest);
+          ind.oiChange=first>0?((last-first)/first*100):null;
         }
-
-        coin.indicators = ind;
-        coin.gemScore   = scoreGem(coin, ind);
+        coin.indicators=ind;
+        coin.gemScore=scoreGem(coin,ind);
       } catch(e) {
-        coin.indicators = null;
-        coin.gemScore   = scoreGem(coin, null);
+        coin.gemScore=scoreGem(coin,null);
       }
     }));
-    // Small delay between batches
-    if (i + BATCH < coins.length) await new Promise(r => setTimeout(r, 300));
+    if (i+BATCH<coins.length) await sleep(200);
   }
+}
+
+// ── GEM SCORING ──
+function scoreGem(coin, ind) {
+  let score=0;
+  const breakdown=[];
+
+  if (coin.exchangeCount>=7) { score+=25; breakdown.push({label:`${coin.exchangeCount} Exchanges`,pts:25,hit:true}); }
+  else if (coin.exchangeCount>=6) { score+=20; breakdown.push({label:`${coin.exchangeCount} Exchanges`,pts:20,hit:true}); }
+  else if (coin.exchangeCount>=5) { score+=15; breakdown.push({label:`${coin.exchangeCount} Exchanges`,pts:15,hit:true}); }
+  else if (coin.exchangeCount>=4) { score+=10; breakdown.push({label:`${coin.exchangeCount} Exchanges`,pts:10,hit:true}); }
+  else breakdown.push({label:'Exchanges',pts:0,hit:false});
+
+  if (coin.market_cap>0&&coin.market_cap<500000)  { score+=25; breakdown.push({label:'MCap <$500K',pts:25,hit:true}); }
+  else if (coin.market_cap<2000000) { score+=15; breakdown.push({label:'MCap <$2M',pts:15,hit:true}); }
+  else if (coin.market_cap<5000000) { score+=8;  breakdown.push({label:'MCap <$5M',pts:8,hit:true}); }
+  else breakdown.push({label:'Market Cap',pts:0,hit:false});
+
+  if (!ind) {
+    ['Vol Spike','OI','MACD','EMA','RSI'].forEach(l=>breakdown.push({label:l,pts:'N/A',hit:null}));
+    return {score,breakdown,signal:getSignal(score)};
+  }
+
+  if (ind.volSpike!=null) {
+    if (ind.volSpike>=2)   { score+=20; breakdown.push({label:`Vol ${ind.volSpike.toFixed(1)}x`,pts:20,hit:true}); }
+    else if (ind.volSpike>=1.5) { score+=12; breakdown.push({label:`Vol ${ind.volSpike.toFixed(1)}x`,pts:12,hit:true}); }
+    else breakdown.push({label:`Vol ${ind.volSpike.toFixed(1)}x`,pts:0,hit:false});
+  } else breakdown.push({label:'Volume',pts:'N/A',hit:null});
+
+  if (ind.oiChange!=null) {
+    if (ind.oiChange>5)  { score+=15; breakdown.push({label:`OI +${ind.oiChange.toFixed(1)}%`,pts:15,hit:true}); }
+    else if (ind.oiChange>2) { score+=8; breakdown.push({label:`OI +${ind.oiChange.toFixed(1)}%`,pts:8,hit:true}); }
+    else breakdown.push({label:`OI ${ind.oiChange.toFixed(1)}%`,pts:0,hit:false});
+  } else breakdown.push({label:'OI',pts:'N/A',hit:null});
+
+  if (ind.macd!=null) {
+    if (ind.macd.bullish) { score+=10; breakdown.push({label:'MACD ↑',pts:10,hit:true}); }
+    else breakdown.push({label:'MACD ↓',pts:0,hit:false});
+  } else breakdown.push({label:'MACD',pts:'N/A',hit:null});
+
+  if (ind.ema20!=null&&ind.ema50!=null) {
+    const ok=ind.ema20>ind.ema50;
+    if (ok) { score+=10; breakdown.push({label:'EMA ✓',pts:10,hit:true}); }
+    else breakdown.push({label:'EMA ✗',pts:0,hit:false});
+  } else breakdown.push({label:'EMA',pts:'N/A',hit:null});
+
+  if (ind.rsi!=null) {
+    if (ind.rsi>50&&ind.rsi<70) { score+=5; breakdown.push({label:`RSI ${ind.rsi.toFixed(0)}`,pts:5,hit:true}); }
+    else breakdown.push({label:`RSI ${ind.rsi.toFixed(0)}`,pts:0,hit:false});
+  } else breakdown.push({label:'RSI',pts:'N/A',hit:null});
+
+  return {score,breakdown,signal:getSignal(score)};
+}
+
+function getSignal(score) {
+  if (score>=80) return {label:'🔥 STRONG GEM',color:'#00ff88'};
+  if (score>=60) return {label:'⚡ MEDIUM',color:'#00e5ff'};
+  if (score>=40) return {label:'👀 WATCH',color:'#ffa040'};
+  return {label:'❌ WEAK',color:'#6a8fa8'};
 }
 
 function gemScoreBadge(coin) {
   if (!coin.gemScore) return '<span style="color:var(--muted);font-size:0.75rem;">—</span>';
-  const gs = coin.gemScore;
-  const scoreColor = gs.score >= 80 ? '#00ff88' : gs.score >= 60 ? '#00e5ff' : gs.score >= 40 ? '#ffa040' : '#6a8fa8';
-  const tooltip = gs.breakdown.map(b =>
-    `${b.hit===true?'✓':b.hit===false?'✗':'·'} ${b.label}: ${b.pts}pts`
-  ).join('&#10;');
-
-  return `
-    <div style="display:flex;flex-direction:column;align-items:center;gap:3px;" title="${tooltip}">
-      <div style="font-family:'JetBrains Mono',monospace;font-weight:700;font-size:1rem;color:${scoreColor};">${gs.score}</div>
-      <div style="font-size:0.62rem;color:${scoreColor};white-space:nowrap;">${gs.signal.label}</div>
-      <div style="width:48px;height:4px;background:var(--border);border-radius:2px;margin-top:2px;">
-        <div style="width:${gs.score}%;height:100%;background:${scoreColor};border-radius:2px;transition:width 0.5s;"></div>
-      </div>
-    </div>`;
+  const gs=coin.gemScore;
+  const c=gs.score>=80?'#00ff88':gs.score>=60?'#00e5ff':gs.score>=40?'#ffa040':'#6a8fa8';
+  const tip=gs.breakdown.map(b=>`${b.hit===true?'✓':b.hit===false?'✗':'·'} ${b.label}: ${b.pts}pts`).join('&#10;');
+  return `<div style="display:flex;flex-direction:column;align-items:center;gap:3px;" title="${tip}">
+    <div style="font-family:'JetBrains Mono',monospace;font-weight:700;font-size:1rem;color:${c};">${gs.score}</div>
+    <div style="font-size:0.62rem;color:${c};white-space:nowrap;">${gs.signal.label}</div>
+    <div style="width:48px;height:4px;background:var(--border);border-radius:2px;margin-top:2px;">
+      <div style="width:${Math.min(gs.score,100)}%;height:100%;background:${c};border-radius:2px;"></div>
+    </div>
+  </div>`;
 }
 
 function indicatorPills(coin) {
-  if (!coin.indicators) return '<span style="font-size:0.7rem;color:var(--muted);">Loading...</span>';
-  const ind = coin.indicators;
-  const pills = [];
-
-  if (ind.rsi !== null) {
-    const c = ind.rsi > 50 ? '#00ff88' : ind.rsi < 30 ? '#ff5555' : '#ffa040';
+  if (!coin.indicators) return '<span style="font-size:0.7rem;color:var(--muted);">No Binance data</span>';
+  const ind=coin.indicators;
+  const pills=[];
+  if (ind.rsi!=null) {
+    const c=ind.rsi>50?'#00ff88':ind.rsi<30?'#ff5555':'#ffa040';
     pills.push(`<span style="background:rgba(0,0,0,0.3);border:1px solid ${c};color:${c};font-size:0.62rem;padding:1px 5px;border-radius:2px;font-family:'JetBrains Mono',monospace;">RSI ${ind.rsi.toFixed(0)}</span>`);
   }
-  if (ind.macd !== null) {
-    const c = ind.macd.bullish ? '#00ff88' : '#ff5555';
+  if (ind.macd!=null) {
+    const c=ind.macd.bullish?'#00ff88':'#ff5555';
     pills.push(`<span style="background:rgba(0,0,0,0.3);border:1px solid ${c};color:${c};font-size:0.62rem;padding:1px 5px;border-radius:2px;font-family:'JetBrains Mono',monospace;">MACD ${ind.macd.bullish?'↑':'↓'}</span>`);
   }
-  if (ind.ema20 !== null && ind.ema50 !== null) {
-    const aligned = ind.ema20 > ind.ema50;
-    const c = aligned ? '#00ff88' : '#ff5555';
-    pills.push(`<span style="background:rgba(0,0,0,0.3);border:1px solid ${c};color:${c};font-size:0.62rem;padding:1px 5px;border-radius:2px;font-family:'JetBrains Mono',monospace;">EMA ${aligned?'✓':'✗'}</span>`);
+  if (ind.ema20!=null&&ind.ema50!=null) {
+    const ok=ind.ema20>ind.ema50, c=ok?'#00ff88':'#ff5555';
+    pills.push(`<span style="background:rgba(0,0,0,0.3);border:1px solid ${c};color:${c};font-size:0.62rem;padding:1px 5px;border-radius:2px;font-family:'JetBrains Mono',monospace;">EMA ${ok?'✓':'✗'}</span>`);
   }
-  if (ind.volSpike !== null) {
-    const c = ind.volSpike >= 1.5 ? '#00ff88' : '#6a8fa8';
+  if (ind.volSpike!=null) {
+    const c=ind.volSpike>=1.5?'#00ff88':'#6a8fa8';
     pills.push(`<span style="background:rgba(0,0,0,0.3);border:1px solid ${c};color:${c};font-size:0.62rem;padding:1px 5px;border-radius:2px;font-family:'JetBrains Mono',monospace;">VOL ${ind.volSpike.toFixed(1)}x</span>`);
   }
-  if (ind.oiChange !== null) {
-    const c = ind.oiChange > 3 ? '#00ff88' : ind.oiChange < 0 ? '#ff5555' : '#ffa040';
+  if (ind.oiChange!=null) {
+    const c=ind.oiChange>3?'#00ff88':ind.oiChange<0?'#ff5555':'#ffa040';
     pills.push(`<span style="background:rgba(0,0,0,0.3);border:1px solid ${c};color:${c};font-size:0.62rem;padding:1px 5px;border-radius:2px;font-family:'JetBrains Mono',monospace;">OI ${ind.oiChange>0?'+':''}${ind.oiChange.toFixed(1)}%</span>`);
   }
-
-  return `<div style="display:flex;flex-wrap:wrap;gap:3px;margin-top:4px;">${pills.join('')}</div>`;
+  return pills.length
+    ? `<div style="display:flex;flex-wrap:wrap;gap:3px;">${pills.join('')}</div>`
+    : '<span style="font-size:0.7rem;color:var(--muted);">No futures data</span>';
 }
 
 function applyFiltersAndRender() {
-  const sortBy = document.getElementById('sc-sort').value;
-  
-  filteredCoins = allCoins.filter(c => {
-    if (activeExchFilter === 'all') return true;
-    return c.exchanges.includes(activeExchFilter);
+  const sortBy=document.getElementById('sc-sort').value;
+  filteredCoins=allCoins.filter(c => activeExchFilter==='all' || c.exchanges.includes(activeExchFilter));
+  filteredCoins.sort((a,b)=>{
+    if (sortBy==='mcap')   return a.market_cap-b.market_cap;
+    if (sortBy==='volume') return (b.total_volume||0)-(a.total_volume||0);
+    if (sortBy==='arb')    return (b.gemScore?.score||0)-(a.gemScore?.score||0);
+    if (sortBy==='gem')    return (b.gemScore?.score||0)-(a.gemScore?.score||0);
+    return b.exchangeCount-a.exchangeCount;
   });
-
-  // Sort
-  filteredCoins.sort((a, b) => {
-    if (sortBy === 'mcap')   return a.market_cap - b.market_cap;
-    if (sortBy === 'volume') return (b.total_volume || 0) - (a.total_volume || 0);
-    if (sortBy === 'arb')    return b.arbScore - a.arbScore;
-    if (sortBy === 'gem')    return (b.gemScore?.score||0) - (a.gemScore?.score||0);
-    return b.exchangeCount - a.exchangeCount;
-  });
-
-  // Update summary
-  if (filteredCoins.length > 0) {
-    const avgMcap = filteredCoins.reduce((s, c) => s + c.market_cap, 0) / filteredCoins.length;
-    const maxEx   = Math.max(...filteredCoins.map(c => c.exchangeCount));
-    const highArb = filteredCoins.filter(c => c.arbScore >= 2).length;
-    const avgEx   = (filteredCoins.reduce((s,c) => s + c.exchangeCount,0) / filteredCoins.length).toFixed(1);
-
-    document.getElementById('sum-total').textContent    = filteredCoins.length;
-    document.getElementById('sum-high-arb').textContent = highArb;
-    document.getElementById('sum-avg-mcap').textContent = fmtMcap(avgMcap);
-    document.getElementById('sum-max-ex').textContent   = maxEx;
-    document.getElementById('sc-count').textContent     = filteredCoins.length;
-    document.getElementById('sc-avg-ex').textContent    = avgEx;
-    document.getElementById('sc-summary').style.display = 'grid';
+  if (filteredCoins.length>0) {
+    const avgMcap=filteredCoins.reduce((s,c)=>s+c.market_cap,0)/filteredCoins.length;
+    const maxEx=Math.max(...filteredCoins.map(c=>c.exchangeCount));
+    const highScore=filteredCoins.filter(c=>(c.gemScore?.score||0)>=60).length;
+    const avgEx=(filteredCoins.reduce((s,c)=>s+c.exchangeCount,0)/filteredCoins.length).toFixed(1);
+    document.getElementById('sum-total').textContent=filteredCoins.length;
+    document.getElementById('sum-high-arb').textContent=highScore;
+    document.getElementById('sum-avg-mcap').textContent=fmtMcap(avgMcap);
+    document.getElementById('sum-max-ex').textContent=maxEx;
+    document.getElementById('sc-count').textContent=filteredCoins.length;
+    document.getElementById('sc-avg-ex').textContent=avgEx;
+    document.getElementById('sc-summary').style.display='grid';
   }
-
-  currentPage = 1;
+  currentPage=1;
   renderTable();
 }
 
 function filterTable(query) {
   if (!query) { applyFiltersAndRender(); return; }
-  const q = query.toLowerCase();
-  filteredCoins = allCoins.filter(c =>
-    c.symbol.toLowerCase().includes(q) || c.name.toLowerCase().includes(q)
-  );
-  currentPage = 1;
+  const q=query.toLowerCase();
+  filteredCoins=allCoins.filter(c=>c.symbol.toLowerCase().includes(q)||c.name.toLowerCase().includes(q));
+  currentPage=1;
   renderTable();
 }
 
 function renderTable() {
-  const start = (currentPage - 1) * PAGE_SIZE;
-  const pageData = filteredCoins.slice(start, start + PAGE_SIZE);
-
-  if (filteredCoins.length === 0) {
-    document.getElementById('sc-table-container').innerHTML = `
-      <div class="sc-empty">No coins found matching your filters.</div>`;
-    document.getElementById('sc-pagination').style.display = 'none';
+  const start=(currentPage-1)*PAGE_SIZE;
+  const pageData=filteredCoins.slice(start,start+PAGE_SIZE);
+  if (filteredCoins.length===0) {
+    document.getElementById('sc-table-container').innerHTML='<div class="sc-empty">No coins found matching your filters.</div>';
+    document.getElementById('sc-pagination').style.display='none';
     return;
   }
-
-  const rows = pageData.map(coin => {
-    const mcapPct = Math.min(100, (coin.market_cap / 5000000) * 100);
-    const exchTags = coin.exchanges.map(key => {
-      const info = EXCHANGE_IDS[key];
+  const rows=pageData.map(coin=>{
+    const mcapPct=Math.min(100,(coin.market_cap/5000000)*100);
+    const exchTags=coin.exchanges.map(key=>{
+      const info=EXCHANGE_IDS[key];
+      if (!info) return '';
       return `<span class="exch-tag ${info.cls}">${info.label}</span>`;
     }).join('');
-
-    const arbCls  = coin.arbScore >= 3 ? 'high' : coin.arbScore >= 1 ? 'med' : 'low';
-    const pchg    = coin.price_change_24h;
-    const pchgStr = pchg != null ? `<span style="color:${pchg>=0?'var(--accent2)':'#ff6080'};font-size:0.75rem;">${pchg>=0?'+':''}${pchg.toFixed(2)}%</span>` : '';
-
+    const pchg=coin.price_change_24h;
+    const pchgStr=pchg!=null
+      ?`<span style="color:${pchg>=0?'var(--accent2)':'#ff6080'};font-size:0.75rem;">${pchg>=0?'+':''}${pchg.toFixed(2)}%</span>`:'';
     return `<tr>
-      <td>
-        <div class="coin-cell">
-          <div class="coin-icon">${coin.symbol.slice(0,2)}</div>
-          <div>
-            <div class="coin-sym">${coin.symbol}</div>
-            <div class="coin-name">${coin.name}</div>
-          </div>
-        </div>
-      </td>
-      <td>
-        <div class="price-cell">${fmtPrice(coin.current_price)}</div>
-        <div style="margin-top:2px;">${pchgStr}</div>
-      </td>
-      <td>
-        <div class="mcap-bar-wrap">
-          <span class="vol-cell">${fmtMcap(coin.market_cap)}</span>
-          <div class="mcap-bar"><div class="mcap-bar-fill" style="width:${mcapPct}%;"></div></div>
-        </div>
-      </td>
+      <td><div class="coin-cell">
+        <div class="coin-icon">${coin.symbol.slice(0,2)}</div>
+        <div><div class="coin-sym">${coin.symbol}</div><div class="coin-name">${coin.name}</div></div>
+      </div></td>
+      <td><div class="price-cell">${fmtPrice(coin.current_price)}</div><div style="margin-top:2px;">${pchgStr}</div></td>
+      <td><div class="mcap-bar-wrap"><span class="vol-cell">${fmtMcap(coin.market_cap)}</span>
+        <div class="mcap-bar"><div class="mcap-bar-fill" style="width:${mcapPct}%;"></div></div></div></td>
       <td><span class="vol-cell">${fmtVol(coin.total_volume)}</span></td>
       <td>
         <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px;">
@@ -1549,59 +1411,42 @@ function renderTable() {
         </div>
         <div class="exch-tags">${exchTags}</div>
       </td>
-      <td>
-        <div class="arb-score ${arbCls}">${coin.arbScore >= 0.1 ? coin.arbScore.toFixed(1)+'%' : '—'}</div>
-        <div style="font-size:0.65rem;color:var(--muted);margin-top:3px;font-family:'JetBrains Mono',monospace;">price gap</div>
-      </td>
       <td style="text-align:center;min-width:90px;">${gemScoreBadge(coin)}</td>
       <td style="min-width:140px;">${indicatorPills(coin)}</td>
     </tr>`;
   }).join('');
 
-  document.getElementById('sc-table-container').innerHTML = `
+  document.getElementById('sc-table-container').innerHTML=`
     <table class="sct">
-      <thead>
-        <tr>
-          <th>COIN</th>
-          <th>PRICE</th>
-          <th>MARKET CAP ▲</th>
-          <th>24H VOLUME</th>
-          <th>LISTED ON</th>
-          <th>ARB SCORE</th>
-          <th style="text-align:center;">GEM SCORE</th>
-          <th>INDICATORS</th>
-        </tr>
-      </thead>
+      <thead><tr>
+        <th>COIN</th><th>PRICE</th><th>MARKET CAP</th><th>24H VOLUME</th>
+        <th>LISTED ON</th><th style="text-align:center;">GEM SCORE</th><th>INDICATORS</th>
+      </tr></thead>
       <tbody>${rows}</tbody>
     </table>`;
 
-  // Pagination
-  const totalPages = Math.ceil(filteredCoins.length / PAGE_SIZE);
-  const pag = document.getElementById('sc-pagination');
-  if (totalPages > 1) {
-    let pagHtml = `<span class="sc-page-info">Page ${currentPage}/${totalPages} · ${filteredCoins.length} coins</span>`;
-    if (currentPage > 1) pagHtml += `<button class="sc-page-btn" onclick="goPage(${currentPage-1})">← Prev</button>`;
-    for (let p = Math.max(1, currentPage-2); p <= Math.min(totalPages, currentPage+2); p++) {
-      pagHtml += `<button class="sc-page-btn ${p===currentPage?'active':''}" onclick="goPage(${p})">${p}</button>`;
-    }
-    if (currentPage < totalPages) pagHtml += `<button class="sc-page-btn" onclick="goPage(${currentPage+1})">Next →</button>`;
-    pag.innerHTML = pagHtml;
-    pag.style.display = 'flex';
-  } else {
-    pag.style.display = 'none';
-  }
+  const totalPages=Math.ceil(filteredCoins.length/PAGE_SIZE);
+  const pag=document.getElementById('sc-pagination');
+  if (totalPages>1) {
+    let h=`<span class="sc-page-info">Page ${currentPage}/${totalPages} · ${filteredCoins.length} coins</span>`;
+    if (currentPage>1) h+=`<button class="sc-page-btn" onclick="goPage(${currentPage-1})">← Prev</button>`;
+    for (let p=Math.max(1,currentPage-2);p<=Math.min(totalPages,currentPage+2);p++)
+      h+=`<button class="sc-page-btn ${p===currentPage?'active':''}" onclick="goPage(${p})">${p}</button>`;
+    if (currentPage<totalPages) h+=`<button class="sc-page-btn" onclick="goPage(${currentPage+1})">Next →</button>`;
+    pag.innerHTML=h; pag.style.display='flex';
+  } else { pag.style.display='none'; }
 }
 
 function goPage(p) {
-  currentPage = p;
+  currentPage=p;
   renderTable();
-  document.querySelector('.sc-table-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.querySelector('.sc-table-wrap')?.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-// Re-apply filters when sort changes
-document.getElementById('sc-sort').addEventListener('change', () => {
-  if (allCoins.length > 0) applyFiltersAndRender();
+document.getElementById('sc-sort')?.addEventListener('change',()=>{
+  if (allCoins.length>0) applyFiltersAndRender();
 });
+</script>
 </script>
 
 
@@ -2126,7 +1971,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </div><!-- end sc-wrapper -->
 
 <footer>
-  <p>© 2026 ArbVertex · Hidden Gem Scanner · Data: CoinGecko API</p>
+  <p>© 2025 ArbVertex · Hidden Gem Scanner · Data: CoinGecko API</p>
   <div class="footer-links">
     <a href="index.html">Home</a>
     <a href="crypto-arbitrage-blog.html">Blog</a>
