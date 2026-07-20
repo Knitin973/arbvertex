@@ -1026,38 +1026,56 @@ async function fetchExchangeSymbols(key) {
   }
 }
 
-// CoinGecko — only for market cap (1-2 batch calls max)
-const CG_PROXIES = [
-  ids => `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&symbols=${ids}&per_page=250&sparkline=false`,
-  ids => `https://corsproxy.io/?url=${encodeURIComponent(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&symbols=${ids}&per_page=250&sparkline=false`)}`,
-  ids => `https://api.allorigins.win/raw?url=${encodeURIComponent(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&symbols=${ids}&per_page=250&sparkline=false`)}`,
-];
+// CoinGecko — fetch top coins by market cap, match by symbol
+// /coins/markets with top 2000 coins covers 99% of exchange-listed tokens
+async function cgFetch(url) {
+  const proxies = [
+    url,
+    'https://corsproxy.io/?url=' + encodeURIComponent(url),
+    'https://api.allorigins.win/raw?url=' + encodeURIComponent(url),
+  ];
+  for (const p of proxies) {
+    try {
+      const r = await fetch(p, { signal: AbortSignal.timeout(20000) });
+      if (!r.ok) continue;
+      const text = await r.text();
+      try { return JSON.parse(text); } catch(e) {
+        try { const w = JSON.parse(text); if (w.contents) return JSON.parse(w.contents); } catch(e2) {}
+      }
+    } catch(e) { continue; }
+  }
+  return null;
+}
 
 async function fetchMarketData(symbols) {
-  // CoinGecko /coins/markets by symbol (not id) — 1 call per 250 symbols
-  const batches = [];
-  for (let i = 0; i < symbols.length; i += 200) {
-    batches.push(symbols.slice(i, i + 200));
-  }
+  // CoinGecko /coins/markets — fetch top coins by mcap, match by symbol
+  // Fetch top 2000 coins in batches of 250 (8 calls max, but cached well)
   const result = {};
-  for (const batch of batches) {
-    const ids = batch.map(s => s.toLowerCase()).join(',');
-    for (const proxy of CG_PROXIES) {
-      try {
-        const r = await fetch(proxy(ids), { signal: AbortSignal.timeout(20000) });
-        if (!r.ok) continue;
-        let text = await r.text();
-        let data;
-        try { data = JSON.parse(text); } catch(e) {
-          try { const w = JSON.parse(text); if (w.contents) data = JSON.parse(w.contents); } catch(e2) {}
-        }
-        if (Array.isArray(data)) {
-          data.forEach(c => { result[c.symbol.toUpperCase()] = c; });
-          break;
-        }
-      } catch(e) { continue; }
-    }
-    if (batches.length > 1) await sleep(1500);
+  const symbolSet = new Set(symbols.map(s => s.toUpperCase()));
+  
+  // Fetch pages until we have all our symbols or exhausted top 2000
+  for (let page = 1; page <= 8; page++) {
+    setStatus(`Fetching market data (page ${page}/8)...`, 'loading');
+    const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=${page}&sparkline=false`;
+    const data = await cgFetch(url);
+    if (!Array.isArray(data) || data.length === 0) break;
+    
+    data.forEach(c => {
+      const sym = (c.symbol || '').toUpperCase();
+      if (symbolSet.has(sym) && !result[sym]) {
+        result[sym] = c;
+      }
+    });
+    
+    // If last coin mcap < 50K, no point fetching more
+    const lastMcap = data[data.length-1]?.market_cap || 0;
+    if (lastMcap < 50000) break;
+    
+    // Stop early if we found all symbols
+    const found = Object.keys(result).length;
+    if (found >= symbolSet.size * 0.9) break; // 90% found = good enough
+    
+    if (page < 8) await sleep(1200); // respect rate limit
   }
   return result;
 }
