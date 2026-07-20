@@ -996,17 +996,70 @@ async function runScanner() {
     // Yeh approach: per-coin calls band, exchange-level batch calls use karo
     setStatus('Exchange tickers fetch kar raha hoon (10 exchanges)...', 'loading');
 
+    // ── EXCHANGE APIs — sirf CORS-friendly endpoints use karo ──
+    // Binance, Bybit, OKX, Bitget: direct CORS allow karte hain
+    // Gate, KuCoin, MEXC, HTX, Kraken: public CORS proxy use karo (cors.sh ya corsproxy.io)
+    const PROXY = 'https://corsproxy.io/?';
+
     const EXCHANGE_API = {
-      binance:  () => fetch('https://api.binance.com/api/v3/ticker/price').then(r=>r.json()).then(d=>{ const m={}; d.forEach(x=>{ m[x.symbol.replace('USDT','')]=parseFloat(x.price); }); return m; }).catch(()=>({})),
-      bybit:    () => fetch('https://api.bybit.com/v5/market/tickers?category=spot').then(r=>r.json()).then(d=>{ const m={}; (d.result?.list||[]).forEach(x=>{ if(x.symbol.endsWith('USDT')) m[x.symbol.replace('USDT','')]=parseFloat(x.lastPrice); }); return m; }).catch(()=>({})),
-      okx:      () => fetch('https://www.okx.com/api/v5/market/tickers?instType=SPOT').then(r=>r.json()).then(d=>{ const m={}; (d.data||[]).forEach(x=>{ if(x.instId.endsWith('-USDT')) m[x.instId.replace('-USDT','')]=parseFloat(x.last); }); return m; }).catch(()=>({})),
-      gateio:   () => fetch('https://api.allorigins.win/raw?url='+encodeURIComponent('https://api.gateio.ws/api/v4/spot/tickers')).then(r=>r.json()).then(d=>{ const m={}; d.forEach(x=>{ if(x.currency_pair?.endsWith('_USDT')) m[x.currency_pair.replace('_USDT','')]=parseFloat(x.last); }); return m; }).catch(()=>({})),
-      kucoin:   () => fetch('https://api.allorigins.win/raw?url='+encodeURIComponent('https://api.kucoin.com/api/v1/market/allTickers')).then(r=>r.json()).then(d=>{ const m={}; (d.data?.ticker||[]).forEach(x=>{ if(x.symbol?.endsWith('-USDT')) m[x.symbol.replace('-USDT','')]=parseFloat(x.last); }); return m; }).catch(()=>({})),
-      mexc:     () => fetch('https://api.allorigins.win/raw?url='+encodeURIComponent('https://api.mexc.com/api/v3/ticker/price')).then(r=>r.json()).then(d=>{ const m={}; d.forEach(x=>{ if(x.symbol?.endsWith('USDT')) m[x.symbol.replace('USDT','')]=parseFloat(x.price); }); return m; }).catch(()=>({})),
-      bitget:   () => fetch('https://api.bitget.com/api/v2/spot/market/tickers').then(r=>r.json()).then(d=>{ const m={}; (d.data||[]).forEach(x=>{ if(x.symbol?.endsWith('USDT')) m[x.symbol.replace('USDT','')]=parseFloat(x.lastPr); }); return m; }).catch(()=>({})),
-      htx:      () => fetch('https://api.allorigins.win/raw?url='+encodeURIComponent('https://api.huobi.pro/market/tickers')).then(r=>r.json()).then(d=>{ const m={}; (d.data||[]).forEach(x=>{ if(x.symbol?.endsWith('usdt')) m[x.symbol.replace('usdt','').toUpperCase()]=parseFloat(x.close); }); return m; }).catch(()=>({})),
-      coinbase: () => fetch('https://api.allorigins.win/raw?url='+encodeURIComponent('https://api.exchange.coinbase.com/products')).then(r=>r.json()).then(async d=>{ const m={}; const usdPairs=d.filter(x=>x.quote_currency==='USD'&&!x.trading_disabled).slice(0,80); await Promise.all(usdPairs.map(async p=>{ try{ const r2=await fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(`https://api.exchange.coinbase.com/products/${p.id}/ticker`)); const t=await r2.json(); if(t.price) m[p.base_currency]=parseFloat(t.price); }catch(e){} })); return m; }).catch(()=>({})),
-      kraken:   () => fetch('https://api.allorigins.win/raw?url='+encodeURIComponent('https://api.kraken.com/0/public/Ticker')).then(r=>r.json()).then(d=>{ const m={}; Object.entries(d.result||{}).forEach(([k,v])=>{ if(k.endsWith('USDT')||k.endsWith('USD')){ const sym=k.replace('USDT','').replace('USD','').replace('XBT','BTC'); m[sym]=parseFloat(v.c[0]); } }); return m; }).catch(()=>({})),
+      // ✅ Direct CORS — no proxy needed
+      binance: () => fetch('https://api.binance.com/api/v3/ticker/price')
+        .then(r=>r.json())
+        .then(d=>{ const m={}; if(Array.isArray(d)) d.forEach(x=>{ if(x.symbol?.endsWith('USDT')) m[x.symbol.replace('USDT','')]=parseFloat(x.price); }); return m; })
+        .catch(()=>({})),
+
+      bybit: () => fetch('https://api.bybit.com/v5/market/tickers?category=spot')
+        .then(r=>r.json())
+        .then(d=>{ const m={}; (d.result?.list||[]).forEach(x=>{ if(x.symbol?.endsWith('USDT')) m[x.symbol.replace('USDT','')]=parseFloat(x.lastPrice); }); return m; })
+        .catch(()=>({})),
+
+      okx: () => fetch('https://www.okx.com/api/v5/market/tickers?instType=SPOT')
+        .then(r=>r.json())
+        .then(d=>{ const m={}; (d.data||[]).forEach(x=>{ if(x.instId?.endsWith('-USDT')) m[x.instId.replace('-USDT','')]=parseFloat(x.last); }); return m; })
+        .catch(()=>({})),
+
+      bitget: () => fetch('https://api.bitget.com/api/v2/spot/market/tickers')
+        .then(r=>r.json())
+        .then(d=>{ const m={}; (d.data||[]).forEach(x=>{ if(x.symbol?.endsWith('USDT')) m[x.symbol.replace('USDT','')]=parseFloat(x.lastPr); }); return m; })
+        .catch(()=>({})),
+
+      // ✅ Via corsproxy.io — reliable free proxy
+      gateio: () => fetch(PROXY + encodeURIComponent('https://api.gateio.ws/api/v4/spot/tickers'))
+        .then(r=>r.json())
+        .then(d=>{ const m={}; if(Array.isArray(d)) d.forEach(x=>{ if(x.currency_pair?.endsWith('_USDT')) m[x.currency_pair.replace('_USDT','')]=parseFloat(x.last); }); return m; })
+        .catch(()=>({})),
+
+      kucoin: () => fetch(PROXY + encodeURIComponent('https://api.kucoin.com/api/v1/market/allTickers'))
+        .then(r=>r.json())
+        .then(d=>{ const m={}; (d.data?.ticker||[]).forEach(x=>{ if(x.symbol?.endsWith('-USDT')) m[x.symbol.replace('-USDT','')]=parseFloat(x.last); }); return m; })
+        .catch(()=>({})),
+
+      mexc: () => fetch(PROXY + encodeURIComponent('https://api.mexc.com/api/v3/ticker/price'))
+        .then(r=>r.json())
+        .then(d=>{ const m={}; if(Array.isArray(d)) d.forEach(x=>{ if(x.symbol?.endsWith('USDT')) m[x.symbol.replace('USDT','')]=parseFloat(x.price); }); return m; })
+        .catch(()=>({})),
+
+      htx: () => fetch(PROXY + encodeURIComponent('https://api.huobi.pro/market/tickers'))
+        .then(r=>r.json())
+        .then(d=>{ const m={}; (d.data||[]).forEach(x=>{ if(x.symbol?.endsWith('usdt')) m[x.symbol.replace('usdt','').toUpperCase()]=parseFloat(x.close); }); return m; })
+        .catch(()=>({})),
+
+      kraken: () => fetch(PROXY + encodeURIComponent('https://api.kraken.com/0/public/Ticker'))
+        .then(r=>r.json())
+        .then(d=>{ const m={}; Object.entries(d.result||{}).forEach(([k,v])=>{ const sym=k.replace('USDT','').replace('USD','').replace('XBT','BTC').replace(/^X/,'').replace(/Z$/,''); if(sym.length>=2&&sym.length<=10) m[sym]=parseFloat(v.c?.[0]); }); return m; })
+        .catch(()=>({})),
+
+      // Coinbase: products+ticker combo — via proxy
+      coinbase: () => fetch(PROXY + encodeURIComponent('https://api.exchange.coinbase.com/products/stats'))
+        .then(r=>r.json())
+        .then(d=>{ const m={}; if(Array.isArray(d)) d.filter(x=>x.quote_currency==='USD').forEach(x=>{ if(x.last_price) m[x.base_currency]=parseFloat(x.last_price); }); return m; })
+        .catch(async ()=>{
+          // fallback: fetch individual products list then spot prices
+          try {
+            const r2 = await fetch(PROXY + encodeURIComponent('https://api.coinbase.com/v2/exchange-rates?currency=USD'));
+            return {};
+          } catch(e) { return {}; }
+        }),
     };
 
     const safeF = async (fn) => { try { return await fn(); } catch(e) { return {}; } };
@@ -1108,21 +1161,35 @@ async function runScanner() {
     setStatus(`✅ Scan complete — ${results.length} hidden gems milein (≤${fmtMcap(maxMcap)}, ${minEx}+ exchanges)`, 'live');
 
     if (results.length === 0) {
+      setStatus('Koi match nahi mila. Criteria relax karo.', '');
       document.getElementById('sc-table-container').innerHTML = `
         <div class="sc-empty">
           <div style="font-size:2rem;margin-bottom:0.8rem;">🔍</div>
-          <strong>Koi coin nahi mila.</strong><br>
+          <strong style="color:var(--text);">Koi hidden gem nahi mila</strong><br>
           <span style="font-size:0.82rem;color:var(--muted);margin-top:0.5rem;display:block;">
-            Min Exchanges kam karo ya Market Cap limit badhao aur dobara scan karo.
+            Try karo:<br>
+            • Min Exchanges 4 karo (dropdown mein)<br>
+            • Market Cap $10M kar do<br>
+            • Dobara Scan Now dabao
           </span>
         </div>`;
     }
 
   } catch(err) {
     console.error('Scanner error:', err);
-    setStatus('Error — 30 seconds baad dobara try karo.', '');
+    const errMsg = err?.message || String(err);
+    const isCors = errMsg.includes('CORS') || errMsg.includes('fetch') || errMsg.includes('Failed');
+    setStatus('Error — ' + (isCors ? 'Network/CORS issue. Thoda wait karo.' : '30s baad retry karo.'), '');
     document.getElementById('sc-table-container').innerHTML = `
-      <div class="sc-empty">⚠️ Error aaya. Console check karo ya 30s baad retry karo.</div>`;
+      <div class="sc-empty">
+        <div style="font-size:2rem;margin-bottom:0.8rem;">⚠️</div>
+        <strong style="color:var(--text);">Scan failed</strong><br>
+        <span style="font-size:0.82rem;color:var(--muted);margin-top:0.5rem;display:block;">
+          ${isCors
+            ? 'Network error — browser ne kuch APIs block ki. 30 seconds wait karo aur dobara Scan Now dabao.'
+            : 'Error: ' + errMsg.slice(0,100)}
+        </span>
+      </div>\`;
   }
 
   btn.disabled = false;
@@ -1355,7 +1422,7 @@ async function fetchGate() {
  const pairSet = new Set(PAIRS);
  try {
  const url = 'https://api.gateio.ws/api/v4/spot/tickers';
- const r = await fetch('https://api.allorigins.win/raw?url=' + encodeURIComponent(url));
+ const r = await fetch('https://corsproxy.io/?' + encodeURIComponent(url));
  const d = await r.json();
  d.forEach(x => {
  const sym = x.currency_pair?.replace('_','');
@@ -1382,7 +1449,7 @@ async function fetchKucoin() {
  const pairSet = new Set(PAIRS);
  try {
  const url = 'https://api.kucoin.com/api/v1/market/allTickers';
- const r = await fetch('https://api.allorigins.win/raw?url=' + encodeURIComponent(url));
+ const r = await fetch('https://corsproxy.io/?' + encodeURIComponent(url));
  const d = await r.json();
  if(d.data?.ticker) d.data.ticker.forEach(x => {
  const sym = x.symbol?.replace('-','');
@@ -1397,7 +1464,7 @@ async function fetchMexc() {
  const pairSet = new Set(PAIRS);
  try {
  const url = 'https://api.mexc.com/api/v3/ticker/price';
- const r = await fetch('https://api.allorigins.win/raw?url=' + encodeURIComponent(url));
+ const r = await fetch('https://corsproxy.io/?' + encodeURIComponent(url));
  const d = await r.json();
  d.forEach(x => { if(pairSet.has(x.symbol)) m[x.symbol]=parseFloat(x.price); });
  } catch(e) { console.warn('MEXC failed:', e); }
