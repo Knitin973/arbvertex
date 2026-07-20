@@ -968,22 +968,28 @@ async function fetchExchangeSymbols(key) {
         return new Set((d.data || []).filter(s => s.quoteCcy === 'USDT' && s.state === 'live').map(s => s.baseCcy.toUpperCase()));
       }
       case 'gateio': {
-        const r = await fetch('https://api.gateio.ws/api/v4/spot/tickers', { signal: AbortSignal.timeout(15000) });
-        if (!r.ok) return new Set();
-        const d = await r.json();
-        return new Set(d.filter(s => s.currency_pair && s.currency_pair.endsWith('_USDT')).map(s => s.currency_pair.replace('_USDT','')));
+        try {
+          const r = await fetch(`${CMC_WORKER_URL}/exchange?name=gateio`, { signal: AbortSignal.timeout(20000) });
+          if (!r.ok) return new Set();
+          const d = await r.json();
+          return new Set(d.symbols || []);
+        } catch(e) { return new Set(); }
       }
       case 'kucoin': {
-        const r = await fetch('https://api.kucoin.com/api/v1/symbols', { signal: AbortSignal.timeout(15000) });
-        if (!r.ok) return new Set();
-        const d = await r.json();
-        return new Set((d.data || []).filter(s => s.quoteCurrency === 'USDT' && s.enableTrading).map(s => s.baseCurrency.toUpperCase()));
+        try {
+          const r = await fetch(`${CMC_WORKER_URL}/exchange?name=kucoin`, { signal: AbortSignal.timeout(20000) });
+          if (!r.ok) return new Set();
+          const d = await r.json();
+          return new Set(d.symbols || []);
+        } catch(e) { return new Set(); }
       }
       case 'mexc': {
-        const r = await fetch('https://api.mexc.com/api/v3/exchangeInfo', { signal: AbortSignal.timeout(15000) });
-        if (!r.ok) return new Set();
-        const d = await r.json();
-        return new Set((d.symbols || []).filter(s => s.quoteAsset === 'USDT' && s.status === 'ENABLED').map(s => s.baseAsset.toUpperCase()));
+        try {
+          const r = await fetch(`${CMC_WORKER_URL}/exchange?name=mexc`, { signal: AbortSignal.timeout(20000) });
+          if (!r.ok) return new Set();
+          const d = await r.json();
+          return new Set(d.symbols || []);
+        } catch(e) { return new Set(); }
       }
       case 'bitget': {
         const r = await fetch('https://api.bitget.com/api/v2/spot/public/symbols', { signal: AbortSignal.timeout(15000) });
@@ -999,19 +1005,18 @@ async function fetchExchangeSymbols(key) {
       }
       case 'coinbase': {
         try {
-          const r = await fetch('https://api.coinbase.com/api/v3/brokerage/market/products?product_type=SPOT&limit=500', { signal: AbortSignal.timeout(15000) });
-          if (!r.ok) throw new Error('coinbase v3 failed');
+          const r = await fetch(`${CMC_WORKER_URL}/exchange?name=coinbase`, { signal: AbortSignal.timeout(20000) });
+          if (!r.ok) return new Set();
           const d = await r.json();
-          return new Set((d.products||[]).filter(s=>s.quote_currency_id==='USDT'&&!s.is_disabled).map(s=>s.base_currency_id.toUpperCase()));
+          return new Set(d.symbols || []);
         } catch(e) { return new Set(); }
       }
       case 'kraken': {
         try {
-          const url = 'https://corsproxy.io/?url=' + encodeURIComponent('https://api.kraken.com/0/public/AssetPairs');
-          const r = await fetch(url, { signal: AbortSignal.timeout(15000) });
-          if (!r.ok) throw new Error('kraken failed');
+          const r = await fetch(`${CMC_WORKER_URL}/exchange?name=kraken`, { signal: AbortSignal.timeout(20000) });
+          if (!r.ok) return new Set();
           const d = await r.json();
-          return new Set(Object.values(d.result || {}).filter(s => s.quote === 'USDT').map(s => s.base.replace(/^X/, '').replace(/\.d$/, '').toUpperCase()));
+          return new Set(d.symbols || []);
         } catch(e) { return new Set(); }
       }
       default: return new Set();
