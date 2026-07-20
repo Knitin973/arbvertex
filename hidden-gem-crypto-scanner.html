@@ -921,7 +921,7 @@ table.sct tbody td { padding: 0.7rem 0.9rem; vertical-align: middle; }
 <script>
 // ── HIDDEN GEM SCANNER v5 — CMC API (No CoinGecko) ──
 // API key is read-only, only fetches price/mcap data
-const CMC_API_KEY = 'cd65db2f05f34cdda965e34edd750cfb';
+// CMC API key is stored safely in Cloudflare Worker (not here)
 
 let allCoins = [];
 let filteredCoins = [];
@@ -1022,78 +1022,55 @@ async function fetchExchangeSymbols(key) {
   }
 }
 
-// ── CMC MARKET DATA (replaces CoinGecko) ──
-// Uses CMC /v1/cryptocurrency/quotes/latest with symbol list
-// Free plan: 10,000 credits/month, each call = 1 credit per symbol
+// ── CMC MARKET DATA via Cloudflare Worker (no CORS issue) ──
+// Worker URL — set this to YOUR worker URL after deployment
+// Worker keeps the API key safe server-side
+const CMC_WORKER_URL = 'https://black-boat-8d8f.knitin973.workers.dev';
+
 async function fetchMarketDataCMC(symbols) {
   const result = {};
-  const BATCH = 100; // CMC allows up to 200 symbols per call on free plan
-  
+  const BATCH = 100;
+
   for (let i = 0; i < symbols.length; i += BATCH) {
     const batch = symbols.slice(i, i + BATCH);
     const symbolStr = batch.join(',');
-    
-    setStatus(`Fetching market caps via CMC (${i+batch.length}/${symbols.length})...`, 'loading');
-    
-    // CMC requires server-side call due to CORS
-    // We use a CORS proxy for browser-side usage
-    const cmcUrl = `https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=${encodeURIComponent(symbolStr)}&convert=USD`;
-    
-    // Try direct first (works if running on server), then CORS proxy
-    const proxies = [
-      { url: cmcUrl, headers: { 'X-CMC_PRO_API_KEY': CMC_API_KEY, 'Accept': 'application/json' } },
-      { url: 'https://corsproxy.io/?url=' + encodeURIComponent(cmcUrl), headers: { 'X-CMC_PRO_API_KEY': CMC_API_KEY, 'Accept': 'application/json' } },
-      { url: 'https://api.allorigins.win/get?url=' + encodeURIComponent(cmcUrl + '&CMC_PRO_API_KEY=' + CMC_API_KEY), headers: {} },
-    ];
-    
-    let data = null;
-    for (const proxy of proxies) {
-      try {
-        const r = await fetch(proxy.url, { 
-          headers: proxy.headers,
-          signal: AbortSignal.timeout(20000)
-        });
-        if (!r.ok) continue;
-        const text = await r.text();
-        let parsed;
-        try { parsed = JSON.parse(text); } 
-        catch(e) { 
-          try { const w = JSON.parse(text); parsed = w.contents ? JSON.parse(w.contents) : null; } 
-          catch(e2) { continue; }
-        }
-        if (parsed?.data) { data = parsed.data; break; }
-        if (parsed?.status?.error_code) {
-          console.warn('CMC error:', parsed.status.error_message);
-          break;
-        }
-      } catch(e) { console.warn('Proxy failed:', e.message); continue; }
-    }
-    
-    if (data) {
-      // CMC returns object keyed by symbol (uppercase)
-      // If same symbol has multiple coins, it returns an array
+
+    setStatus(`Fetching market caps (${i + batch.length}/${symbols.length})...`, 'loading');
+
+    try {
+      const workerUrl = `${CMC_WORKER_URL}?symbols=${encodeURIComponent(symbolStr)}`;
+      const r = await fetch(workerUrl, { signal: AbortSignal.timeout(25000) });
+      if (!r.ok) {
+        console.warn('Worker returned', r.status);
+        continue;
+      }
+      const parsed = await r.json();
+      const data = parsed?.data;
+      if (!data) {
+        if (parsed?.status?.error_message) console.warn('CMC error:', parsed.status.error_message);
+        continue;
+      }
+
       for (const [sym, coinOrArr] of Object.entries(data)) {
         const coin = Array.isArray(coinOrArr) ? coinOrArr[0] : coinOrArr;
         if (!coin) continue;
-        const mcap = coin.quote?.USD?.market_cap || 0;
-        const price = coin.quote?.USD?.price || 0;
-        const vol24h = coin.quote?.USD?.volume_24h || 0;
-        const chg24h = coin.quote?.USD?.percent_change_24h || 0;
         result[sym.toUpperCase()] = {
           id: coin.id,
           name: coin.name,
           symbol: sym.toUpperCase(),
-          market_cap: mcap,
-          current_price: price,
-          total_volume: vol24h,
-          price_change_24h: chg24h,
+          market_cap: coin.quote?.USD?.market_cap || 0,
+          current_price: coin.quote?.USD?.price || 0,
+          total_volume: coin.quote?.USD?.volume_24h || 0,
+          price_change_24h: coin.quote?.USD?.percent_change_24h || 0,
         };
       }
+    } catch(e) {
+      console.warn('Worker fetch failed:', e.message);
     }
-    
-    if (i + BATCH < symbols.length) await sleep(300); // small delay between batches
+
+    if (i + BATCH < symbols.length) await sleep(200);
   }
-  
+
   return result;
 }
 
@@ -1225,7 +1202,7 @@ async function runScanner() {
     if (filtered.length === 0) {
       // Check if CMC returned any data at all
       if (foundCount === 0) {
-        showError('CMC API returned no data. This may be a CORS issue. Try again or check your API key.');
+        showError('Worker not configured yet. Please update CMC_WORKER_URL in the script with your Cloudflare Worker URL.');
       } else {
         showError(`No coins with market cap ≤ ${fmtMcap(maxMcap)} on ${minEx}+ exchanges. CMC found ${foundCount} coins but none matched the filter. Try raising Max Market Cap.`);
       }
