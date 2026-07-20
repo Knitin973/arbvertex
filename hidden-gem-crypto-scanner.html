@@ -919,73 +919,136 @@ table.sct tbody td { padding: 0.7rem 0.9rem; vertical-align: middle; }
 </div>
 
 <script>
-// ── HIDDEN GEM SCANNER v3 ──
-// Fix: per-exchange API calls (10 total) instead of per-coin (100s of calls)
-// Fix: cgFetch already returns parsed JSON — no .json()/.ok needed
-// Fix: proper CORS proxy rotation with fallback
+// ── HIDDEN GEM SCANNER v4 ── Exchange APIs (no CoinGecko for coin lists)
 let allCoins = [];
 let filteredCoins = [];
 let activeExchFilter = 'all';
 let currentPage = 1;
 const PAGE_SIZE = 50;
 
-// ── CORS PROXY HELPER ──
-const CG_PROXIES = [
-  path => `https://api.coingecko.com${path}`,
-  path => `https://corsproxy.io/?url=${encodeURIComponent('https://api.coingecko.com' + path)}`,
-  path => `https://api.allorigins.win/raw?url=${encodeURIComponent('https://api.coingecko.com' + path)}`,
-  path => `https://thingproxy.freeboard.io/fetch/https://api.coingecko.com${path}`,
-];
-let _cgProxyIdx = 0;
-
-async function cgFetch(path, retries = 3) {
-  for (let attempt = 0; attempt <= retries; attempt++) {
-    const proxyIdx = (_cgProxyIdx + attempt) % CG_PROXIES.length;
-    const url = CG_PROXIES[proxyIdx](path);
-    try {
-      const r = await fetch(url, { signal: AbortSignal.timeout(20000) });
-      if (r.status === 429) {
-        console.warn(`[CG] 429 on proxy ${proxyIdx}, waiting 12s...`);
-        await sleep(12000);
-        continue;
-      }
-      if (!r.ok) { console.warn(`[CG] HTTP ${r.status} on proxy ${proxyIdx}`); continue; }
-      _cgProxyIdx = proxyIdx; // remember working proxy
-      const text = await r.text();
-      try {
-        return JSON.parse(text);
-      } catch(e) {
-        // allorigins wraps in {contents:'...'}
-        try {
-          const w = JSON.parse(text);
-          if (w && w.contents) return JSON.parse(w.contents);
-        } catch(e2) {}
-        throw new Error('Invalid JSON');
-      }
-    } catch(e) {
-      console.warn(`[CG] Proxy ${proxyIdx} error:`, e.message);
-      _cgProxyIdx = (proxyIdx + 1) % CG_PROXIES.length;
-      if (attempt < retries) await sleep(2000);
-    }
-  }
-  throw new Error('All CoinGecko proxies failed');
-}
-
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
-const EXCHANGE_IDS = {
-  binance:  { cgId: 'binance',    label: 'Binance',  cls: 'bn'  },
-  bybit:    { cgId: 'bybit_spot', label: 'Bybit',    cls: 'bb'  },
-  okx:      { cgId: 'okex',       label: 'OKX',      cls: 'okx' },
-  gateio:   { cgId: 'gate',       label: 'Gate.io',  cls: 'gt'  },
-  kucoin:   { cgId: 'kucoin',     label: 'KuCoin',   cls: 'ku'  },
-  mexc:     { cgId: 'mxc',        label: 'MEXC',     cls: 'mx'  },
-  bitget:   { cgId: 'bitget',     label: 'Bitget',   cls: 'bg'  },
-  huobi:    { cgId: 'huobi',      label: 'HTX',      cls: 'ht'  },
-  coinbase: { cgId: 'gdax',       label: 'Coinbase', cls: 'cb'  },
-  kraken:   { cgId: 'kraken',     label: 'Kraken',   cls: 'kr'  },
+// ── EXCHANGE DIRECT APIs ──
+const EXCHANGES = {
+  binance:  { label: 'Binance',   cls: 'bn' },
+  bybit:    { label: 'Bybit',     cls: 'bb' },
+  okx:      { label: 'OKX',       cls: 'okx' },
+  gateio:   { label: 'Gate.io',   cls: 'gt' },
+  kucoin:   { label: 'KuCoin',    cls: 'ku' },
+  mexc:     { label: 'MEXC',      cls: 'mx' },
+  bitget:   { label: 'Bitget',    cls: 'bg' },
+  huobi:    { label: 'HTX/Huobi', cls: 'ht' },
+  coinbase: { label: 'Coinbase',  cls: 'cb' },
+  kraken:   { label: 'Kraken',    cls: 'kr' },
 };
-const EXCH_KEYS = Object.keys(EXCHANGE_IDS);
+
+// Fetch USDT symbols from each exchange directly
+async function fetchExchangeSymbols(key) {
+  try {
+    switch(key) {
+      case 'binance': {
+        const r = await fetch('https://api.binance.com/api/v3/exchangeInfo', { signal: AbortSignal.timeout(15000) });
+        if (!r.ok) return new Set();
+        const d = await r.json();
+        return new Set(d.symbols.filter(s => s.quoteAsset === 'USDT' && s.status === 'TRADING').map(s => s.baseAsset.toUpperCase()));
+      }
+      case 'bybit': {
+        const r = await fetch('https://api.bybit.com/v5/market/instruments-info?category=spot&limit=1000', { signal: AbortSignal.timeout(15000) });
+        if (!r.ok) return new Set();
+        const d = await r.json();
+        return new Set((d.result?.list || []).filter(s => s.quoteCoin === 'USDT' && s.status === 'Trading').map(s => s.baseCoin.toUpperCase()));
+      }
+      case 'okx': {
+        const r = await fetch('https://www.okx.com/api/v5/public/instruments?instType=SPOT', { signal: AbortSignal.timeout(15000) });
+        if (!r.ok) return new Set();
+        const d = await r.json();
+        return new Set((d.data || []).filter(s => s.quoteCcy === 'USDT' && s.state === 'live').map(s => s.baseCcy.toUpperCase()));
+      }
+      case 'gateio': {
+        const r = await fetch('https://api.gateio.ws/api/v4/spot/currency_pairs', { signal: AbortSignal.timeout(15000) });
+        if (!r.ok) return new Set();
+        const d = await r.json();
+        return new Set(d.filter(s => s.quote === 'USDT' && s.trade_status === 'tradable').map(s => s.base.toUpperCase()));
+      }
+      case 'kucoin': {
+        const r = await fetch('https://api.kucoin.com/api/v1/symbols', { signal: AbortSignal.timeout(15000) });
+        if (!r.ok) return new Set();
+        const d = await r.json();
+        return new Set((d.data || []).filter(s => s.quoteCurrency === 'USDT' && s.enableTrading).map(s => s.baseCurrency.toUpperCase()));
+      }
+      case 'mexc': {
+        const r = await fetch('https://api.mexc.com/api/v3/exchangeInfo', { signal: AbortSignal.timeout(15000) });
+        if (!r.ok) return new Set();
+        const d = await r.json();
+        return new Set((d.symbols || []).filter(s => s.quoteAsset === 'USDT' && s.status === 'ENABLED').map(s => s.baseAsset.toUpperCase()));
+      }
+      case 'bitget': {
+        const r = await fetch('https://api.bitget.com/api/v2/spot/public/symbols', { signal: AbortSignal.timeout(15000) });
+        if (!r.ok) return new Set();
+        const d = await r.json();
+        return new Set((d.data || []).filter(s => s.quoteCoin === 'USDT' && s.status === 'online').map(s => s.baseCoin.toUpperCase()));
+      }
+      case 'huobi': {
+        const r = await fetch('https://api.huobi.pro/v1/common/symbols', { signal: AbortSignal.timeout(15000) });
+        if (!r.ok) return new Set();
+        const d = await r.json();
+        return new Set((d.data || []).filter(s => s['quote-currency'] === 'usdt' && s.state === 'online').map(s => s['base-currency'].toUpperCase()));
+      }
+      case 'coinbase': {
+        const r = await fetch('https://api.exchange.coinbase.com/products', { signal: AbortSignal.timeout(15000) });
+        if (!r.ok) return new Set();
+        const d = await r.json();
+        return new Set(d.filter(s => s.quote_currency === 'USDT' && s.status === 'online').map(s => s.base_currency.toUpperCase()));
+      }
+      case 'kraken': {
+        const r = await fetch('https://api.kraken.com/0/public/AssetPairs', { signal: AbortSignal.timeout(15000) });
+        if (!r.ok) return new Set();
+        const d = await r.json();
+        return new Set(Object.values(d.result || {}).filter(s => s.quote === 'USDT').map(s => s.base.replace(/^X/, '').replace(/\.d$/, '').toUpperCase()));
+      }
+      default: return new Set();
+    }
+  } catch(e) {
+    console.warn(`[${key}] fetch failed:`, e.message);
+    return new Set();
+  }
+}
+
+// CoinGecko — only for market cap (1-2 batch calls max)
+const CG_PROXIES = [
+  ids => `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&symbols=${ids}&per_page=250&sparkline=false`,
+  ids => `https://corsproxy.io/?url=${encodeURIComponent(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&symbols=${ids}&per_page=250&sparkline=false`)}`,
+  ids => `https://api.allorigins.win/raw?url=${encodeURIComponent(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&symbols=${ids}&per_page=250&sparkline=false`)}`,
+];
+
+async function fetchMarketData(symbols) {
+  // CoinGecko /coins/markets by symbol (not id) — 1 call per 250 symbols
+  const batches = [];
+  for (let i = 0; i < symbols.length; i += 200) {
+    batches.push(symbols.slice(i, i + 200));
+  }
+  const result = {};
+  for (const batch of batches) {
+    const ids = batch.map(s => s.toLowerCase()).join(',');
+    for (const proxy of CG_PROXIES) {
+      try {
+        const r = await fetch(proxy(ids), { signal: AbortSignal.timeout(20000) });
+        if (!r.ok) continue;
+        let text = await r.text();
+        let data;
+        try { data = JSON.parse(text); } catch(e) {
+          try { const w = JSON.parse(text); if (w.contents) data = JSON.parse(w.contents); } catch(e2) {}
+        }
+        if (Array.isArray(data)) {
+          data.forEach(c => { result[c.symbol.toUpperCase()] = c; });
+          break;
+        }
+      } catch(e) { continue; }
+    }
+    if (batches.length > 1) await sleep(1500);
+  }
+  return result;
+}
 
 function fmtMcap(v) {
   if (!v) return '—';
@@ -1020,7 +1083,7 @@ function showError(msg) {
       <div style="font-size:2rem;margin-bottom:0.8rem;">⚠️</div>
       ${msg}<br>
       <span style="font-size:0.78rem;margin-top:0.5rem;display:block;color:var(--muted);">
-        CoinGecko free API: ~30 req/min. Wait 60s then try again.
+        Try again in a few seconds.
       </span>
     </div>`;
 }
@@ -1033,8 +1096,6 @@ function toggleExchFilter(el) {
 }
 
 // ── MAIN SCANNER ──
-// KEY CHANGE: 1 API call per exchange (10 total) → NOT 1 per coin (100s of calls)
-// This is why old version hit rate limits — checking per-coin is ~200 calls for 200 coins
 async function runScanner() {
   const btn = document.getElementById('sc-run-btn');
   btn.disabled = true;
@@ -1045,107 +1106,82 @@ async function runScanner() {
   document.getElementById('sc-table-container').innerHTML = `
     <div class="sc-empty">
       <div class="sc-spinner"></div>
-      Fetching coin lists from exchanges (10 calls total)...<br>
-      <span style="font-size:0.75rem;margin-top:0.3rem;display:block;">~15–25 seconds</span>
+      Fetching symbol lists from exchanges...<br>
+      <span style="font-size:0.75rem;margin-top:0.3rem;display:block;">~5–10 seconds</span>
     </div>`;
 
   try {
     const maxMcap = parseInt(document.getElementById('sc-mcap-input').value) || 5000000;
     const minEx   = parseInt(document.getElementById('sc-min-ex').value) || 4;
+    const exchKeys = Object.keys(EXCHANGES);
 
-    // STEP 1: Fetch each exchange's ticker list (1 call per exchange = 10 calls total)
-    setStatus(`Fetching ticker lists from ${EXCH_KEYS.length} exchanges...`, 'loading');
-    const exchCoinSets = {};
+    // STEP 1: Fetch symbol lists from all exchanges in parallel
+    setStatus('Fetching symbol lists from exchanges...', 'loading');
+    const results = await Promise.allSettled(exchKeys.map(k => fetchExchangeSymbols(k)));
+    const exchSymbolSets = {};
+    results.forEach((r, i) => {
+      exchSymbolSets[exchKeys[i]] = r.status === 'fulfilled' ? r.value : new Set();
+      setStatus(`✓ ${EXCHANGES[exchKeys[i]].label}: ${exchSymbolSets[exchKeys[i]].size} pairs`, 'loading');
+    });
 
-    for (const key of EXCH_KEYS) {
-      const info = EXCHANGE_IDS[key];
-      const coinSet = new Set();
-      try {
-        // Fetch pages until we get all coins (each page = 100 tickers)
-        for (let page = 1; page <= 4; page++) {
-          const data = await cgFetch(`/api/v3/exchanges/${info.cgId}/tickers?depth=false&page=${page}`);
-          if (!data || !data.tickers || data.tickers.length === 0) break;
-          data.tickers
-            .filter(t => t.target === 'USDT' || t.target === 'USD' || t.target === 'BTC')
-            .forEach(t => { if (t.coin_id) coinSet.add(t.coin_id); });
-          if (data.tickers.length < 100) break; // last page
-          await sleep(400);
-        }
-        exchCoinSets[key] = coinSet;
-        setStatus(`✓ ${info.label}: ${coinSet.size} coins`, 'loading');
-      } catch(e) {
-        console.warn(`Exchange ${key} failed:`, e.message);
-        exchCoinSets[key] = new Set();
-      }
-      await sleep(500); // 500ms between exchanges = safe rate limit
-    }
-
-    // STEP 2: Count exchanges per coin, keep those on minEx+
-    const coinExchangeMap = {};
-    for (const [key, set] of Object.entries(exchCoinSets)) {
-      for (const coinId of set) {
-        if (!coinExchangeMap[coinId]) coinExchangeMap[coinId] = [];
-        coinExchangeMap[coinId].push(key);
+    // STEP 2: Find coins on minEx+ exchanges
+    const symbolExchangeMap = {};
+    for (const [key, set] of Object.entries(exchSymbolSets)) {
+      for (const sym of set) {
+        if (!symbolExchangeMap[sym]) symbolExchangeMap[sym] = [];
+        symbolExchangeMap[sym].push(key);
       }
     }
 
-    const candidates = Object.entries(coinExchangeMap)
+    const candidates = Object.entries(symbolExchangeMap)
       .filter(([, exchs]) => exchs.length >= minEx)
-      .map(([id, exchs]) => ({ id, exchanges: exchs }));
+      .map(([sym, exchs]) => ({ sym, exchanges: exchs }));
 
-    setStatus(`${candidates.length} coins on ${minEx}+ exchanges. Fetching market data...`, 'loading');
+    setStatus(`${candidates.length} coins on ${minEx}+ exchanges. Fetching market caps...`, 'loading');
 
     if (candidates.length === 0) {
-      showError(`No coins found on ${minEx}+ exchanges. Try lowering "Min Exchanges" to 4.`);
+      showError(`No coins found on ${minEx}+ exchanges. Try lowering Min Exchanges to 4.`);
       btn.disabled = false; btn.innerHTML = '⚡ Scan Now'; return;
     }
 
-    // STEP 3: Get market caps in batches (200 ids per call)
-    const allIds = candidates.map(c => c.id);
-    const marketData = {};
-    const BATCH = 200;
+    // STEP 3: Get market cap from CoinGecko (1-2 calls only)
+    const allSymbols = candidates.map(c => c.sym);
+    const marketData = await fetchMarketData(allSymbols);
 
-    for (let i = 0; i < allIds.length; i += BATCH) {
-      const ids = allIds.slice(i, i + BATCH).join(',');
-      setStatus(`Market data: ${Math.min(i+BATCH, allIds.length)}/${allIds.length}...`, 'loading');
-      try {
-        const data = await cgFetch(`/api/v3/coins/markets?vs_currency=usd&ids=${ids}&per_page=250&page=1&sparkline=false`);
-        if (Array.isArray(data)) data.forEach(c => { marketData[c.id] = c; });
-        if (i + BATCH < allIds.length) await sleep(1500);
-      } catch(e) {
-        console.warn('Market data batch failed:', e.message);
-      }
-    }
-
-    // STEP 4: Filter by market cap, build results
-    const results = candidates.map(c => {
-      const m = marketData[c.id];
+    // STEP 4: Filter by market cap
+    const filtered = candidates.map(c => {
+      const m = marketData[c.sym];
       if (!m || !m.market_cap || m.market_cap <= 0 || m.market_cap > maxMcap) return null;
       return {
-        id: c.id, name: m.name, symbol: m.symbol.toUpperCase(),
-        market_cap: m.market_cap, current_price: m.current_price,
-        total_volume: m.total_volume, price_change_24h: m.price_change_percentage_24h,
-        exchanges: c.exchanges, exchangeCount: c.exchanges.length,
-        gemScore: null, indicators: null,
+        id: m.id,
+        name: m.name,
+        symbol: c.sym,
+        market_cap: m.market_cap,
+        current_price: m.current_price,
+        total_volume: m.total_volume,
+        price_change_24h: m.price_change_percentage_24h,
+        exchanges: c.exchanges,
+        exchangeCount: c.exchanges.length,
+        gemScore: null,
+        indicators: null,
       };
     }).filter(Boolean);
 
-    if (results.length === 0) {
-      showError(`No coins with mcap ≤ ${fmtMcap(maxMcap)} on ${minEx}+ exchanges. Try raising Max Market Cap or lowering Min Exchanges.`);
+    if (filtered.length === 0) {
+      showError(`No coins with mcap ≤ ${fmtMcap(maxMcap)} on ${minEx}+ exchanges. Try raising Max Market Cap.`);
       btn.disabled = false; btn.innerHTML = '⚡ Scan Now'; return;
     }
 
-    allCoins = results;
-    document.getElementById('sc-count').textContent = results.length;
+    allCoins = filtered;
+    document.getElementById('sc-count').textContent = filtered.length;
     document.getElementById('sc-time').textContent = new Date().toLocaleTimeString();
-    // Initial scores (exchange count + mcap only, no indicators yet)
-    results.forEach(c => { c.gemScore = scoreGem(c, null); });
+    filtered.forEach(c => { c.gemScore = scoreGem(c, null); });
     applyFiltersAndRender();
 
-    setStatus(`Found ${results.length} gems! Calculating technical scores...`, 'loading');
-    await fetchIndicatorsForAll(results);
+    setStatus(`Found ${filtered.length} gems! Calculating technical scores...`, 'loading');
+    await fetchIndicatorsForAll(filtered);
     applyFiltersAndRender();
-    setStatus(`✓ Scan complete — ${results.length} hidden gems (≤${fmtMcap(maxMcap)}, ${minEx}+ exchanges)`, 'live');
+    setStatus(`✓ Scan complete — ${filtered.length} hidden gems (≤${fmtMcap(maxMcap)}, ${minEx}+ exchanges)`, 'live');
 
   } catch(err) {
     console.error('Scanner error:', err);
