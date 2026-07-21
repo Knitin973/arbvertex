@@ -797,22 +797,31 @@ table.sct tbody td { padding: 0.7rem 0.9rem; vertical-align: middle; }
       <span class="sc-label">Max Market Cap ($)</span>
       <input type="number" class="sc-input" id="sc-mcap-input" value="5000000" min="100000" step="100000">
       <div class="sc-divider"></div>
+      <span class="sc-label">Coin Symbol</span>
+      <input type="text" class="sc-input" id="sc-coin-filter" placeholder="e.g. PEPE" style="width:90px;text-transform:uppercase;" oninput="this.value=this.value.toUpperCase();if(allCoins.length>0)applyFiltersAndRender();">
+      <div class="sc-divider"></div>
       <span class="sc-label">Min Exchanges</span>
       <select class="sc-select" id="sc-min-ex">
-        <option value="4">4+ Exchanges</option>
-        <option value="5" selected>5+ Exchanges</option>
+        <option value="2">2+ Exchanges</option>
+        <option value="3">3+ Exchanges</option>
+        <option value="4" selected>4+ Exchanges</option>
+        <option value="5">5+ Exchanges</option>
         <option value="6">6+ Exchanges</option>
         <option value="7">7+ Exchanges</option>
         <option value="8">8+ Exchanges</option>
       </select>
       <div class="sc-divider"></div>
-      <span class="sc-label">Sort By</span>
-      <select class="sc-select" id="sc-sort">
+      <span class="sc-label">Sort / Filter</span>
+      <select class="sc-select" id="sc-sort" onchange="applyFiltersAndRender()">
         <option value="gem">🔥 Gem Score (Best First)</option>
         <option value="exchanges">Exchange Count</option>
         <option value="mcap">Market Cap (Low→High)</option>
         <option value="volume">24h Volume</option>
         <option value="arb">Arb Score</option>
+        <option value="cat-strong">── Show: Strong Gem (80+)</option>
+        <option value="cat-medium">── Show: Medium (60–79)</option>
+        <option value="cat-watch">── Show: Watch (40–59)</option>
+        <option value="cat-weak">── Show: Weak (&lt;40)</option>
       </select>
     </div>
     <button class="sc-run-btn" id="sc-run-btn" onclick="runScanner()">
@@ -1142,6 +1151,7 @@ async function runScanner() {
   try {
     const maxMcap = parseInt(document.getElementById('sc-mcap-input').value) || 5000000;
     const minEx   = parseInt(document.getElementById('sc-min-ex').value) || 4;
+    const coinFilterVal = (document.getElementById('sc-coin-filter')?.value || '').toUpperCase().trim();
     const exchKeys = Object.keys(EXCHANGES);
 
     // STEP 1: Fetch symbol lists from all exchanges in parallel
@@ -1166,9 +1176,15 @@ async function runScanner() {
       }
     }
 
-    const candidates = Object.entries(symbolExchangeMap)
+    let candidates = Object.entries(symbolExchangeMap)
       .filter(([, exchs]) => exchs.length >= minEx)
       .map(([sym, exchs]) => ({ sym, exchanges: exchs }));
+
+    // Change #1: If coin symbol filter set, narrow candidates immediately
+    if (coinFilterVal) {
+      candidates = candidates.filter(c => c.sym.includes(coinFilterVal));
+      setStatus(`Coin filter "${coinFilterVal}" applied — ${candidates.length} candidates.`, 'loading');
+    }
 
     setStatus(`${candidates.length} coins on ${minEx}+ exchanges. Fetching market caps from CMC...`, 'loading');
 
@@ -1285,14 +1301,42 @@ function calcVolSpike(volumes) {
   return avg>0 ? recent/avg : null;
 }
 
+// Fetch Binance Futures 24h ticker (volume + funding rate)
+async function fetchBinanceFuturesTicker(symbol) {
+  try {
+    const r = await fetch(`https://fapi.binance.com/fapi/v1/ticker/24hr?symbol=${symbol}USDT`);
+    if (!r.ok) return null;
+    return await r.json();
+  } catch(e) { return null; }
+}
+
+async function fetchBinanceFundingRate(symbol) {
+  try {
+    // Gets current funding rate (1h interval available on some pairs, default 8h)
+    const r = await fetch(`https://fapi.binance.com/fapi/v1/premiumIndex?symbol=${symbol}USDT`);
+    if (!r.ok) return null;
+    const d = await r.json();
+    return d.lastFundingRate ? parseFloat(d.lastFundingRate) : null;
+  } catch(e) { return null; }
+}
+
 async function fetchIndicatorsForAll(coins) {
   const BATCH=5;
   for (let i=0; i<coins.length; i+=BATCH) {
     await Promise.all(coins.slice(i,i+BATCH).map(async (coin) => {
       try {
         const sym=coin.symbol.replace('USDT','');
-        const candles=await fetchBinanceCandles(sym,'15m',210);
-        let ind={rsi:null,macd:null,ema20:null,ema50:null,volSpike:null,oiChange:null};
+
+        // Fetch candles + OI in parallel
+        const [candles, oiData, futuresTicker, fundingRate] = await Promise.all([
+          fetchBinanceCandles(sym,'15m',210),
+          fetchBinanceOI(sym),
+          fetchBinanceFuturesTicker(sym),   // Change #5: Binance futures 24h volume
+          fetchBinanceFundingRate(sym),     // Change #4: funding rate
+        ]);
+
+        let ind={rsi:null,macd:null,ema20:null,ema50:null,volSpike:null,oiChange:null,fundingRate:null};
+
         if (candles&&candles.length>=20) {
           const closes=candles.map(c=>parseFloat(c[4]));
           const vols=candles.map(c=>parseFloat(c[5]));
@@ -1302,12 +1346,21 @@ async function fetchIndicatorsForAll(coins) {
           ind.ema50=calcEMA(closes,50);
           ind.volSpike=calcVolSpike(vols);
         }
-        const oiData=await fetchBinanceOI(sym);
+
         if (oiData&&Array.isArray(oiData)&&oiData.length>=2) {
           const first=parseFloat(oiData[0].sumOpenInterest);
           const last=parseFloat(oiData[oiData.length-1].sumOpenInterest);
           ind.oiChange=first>0?((last-first)/first*100):null;
         }
+
+        // Change #5: 24h volume from Binance Futures (quoteVolume = USDT volume)
+        if (futuresTicker && futuresTicker.quoteVolume) {
+          coin.futuresVolume = parseFloat(futuresTicker.quoteVolume);
+        }
+
+        // Change #4: funding rate
+        ind.fundingRate = fundingRate;
+
         coin.indicators=ind;
         coin.gemScore=scoreGem(coin,ind);
       } catch(e) {
@@ -1318,54 +1371,74 @@ async function fetchIndicatorsForAll(coins) {
   }
 }
 
-// ── GEM SCORING (unchanged from original) ──
+// ── GEM SCORING v8 ──
+// Exchange count points REMOVED (change #2)
+// Added: Vol>=MCap bonus, Negative Funding Rate bonus
 function scoreGem(coin, ind) {
   let score=0;
   const breakdown=[];
 
-  if (coin.exchangeCount>=7) { score+=25; breakdown.push({label:`${coin.exchangeCount} Exchanges`,pts:25,hit:true}); }
-  else if (coin.exchangeCount>=6) { score+=20; breakdown.push({label:`${coin.exchangeCount} Exchanges`,pts:20,hit:true}); }
-  else if (coin.exchangeCount>=5) { score+=15; breakdown.push({label:`${coin.exchangeCount} Exchanges`,pts:15,hit:true}); }
-  else if (coin.exchangeCount>=4) { score+=10; breakdown.push({label:`${coin.exchangeCount} Exchanges`,pts:10,hit:true}); }
-  else breakdown.push({label:'Exchanges',pts:0,hit:false});
-
+  // Market cap score (kept)
   if (coin.market_cap>0&&coin.market_cap<500000)  { score+=25; breakdown.push({label:'MCap <$500K',pts:25,hit:true}); }
   else if (coin.market_cap<2000000) { score+=15; breakdown.push({label:'MCap <$2M',pts:15,hit:true}); }
   else if (coin.market_cap<5000000) { score+=8;  breakdown.push({label:'MCap <$5M',pts:8,hit:true}); }
   else breakdown.push({label:'Market Cap',pts:0,hit:false});
 
+  // NEW: 24h Futures Volume >= Market Cap bonus (+20pts)
+  if (coin.futuresVolume!=null && coin.market_cap>0 && coin.futuresVolume>=coin.market_cap) {
+    score+=20; breakdown.push({label:`FutVol≥MCap (${fmtVol(coin.futuresVolume)})`,pts:20,hit:true});
+  } else if (coin.futuresVolume!=null) {
+    breakdown.push({label:`FutVol ${fmtVol(coin.futuresVolume)}`,pts:0,hit:false});
+  } else {
+    breakdown.push({label:'FutVol',pts:'N/A',hit:null});
+  }
+
   if (!ind) {
-    ['Vol Spike','OI','MACD','EMA','RSI'].forEach(l=>breakdown.push({label:l,pts:'N/A',hit:null}));
+    ['Vol Spike','OI','MACD','EMA','RSI','Funding Rate'].forEach(l=>breakdown.push({label:l,pts:'N/A',hit:null}));
     return {score,breakdown,signal:getSignal(score)};
   }
 
+  // Vol spike (candle-based)
   if (ind.volSpike!=null) {
-    if (ind.volSpike>=2)   { score+=20; breakdown.push({label:`Vol ${ind.volSpike.toFixed(1)}x`,pts:20,hit:true}); }
+    if (ind.volSpike>=2)        { score+=20; breakdown.push({label:`Vol ${ind.volSpike.toFixed(1)}x`,pts:20,hit:true}); }
     else if (ind.volSpike>=1.5) { score+=12; breakdown.push({label:`Vol ${ind.volSpike.toFixed(1)}x`,pts:12,hit:true}); }
     else breakdown.push({label:`Vol ${ind.volSpike.toFixed(1)}x`,pts:0,hit:false});
-  } else breakdown.push({label:'Volume',pts:'N/A',hit:null});
+  } else breakdown.push({label:'Vol Spike',pts:'N/A',hit:null});
 
+  // OI change
   if (ind.oiChange!=null) {
-    if (ind.oiChange>5)  { score+=15; breakdown.push({label:`OI +${ind.oiChange.toFixed(1)}%`,pts:15,hit:true}); }
-    else if (ind.oiChange>2) { score+=8; breakdown.push({label:`OI +${ind.oiChange.toFixed(1)}%`,pts:8,hit:true}); }
+    if (ind.oiChange>5)       { score+=15; breakdown.push({label:`OI +${ind.oiChange.toFixed(1)}%`,pts:15,hit:true}); }
+    else if (ind.oiChange>2)  { score+=8;  breakdown.push({label:`OI +${ind.oiChange.toFixed(1)}%`,pts:8,hit:true}); }
     else breakdown.push({label:`OI ${ind.oiChange.toFixed(1)}%`,pts:0,hit:false});
   } else breakdown.push({label:'OI',pts:'N/A',hit:null});
 
+  // MACD
   if (ind.macd!=null) {
     if (ind.macd.bullish) { score+=10; breakdown.push({label:'MACD ↑',pts:10,hit:true}); }
     else breakdown.push({label:'MACD ↓',pts:0,hit:false});
   } else breakdown.push({label:'MACD',pts:'N/A',hit:null});
 
+  // EMA alignment
   if (ind.ema20!=null&&ind.ema50!=null) {
     const ok=ind.ema20>ind.ema50;
     if (ok) { score+=10; breakdown.push({label:'EMA ✓',pts:10,hit:true}); }
     else breakdown.push({label:'EMA ✗',pts:0,hit:false});
   } else breakdown.push({label:'EMA',pts:'N/A',hit:null});
 
+  // RSI
   if (ind.rsi!=null) {
     if (ind.rsi>50&&ind.rsi<70) { score+=5; breakdown.push({label:`RSI ${ind.rsi.toFixed(0)}`,pts:5,hit:true}); }
     else breakdown.push({label:`RSI ${ind.rsi.toFixed(0)}`,pts:0,hit:false});
   } else breakdown.push({label:'RSI',pts:'N/A',hit:null});
+
+  // NEW: Negative funding rate bonus (+15pts) — shorts get paid
+  if (ind.fundingRate!=null) {
+    if (ind.fundingRate < 0) {
+      score+=15; breakdown.push({label:`Funding ${(ind.fundingRate*100).toFixed(4)}% (neg✓)`,pts:15,hit:true});
+    } else {
+      breakdown.push({label:`Funding +${(ind.fundingRate*100).toFixed(4)}%`,pts:0,hit:false});
+    }
+  } else breakdown.push({label:'Funding Rate',pts:'N/A',hit:null});
 
   return {score,breakdown,signal:getSignal(score)};
 }
@@ -1411,6 +1484,13 @@ function indicatorPills(coin) {
     const c=ind.oiChange>5?'#00ff88':ind.oiChange>2?'#ffa040':'var(--muted)';
     pills.push(`<span style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;padding:0.15rem 0.45rem;border-radius:3px;border:1px solid ${c}20;color:${c};background:${c}10;">OI ${ind.oiChange>0?'+':''}${ind.oiChange.toFixed(1)}%</span>`);
   }
+  // Change #4: Funding rate pill
+  if (ind.fundingRate!=null) {
+    const fr = ind.fundingRate;
+    const c = fr < 0 ? '#00ff88' : fr > 0.001 ? '#ff7070' : 'var(--muted)';
+    const label = fr < 0 ? `Fund ${(fr*100).toFixed(4)}% ✓` : `Fund +${(fr*100).toFixed(4)}%`;
+    pills.push(`<span style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;padding:0.15rem 0.45rem;border-radius:3px;border:1px solid ${c}20;color:${c};background:${c}10;">${label}</span>`);
+  }
   if (pills.length===0) return '<span style="font-size:0.7rem;color:var(--muted);">Calc...</span>';
   return `<div style="display:flex;flex-wrap:wrap;gap:3px;">${pills.join('')}</div>`;
 }
@@ -1443,16 +1523,43 @@ function sortCoins(coins, sortBy) {
 
 function applyFiltersAndRender() {
   const sortBy = document.getElementById('sc-sort')?.value || 'gem';
+  // Search from table search box
   const searchVal = (document.getElementById('sc-search')?.value || '').toUpperCase();
+  // Coin filter from controls (Change #1)
+  const coinFilter = (document.getElementById('sc-coin-filter')?.value || '').toUpperCase().trim();
 
   let coins = allCoins;
+
+  // Exchange filter
   if (activeExchFilter !== 'all') {
     coins = coins.filter(c => c.exchanges.includes(activeExchFilter));
   }
+  // Coin symbol filter from controls
+  if (coinFilter) {
+    coins = coins.filter(c => c.symbol.includes(coinFilter) || (c.name||'').toUpperCase().includes(coinFilter));
+  }
+  // Table search box filter
   if (searchVal) {
     coins = coins.filter(c => c.symbol.includes(searchVal) || (c.name||'').toUpperCase().includes(searchVal));
   }
-  filteredCoins = sortCoins(coins, sortBy);
+
+  // Category filter from sort dropdown (Change #3)
+  if (sortBy === 'cat-strong') {
+    coins = coins.filter(c => (c.gemScore?.score||0) >= 80);
+    filteredCoins = sortCoins(coins, 'gem');
+  } else if (sortBy === 'cat-medium') {
+    coins = coins.filter(c => { const s=c.gemScore?.score||0; return s>=60&&s<80; });
+    filteredCoins = sortCoins(coins, 'gem');
+  } else if (sortBy === 'cat-watch') {
+    coins = coins.filter(c => { const s=c.gemScore?.score||0; return s>=40&&s<60; });
+    filteredCoins = sortCoins(coins, 'gem');
+  } else if (sortBy === 'cat-weak') {
+    coins = coins.filter(c => (c.gemScore?.score||0) < 40);
+    filteredCoins = sortCoins(coins, 'gem');
+  } else {
+    filteredCoins = sortCoins(coins, sortBy);
+  }
+
   currentPage = 1;
   renderSummary();
   renderPage();
@@ -1546,7 +1653,16 @@ function renderPage() {
             <div class="mcap-bar"><div class="mcap-bar-fill" style="width:${mcapPct}%;"></div></div>
           </div>
         </td>
-        <td class="vol-cell">${fmtVol(coin.total_volume)}</td>
+        <td class="vol-cell" title="${coin.futuresVolume!=null?'Binance Futures 24h Vol':'CMC 24h Vol'}">
+          ${coin.futuresVolume!=null
+            ? `<span style="color:var(--accent2);">${fmtVol(coin.futuresVolume)}</span><br><span style="font-size:0.65rem;color:var(--muted);">fut</span>`
+            : fmtVol(coin.total_volume)
+          }
+          ${coin.futuresVolume!=null && coin.market_cap>0 && coin.futuresVolume>=coin.market_cap
+            ? `<span style="font-size:0.6rem;color:var(--accent2);display:block;">≥MCap🔥</span>`
+            : ''
+          }
+        </td>
         <td style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:${chgColor};">${chgSign}${(coin.price_change_24h||0).toFixed(2)}%</td>
         <td>
           <div style="margin-bottom:4px;font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--accent2);">${coin.exchangeCount} exchanges</div>
