@@ -794,22 +794,34 @@ table.sct tbody td { padding: 0.7rem 0.9rem; vertical-align: middle; }
   <!-- Controls -->
   <div class="sc-controls">
     <div class="sc-controls-left">
-      <span class="sc-label">Max Market Cap ($)</span>
-      <input type="number" class="sc-input" id="sc-mcap-input" value="5000000" min="100000" step="100000">
+      <!-- Scan Mode Toggle -->
+      <div style="display:flex;gap:0;border:1px solid var(--border);border-radius:5px;overflow:hidden;flex-shrink:0;">
+        <button id="mode-mcap" onclick="setScanMode('mcap')" style="padding:0.4rem 0.85rem;font-size:0.78rem;font-family:'JetBrains Mono',monospace;font-weight:700;background:var(--accent);color:var(--bg);border:none;cursor:pointer;transition:all .15s;">📊 MCap Scan</button>
+        <button id="mode-coin" onclick="setScanMode('coin')" style="padding:0.4rem 0.85rem;font-size:0.78rem;font-family:'JetBrains Mono',monospace;font-weight:700;background:var(--surface);color:var(--muted);border:none;cursor:pointer;transition:all .15s;">🔍 Coin Search</button>
+      </div>
       <div class="sc-divider"></div>
-      <span class="sc-label">Coin Symbol</span>
-      <input type="text" class="sc-input" id="sc-coin-filter" placeholder="e.g. PEPE" style="width:90px;text-transform:uppercase;" oninput="this.value=this.value.toUpperCase();if(allCoins.length>0)applyFiltersAndRender();">
-      <div class="sc-divider"></div>
-      <span class="sc-label">Min Exchanges</span>
-      <select class="sc-select" id="sc-min-ex">
-        <option value="2">2+ Exchanges</option>
-        <option value="3">3+ Exchanges</option>
-        <option value="4" selected>4+ Exchanges</option>
-        <option value="5">5+ Exchanges</option>
-        <option value="6">6+ Exchanges</option>
-        <option value="7">7+ Exchanges</option>
-        <option value="8">8+ Exchanges</option>
-      </select>
+      <!-- MCap fields (shown in mcap mode) -->
+      <div id="mcap-fields" style="display:flex;align-items:center;gap:0.8rem;flex-wrap:wrap;">
+        <span class="sc-label">Max Market Cap ($)</span>
+        <input type="number" class="sc-input" id="sc-mcap-input" value="5000000" min="100000" step="100000">
+        <div class="sc-divider"></div>
+        <span class="sc-label">Min Exchanges</span>
+        <select class="sc-select" id="sc-min-ex">
+          <option value="2">2+ Exchanges</option>
+          <option value="3">3+ Exchanges</option>
+          <option value="4" selected>4+ Exchanges</option>
+          <option value="5">5+ Exchanges</option>
+          <option value="6">6+ Exchanges</option>
+          <option value="7">7+ Exchanges</option>
+          <option value="8">8+ Exchanges</option>
+        </select>
+      </div>
+      <!-- Coin search field (shown in coin mode) -->
+      <div id="coin-fields" style="display:none;align-items:center;gap:0.8rem;flex-wrap:wrap;">
+        <span class="sc-label">Coin Symbol</span>
+        <input type="text" class="sc-input" id="sc-coin-input" placeholder="e.g. PEPE, WIF, SHIB" style="width:160px;text-transform:uppercase;letter-spacing:0.05em;" oninput="this.value=this.value.toUpperCase()">
+        <span style="font-size:0.75rem;color:var(--muted);">Checks all 10 exchanges instantly</span>
+      </div>
       <div class="sc-divider"></div>
       <span class="sc-label">Sort / Filter</span>
       <select class="sc-select" id="sc-sort" onchange="applyFiltersAndRender()">
@@ -817,7 +829,6 @@ table.sct tbody td { padding: 0.7rem 0.9rem; vertical-align: middle; }
         <option value="exchanges">Exchange Count</option>
         <option value="mcap">Market Cap (Low→High)</option>
         <option value="volume">24h Volume</option>
-        <option value="arb">Arb Score</option>
         <option value="cat-strong">── Show: Strong Gem (80+)</option>
         <option value="cat-medium">── Show: Medium (60–79)</option>
         <option value="cat-watch">── Show: Watch (40–59)</option>
@@ -959,26 +970,26 @@ async function fetchExchangeSymbols(key) {
   try {
     switch(key) {
       case 'binance': {
-        const r = await fetch('https://api.binance.com/api/v3/exchangeInfo', { signal: AbortSignal.timeout(15000) });
+        const r = await fetch('https://api.binance.com/api/v3/exchangeInfo', );
         if (!r.ok) return new Set();
         const d = await r.json();
         return new Set(d.symbols.filter(s => s.quoteAsset === 'USDT' && s.status === 'TRADING').map(s => s.baseAsset.toUpperCase()));
       }
       case 'bybit': {
-        const r = await fetch('https://api.bybit.com/v5/market/instruments-info?category=spot&limit=1000', { signal: AbortSignal.timeout(15000) });
+        const r = await fetch('https://api.bybit.com/v5/market/instruments-info?category=spot&limit=1000', );
         if (!r.ok) return new Set();
         const d = await r.json();
         return new Set((d.result?.list || []).filter(s => s.quoteCoin === 'USDT' && s.status === 'Trading').map(s => s.baseCoin.toUpperCase()));
       }
       case 'okx': {
-        const r = await fetch('https://www.okx.com/api/v5/public/instruments?instType=SPOT', { signal: AbortSignal.timeout(15000) });
+        const r = await fetch('https://www.okx.com/api/v5/public/instruments?instType=SPOT', );
         if (!r.ok) return new Set();
         const d = await r.json();
         return new Set((d.data || []).filter(s => s.quoteCcy === 'USDT' && s.state === 'live').map(s => s.baseCcy.toUpperCase()));
       }
       case 'gateio': {
         try {
-          const r = await fetch(`${CMC_WORKER_URL}/exchange?name=gateio`, { signal: AbortSignal.timeout(20000) });
+          const r = await fetch(`${CMC_WORKER_URL}/exchange?name=gateio`, );
           if (!r.ok) return new Set();
           const d = await r.json();
           return new Set(d.symbols || []);
@@ -986,7 +997,7 @@ async function fetchExchangeSymbols(key) {
       }
       case 'kucoin': {
         try {
-          const r = await fetch(`${CMC_WORKER_URL}/exchange?name=kucoin`, { signal: AbortSignal.timeout(20000) });
+          const r = await fetch(`${CMC_WORKER_URL}/exchange?name=kucoin`, );
           if (!r.ok) return new Set();
           const d = await r.json();
           return new Set(d.symbols || []);
@@ -994,27 +1005,27 @@ async function fetchExchangeSymbols(key) {
       }
       case 'mexc': {
         try {
-          const r = await fetch(`${CMC_WORKER_URL}/exchange?name=mexc`, { signal: AbortSignal.timeout(20000) });
+          const r = await fetch(`${CMC_WORKER_URL}/exchange?name=mexc`, );
           if (!r.ok) return new Set();
           const d = await r.json();
           return new Set(d.symbols || []);
         } catch(e) { return new Set(); }
       }
       case 'bitget': {
-        const r = await fetch('https://api.bitget.com/api/v2/spot/public/symbols', { signal: AbortSignal.timeout(15000) });
+        const r = await fetch('https://api.bitget.com/api/v2/spot/public/symbols', );
         if (!r.ok) return new Set();
         const d = await r.json();
         return new Set((d.data || []).filter(s => s.quoteCoin === 'USDT' && s.status === 'online').map(s => s.baseCoin.toUpperCase()));
       }
       case 'huobi': {
-        const r = await fetch('https://api.huobi.pro/market/tickers', { signal: AbortSignal.timeout(15000) });
+        const r = await fetch('https://api.huobi.pro/market/tickers', );
         if (!r.ok) return new Set();
         const d = await r.json();
         return new Set((d.data || []).filter(s => s.symbol && s.symbol.endsWith('usdt')).map(s => s.symbol.replace('usdt','').toUpperCase()));
       }
       case 'coinbase': {
         try {
-          const r = await fetch(`${CMC_WORKER_URL}/exchange?name=coinbase`, { signal: AbortSignal.timeout(20000) });
+          const r = await fetch(`${CMC_WORKER_URL}/exchange?name=coinbase`, );
           if (!r.ok) return new Set();
           const d = await r.json();
           return new Set(d.symbols || []);
@@ -1022,7 +1033,7 @@ async function fetchExchangeSymbols(key) {
       }
       case 'kraken': {
         try {
-          const r = await fetch(`${CMC_WORKER_URL}/exchange?name=kraken`, { signal: AbortSignal.timeout(20000) });
+          const r = await fetch(`${CMC_WORKER_URL}/exchange?name=kraken`, );
           if (!r.ok) return new Set();
           const d = await r.json();
           return new Set(d.symbols || []);
@@ -1053,7 +1064,7 @@ async function fetchMarketDataCMC(symbols) {
 
     try {
       const workerUrl = `${CMC_WORKER_URL}?symbols=${encodeURIComponent(symbolStr)}`;
-      const r = await fetch(workerUrl, { signal: AbortSignal.timeout(25000) });
+      const r = await fetch(workerUrl, );
       if (!r.ok) {
         console.warn('Worker returned', r.status);
         continue;
@@ -1133,11 +1144,132 @@ function toggleExchFilter(el) {
   applyFiltersAndRender();
 }
 
+// ── SCAN MODE TOGGLE ──
+let scanMode = 'mcap'; // 'mcap' or 'coin'
+function setScanMode(mode) {
+  scanMode = mode;
+  const mcapBtn  = document.getElementById('mode-mcap');
+  const coinBtn  = document.getElementById('mode-coin');
+  const mcapF    = document.getElementById('mcap-fields');
+  const coinF    = document.getElementById('coin-fields');
+  if (mode === 'mcap') {
+    mcapBtn.style.background = 'var(--accent)'; mcapBtn.style.color = 'var(--bg)';
+    coinBtn.style.background = 'var(--surface)'; coinBtn.style.color = 'var(--muted)';
+    mcapF.style.display = 'flex'; coinF.style.display = 'none';
+    document.getElementById('sc-run-btn').textContent = '⚡ Scan Now';
+  } else {
+    coinBtn.style.background = 'var(--accent2)'; coinBtn.style.color = 'var(--bg)';
+    mcapBtn.style.background = 'var(--surface)'; mcapBtn.style.color = 'var(--muted)';
+    coinF.style.display = 'flex'; mcapF.style.display = 'none';
+    document.getElementById('sc-run-btn').textContent = '🔍 Search Coin';
+  }
+}
+
+// Safe fetch — no AbortSignal (not clonable in some environments)
+async function safeFetch(url, timeoutMs=15000) {
+  const controller = new AbortController();
+  const tid = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const r = await fetch(url, { signal: controller.signal });
+    clearTimeout(tid);
+    return r;
+  } catch(e) {
+    clearTimeout(tid);
+    throw e;
+  }
+}
+
 // ── MAIN SCANNER ──
 async function runScanner() {
+  if (scanMode === 'coin') {
+    await runCoinSearch();
+  } else {
+    await runMcapScan();
+  }
+}
+
+// ── MODE 1: COIN SEARCH ──
+// User types a symbol → check all 10 exchanges instantly → show result
+async function runCoinSearch() {
   const btn = document.getElementById('sc-run-btn');
-  btn.disabled = true;
-  btn.textContent = '⏳ Scanning...';
+  const coinInput = (document.getElementById('sc-coin-input')?.value || '').toUpperCase().trim();
+  if (!coinInput) {
+    showError('Please enter a coin symbol (e.g. PEPE, WIF, SHIB)');
+    return;
+  }
+
+  btn.disabled = true; btn.textContent = '⏳ Searching...';
+  allCoins = []; filteredCoins = [];
+  document.getElementById('sc-summary').style.display = 'none';
+  document.getElementById('sc-pagination').style.display = 'none';
+  document.getElementById('sc-table-container').innerHTML = `
+    <div class="sc-empty">
+      <div class="sc-spinner"></div>
+      Checking ${coinInput} across 10 exchanges...<br>
+      <span style="font-size:0.75rem;margin-top:0.3rem;display:block;">~5 seconds</span>
+    </div>`;
+
+  try {
+    setStatus(`Checking ${coinInput} on all exchanges...`, 'loading');
+    const exchKeys = Object.keys(EXCHANGES);
+
+    // Fetch all exchange symbol lists in parallel
+    const results = await Promise.allSettled(exchKeys.map(k => fetchExchangeSymbols(k)));
+    const foundOn = [];
+    results.forEach((r, i) => {
+      const set = r.status === 'fulfilled' ? r.value : new Set();
+      if (set.has(coinInput)) foundOn.push(exchKeys[i]);
+    });
+
+    if (foundOn.length === 0) {
+      showError(`${coinInput} not found on any of the 10 exchanges. Check the symbol spelling.`);
+      btn.disabled = false; btn.innerHTML = '🔍 Search Coin'; return;
+    }
+
+    setStatus(`${coinInput} found on ${foundOn.length} exchanges. Fetching market data...`, 'loading');
+
+    // Fetch market data from CMC
+    const marketData = await fetchMarketDataCMC([coinInput]);
+    const m = marketData[coinInput];
+
+    const coin = {
+      id: m?.id || coinInput,
+      name: m?.name || coinInput,
+      symbol: coinInput,
+      market_cap: m?.market_cap || 0,
+      current_price: m?.current_price || 0,
+      total_volume: m?.total_volume || 0,
+      price_change_24h: m?.price_change_24h || 0,
+      exchanges: foundOn,
+      exchangeCount: foundOn.length,
+      futuresVolume: null,
+      gemScore: null,
+      indicators: null,
+    };
+
+    coin.gemScore = scoreGem(coin, null);
+    allCoins = [coin];
+    document.getElementById('sc-count').textContent = '1';
+    document.getElementById('sc-time').textContent = new Date().toLocaleTimeString();
+    applyFiltersAndRender();
+
+    setStatus(`${coinInput} found on ${foundOn.length} exchanges. Fetching indicators...`, 'loading');
+    await fetchIndicatorsForAll([coin]);
+    applyFiltersAndRender();
+    setStatus(`✓ ${coinInput} — listed on ${foundOn.length} exchanges: ${foundOn.map(k=>EXCHANGES[k].label).join(', ')}`, 'live');
+
+  } catch(err) {
+    console.error('Coin search error:', err);
+    showError('Search failed: ' + err.message);
+  }
+
+  btn.disabled = false; btn.textContent = '🔍 Search Coin';
+}
+
+// ── MODE 2: MCAP SCAN ──
+async function runMcapScan() {
+  const btn = document.getElementById('sc-run-btn');
+  btn.disabled = true; btn.textContent = '⏳ Scanning...';
   allCoins = []; filteredCoins = [];
   document.getElementById('sc-summary').style.display = 'none';
   document.getElementById('sc-pagination').style.display = 'none';
@@ -1151,11 +1283,10 @@ async function runScanner() {
   try {
     const maxMcap = parseInt(document.getElementById('sc-mcap-input').value) || 5000000;
     const minEx   = parseInt(document.getElementById('sc-min-ex').value) || 4;
-    const coinFilterVal = (document.getElementById('sc-coin-filter')?.value || '').toUpperCase().trim();
     const exchKeys = Object.keys(EXCHANGES);
 
-    // STEP 1: Fetch symbol lists from all exchanges in parallel
-    setStatus('Fetching symbol lists from all exchanges in parallel...', 'loading');
+    // STEP 1: Fetch all exchange symbol lists in parallel
+    setStatus('Fetching symbol lists from all exchanges...', 'loading');
     const results = await Promise.allSettled(exchKeys.map(k => fetchExchangeSymbols(k)));
     const exchSymbolSets = {};
     let liveCount = 0;
@@ -1180,12 +1311,6 @@ async function runScanner() {
       .filter(([, exchs]) => exchs.length >= minEx)
       .map(([sym, exchs]) => ({ sym, exchanges: exchs }));
 
-    // Change #1: If coin symbol filter set, narrow candidates immediately
-    if (coinFilterVal) {
-      candidates = candidates.filter(c => c.sym.includes(coinFilterVal));
-      setStatus(`Coin filter "${coinFilterVal}" applied — ${candidates.length} candidates.`, 'loading');
-    }
-
     setStatus(`${candidates.length} coins on ${minEx}+ exchanges. Fetching market caps from CMC...`, 'loading');
 
     if (candidates.length === 0) {
@@ -1196,36 +1321,27 @@ async function runScanner() {
     // STEP 3: Get market cap from CoinMarketCap
     const allSymbols = candidates.map(c => c.sym);
     const marketData = await fetchMarketDataCMC(allSymbols);
-
     const foundCount = Object.keys(marketData).length;
     setStatus(`CMC returned ${foundCount} coins. Applying market cap filter...`, 'loading');
 
     // STEP 4: Filter by market cap
     const filtered = candidates.map(c => {
       const m = marketData[c.sym];
-      // If CMC doesn't have market cap data, skip (likely very obscure coin with $0 mcap)
       if (!m || !m.market_cap || m.market_cap <= 0 || m.market_cap > maxMcap) return null;
       return {
-        id: m.id,
-        name: m.name,
-        symbol: c.sym,
-        market_cap: m.market_cap,
-        current_price: m.current_price,
-        total_volume: m.total_volume,
-        price_change_24h: m.price_change_24h,
-        exchanges: c.exchanges,
-        exchangeCount: c.exchanges.length,
-        gemScore: null,
-        indicators: null,
+        id: m.id, name: m.name, symbol: c.sym,
+        market_cap: m.market_cap, current_price: m.current_price,
+        total_volume: m.total_volume, price_change_24h: m.price_change_24h,
+        exchanges: c.exchanges, exchangeCount: c.exchanges.length,
+        futuresVolume: null, gemScore: null, indicators: null,
       };
     }).filter(Boolean);
 
     if (filtered.length === 0) {
-      // Check if CMC returned any data at all
       if (foundCount === 0) {
-        showError('Worker not configured yet. Please update CMC_WORKER_URL in the script with your Cloudflare Worker URL.');
+        showError('Worker not configured yet. Please update CMC_WORKER_URL in the script.');
       } else {
-        showError(`No coins with market cap ≤ ${fmtMcap(maxMcap)} on ${minEx}+ exchanges. CMC found ${foundCount} coins but none matched the filter. Try raising Max Market Cap.`);
+        showError(`No coins with market cap ≤ ${fmtMcap(maxMcap)} on ${minEx}+ exchanges. Try raising Max Market Cap.`);
       }
       btn.disabled = false; btn.innerHTML = '⚡ Scan Now'; return;
     }
@@ -1239,15 +1355,14 @@ async function runScanner() {
     setStatus(`Found ${filtered.length} gems! Calculating technical scores...`, 'loading');
     await fetchIndicatorsForAll(filtered);
     applyFiltersAndRender();
-    setStatus(`✓ Scan complete — ${filtered.length} hidden gems (≤${fmtMcap(maxMcap)}, ${minEx}+ exchanges) · CMC Data`, 'live');
+    setStatus(`✓ Scan complete — ${filtered.length} hidden gems (≤${fmtMcap(maxMcap)}, ${minEx}+ exchanges)`, 'live');
 
   } catch(err) {
     console.error('Scanner error:', err);
     showError('Scan failed: ' + err.message);
   }
 
-  btn.disabled = false;
-  btn.innerHTML = '⚡ Scan Now';
+  btn.disabled = false; btn.innerHTML = '⚡ Scan Now';
 }
 
 // ── BINANCE INDICATORS (unchanged from original) ──
@@ -1515,8 +1630,7 @@ function sortCoins(coins, sortBy) {
     if (sortBy === 'gem') return (b.gemScore?.score||0) - (a.gemScore?.score||0);
     if (sortBy === 'exchanges') return b.exchangeCount - a.exchangeCount;
     if (sortBy === 'mcap') return (a.market_cap||Infinity) - (b.market_cap||Infinity);
-    if (sortBy === 'volume') return (b.total_volume||0) - (a.total_volume||0);
-    if (sortBy === 'arb') return arbScore(b) - arbScore(a);
+    if (sortBy === 'volume') return (b.futuresVolume||b.total_volume||0) - (a.futuresVolume||a.total_volume||0);
     return 0;
   });
 }
@@ -1574,7 +1688,7 @@ function renderSummary() {
   if (!sum || filteredCoins.length === 0) { if(sum) sum.style.display='none'; return; }
   sum.style.display = 'grid';
   document.getElementById('sum-total').textContent = filteredCoins.length;
-  const highArb = filteredCoins.filter(c => arbScore(c) >= 70).length;
+  const highArb = filteredCoins.filter(c => (c.gemScore?.score||0) >= 60).length;
   document.getElementById('sum-high-arb').textContent = highArb;
   const avgMcap = filteredCoins.reduce((a,c) => a + (c.market_cap||0), 0) / filteredCoins.length;
   document.getElementById('sum-avg-mcap').textContent = fmtMcap(avgMcap);
@@ -1615,7 +1729,6 @@ function renderPage() {
         <th onclick="applyFiltersAndRender()">24H CHG</th>
         <th onclick="applyFiltersAndRender()">EXCHANGES</th>
         <th onclick="applyFiltersAndRender()">INDICATORS</th>
-        <th onclick="applyFiltersAndRender()">ARB SCORE</th>
         <th onclick="applyFiltersAndRender()">GEM SCORE</th>
       </tr>
     </thead>
@@ -1625,8 +1738,6 @@ function renderPage() {
       const initials = coin.symbol.slice(0,3);
       const chgColor = (coin.price_change_24h||0) >= 0 ? 'var(--accent2)' : 'var(--red)';
       const chgSign  = (coin.price_change_24h||0) >= 0 ? '+' : '';
-      const arb = arbScore(coin);
-      const arbCls = arb>=70?'high':arb>=40?'med':'low';
       const mcapPct = Math.min((coin.market_cap||0)/5000000*100, 100);
       const exchTags = coin.exchanges.map(e => {
         const ex = EXCHANGES[e];
@@ -1669,7 +1780,6 @@ function renderPage() {
           <div class="exch-tags">${exchTags}</div>
         </td>
         <td>${indicatorPills(coin)}</td>
-        <td><div class="arb-score ${arbCls}">${arb}</div></td>
         <td>${gemScoreBadge(coin)}</td>
       </tr>`;
     }).join('')}
