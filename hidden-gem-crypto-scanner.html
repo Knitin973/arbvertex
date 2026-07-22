@@ -1472,6 +1472,23 @@ async function runMcapScan() {
 }
 
 
+// ── BINANCE FUTURES SYMBOL LIST ──
+async function fetchBinanceFuturesSymbols() {
+  try {
+    const r = await fetch('https://fapi.binance.com/fapi/v1/exchangeInfo');
+    if (!r.ok) return new Set();
+    const d = await r.json();
+    return new Set(
+      (d.symbols || [])
+        .filter(s => s.quoteAsset === 'USDT' && s.status === 'TRADING' && s.contractType === 'PERPETUAL')
+        .map(s => s.baseAsset.toUpperCase())
+    );
+  } catch(e) {
+    console.warn('Binance Futures exchangeInfo failed:', e.message);
+    return new Set();
+  }
+}
+
 // ── MODE 3: GEM SCORE SCAN ──
 // Scan all Binance Futures coins → calculate indicators → filter by min gem score
 async function runGemScoreScan() {
