@@ -881,35 +881,58 @@ table.sct tbody td { padding: 0.7rem 0.9rem; vertical-align: middle; }
   <div class="sc-controls">
     <div class="sc-controls-left">
       <!-- Scan Mode Toggle -->
+      <!-- 3 Mode Buttons -->
       <div style="display:flex;gap:0;border:1px solid var(--border);border-radius:5px;overflow:hidden;flex-shrink:0;">
         <button id="mode-mcap" onclick="setScanMode('mcap')" style="padding:0.4rem 0.85rem;font-size:0.78rem;font-family:'JetBrains Mono',monospace;font-weight:700;background:var(--accent);color:var(--bg);border:none;cursor:pointer;transition:all .15s;">📊 MCap Scan</button>
         <button id="mode-coin" onclick="setScanMode('coin')" style="padding:0.4rem 0.85rem;font-size:0.78rem;font-family:'JetBrains Mono',monospace;font-weight:700;background:var(--surface);color:var(--muted);border:none;cursor:pointer;transition:all .15s;">🔍 Coin Search</button>
+        <button id="mode-gem" onclick="setScanMode('gem')" style="padding:0.4rem 0.85rem;font-size:0.78rem;font-family:'JetBrains Mono',monospace;font-weight:700;background:var(--surface);color:var(--muted);border:none;cursor:pointer;transition:all .15s;">⭐ Gem Score</button>
       </div>
       <div class="sc-divider"></div>
-      <!-- MCap fields (shown in mcap mode) -->
+      <!-- MCap fields — sirf Max MCap, no min exchanges -->
       <div id="mcap-fields" style="display:flex;align-items:center;gap:0.8rem;flex-wrap:wrap;">
         <span class="sc-label">Max Market Cap ($)</span>
-        <input type="number" class="sc-input" id="sc-mcap-input" value="5000000" min="100000" step="100000">
-        <div class="sc-divider"></div>
-        <span class="sc-label">Min Exchanges</span>
-        <select class="sc-select" id="sc-min-ex">
-          <option value="2">2+ Exchanges</option>
-          <option value="3">3+ Exchanges</option>
-          <option value="4" selected>4+ Exchanges</option>
-          <option value="5">5+ Exchanges</option>
-          <option value="6">6+ Exchanges</option>
-          <option value="7">7+ Exchanges</option>
-          <option value="8">8+ Exchanges</option>
-        </select>
+        <input type="number" class="sc-input" id="sc-mcap-input" value="4000000000000" min="100000" step="1000000" style="width:140px;">
+        <span style="font-size:0.72rem;color:var(--muted);">Default: All coins</span>
       </div>
-      <!-- Coin search field (shown in coin mode) -->
+      <!-- Coin search field -->
       <div id="coin-fields" style="display:none;align-items:center;gap:0.8rem;flex-wrap:wrap;">
         <span class="sc-label">Coin Symbol</span>
         <input type="text" class="sc-input" id="sc-coin-input" placeholder="e.g. PEPE, WIF, SHIB" style="width:160px;text-transform:uppercase;letter-spacing:0.05em;" oninput="this.value=this.value.toUpperCase()">
         <span style="font-size:0.75rem;color:var(--muted);">Checks all 10 exchanges instantly</span>
       </div>
-      <div class="sc-divider"></div>
-      <span class="sc-label">Sort / Filter</span>
+      <!-- Gem Score search field -->
+      <div id="gem-fields" style="display:none;align-items:center;gap:0.8rem;flex-wrap:wrap;">
+        <span class="sc-label">Min Gem Score</span>
+        <input type="number" class="sc-input" id="sc-gem-input" value="70" min="0" max="100" step="5" style="width:80px;">
+        <span style="font-size:0.75rem;color:var(--muted);">Show coins with score ≥ this value</span>
+      </div>
+    </div>
+    <button class="sc-run-btn" id="sc-run-btn" onclick="runScanner()">
+      ⚡ Scan Now
+    </button>
+    <button class="sc-refresh-btn" onclick="runScanner()" title="Refresh data">
+      ↻ Refresh
+    </button>
+  </div>
+
+  <!-- Exchange filter + Sort — hidden until results arrive -->
+  <div id="sc-result-filters" style="display:none;">
+    <div class="sc-exchange-bar" id="sc-exch-bar">
+      <span class="sc-label" style="margin-right:0.2rem;">Filter Exchange:</span>
+      <span class="sc-exch-chip active" data-ex="all" onclick="toggleExchFilter(this)">All</span>
+      <span class="sc-exch-chip" data-ex="binance" onclick="toggleExchFilter(this)">Binance</span>
+      <span class="sc-exch-chip" data-ex="bybit" onclick="toggleExchFilter(this)">Bybit</span>
+      <span class="sc-exch-chip" data-ex="okx" onclick="toggleExchFilter(this)">OKX</span>
+      <span class="sc-exch-chip" data-ex="gateio" onclick="toggleExchFilter(this)">Gate.io</span>
+      <span class="sc-exch-chip" data-ex="kucoin" onclick="toggleExchFilter(this)">KuCoin</span>
+      <span class="sc-exch-chip" data-ex="mexc" onclick="toggleExchFilter(this)">MEXC</span>
+      <span class="sc-exch-chip" data-ex="bitget" onclick="toggleExchFilter(this)">Bitget</span>
+      <span class="sc-exch-chip" data-ex="huobi" onclick="toggleExchFilter(this)">HTX/Huobi</span>
+      <span class="sc-exch-chip" data-ex="coinbase" onclick="toggleExchFilter(this)">Coinbase</span>
+      <span class="sc-exch-chip" data-ex="kraken" onclick="toggleExchFilter(this)">Kraken</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:1rem;flex-wrap:wrap;">
+      <span class="sc-label">Sort By:</span>
       <select class="sc-select" id="sc-sort" onchange="applyFiltersAndRender()">
         <option value="gem">🔥 Gem Score (Best First)</option>
         <option value="exchanges">Exchange Count</option>
@@ -921,15 +944,7 @@ table.sct tbody td { padding: 0.7rem 0.9rem; vertical-align: middle; }
         <option value="cat-weak">── Show: Weak (&lt;40)</option>
       </select>
     </div>
-    <button class="sc-run-btn" id="sc-run-btn" onclick="runScanner()">
-      ⚡ Scan Now
-    </button>
-    <button class="sc-refresh-btn" onclick="runScanner()" title="Refresh data">
-      ↻ Refresh
-    </button>
   </div>
-
-
 
   <!-- Status bar -->
   <div class="sc-status-bar">
@@ -1020,7 +1035,7 @@ table.sct tbody td { padding: 0.7rem 0.9rem; vertical-align: middle; }
 
 let allCoins = [];
 let filteredCoins = [];
-let activeExchFilter = 'all'; // Exchange filter removed from UI
+let activeExchFilter = 'all';
 let currentPage = 1;
 const PAGE_SIZE = 50;
 
@@ -1041,64 +1056,78 @@ const EXCHANGES = {
 };
 
 // Fetch USDT symbols from each exchange directly
-async function fetchBinanceFuturesSymbols(){
-  try{
-    const r=await fetch('https://fapi.binance.com/fapi/v1/exchangeInfo');
-    if(!r.ok) return new Set();
-    const d=await r.json();
-    return new Set(
-      (d.symbols||[])
-        .filter(s=>s.quoteAsset==='USDT'&&s.status==='TRADING'&&s.contractType==='PERPETUAL')
-        .map(s=>s.baseAsset.toUpperCase())
-    );
-  }catch(e){
-    console.warn('Binance Futures exchangeInfo failed:',e.message);
-    return new Set();
-  }
-}
-
 async function fetchExchangeSymbols(key) {
   try {
     switch(key) {
       case 'binance': {
-        const r=await fetch('https://api.binance.com/api/v3/exchangeInfo');
-        if(!r.ok) return new Set();
-        const d=await r.json();
-        return new Set(d.symbols.filter(s=>s.quoteAsset==='USDT'&&s.status==='TRADING').map(s=>s.baseAsset.toUpperCase()));
+        const r = await fetch('https://api.binance.com/api/v3/exchangeInfo', );
+        if (!r.ok) return new Set();
+        const d = await r.json();
+        return new Set(d.symbols.filter(s => s.quoteAsset === 'USDT' && s.status === 'TRADING').map(s => s.baseAsset.toUpperCase()));
       }
       case 'bybit': {
-        const r=await fetch('https://api.bybit.com/v5/market/instruments-info?category=spot&limit=1000');
-        if(!r.ok) return new Set();
-        const d=await r.json();
-        return new Set((d.result?.list||[]).filter(s=>s.quoteCoin==='USDT'&&s.status==='Trading').map(s=>s.baseCoin.toUpperCase()));
+        const r = await fetch('https://api.bybit.com/v5/market/instruments-info?category=spot&limit=1000', );
+        if (!r.ok) return new Set();
+        const d = await r.json();
+        return new Set((d.result?.list || []).filter(s => s.quoteCoin === 'USDT' && s.status === 'Trading').map(s => s.baseCoin.toUpperCase()));
       }
       case 'okx': {
-        const r=await fetch('https://www.okx.com/api/v5/public/instruments?instType=SPOT');
-        if(!r.ok) return new Set();
-        const d=await r.json();
-        return new Set((d.data||[]).filter(s=>s.quoteCcy==='USDT'&&s.state==='live').map(s=>s.baseCcy.toUpperCase()));
+        const r = await fetch('https://www.okx.com/api/v5/public/instruments?instType=SPOT', );
+        if (!r.ok) return new Set();
+        const d = await r.json();
+        return new Set((d.data || []).filter(s => s.quoteCcy === 'USDT' && s.state === 'live').map(s => s.baseCcy.toUpperCase()));
+      }
+      case 'gateio': {
+        try {
+          const r = await fetch(`${CMC_WORKER_URL}/exchange?name=gateio`, );
+          if (!r.ok) return new Set();
+          const d = await r.json();
+          return new Set(d.symbols || []);
+        } catch(e) { return new Set(); }
+      }
+      case 'kucoin': {
+        try {
+          const r = await fetch(`${CMC_WORKER_URL}/exchange?name=kucoin`, );
+          if (!r.ok) return new Set();
+          const d = await r.json();
+          return new Set(d.symbols || []);
+        } catch(e) { return new Set(); }
+      }
+      case 'mexc': {
+        try {
+          const r = await fetch(`${CMC_WORKER_URL}/exchange?name=mexc`, );
+          if (!r.ok) return new Set();
+          const d = await r.json();
+          return new Set(d.symbols || []);
+        } catch(e) { return new Set(); }
       }
       case 'bitget': {
-        const r=await fetch('https://api.bitget.com/api/v2/spot/public/symbols');
-        if(!r.ok) return new Set();
-        const d=await r.json();
-        return new Set((d.data||[]).filter(s=>s.quoteCoin==='USDT'&&s.status==='online').map(s=>s.baseCoin.toUpperCase()));
+        const r = await fetch('https://api.bitget.com/api/v2/spot/public/symbols', );
+        if (!r.ok) return new Set();
+        const d = await r.json();
+        return new Set((d.data || []).filter(s => s.quoteCoin === 'USDT' && s.status === 'online').map(s => s.baseCoin.toUpperCase()));
       }
       case 'huobi': {
-        const r=await fetch('https://api.huobi.pro/market/tickers');
-        if(!r.ok) return new Set();
-        const d=await r.json();
-        return new Set((d.data||[]).filter(s=>s.symbol&&s.symbol.endsWith('usdt')).map(s=>s.symbol.replace('usdt','').toUpperCase()));
+        const r = await fetch('https://api.huobi.pro/market/tickers', );
+        if (!r.ok) return new Set();
+        const d = await r.json();
+        return new Set((d.data || []).filter(s => s.symbol && s.symbol.endsWith('usdt')).map(s => s.symbol.replace('usdt','').toUpperCase()));
       }
-      case 'gateio':
-      case 'kucoin':
-      case 'mexc':
-      case 'coinbase':
+      case 'coinbase': {
+        try {
+          const r = await fetch(`${CMC_WORKER_URL}/exchange?name=coinbase`, );
+          if (!r.ok) return new Set();
+          const d = await r.json();
+          return new Set(d.symbols || []);
+        } catch(e) { return new Set(); }
+      }
       case 'kraken': {
-        const r=await fetch(`${CMC_WORKER_URL}/exchange?name=${key}`);
-        if(!r.ok) return new Set();
-        const d=await r.json();
-        return new Set(d.symbols||[]);
+        try {
+          const r = await fetch(`${CMC_WORKER_URL}/exchange?name=kraken`, );
+          if (!r.ok) return new Set();
+          const d = await r.json();
+          return new Set(d.symbols || []);
+        } catch(e) { return new Set(); }
       }
       default: return new Set();
     }
@@ -1107,6 +1136,12 @@ async function fetchExchangeSymbols(key) {
     return new Set();
   }
 }
+
+// ── CMC MARKET DATA via Cloudflare Worker (no CORS issue) ──
+// Worker URL — set this to YOUR worker URL after deployment
+// Worker keeps the API key safe server-side
+const CMC_WORKER_URL = 'https://black-boat-8d8f.knitin973.workers.dev';
+
 async function fetchMarketDataCMC(symbols) {
   const result = {};
   const BATCH = 100;
@@ -1200,23 +1235,34 @@ function toggleExchFilter(el) {
 }
 
 // ── SCAN MODE TOGGLE ──
-let scanMode = 'mcap'; // 'mcap' or 'coin'
+let scanMode = 'mcap'; // 'mcap', 'coin', or 'gem'
 function setScanMode(mode) {
   scanMode = mode;
-  const mcapBtn  = document.getElementById('mode-mcap');
-  const coinBtn  = document.getElementById('mode-coin');
-  const mcapF    = document.getElementById('mcap-fields');
-  const coinF    = document.getElementById('coin-fields');
+  const mcapBtn = document.getElementById('mode-mcap');
+  const coinBtn = document.getElementById('mode-coin');
+  const gemBtn  = document.getElementById('mode-gem');
+  const mcapF   = document.getElementById('mcap-fields');
+  const coinF   = document.getElementById('coin-fields');
+  const gemF    = document.getElementById('gem-fields');
+
+  // Reset all buttons
+  [mcapBtn, coinBtn, gemBtn].forEach(b => {
+    if(b) { b.style.background = 'var(--surface)'; b.style.color = 'var(--muted)'; }
+  });
+  [mcapF, coinF, gemF].forEach(f => { if(f) f.style.display = 'none'; });
+
   if (mode === 'mcap') {
     mcapBtn.style.background = 'var(--accent)'; mcapBtn.style.color = 'var(--bg)';
-    coinBtn.style.background = 'var(--surface)'; coinBtn.style.color = 'var(--muted)';
-    mcapF.style.display = 'flex'; coinF.style.display = 'none';
-    document.getElementById('sc-run-btn').textContent = '⚡ Scan Now';
-  } else {
+    mcapF.style.display = 'flex';
+    document.getElementById('sc-run-btn').innerHTML = '⚡ Scan Now';
+  } else if (mode === 'coin') {
     coinBtn.style.background = 'var(--accent2)'; coinBtn.style.color = 'var(--bg)';
-    mcapBtn.style.background = 'var(--surface)'; mcapBtn.style.color = 'var(--muted)';
-    coinF.style.display = 'flex'; mcapF.style.display = 'none';
-    document.getElementById('sc-run-btn').textContent = '🔍 Search Coin';
+    coinF.style.display = 'flex';
+    document.getElementById('sc-run-btn').innerHTML = '🔍 Search Coin';
+  } else if (mode === 'gem') {
+    gemBtn.style.background = '#ffa040'; gemBtn.style.color = 'var(--bg)';
+    gemF.style.display = 'flex';
+    document.getElementById('sc-run-btn').innerHTML = '⭐ Find Gems';
   }
 }
 
@@ -1238,6 +1284,8 @@ async function safeFetch(url, timeoutMs=15000) {
 async function runScanner() {
   if (scanMode === 'coin') {
     await runCoinSearch();
+  } else if (scanMode === 'gem') {
+    await runGemScoreScan();
   } else {
     await runMcapScan();
   }
@@ -1312,22 +1360,24 @@ async function runCoinSearch() {
     await fetchIndicatorsForAll([coin]);
     applyFiltersAndRender();
     setStatus(`✓ ${coinInput} — listed on ${foundOn.length} exchanges: ${foundOn.map(k=>EXCHANGES[k].label).join(', ')}`, 'live');
+    document.getElementById('sc-result-filters').style.display = 'block';
 
   } catch(err) {
     console.error('Coin search error:', err);
     showError('Search failed: ' + err.message);
   }
 
-  btn.disabled = false; btn.textContent = '🔍 Search Coin';
+  btn.disabled = false; btn.innerHTML = '🔍 Search Coin';
 }
 
 // ── MODE 2: MCAP SCAN ──
 async function runMcapScan() {
   const btn = document.getElementById('sc-run-btn');
-  btn.disabled = true; btn.textContent = '⏳ Scanning...';
+  btn.disabled = true; btn.innerHTML = '⏳ Scanning...';
   allCoins = []; filteredCoins = [];
   document.getElementById('sc-summary').style.display = 'none';
   document.getElementById('sc-pagination').style.display = 'none';
+  document.getElementById('sc-result-filters').style.display = 'none';
   document.getElementById('sc-table-container').innerHTML = `
     <div class="sc-empty">
       <div class="sc-spinner"></div>
@@ -1336,50 +1386,49 @@ async function runMcapScan() {
     </div>`;
 
   try {
-    const maxMcap = parseInt(document.getElementById('sc-mcap-input').value) || 5000000;
-    const minEx   = parseInt(document.getElementById('sc-min-ex').value) || 4;
+    const maxMcap = parseFloat(document.getElementById('sc-mcap-input').value) || 4000000000000;
+    const minEx   = 2; // Fixed minimum — no user filter
     const exchKeys = Object.keys(EXCHANGES);
 
-    // STEP 1: Fetch Binance Futures symbols (primary source)
-    setStatus('Fetching Binance Futures coin list...','loading');
-    const bnFutSymbols = await fetchBinanceFuturesSymbols();
-    if(bnFutSymbols.size===0){
-      showError('Binance Futures data unavailable. Try again.');
-      btn.disabled=false;btn.innerHTML='⚡ Scan Now';return;
-    }
-    setStatus(`✓ Binance Futures: ${bnFutSymbols.size} coins. Checking other exchanges...`,'loading');
-
-    // STEP 2: Fetch all other exchange symbol lists in parallel
-    const results=await Promise.allSettled(exchKeys.map(k=>fetchExchangeSymbols(k)));
-    const exchSymbolSets={};
-    let liveCount=0;
-    results.forEach((r,i)=>{
-      const key=exchKeys[i];
-      const set=r.status==='fulfilled'?r.value:new Set();
-      exchSymbolSets[key]=set;
-      if(set.size>0) liveCount++;
+    // STEP 1: Fetch all exchange symbol lists in parallel
+    setStatus('Fetching symbol lists from all exchanges...', 'loading');
+    const results = await Promise.allSettled(exchKeys.map(k => fetchExchangeSymbols(k)));
+    const exchSymbolSets = {};
+    let liveCount = 0;
+    results.forEach((r, i) => {
+      const key = exchKeys[i];
+      const set = r.status === 'fulfilled' ? r.value : new Set();
+      exchSymbolSets[key] = set;
+      if (set.size > 0) liveCount++;
     });
-    setStatus(`✓ ${liveCount}/${exchKeys.length} exchanges live. Building coin map...`,'loading');
+    setStatus(`✓ ${liveCount}/${exchKeys.length} exchanges live. Finding multi-exchange coins...`, 'loading');
 
-    // STEP 3: Build symbol → exchanges map (only Binance Futures coins)
-    const symbolExchangeMap={};
-    for(const sym of bnFutSymbols){
-      symbolExchangeMap[sym]=[];
-      for(const [key,set] of Object.entries(exchSymbolSets)){
-        if(set.has(sym)) symbolExchangeMap[sym].push(key);
+    // STEP 2: Find coins on minEx+ exchanges
+    const symbolExchangeMap = {};
+    for (const [key, set] of Object.entries(exchSymbolSets)) {
+      for (const sym of set) {
+        if (!symbolExchangeMap[sym]) symbolExchangeMap[sym] = [];
+        symbolExchangeMap[sym].push(key);
       }
     }
 
-    // STEP 4 (was STEP 3): Filter by minEx
-    let candidates=Object.entries(symbolExchangeMap)
-      .filter(([,exchs])=>exchs.length>=minEx)
-      .map(([sym,exchanges])=>({sym,exchanges}));
+    let candidates = Object.entries(symbolExchangeMap)
+      .filter(([, exchs]) => exchs.length >= minEx)
+      .map(([sym, exchs]) => ({ sym, exchanges: exchs }));
 
-    setStatus(`${bnFutSymbols.size} Binance Futures coins → ${candidates.length} on ${minEx}+ exchanges. Fetching CMC data...`,'loading');
-    if(candidates.length===0){
-      showError(`No Binance Futures coins found on ${minEx}+ exchanges. Try lowering Min Exchanges.`);
-      btn.disabled=false;btn.innerHTML='⚡ Scan Now';return;
+    setStatus(`${candidates.length} coins on ${minEx}+ exchanges. Fetching market caps from CMC...`, 'loading');
+
+    if (candidates.length === 0) {
+      showError(`No coins found on ${minEx}+ exchanges. Try lowering Min Exchanges to 4.`);
+      btn.disabled = false; btn.innerHTML = '⚡ Scan Now'; return;
     }
+
+    // STEP 3: Get market cap from CoinMarketCap
+    const allSymbols = candidates.map(c => c.sym);
+    const marketData = await fetchMarketDataCMC(allSymbols);
+    const foundCount = Object.keys(marketData).length;
+    setStatus(`CMC returned ${foundCount} coins. Applying market cap filter...`, 'loading');
+
     // STEP 4: Filter by market cap
     const filtered = candidates.map(c => {
       const m = marketData[c.sym];
@@ -1411,7 +1460,8 @@ async function runMcapScan() {
     setStatus(`Found ${filtered.length} gems! Calculating technical scores...`, 'loading');
     await fetchIndicatorsForAll(filtered);
     applyFiltersAndRender();
-    setStatus(`✓ Scan complete — ${filtered.length} hidden gems (≤${fmtMcap(maxMcap)}, ${minEx}+ exchanges)`, 'live');
+    setStatus(`✓ Scan complete — ${filtered.length} hidden gems`, 'live');
+    document.getElementById('sc-result-filters').style.display = 'block';
 
   } catch(err) {
     console.error('Scanner error:', err);
@@ -1419,6 +1469,104 @@ async function runMcapScan() {
   }
 
   btn.disabled = false; btn.innerHTML = '⚡ Scan Now';
+}
+
+
+// ── MODE 3: GEM SCORE SCAN ──
+// Scan all Binance Futures coins → calculate indicators → filter by min gem score
+async function runGemScoreScan() {
+  const btn = document.getElementById('sc-run-btn');
+  btn.disabled = true; btn.innerHTML = '⏳ Scanning...';
+  allCoins = []; filteredCoins = [];
+  document.getElementById('sc-summary').style.display = 'none';
+  document.getElementById('sc-pagination').style.display = 'none';
+  document.getElementById('sc-result-filters').style.display = 'none';
+
+  const minScore = parseInt(document.getElementById('sc-gem-input')?.value) || 70;
+
+  document.getElementById('sc-table-container').innerHTML = `
+    <div class="sc-empty">
+      <div class="sc-spinner"></div>
+      Fetching all coins & calculating Gem Scores...<br>
+      <span style="font-size:0.75rem;margin-top:0.3rem;display:block;">This may take 30–60 seconds</span>
+    </div>`;
+
+  try {
+    // STEP 1: Binance Futures coins
+    setStatus('Fetching Binance Futures coin list...', 'loading');
+    const bnFutSymbols = await fetchBinanceFuturesSymbols();
+    if (bnFutSymbols.size === 0) {
+      showError('Binance Futures data unavailable. Try again.');
+      btn.disabled = false; btn.innerHTML = '⭐ Find Gems'; return;
+    }
+
+    // STEP 2: Exchange symbol lists
+    setStatus(`✓ ${bnFutSymbols.size} Binance Futures coins. Checking exchanges...`, 'loading');
+    const exchKeys = Object.keys(EXCHANGES);
+    const results = await Promise.allSettled(exchKeys.map(k => fetchExchangeSymbols(k)));
+    const exchSymbolSets = {};
+    results.forEach((r, i) => {
+      exchSymbolSets[exchKeys[i]] = r.status === 'fulfilled' ? r.value : new Set();
+    });
+
+    // STEP 3: Build coin map
+    const allSymbols = [...bnFutSymbols];
+    const symbolExchangeMap = {};
+    for (const sym of allSymbols) {
+      symbolExchangeMap[sym] = [];
+      for (const [key, set] of Object.entries(exchSymbolSets)) {
+        if (set.has(sym)) symbolExchangeMap[sym].push(key);
+      }
+    }
+
+    // STEP 4: CMC market data
+    setStatus(`Fetching CMC market data for ${allSymbols.length} coins...`, 'loading');
+    const marketData = await fetchMarketDataCMC(allSymbols);
+
+    // STEP 5: Build coin objects
+    const coins = allSymbols.map(sym => {
+      const m = marketData[sym];
+      if (!m) return null;
+      return {
+        id: m.id, name: m.name, symbol: sym,
+        market_cap: m.market_cap || 0,
+        current_price: m.current_price || 0,
+        total_volume: m.total_volume || 0,
+        price_change_24h: m.price_change_24h || 0,
+        exchanges: symbolExchangeMap[sym] || [],
+        exchangeCount: (symbolExchangeMap[sym] || []).length,
+        futuresVolume: null, gemScore: null, indicators: null,
+      };
+    }).filter(Boolean);
+
+    // STEP 6: Calculate initial scores + fetch indicators
+    coins.forEach(c => { c.gemScore = scoreGem(c, null); });
+    allCoins = coins;
+    document.getElementById('sc-count').textContent = coins.length;
+    document.getElementById('sc-time').textContent = new Date().toLocaleTimeString();
+
+    setStatus(`Calculating indicators for ${coins.length} coins... (${minScore}+ score filter)`, 'loading');
+    await fetchIndicatorsForAll(coins);
+
+    // STEP 7: Filter by gem score
+    const filtered = coins.filter(c => (c.gemScore?.score || 0) >= minScore);
+    allCoins = filtered.length > 0 ? filtered : coins; // fallback: show all if none match
+
+    applyFiltersAndRender();
+
+    if (filtered.length === 0) {
+      setStatus(`No coins found with Gem Score ≥ ${minScore}. Try lowering the score.`, '');
+    } else {
+      setStatus(`✓ Found ${filtered.length} coins with Gem Score ≥ ${minScore}`, 'live');
+      document.getElementById('sc-result-filters').style.display = 'block';
+    }
+
+  } catch(err) {
+    console.error('Gem scan error:', err);
+    showError('Gem scan failed: ' + err.message);
+  }
+
+  btn.disabled = false; btn.innerHTML = '⭐ Find Gems';
 }
 
 // ── BINANCE INDICATORS (unchanged from original) ──
@@ -1438,9 +1586,57 @@ async function fetchBinanceOI(symbol) {
   } catch(e) { return null; }
 }
 
+async function fetchBTCTrend() {
+  try {
+    const r = await fetch('https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&limit=3');
+    if (!r.ok) return null;
+    const d = await r.json();
+    if (!d||d.length<2) return null;
+    const closes = d.map(c=>parseFloat(c[4]));
+    const change = (closes[closes.length-1]-closes[0])/closes[0]*100;
+    if (change>1.5) return 'strong';
+    else if (change>0.5) return 'pump';
+    else if (change>0) return 'same';
+    else return 'down';
+  } catch(e) { return null; }
+}
+
+async function fetchLiquidation(symbol) {
+  try {
+    const r = await fetch(`https://fapi.binance.com/fapi/v1/allForceOrders?symbol=${symbol}USDT&limit=20`);
+    if (!r.ok) return null;
+    const d = await r.json();
+    if (!Array.isArray(d)) return null;
+    const oneHourAgo = Date.now() - 3600000;
+    const recent = d.filter(l => l.time && l.time >= oneHourAgo);
+    const totalLiqUSDT = recent.reduce((sum,l) => sum + parseFloat(l.origQty||0)*parseFloat(l.price||0), 0);
+    if (totalLiqUSDT>=500000) return 'high';
+    else if (totalLiqUSDT>=50000) return 'med';
+    else if (totalLiqUSDT>=5000) return 'low';
+    else return null;
+  } catch(e) { return null; }
+}
+
+async function fetchBinanceFundingRate(symbol) {
+  try {
+    const r = await fetch(`https://fapi.binance.com/fapi/v1/premiumIndex?symbol=${symbol}USDT`);
+    if (!r.ok) return { rate:null, interval:null };
+    const d = await r.json();
+    return { rate: d.lastFundingRate ? parseFloat(d.lastFundingRate) : null, interval: 8 };
+  } catch(e) { return { rate:null, interval:null }; }
+}
+
+async function fetchBinanceFuturesTicker(symbol) {
+  try {
+    const r = await fetch(`https://fapi.binance.com/fapi/v1/ticker/24hr?symbol=${symbol}USDT`);
+    if (!r.ok) return null;
+    return await r.json();
+  } catch(e) { return null; }
+}
+
 function calcRSI(closes, period=14) {
-  if (closes.length < period+1) return null;
-  let g=0, l=0;
+  if (closes.length<period+1) return null;
+  let g=0,l=0;
   for (let i=closes.length-period; i<closes.length; i++) {
     const d=closes[i]-closes[i-1];
     if (d>0) g+=d; else l+=Math.abs(d);
@@ -1459,55 +1655,48 @@ function calcEMA(closes, period) {
 }
 
 function calcMACD(closes) {
-  if (closes.length<26) return null;
+  if (closes.length<27) return null;
   const e12=calcEMA(closes,12), e26=calcEMA(closes,26);
   if (!e12||!e26) return null;
-  return { bullish: e12>e26, macd: e12-e26 };
+  const macdLine=e12-e26;
+  const macdHistory=[];
+  for (let i=26; i<closes.length; i++) {
+    const em12=calcEMA(closes.slice(0,i+1),12);
+    const em26=calcEMA(closes.slice(0,i+1),26);
+    if (em12&&em26) macdHistory.push(em12-em26);
+  }
+  const signal9=calcEMA(macdHistory,9);
+  const bullish=e12>e26;
+  const histGrowing=macdHistory.length>=2&&macdHistory[macdHistory.length-1]>macdHistory[macdHistory.length-2];
+  const momentum=bullish&&histGrowing&&signal9!=null&&macdLine>signal9*1.1;
+  return {bullish,histGrowing,momentum,macd:macdLine};
 }
 
 function calcVolSpike(volumes) {
   if (volumes.length<21) return null;
-  const recent=volumes[volumes.length-1];
-  const avg=volumes.slice(-21,-1).reduce((a,b)=>a+b,0)/20;
-  return avg>0 ? recent/avg : null;
-}
-
-// Fetch Binance Futures 24h ticker (volume + funding rate)
-async function fetchBinanceFuturesTicker(symbol) {
-  try {
-    const r = await fetch(`https://fapi.binance.com/fapi/v1/ticker/24hr?symbol=${symbol}USDT`);
-    if (!r.ok) return null;
-    return await r.json();
-  } catch(e) { return null; }
-}
-
-async function fetchBinanceFundingRate(symbol) {
-  try {
-    // Gets current funding rate (1h interval available on some pairs, default 8h)
-    const r = await fetch(`https://fapi.binance.com/fapi/v1/premiumIndex?symbol=${symbol}USDT`);
-    if (!r.ok) return null;
-    const d = await r.json();
-    return d.lastFundingRate ? parseFloat(d.lastFundingRate) : null;
-  } catch(e) { return null; }
+  // 1h lookback = last 4 candles (15m×4)
+  const recentVol=volumes.slice(-4).reduce((a,b)=>a+b,0);
+  const avgVol=volumes.slice(-21,-4).reduce((a,b)=>a+b,0)/17*4;
+  return avgVol>0 ? recentVol/avgVol : null;
 }
 
 async function fetchIndicatorsForAll(coins) {
   const BATCH=5;
+  const btcTrend = await fetchBTCTrend();
   for (let i=0; i<coins.length; i+=BATCH) {
     await Promise.all(coins.slice(i,i+BATCH).map(async (coin) => {
       try {
         const sym=coin.symbol.replace('USDT','');
-
-        // Fetch candles + OI in parallel
-        const [candles, oiData, futuresTicker, fundingRate] = await Promise.all([
+        const [candles,oiData,futuresTicker,fundingData,liqData] = await Promise.all([
           fetchBinanceCandles(sym,'15m',210),
           fetchBinanceOI(sym),
-          fetchBinanceFuturesTicker(sym),   // Change #5: Binance futures 24h volume
-          fetchBinanceFundingRate(sym),     // Change #4: funding rate
+          fetchBinanceFuturesTicker(sym),
+          fetchBinanceFundingRate(sym),
+          fetchLiquidation(sym),
         ]);
-
-        let ind={rsi:null,macd:null,ema20:null,ema50:null,volSpike:null,oiChange:null,fundingRate:null};
-
+        let ind={rsi:null,macd:null,ema20:null,ema50:null,ema200:null,lastPrice:null,
+                 volSpike:null,oiChange:null,fundingRate:null,fundingInterval:null,
+                 btcTrend:btcTrend,liquidation:liqData};
         if (candles&&candles.length>=20) {
           const closes=candles.map(c=>parseFloat(c[4]));
           const vols=candles.map(c=>parseFloat(c[5]));
@@ -1515,103 +1704,99 @@ async function fetchIndicatorsForAll(coins) {
           ind.macd=calcMACD(closes);
           ind.ema20=calcEMA(closes,20);
           ind.ema50=calcEMA(closes,50);
+          ind.ema200=calcEMA(closes,200);
+          ind.lastPrice=closes[closes.length-1];
           ind.volSpike=calcVolSpike(vols);
         }
-
         if (oiData&&Array.isArray(oiData)&&oiData.length>=2) {
           const first=parseFloat(oiData[0].sumOpenInterest);
           const last=parseFloat(oiData[oiData.length-1].sumOpenInterest);
           ind.oiChange=first>0?((last-first)/first*100):null;
         }
-
-        // Change #5: 24h volume from Binance Futures (quoteVolume = USDT volume)
-        if (futuresTicker && futuresTicker.quoteVolume) {
-          coin.futuresVolume = parseFloat(futuresTicker.quoteVolume);
+        if (futuresTicker&&futuresTicker.quoteVolume) {
+          coin.futuresVolume=parseFloat(futuresTicker.quoteVolume);
         }
-
-        // Change #4: funding rate
-        ind.fundingRate = fundingRate;
-
+        if (fundingData) {
+          ind.fundingRate=fundingData.rate;
+          ind.fundingInterval=fundingData.interval;
+        }
         coin.indicators=ind;
         coin.gemScore=scoreGem(coin,ind);
-      } catch(e) {
-        coin.gemScore=scoreGem(coin,null);
-      }
+      } catch(e) { coin.gemScore=scoreGem(coin,null); }
     }));
-    if (i+BATCH<coins.length) await sleep(200);
+    if (i+BATCH<coins.length) await sleep(300);
   }
 }
 
-// ── GEM SCORING v8 ──
-// Exchange count points REMOVED (change #2)
-// Added: Vol>=MCap bonus, Negative Funding Rate bonus
 function scoreGem(coin, ind) {
   let score=0;
   const breakdown=[];
 
-  // Market cap score (kept)
-  if (coin.market_cap>0&&coin.market_cap<500000)  { score+=25; breakdown.push({label:'MCap <$500K',pts:25,hit:true}); }
-  else if (coin.market_cap<2000000) { score+=15; breakdown.push({label:'MCap <$2M',pts:15,hit:true}); }
-  else if (coin.market_cap<5000000) { score+=8;  breakdown.push({label:'MCap <$5M',pts:8,hit:true}); }
-  else breakdown.push({label:'Market Cap',pts:0,hit:false});
-
-  // NEW: 24h Futures Volume >= Market Cap bonus (+20pts)
-  if (coin.futuresVolume!=null && coin.market_cap>0 && coin.futuresVolume>=coin.market_cap) {
-    score+=20; breakdown.push({label:`FutVol≥MCap (${fmtVol(coin.futuresVolume)})`,pts:20,hit:true});
-  } else if (coin.futuresVolume!=null) {
-    breakdown.push({label:`FutVol ${fmtVol(coin.futuresVolume)}`,pts:0,hit:false});
-  } else {
-    breakdown.push({label:'FutVol',pts:'N/A',hit:null});
-  }
+  // 1. Futures Vol vs MCap (10 pts max)
+  if (coin.futuresVolume!=null && coin.market_cap>0) {
+    const ratio=coin.futuresVolume/coin.market_cap;
+    if (ratio>=1)        {score+=10;breakdown.push({label:'FutVol≥MCap 🔥',pts:10,hit:true});}
+    else if (ratio>=0.5) {score+=5; breakdown.push({label:'FutVol 50%+ MCap',pts:5,hit:true});}
+    else                 {breakdown.push({label:`FutVol ${fmtVol(coin.futuresVolume)}`,pts:0,hit:false});}
+  } else {breakdown.push({label:'FutVol',pts:'N/A',hit:null});}
 
   if (!ind) {
-    ['Vol Spike','OI','MACD','EMA','RSI','Funding Rate'].forEach(l=>breakdown.push({label:l,pts:'N/A',hit:null}));
+    ['Vol Spike','OI Change','MACD','EMA','RSI','Funding Rate'].forEach(l=>breakdown.push({label:l,pts:'N/A',hit:null}));
     return {score,breakdown,signal:getSignal(score)};
   }
 
-  // Vol spike (candle-based)
+  // 2. Volume Spike (20 pts max)
   if (ind.volSpike!=null) {
-    if (ind.volSpike>=2)        { score+=20; breakdown.push({label:`Vol ${ind.volSpike.toFixed(1)}x`,pts:20,hit:true}); }
-    else if (ind.volSpike>=1.5) { score+=12; breakdown.push({label:`Vol ${ind.volSpike.toFixed(1)}x`,pts:12,hit:true}); }
-    else breakdown.push({label:`Vol ${ind.volSpike.toFixed(1)}x`,pts:0,hit:false});
-  } else breakdown.push({label:'Vol Spike',pts:'N/A',hit:null});
+    if (ind.volSpike>=3)        {score+=20;breakdown.push({label:`Vol ${ind.volSpike.toFixed(1)}x 🚀`,pts:20,hit:true});}
+    else if (ind.volSpike>=2)   {score+=15;breakdown.push({label:`Vol ${ind.volSpike.toFixed(1)}x`,pts:15,hit:true});}
+    else if (ind.volSpike>=1.5) {score+=10;breakdown.push({label:`Vol ${ind.volSpike.toFixed(1)}x`,pts:10,hit:true});}
+    else {breakdown.push({label:`Vol ${ind.volSpike.toFixed(1)}x`,pts:0,hit:false});}
+  } else {breakdown.push({label:'Vol Spike',pts:'N/A',hit:null});}
 
-  // OI change
+  // 3. OI Change (20 pts max)
   if (ind.oiChange!=null) {
-    if (ind.oiChange>5)       { score+=15; breakdown.push({label:`OI +${ind.oiChange.toFixed(1)}%`,pts:15,hit:true}); }
-    else if (ind.oiChange>2)  { score+=8;  breakdown.push({label:`OI +${ind.oiChange.toFixed(1)}%`,pts:8,hit:true}); }
-    else breakdown.push({label:`OI ${ind.oiChange.toFixed(1)}%`,pts:0,hit:false});
-  } else breakdown.push({label:'OI',pts:'N/A',hit:null});
+    if (ind.oiChange>=10)     {score+=20;breakdown.push({label:`OI +${ind.oiChange.toFixed(1)}% 🔥`,pts:20,hit:true});}
+    else if (ind.oiChange>=5) {score+=15;breakdown.push({label:`OI +${ind.oiChange.toFixed(1)}%`,pts:15,hit:true});}
+    else if (ind.oiChange>=3) {score+=10;breakdown.push({label:`OI +${ind.oiChange.toFixed(1)}%`,pts:10,hit:true});}
+    else {breakdown.push({label:`OI ${ind.oiChange.toFixed(1)}%`,pts:0,hit:false});}
+  } else {breakdown.push({label:'OI Change',pts:'N/A',hit:null});}
 
-  // MACD
+  // 4. MACD (15 pts max)
   if (ind.macd!=null) {
-    if (ind.macd.bullish) { score+=10; breakdown.push({label:'MACD ↑',pts:10,hit:true}); }
-    else breakdown.push({label:'MACD ↓',pts:0,hit:false});
-  } else breakdown.push({label:'MACD',pts:'N/A',hit:null});
+    if (ind.macd.bullish) {score+=15;breakdown.push({label:'MACD Bullish ↑',pts:15,hit:true});}
+    else {breakdown.push({label:'MACD Bearish ↓',pts:0,hit:false});}
+  } else {breakdown.push({label:'MACD',pts:'N/A',hit:null});}
 
-  // EMA alignment
-  if (ind.ema20!=null&&ind.ema50!=null) {
-    const ok=ind.ema20>ind.ema50;
-    if (ok) { score+=10; breakdown.push({label:'EMA ✓',pts:10,hit:true}); }
-    else breakdown.push({label:'EMA ✗',pts:0,hit:false});
-  } else breakdown.push({label:'EMA',pts:'N/A',hit:null});
+  // 5. EMA Alignment (15 pts max)
+  if (ind.ema20!=null && ind.ema50!=null) {
+    const price = ind.lastPrice || 0;
+    if (ind.ema20>ind.ema50 && ind.ema50>(ind.ema200||0) && price>ind.ema20)
+      {score+=15;breakdown.push({label:'EMA 20>50>200+P ✓',pts:15,hit:true});}
+    else if (ind.ema20>ind.ema50 && ind.ema50>(ind.ema200||0))
+      {score+=12;breakdown.push({label:'EMA 20>50>200',pts:12,hit:true});}
+    else if (ind.ema20>ind.ema50)
+      {score+=8;breakdown.push({label:'EMA 20>50',pts:8,hit:true});}
+    else {breakdown.push({label:'EMA ✗',pts:0,hit:false});}
+  } else {breakdown.push({label:'EMA',pts:'N/A',hit:null});}
 
-  // RSI
+  // 6. RSI (10 pts max)
   if (ind.rsi!=null) {
-    if (ind.rsi>50&&ind.rsi<70) { score+=5; breakdown.push({label:`RSI ${ind.rsi.toFixed(0)}`,pts:5,hit:true}); }
-    else breakdown.push({label:`RSI ${ind.rsi.toFixed(0)}`,pts:0,hit:false});
-  } else breakdown.push({label:'RSI',pts:'N/A',hit:null});
+    if (ind.rsi>=60&&ind.rsi<80)      {score+=10;breakdown.push({label:`RSI ${ind.rsi.toFixed(0)} ✓`,pts:10,hit:true});}
+    else if (ind.rsi>=50&&ind.rsi<60) {score+=5; breakdown.push({label:`RSI ${ind.rsi.toFixed(0)}`,pts:5,hit:true});}
+    else {breakdown.push({label:`RSI ${ind.rsi.toFixed(0)}`,pts:0,hit:false});}
+  } else {breakdown.push({label:'RSI',pts:'N/A',hit:null});}
 
-  // NEW: Negative funding rate bonus (+15pts) — shorts get paid
+  // 7. Funding Rate (10 pts max) — negative = bullish
   if (ind.fundingRate!=null) {
-    if (ind.fundingRate < 0) {
-      score+=15; breakdown.push({label:`Funding ${(ind.fundingRate*100).toFixed(4)}% (neg✓)`,pts:15,hit:true});
-    } else {
-      breakdown.push({label:`Funding +${(ind.fundingRate*100).toFixed(4)}%`,pts:0,hit:false});
-    }
-  } else breakdown.push({label:'Funding Rate',pts:'N/A',hit:null});
+    const fr=ind.fundingRate*100;
+    if (fr<0)           {score+=10;breakdown.push({label:`Funding ${fr.toFixed(4)}% ✓`,pts:10,hit:true});}
+    else if (fr<0.005)  {score+=5; breakdown.push({label:`Funding ~0%`,pts:5,hit:true});}
+    else {breakdown.push({label:`Funding +${fr.toFixed(4)}%`,pts:0,hit:false});}
+  } else {breakdown.push({label:'Funding Rate',pts:'N/A',hit:null});}
 
-  return {score,breakdown,signal:getSignal(score)};
+  // Cap at 100
+  score = Math.min(score, 100);
+  return {score, breakdown, signal:getSignal(score)};
 }
 
 function getSignal(score) {
