@@ -1709,27 +1709,64 @@ function calcCombinedPriceChange(pc15m, pc1h, pc4h) {
 }
 
 async function fetchIndicatorsForAll(coins) {
-  const BATCH = 5;
+  // Mobile = 10 coins parallel, direct Binance (fast)
+  // Desktop = 15 coins parallel, Worker bulk endpoint (1 call per coin instead of 7)
+  const BATCH = IS_MOBILE ? 10 : 15;
+  const DELAY = IS_MOBILE ? 200 : 100;
+
   const btcTrend = await fetchBTCTrend();
+
   for (let i=0; i<coins.length; i+=BATCH) {
     await Promise.all(coins.slice(i,i+BATCH).map(async (coin) => {
       try {
         const sym = coin.symbol.replace('USDT','');
-        const [c15m, c1h, c4h, oiData, futuresTicker, fundingData, liqData] = await Promise.all([
-          fetchBinanceCandles(sym,'15m',210),
-          fetchBinanceCandles(sym,'1h',10),
-          fetchBinanceCandles(sym,'4h',10),
-          fetchBinanceOI(sym),
-          fetchBinanceFuturesTicker(sym),
-          fetchBinanceFundingRate(sym),
-          fetchLiquidation(sym),
-        ]);
+
+        let c15m, c1h, c4h, oiData, futuresTicker, fundingData, liqData;
+
+        if (IS_MOBILE) {
+          // Mobile — direct parallel calls (fast)
+          [c15m, c1h, c4h, oiData, futuresTicker, fundingData, liqData] = await Promise.all([
+            fetchBinanceCandles(sym,'15m',210),
+            fetchBinanceCandles(sym,'1h',10),
+            fetchBinanceCandles(sym,'4h',10),
+            fetchBinanceOI(sym),
+            fetchBinanceFuturesTicker(sym),
+            fetchBinanceFundingRate(sym),
+            fetchLiquidation(sym),
+          ]);
+        } else {
+          // Desktop — 1 bulk call instead of 7 (7x faster via Worker)
+          const bulk = await fetch(`${BINANCE_PROXY}/binance/bulk?symbol=${sym}`)
+            .then(r => r.ok ? r.json() : null).catch(() => null);
+          if (bulk) {
+            c15m        = bulk.candles15m;
+            c1h         = bulk.candles1h;
+            c4h         = bulk.candles4h;
+            oiData      = bulk.oi;
+            futuresTicker = bulk.ticker;
+            // funding: premiumIndex format → rate
+            const fi    = bulk.funding;
+            fundingData = fi ? { rate: parseFloat(fi.lastFundingRate ?? 0), interval: 8 } : { rate: null, interval: null };
+            liqData     = null; // parsed below from bulk.liq
+            // Parse liq from bulk
+            const liqArr = bulk.liq;
+            if (Array.isArray(liqArr) && liqArr.length > 0) {
+              let longLiq = 0, shortLiq = 0;
+              liqArr.forEach(o => {
+                const qty = parseFloat(o.origQty) * parseFloat(o.price);
+                if (o.side === 'SELL') longLiq += qty; else shortLiq += qty;
+              });
+              const total = longLiq + shortLiq;
+              if (total > 0) liqData = { value: total, type: shortLiq > longLiq ? 'short_squeeze' : 'long_heavy' };
+            }
+          }
+        }
 
         let ind = {rsi:null,macd:null,ema20:null,ema50:null,ema200:null,lastPrice:null,
                    volSpike:null,priceChange:null,oiChange:null,
                    fundingRate:null,fundingInterval:null,btcTrend:btcTrend,liquidation:liqData};
 
-        // 15m candles — RSI, MACD, EMA (needs 210 candles)
+        // 15m candles — RSI, MACD, EMA
         if (c15m && c15m.length >= 20) {
           const closes = c15m.map(c=>parseFloat(c[4]));
           const vols   = c15m.map(c=>parseFloat(c[5]));
@@ -1739,20 +1776,16 @@ async function fetchIndicatorsForAll(coins) {
           ind.ema50    = calcEMA(closes,50);
           ind.ema200   = calcEMA(closes,200);
           ind.lastPrice= closes[closes.length-1];
-          // Vol spike 15m
-          var vs15m = calcVolSpike15m(vols);
-          // Price change 15m
-          var pc15m = calcPriceChange(c15m);
+          var vs15m    = calcVolSpike15m(vols);
+          var pc15m    = calcPriceChange(c15m);
         }
 
-        // 1h candles — vol spike + price change
         var vs1h = null, pc1h = null;
         if (c1h && c1h.length >= 6) {
           vs1h = calcVolSpike1h(c1h.map(c=>parseFloat(c[5])));
           pc1h = calcPriceChange(c1h);
         }
 
-        // 4h candles — vol spike + price change
         var vs4h = null, pc4h = null;
         if (c4h && c4h.length >= 6) {
           vs4h = calcVolSpike4h(c4h.map(c=>parseFloat(c[5])));
@@ -1778,7 +1811,7 @@ async function fetchIndicatorsForAll(coins) {
         coin.gemScore   = scoreGem(coin, ind);
       } catch(e) { coin.gemScore = scoreGem(coin, null); }
     }));
-    if (i+BATCH < coins.length) await sleep(300);
+    if (i+BATCH < coins.length) await sleep(DELAY);
   }
 }
 
