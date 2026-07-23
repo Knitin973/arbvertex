@@ -1620,17 +1620,15 @@ async function fetchBTCTrend() {
 
 async function fetchLiquidation(symbol) {
   try {
-    const r = await fetch(`https://fapi.binance.com/fapi/v1/allForceOrders?symbol=${symbol}USDT&limit=20`);
+    const r = await fetch(`https://fapi.binance.com/fapi/v1/allForceOrders?symbol=${symbol}USDT&limit=50`);
     if (!r.ok) return null;
     const d = await r.json();
     if (!Array.isArray(d)) return null;
     const oneHourAgo = Date.now() - 3600000;
     const recent = d.filter(l => l.time && l.time >= oneHourAgo);
     const totalLiqUSDT = recent.reduce((sum,l) => sum + parseFloat(l.origQty||0)*parseFloat(l.price||0), 0);
-    if (totalLiqUSDT>=500000) return 'high';
-    else if (totalLiqUSDT>=50000) return 'med';
-    else if (totalLiqUSDT>=5000) return 'low';
-    else return null;
+    if (totalLiqUSDT >= 100000) return {value: totalLiqUSDT};
+    return null;
   } catch(e) { return null; }
 }
 
@@ -1749,20 +1747,22 @@ function scoreGem(coin, ind) {
   let score=0;
   const breakdown=[];
 
-  // 1. Futures Vol vs MCap (10 pts max)
+  // 1. FutVol/MCap (10 pts max)
   if (coin.futuresVolume!=null && coin.market_cap>0) {
     const ratio=coin.futuresVolume/coin.market_cap;
-    if (ratio>=1)        {score+=10;breakdown.push({label:'FutVol≥MCap 🔥',pts:10,hit:true});}
-    else if (ratio>=0.5) {score+=5; breakdown.push({label:'FutVol 50%+ MCap',pts:5,hit:true});}
-    else                 {breakdown.push({label:`FutVol ${fmtVol(coin.futuresVolume)}`,pts:0,hit:false});}
-  } else {breakdown.push({label:'FutVol',pts:'N/A',hit:null});}
+    if (ratio>=1.0)      {score+=10;breakdown.push({label:'FutVol≥100% MCap 🔥',pts:10,hit:true});}
+    else if (ratio>=0.8) {score+=8; breakdown.push({label:'FutVol≥80% MCap',pts:8,hit:true});}
+    else if (ratio>=0.5) {score+=5; breakdown.push({label:'FutVol≥50% MCap',pts:5,hit:true});}
+    else                 {breakdown.push({label:`FutVol ${(ratio*100).toFixed(0)}% MCap`,pts:0,hit:false});}
+  } else {breakdown.push({label:'FutVol/MCap',pts:'N/A',hit:null});}
 
   if (!ind) {
-    ['Vol Spike','OI Change','MACD','EMA','RSI','Funding Rate'].forEach(l=>breakdown.push({label:l,pts:'N/A',hit:null}));
+    ['Vol Spike','OI Change','MACD','EMA','RSI','BTC Trend','Liquidation','Funding Rate']
+      .forEach(l=>breakdown.push({label:l,pts:'N/A',hit:null}));
     return {score,breakdown,signal:getSignal(score)};
   }
 
-  // 2. Volume Spike (20 pts max)
+  // 2. Vol Spike (20 pts max)
   if (ind.volSpike!=null) {
     if (ind.volSpike>=3)        {score+=20;breakdown.push({label:`Vol ${ind.volSpike.toFixed(1)}x 🚀`,pts:20,hit:true});}
     else if (ind.volSpike>=2)   {score+=15;breakdown.push({label:`Vol ${ind.volSpike.toFixed(1)}x`,pts:15,hit:true});}
@@ -1780,15 +1780,17 @@ function scoreGem(coin, ind) {
 
   // 4. MACD (15 pts max)
   if (ind.macd!=null) {
-    if (ind.macd.bullish) {score+=15;breakdown.push({label:'MACD Bullish ↑',pts:15,hit:true});}
+    if (ind.macd.momentum)         {score+=15;breakdown.push({label:'MACD Strong Mom 🔥',pts:15,hit:true});}
+    else if (ind.macd.histGrowing) {score+=12;breakdown.push({label:'MACD +Hist Growing',pts:12,hit:true});}
+    else if (ind.macd.bullish)     {score+=8; breakdown.push({label:'MACD Bullish ↑',pts:8,hit:true});}
     else {breakdown.push({label:'MACD Bearish ↓',pts:0,hit:false});}
   } else {breakdown.push({label:'MACD',pts:'N/A',hit:null});}
 
   // 5. EMA Alignment (15 pts max)
   if (ind.ema20!=null && ind.ema50!=null) {
-    const price = ind.lastPrice || 0;
+    const price=ind.lastPrice||0;
     if (ind.ema20>ind.ema50 && ind.ema50>(ind.ema200||0) && price>ind.ema20)
-      {score+=15;breakdown.push({label:'EMA 20>50>200+P ✓',pts:15,hit:true});}
+      {score+=15;breakdown.push({label:'EMA 20>50>200+Price ✓',pts:15,hit:true});}
     else if (ind.ema20>ind.ema50 && ind.ema50>(ind.ema200||0))
       {score+=12;breakdown.push({label:'EMA 20>50>200',pts:12,hit:true});}
     else if (ind.ema20>ind.ema50)
@@ -1798,22 +1800,52 @@ function scoreGem(coin, ind) {
 
   // 6. RSI (10 pts max)
   if (ind.rsi!=null) {
-    if (ind.rsi>=60&&ind.rsi<80)      {score+=10;breakdown.push({label:`RSI ${ind.rsi.toFixed(0)} ✓`,pts:10,hit:true});}
-    else if (ind.rsi>=50&&ind.rsi<60) {score+=5; breakdown.push({label:`RSI ${ind.rsi.toFixed(0)}`,pts:5,hit:true});}
-    else {breakdown.push({label:`RSI ${ind.rsi.toFixed(0)}`,pts:0,hit:false});}
+    if (ind.rsi>=70&&ind.rsi<80)   {score+=10;breakdown.push({label:`RSI ${ind.rsi.toFixed(0)} (70-80)`,pts:10,hit:true});}
+    else if (ind.rsi>=60)          {score+=7; breakdown.push({label:`RSI ${ind.rsi.toFixed(0)} (60-70)`,pts:7,hit:true});}
+    else if (ind.rsi>=50)          {score+=5; breakdown.push({label:`RSI ${ind.rsi.toFixed(0)} (50-60)`,pts:5,hit:true});}
+    else {breakdown.push({label:`RSI ${ind.rsi.toFixed(0)} (<50)`,pts:0,hit:false});}
   } else {breakdown.push({label:'RSI',pts:'N/A',hit:null});}
 
-  // 7. Funding Rate (10 pts max) — negative = bullish
+  // 7. BTC Trend (10 pts max) — 1H+4H+1D
+  if (ind.btcTrend!=null) {
+    const bt=ind.btcTrend;
+    score+=bt.pts;
+    breakdown.push({label:`BTC ${bt.label}`,pts:bt.pts,hit:bt.pts>0});
+  } else {breakdown.push({label:'BTC Trend',pts:'N/A',hit:null});}
+
+  // 8. Liquidation (10 pts max) — last 60 min
+  if (ind.liquidation!=null) {
+    const liq=ind.liquidation;
+    if (liq.value>=5000000)      {score+=10;breakdown.push({label:`Liq ${fmtVol(liq.value)} 🔥`,pts:10,hit:true});}
+    else if (liq.value>=1000000) {score+=8; breakdown.push({label:`Liq ${fmtVol(liq.value)}`,pts:8,hit:true});}
+    else if (liq.value>=500000)  {score+=5; breakdown.push({label:`Liq ${fmtVol(liq.value)}`,pts:5,hit:true});}
+    else if (liq.value>=100000)  {score+=2; breakdown.push({label:`Liq ${fmtVol(liq.value)}`,pts:2,hit:true});}
+    else {breakdown.push({label:`Liq ${fmtVol(liq.value)}`,pts:0,hit:false});}
+  } else {breakdown.push({label:'Liquidation',pts:'N/A',hit:null});}
+
+  // 9. Funding Rate (10 pts max) — graduated, 1h/4h only, negative = bonus
   if (ind.fundingRate!=null) {
     const fr=ind.fundingRate*100;
-    if (fr<0)           {score+=10;breakdown.push({label:`Funding ${fr.toFixed(4)}% ✓`,pts:10,hit:true});}
-    else if (fr<0.005)  {score+=5; breakdown.push({label:`Funding ~0%`,pts:5,hit:true});}
-    else {breakdown.push({label:`Funding +${fr.toFixed(4)}%`,pts:0,hit:false});}
+    if (ind.fundingInterval&&(ind.fundingInterval===1||ind.fundingInterval===4)) {
+      if (fr<=-2.0)       {score+=10;breakdown.push({label:`Funding ${fr.toFixed(3)}% (max)`,pts:10,hit:true});}
+      else if (fr<=-1.8)  {score+=9; breakdown.push({label:`Funding ${fr.toFixed(3)}%`,pts:9,hit:true});}
+      else if (fr<=-1.6)  {score+=8; breakdown.push({label:`Funding ${fr.toFixed(3)}%`,pts:8,hit:true});}
+      else if (fr<=-1.4)  {score+=7; breakdown.push({label:`Funding ${fr.toFixed(3)}%`,pts:7,hit:true});}
+      else if (fr<=-1.2)  {score+=6; breakdown.push({label:`Funding ${fr.toFixed(3)}%`,pts:6,hit:true});}
+      else if (fr<=-1.0)  {score+=5; breakdown.push({label:`Funding ${fr.toFixed(3)}%`,pts:5,hit:true});}
+      else if (fr<=-0.8)  {score+=4; breakdown.push({label:`Funding ${fr.toFixed(3)}%`,pts:4,hit:true});}
+      else if (fr<=-0.6)  {score+=3; breakdown.push({label:`Funding ${fr.toFixed(3)}%`,pts:3,hit:true});}
+      else if (fr<=-0.4)  {score+=2; breakdown.push({label:`Funding ${fr.toFixed(3)}%`,pts:2,hit:true});}
+      else if (fr<=-0.2)  {score+=1; breakdown.push({label:`Funding ${fr.toFixed(3)}%`,pts:1,hit:true});}
+      else {breakdown.push({label:`Funding ${fr.toFixed(3)}% (skip)`,pts:0,hit:false});}
+    } else {
+      breakdown.push({label:`Funding ${fr.toFixed(3)}% (8h,skip)`,pts:0,hit:false});
+    }
   } else {breakdown.push({label:'Funding Rate',pts:'N/A',hit:null});}
 
-  // Cap at 100
-  score = Math.min(score, 100);
-  return {score, breakdown, signal:getSignal(score)};
+  // Max 120
+  score=Math.min(score,120);
+  return {score,breakdown,signal:getSignal(score)};
 }
 
 function getSignal(score) {
