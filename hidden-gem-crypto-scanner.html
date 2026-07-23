@@ -917,20 +917,7 @@ table.sct tbody td { padding: 0.7rem 0.9rem; vertical-align: middle; }
 
   <!-- Exchange filter + Sort — hidden until results arrive -->
   <div id="sc-result-filters" style="display:none;">
-    <div class="sc-exchange-bar" id="sc-exch-bar">
-      <span class="sc-label" style="margin-right:0.2rem;">Filter Exchange:</span>
-      <span class="sc-exch-chip active" data-ex="all" onclick="toggleExchFilter(this)">All</span>
-      <span class="sc-exch-chip" data-ex="binance" onclick="toggleExchFilter(this)">Binance</span>
-      <span class="sc-exch-chip" data-ex="bybit" onclick="toggleExchFilter(this)">Bybit</span>
-      <span class="sc-exch-chip" data-ex="okx" onclick="toggleExchFilter(this)">OKX</span>
-      <span class="sc-exch-chip" data-ex="gateio" onclick="toggleExchFilter(this)">Gate.io</span>
-      <span class="sc-exch-chip" data-ex="kucoin" onclick="toggleExchFilter(this)">KuCoin</span>
-      <span class="sc-exch-chip" data-ex="mexc" onclick="toggleExchFilter(this)">MEXC</span>
-      <span class="sc-exch-chip" data-ex="bitget" onclick="toggleExchFilter(this)">Bitget</span>
-      <span class="sc-exch-chip" data-ex="huobi" onclick="toggleExchFilter(this)">HTX/Huobi</span>
-      <span class="sc-exch-chip" data-ex="coinbase" onclick="toggleExchFilter(this)">Coinbase</span>
-      <span class="sc-exch-chip" data-ex="kraken" onclick="toggleExchFilter(this)">Kraken</span>
-    </div>
+    <!-- Exchange filter chips removed — badges shown in result table (loaded in background) -->
     <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:1rem;flex-wrap:wrap;">
       <span class="sc-label">Sort By:</span>
       <select class="sc-select" id="sc-sort" onchange="applyFiltersAndRender()">
@@ -1041,7 +1028,7 @@ const PAGE_SIZE = 50;
 
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
-// ── EXCHANGE DIRECT APIs ──
+// ── EXCHANGE CONFIG (display only — badges in result table) ──
 const EXCHANGES = {
   binance:  { label: 'Binance',   cls: 'bn' },
   bybit:    { label: 'Bybit',     cls: 'bb' },
@@ -1055,7 +1042,35 @@ const EXCHANGES = {
   kraken:   { label: 'Kraken',    cls: 'kr' },
 };
 
-// Fetch USDT symbols from each exchange directly
+// ── BACKGROUND EXCHANGE FETCH — silently updates badges after main results show ──
+let exchangeSymbolCache = {};
+
+async function fetchExchangeSymbolsBg() {
+  const fetchers = [
+    ['binance',  () => fetch('https://api.binance.com/api/v3/exchangeInfo', {signal:AbortSignal.timeout(10000)}).then(r=>r.json()).then(d=>new Set(d.symbols.filter(s=>s.quoteAsset==='USDT'&&s.status==='TRADING').map(s=>s.baseAsset.toUpperCase())))],
+    ['bybit',    () => fetch('https://api.bybit.com/v5/market/instruments-info?category=spot&limit=1000', {signal:AbortSignal.timeout(10000)}).then(r=>r.json()).then(d=>new Set((d.result?.list||[]).filter(s=>s.quoteCoin==='USDT'&&s.status==='Trading').map(s=>s.baseCoin.toUpperCase())))],
+    ['okx',      () => fetch('https://www.okx.com/api/v5/public/instruments?instType=SPOT', {signal:AbortSignal.timeout(10000)}).then(r=>r.json()).then(d=>new Set((d.data||[]).filter(s=>s.quoteCcy==='USDT'&&s.state==='live').map(s=>s.baseCcy.toUpperCase())))],
+    ['bitget',   () => fetch('https://api.bitget.com/api/v2/spot/public/symbols', {signal:AbortSignal.timeout(10000)}).then(r=>r.json()).then(d=>new Set((d.data||[]).filter(s=>s.quoteCoin==='USDT'&&s.status==='online').map(s=>s.baseCoin.toUpperCase())))],
+    ['huobi',    () => fetch('https://api.huobi.pro/market/tickers', {signal:AbortSignal.timeout(10000)}).then(r=>r.json()).then(d=>new Set((d.data||[]).filter(s=>s.symbol&&s.symbol.endsWith('usdt')).map(s=>s.symbol.replace('usdt','').toUpperCase())))],
+    ['mexc',     () => fetch('https://api.mexc.com/api/v3/exchangeInfo', {signal:AbortSignal.timeout(10000)}).then(r=>r.json()).then(d=>new Set((d.symbols||[]).filter(s=>s.quoteAsset==='USDT'&&s.status==='1').map(s=>s.baseAsset.toUpperCase())))],
+  ];
+  const results = await Promise.allSettled(fetchers.map(([,fn]) => fn()));
+  fetchers.forEach(([key], i) => {
+    exchangeSymbolCache[key] = results[i].status === 'fulfilled' ? results[i].value : new Set();
+  });
+  // Update exchange list on all coins
+  allCoins.forEach(coin => {
+    const sym = coin.symbol.replace('USDT','');
+    const found = Object.entries(exchangeSymbolCache).filter(([,set])=>set.has(sym)).map(([key])=>key);
+    if (!found.includes('binance')) found.unshift('binance');
+    coin.exchanges = found;
+    coin.exchangeCount = found.length;
+  });
+  applyFiltersAndRender();
+  setStatus(`✓ Exchange badges updated — ${allCoins.length} coins`, 'live');
+}
+
+// OLD fetchExchangeSymbols kept as stub (unused now)
 async function fetchExchangeSymbols(key) {
   try {
     switch(key) {
@@ -1228,10 +1243,7 @@ function showError(msg) {
 }
 
 function toggleExchFilter(el) {
-  document.querySelectorAll('.sc-exch-chip').forEach(c => c.classList.remove('active'));
-  el.classList.add('active');
-  activeExchFilter = el.dataset.ex;
-  applyFiltersAndRender();
+  // Exchange filter chips removed from UI — no-op
 }
 
 // ── SCAN MODE TOGGLE ──
@@ -1296,58 +1308,27 @@ async function runScanner() {
 async function runCoinSearch() {
   const btn = document.getElementById('sc-run-btn');
   const coinInput = (document.getElementById('sc-coin-input')?.value || '').toUpperCase().trim();
-  if (!coinInput) {
-    showError('Please enter a coin symbol (e.g. PEPE, WIF, SHIB)');
-    return;
-  }
+  if (!coinInput) { showError('Please enter a coin symbol (e.g. PEPE, WIF, SHIB)'); return; }
 
   btn.disabled = true; btn.textContent = '⏳ Searching...';
   allCoins = []; filteredCoins = [];
   document.getElementById('sc-summary').style.display = 'none';
   document.getElementById('sc-pagination').style.display = 'none';
   document.getElementById('sc-table-container').innerHTML = `
-    <div class="sc-empty">
-      <div class="sc-spinner"></div>
-      Checking ${coinInput} across 10 exchanges...<br>
-      <span style="font-size:0.75rem;margin-top:0.3rem;display:block;">~5 seconds</span>
-    </div>`;
+    <div class="sc-empty"><div class="sc-spinner"></div>Fetching ${coinInput} data...<br>
+    <span style="font-size:0.75rem;margin-top:0.3rem;display:block;">~3 seconds</span></div>`;
 
   try {
-    setStatus(`Checking ${coinInput} on all exchanges...`, 'loading');
-    const exchKeys = Object.keys(EXCHANGES);
-
-    // Fetch all exchange symbol lists in parallel
-    const results = await Promise.allSettled(exchKeys.map(k => fetchExchangeSymbols(k)));
-    const foundOn = [];
-    results.forEach((r, i) => {
-      const set = r.status === 'fulfilled' ? r.value : new Set();
-      if (set.has(coinInput)) foundOn.push(exchKeys[i]);
-    });
-
-    if (foundOn.length === 0) {
-      showError(`${coinInput} not found on any of the 10 exchanges. Check the symbol spelling.`);
-      btn.disabled = false; btn.innerHTML = '🔍 Search Coin'; return;
-    }
-
-    setStatus(`${coinInput} found on ${foundOn.length} exchanges. Fetching market data...`, 'loading');
-
-    // Fetch market data from CMC
+    setStatus(`Fetching market data for ${coinInput}...`, 'loading');
     const marketData = await fetchMarketDataCMC([coinInput]);
     const m = marketData[coinInput];
 
     const coin = {
-      id: m?.id || coinInput,
-      name: m?.name || coinInput,
-      symbol: coinInput,
-      market_cap: m?.market_cap || 0,
-      current_price: m?.current_price || 0,
-      total_volume: m?.total_volume || 0,
-      price_change_24h: m?.price_change_24h || 0,
-      exchanges: foundOn,
-      exchangeCount: foundOn.length,
-      futuresVolume: null,
-      gemScore: null,
-      indicators: null,
+      id: m?.id || coinInput, name: m?.name || coinInput, symbol: coinInput,
+      market_cap: m?.market_cap || 0, current_price: m?.current_price || 0,
+      total_volume: m?.total_volume || 0, price_change_24h: m?.price_change_24h || 0,
+      exchanges: ['binance'], exchangeCount: 1,
+      futuresVolume: null, gemScore: null, indicators: null,
     };
 
     coin.gemScore = scoreGem(coin, null);
@@ -1356,21 +1337,23 @@ async function runCoinSearch() {
     document.getElementById('sc-time').textContent = new Date().toLocaleTimeString();
     applyFiltersAndRender();
 
-    setStatus(`${coinInput} found on ${foundOn.length} exchanges. Fetching indicators...`, 'loading');
+    setStatus(`Calculating indicators for ${coinInput}...`, 'loading');
     await fetchIndicatorsForAll([coin]);
     applyFiltersAndRender();
-    setStatus(`✓ ${coinInput} — listed on ${foundOn.length} exchanges: ${foundOn.map(k=>EXCHANGES[k].label).join(', ')}`, 'live');
+    setStatus(`✓ ${coinInput} loaded — fetching exchange badges...`, 'live');
     document.getElementById('sc-result-filters').style.display = 'block';
+
+    // Background: update exchange badges
+    fetchExchangeSymbolsBg();
 
   } catch(err) {
     console.error('Coin search error:', err);
     showError('Search failed: ' + err.message);
   }
-
   btn.disabled = false; btn.innerHTML = '🔍 Search Coin';
 }
 
-// ── MODE 2: MCAP SCAN ──
+// ── MODE 2: MCAP SCAN — Binance Futures + CMC only (fast) ──
 async function runMcapScan() {
   const btn = document.getElementById('sc-run-btn');
   btn.disabled = true; btn.innerHTML = '⏳ Scanning...';
@@ -1379,75 +1362,48 @@ async function runMcapScan() {
   document.getElementById('sc-pagination').style.display = 'none';
   document.getElementById('sc-result-filters').style.display = 'none';
   document.getElementById('sc-table-container').innerHTML = `
-    <div class="sc-empty">
-      <div class="sc-spinner"></div>
-      Fetching symbol lists from exchanges...<br>
-      <span style="font-size:0.75rem;margin-top:0.3rem;display:block;">~10–20 seconds</span>
-    </div>`;
+    <div class="sc-empty"><div class="sc-spinner"></div>
+    Fetching Binance Futures coin list...<br>
+    <span style="font-size:0.75rem;margin-top:0.3rem;display:block;">~5–10 seconds</span></div>`;
 
   try {
     const maxMcap = parseFloat(document.getElementById('sc-mcap-input').value) || 4000000000000;
-    const minEx   = 2; // Fixed minimum — no user filter
-    const exchKeys = Object.keys(EXCHANGES);
 
-    // STEP 1: Fetch all exchange symbol lists in parallel
-    setStatus('Fetching symbol lists from all exchanges...', 'loading');
-    const results = await Promise.allSettled(exchKeys.map(k => fetchExchangeSymbols(k)));
-    const exchSymbolSets = {};
-    let liveCount = 0;
-    results.forEach((r, i) => {
-      const key = exchKeys[i];
-      const set = r.status === 'fulfilled' ? r.value : new Set();
-      exchSymbolSets[key] = set;
-      if (set.size > 0) liveCount++;
-    });
-    setStatus(`✓ ${liveCount}/${exchKeys.length} exchanges live. Finding multi-exchange coins...`, 'loading');
-
-    // STEP 2: Find coins on minEx+ exchanges
-    const symbolExchangeMap = {};
-    for (const [key, set] of Object.entries(exchSymbolSets)) {
-      for (const sym of set) {
-        if (!symbolExchangeMap[sym]) symbolExchangeMap[sym] = [];
-        symbolExchangeMap[sym].push(key);
-      }
+    // STEP 1: Binance Futures USDT perp symbols
+    setStatus('Fetching Binance Futures symbols...', 'loading');
+    const bnSymbols = await fetchBinanceFuturesSymbols();
+    if (bnSymbols.size === 0) {
+      showError('Binance Futures data unavailable. Try again.');
+      btn.disabled = false; btn.innerHTML = '⚡ Scan Now'; return;
     }
+    const allSymbols = [...bnSymbols];
+    setStatus(`✓ ${allSymbols.length} Binance Futures coins. Fetching CMC market data...`, 'loading');
 
-    let candidates = Object.entries(symbolExchangeMap)
-      .filter(([, exchs]) => exchs.length >= minEx)
-      .map(([sym, exchs]) => ({ sym, exchanges: exchs }));
+    // STEP 2: CMC market data
+    const marketData = await fetchMarketDataCMC(allSymbols);
+    const foundCount = Object.keys(marketData).length;
+    setStatus(`CMC: ${foundCount} coins. Applying market cap filter...`, 'loading');
 
-    setStatus(`${candidates.length} coins on ${minEx}+ exchanges. Fetching market caps from CMC...`, 'loading');
-
-    if (candidates.length === 0) {
-      showError(`No coins found on ${minEx}+ exchanges. Try lowering Min Exchanges to 4.`);
+    if (foundCount === 0) {
+      showError('CMC Worker not responding. Check CMC_WORKER_URL.');
       btn.disabled = false; btn.innerHTML = '⚡ Scan Now'; return;
     }
 
-    // STEP 3: Get market cap from CoinMarketCap
-    const allSymbols = candidates.map(c => c.sym);
-    const marketData = await fetchMarketDataCMC(allSymbols);
-    const foundCount = Object.keys(marketData).length;
-    setStatus(`CMC returned ${foundCount} coins. Applying market cap filter...`, 'loading');
-
-    // STEP 4: Filter by market cap
-    const filtered = candidates.map(c => {
-      const m = marketData[c.sym];
+    // STEP 3: Filter by mcap, build coin objects
+    const filtered = allSymbols.map(sym => {
+      const m = marketData[sym];
       if (!m || !m.market_cap || m.market_cap <= 0 || m.market_cap > maxMcap) return null;
       return {
-        id: m.id, name: m.name, symbol: c.sym,
+        id: m.id, name: m.name, symbol: sym,
         market_cap: m.market_cap, current_price: m.current_price,
         total_volume: m.total_volume, price_change_24h: m.price_change_24h,
-        exchanges: c.exchanges, exchangeCount: c.exchanges.length,
+        exchanges: ['binance'], exchangeCount: 1,
         futuresVolume: null, gemScore: null, indicators: null,
       };
     }).filter(Boolean);
 
     if (filtered.length === 0) {
-      if (foundCount === 0) {
-        showError('Worker not configured yet. Please update CMC_WORKER_URL in the script.');
-      } else {
-        showError(`No coins with market cap ≤ ${fmtMcap(maxMcap)} on ${minEx}+ exchanges. Try raising Max Market Cap.`);
-      }
+      showError(`No coins matched market cap ≤ ${fmtMcap(maxMcap)}. Try raising the limit.`);
       btn.disabled = false; btn.innerHTML = '⚡ Scan Now'; return;
     }
 
@@ -1457,17 +1413,19 @@ async function runMcapScan() {
     filtered.forEach(c => { c.gemScore = scoreGem(c, null); });
     applyFiltersAndRender();
 
-    setStatus(`Found ${filtered.length} gems! Calculating technical scores...`, 'loading');
+    setStatus(`Found ${filtered.length} coins! Calculating Gem Scores...`, 'loading');
     await fetchIndicatorsForAll(filtered);
     applyFiltersAndRender();
-    setStatus(`✓ Scan complete — ${filtered.length} hidden gems`, 'live');
+    setStatus(`✓ Scan complete — ${filtered.length} coins — fetching exchange badges...`, 'live');
     document.getElementById('sc-result-filters').style.display = 'block';
+
+    // Background: exchange badges (non-blocking)
+    fetchExchangeSymbolsBg();
 
   } catch(err) {
     console.error('Scanner error:', err);
     showError('Scan failed: ' + err.message);
   }
-
   btn.disabled = false; btn.innerHTML = '⚡ Scan Now';
 }
 
@@ -1517,30 +1475,12 @@ async function runGemScoreScan() {
       btn.disabled = false; btn.innerHTML = '⭐ Find Gems'; return;
     }
 
-    // STEP 2: Exchange symbol lists
-    setStatus(`✓ ${bnFutSymbols.size} Binance Futures coins. Checking exchanges...`, 'loading');
-    const exchKeys = Object.keys(EXCHANGES);
-    const results = await Promise.allSettled(exchKeys.map(k => fetchExchangeSymbols(k)));
-    const exchSymbolSets = {};
-    results.forEach((r, i) => {
-      exchSymbolSets[exchKeys[i]] = r.status === 'fulfilled' ? r.value : new Set();
-    });
-
-    // STEP 3: Build coin map
+    // STEP 2: CMC market data
     const allSymbols = [...bnFutSymbols];
-    const symbolExchangeMap = {};
-    for (const sym of allSymbols) {
-      symbolExchangeMap[sym] = [];
-      for (const [key, set] of Object.entries(exchSymbolSets)) {
-        if (set.has(sym)) symbolExchangeMap[sym].push(key);
-      }
-    }
-
-    // STEP 4: CMC market data
-    setStatus(`Fetching CMC market data for ${allSymbols.length} coins...`, 'loading');
+    setStatus(`✓ ${allSymbols.length} Binance Futures coins. Fetching CMC data...`, 'loading');
     const marketData = await fetchMarketDataCMC(allSymbols);
 
-    // STEP 5: Build coin objects
+    // STEP 3: Build coin objects
     const coins = allSymbols.map(sym => {
       const m = marketData[sym];
       if (!m) return null;
@@ -1550,32 +1490,35 @@ async function runGemScoreScan() {
         current_price: m.current_price || 0,
         total_volume: m.total_volume || 0,
         price_change_24h: m.price_change_24h || 0,
-        exchanges: symbolExchangeMap[sym] || [],
-        exchangeCount: (symbolExchangeMap[sym] || []).length,
+        exchanges: ['binance'], exchangeCount: 1,
         futuresVolume: null, gemScore: null, indicators: null,
       };
     }).filter(Boolean);
 
-    // STEP 6: Calculate initial scores + fetch indicators
+    // STEP 4: Initial scores + render
     coins.forEach(c => { c.gemScore = scoreGem(c, null); });
     allCoins = coins;
     document.getElementById('sc-count').textContent = coins.length;
     document.getElementById('sc-time').textContent = new Date().toLocaleTimeString();
+    applyFiltersAndRender();
 
+    // STEP 5: Fetch indicators
     setStatus(`Calculating indicators for ${coins.length} coins... (${minScore}+ score filter)`, 'loading');
     await fetchIndicatorsForAll(coins);
 
-    // STEP 7: Filter by gem score
+    // STEP 6: Filter by gem score
     const filtered = coins.filter(c => (c.gemScore?.score || 0) >= minScore);
-    allCoins = filtered.length > 0 ? filtered : coins; // fallback: show all if none match
+    allCoins = filtered.length > 0 ? filtered : coins;
 
     applyFiltersAndRender();
 
     if (filtered.length === 0) {
-      setStatus(`No coins found with Gem Score ≥ ${minScore}. Try lowering the score.`, '');
+      setStatus(`No coins with Gem Score ≥ ${minScore}. Try lowering the score.`, '');
     } else {
-      setStatus(`✓ Found ${filtered.length} coins with Gem Score ≥ ${minScore}`, 'live');
+      setStatus(`✓ Found ${filtered.length} coins with Gem Score ≥ ${minScore} — fetching exchange badges...`, 'live');
       document.getElementById('sc-result-filters').style.display = 'block';
+      // Background: exchange badges
+      fetchExchangeSymbolsBg();
     }
 
   } catch(err) {
@@ -1702,59 +1645,118 @@ function calcMACD(closes) {
   return {bullish,histGrowing,momentum,macd:macdLine};
 }
 
-function calcVolSpike(volumes) {
-  if (volumes.length<21) return null;
-  // 1h lookback = last 4 candles (15m×4)
-  const recentVol=volumes.slice(-4).reduce((a,b)=>a+b,0);
-  const avgVol=volumes.slice(-21,-4).reduce((a,b)=>a+b,0)/17*4;
-  return avgVol>0 ? recentVol/avgVol : null;
+// ── MULTI-TIMEFRAME VOL SPIKE — 15m + 1h + 4h combined ──
+function calcVolSpike15m(volumes) {
+  if (volumes.length < 21) return null;
+  const recentVol = volumes.slice(-4).reduce((a,b)=>a+b,0);   // last 1h (4×15m)
+  const avgVol    = volumes.slice(-21,-4).reduce((a,b)=>a+b,0)/17*4;
+  return avgVol > 0 ? recentVol/avgVol : null;
+}
+function calcVolSpike1h(volumes) {
+  if (volumes.length < 6) return null;
+  const recent = volumes.slice(-1)[0];       // latest 1h candle vol
+  const avg    = volumes.slice(-6,-1).reduce((a,b)=>a+b,0)/5;
+  return avg > 0 ? recent/avg : null;
+}
+function calcVolSpike4h(volumes) {
+  if (volumes.length < 6) return null;
+  const recent = volumes.slice(-1)[0];       // latest 4h candle vol
+  const avg    = volumes.slice(-6,-1).reduce((a,b)=>a+b,0)/5;
+  return avg > 0 ? recent/avg : null;
+}
+// Combined: weighted average of all 3 TF spikes
+function calcCombinedVolSpike(s15m, s1h, s4h) {
+  const vals = [[s15m,0.5],[s1h,0.3],[s4h,0.2]].filter(([v])=>v!=null);
+  if (vals.length === 0) return null;
+  const totalW = vals.reduce((a,[,w])=>a+w,0);
+  return vals.reduce((a,[v,w])=>a+v*w,0)/totalW;
+}
+
+// ── MULTI-TIMEFRAME PRICE CHANGE — 15m + 1h + 4h combined ──
+function calcPriceChange(candles) {
+  if (!candles || candles.length < 2) return null;
+  const open  = parseFloat(candles[0][1]);
+  const close = parseFloat(candles[candles.length-1][4]);
+  return open > 0 ? ((close-open)/open)*100 : null;
+}
+function calcCombinedPriceChange(pc15m, pc1h, pc4h) {
+  const vals = [[pc15m,0.5],[pc1h,0.3],[pc4h,0.2]].filter(([v])=>v!=null);
+  if (vals.length === 0) return null;
+  const totalW = vals.reduce((a,[,w])=>a+w,0);
+  return vals.reduce((a,[v,w])=>a+v*w,0)/totalW;
 }
 
 async function fetchIndicatorsForAll(coins) {
-  const BATCH=5;
+  const BATCH = 5;
   const btcTrend = await fetchBTCTrend();
   for (let i=0; i<coins.length; i+=BATCH) {
     await Promise.all(coins.slice(i,i+BATCH).map(async (coin) => {
       try {
-        const sym=coin.symbol.replace('USDT','');
-        const [candles,oiData,futuresTicker,fundingData,liqData] = await Promise.all([
+        const sym = coin.symbol.replace('USDT','');
+        const [c15m, c1h, c4h, oiData, futuresTicker, fundingData, liqData] = await Promise.all([
           fetchBinanceCandles(sym,'15m',210),
+          fetchBinanceCandles(sym,'1h',10),
+          fetchBinanceCandles(sym,'4h',10),
           fetchBinanceOI(sym),
           fetchBinanceFuturesTicker(sym),
           fetchBinanceFundingRate(sym),
           fetchLiquidation(sym),
         ]);
-        let ind={rsi:null,macd:null,ema20:null,ema50:null,ema200:null,lastPrice:null,
-                 volSpike:null,oiChange:null,fundingRate:null,fundingInterval:null,
-                 btcTrend:btcTrend,liquidation:liqData};
-        if (candles&&candles.length>=20) {
-          const closes=candles.map(c=>parseFloat(c[4]));
-          const vols=candles.map(c=>parseFloat(c[5]));
-          ind.rsi=calcRSI(closes);
-          ind.macd=calcMACD(closes);
-          ind.ema20=calcEMA(closes,20);
-          ind.ema50=calcEMA(closes,50);
-          ind.ema200=calcEMA(closes,200);
-          ind.lastPrice=closes[closes.length-1];
-          ind.volSpike=calcVolSpike(vols);
+
+        let ind = {rsi:null,macd:null,ema20:null,ema50:null,ema200:null,lastPrice:null,
+                   volSpike:null,priceChange:null,oiChange:null,
+                   fundingRate:null,fundingInterval:null,btcTrend:btcTrend,liquidation:liqData};
+
+        // 15m candles — RSI, MACD, EMA (needs 210 candles)
+        if (c15m && c15m.length >= 20) {
+          const closes = c15m.map(c=>parseFloat(c[4]));
+          const vols   = c15m.map(c=>parseFloat(c[5]));
+          ind.rsi      = calcRSI(closes);
+          ind.macd     = calcMACD(closes);
+          ind.ema20    = calcEMA(closes,20);
+          ind.ema50    = calcEMA(closes,50);
+          ind.ema200   = calcEMA(closes,200);
+          ind.lastPrice= closes[closes.length-1];
+          // Vol spike 15m
+          var vs15m = calcVolSpike15m(vols);
+          // Price change 15m
+          var pc15m = calcPriceChange(c15m);
         }
-        if (oiData&&Array.isArray(oiData)&&oiData.length>=2) {
-          const first=parseFloat(oiData[0].sumOpenInterest);
-          const last=parseFloat(oiData[oiData.length-1].sumOpenInterest);
-          ind.oiChange=first>0?((last-first)/first*100):null;
+
+        // 1h candles — vol spike + price change
+        var vs1h = null, pc1h = null;
+        if (c1h && c1h.length >= 6) {
+          vs1h = calcVolSpike1h(c1h.map(c=>parseFloat(c[5])));
+          pc1h = calcPriceChange(c1h);
         }
-        if (futuresTicker&&futuresTicker.quoteVolume) {
-          coin.futuresVolume=parseFloat(futuresTicker.quoteVolume);
+
+        // 4h candles — vol spike + price change
+        var vs4h = null, pc4h = null;
+        if (c4h && c4h.length >= 6) {
+          vs4h = calcVolSpike4h(c4h.map(c=>parseFloat(c[5])));
+          pc4h = calcPriceChange(c4h);
+        }
+
+        ind.volSpike    = calcCombinedVolSpike(vs15m||null, vs1h, vs4h);
+        ind.priceChange = calcCombinedPriceChange(pc15m||null, pc1h, pc4h);
+
+        if (oiData && Array.isArray(oiData) && oiData.length >= 2) {
+          const first = parseFloat(oiData[0].sumOpenInterest);
+          const last  = parseFloat(oiData[oiData.length-1].sumOpenInterest);
+          ind.oiChange = first > 0 ? ((last-first)/first*100) : null;
+        }
+        if (futuresTicker && futuresTicker.quoteVolume) {
+          coin.futuresVolume = parseFloat(futuresTicker.quoteVolume);
         }
         if (fundingData) {
-          ind.fundingRate=fundingData.rate;
-          ind.fundingInterval=fundingData.interval;
+          ind.fundingRate     = fundingData.rate;
+          ind.fundingInterval = fundingData.interval;
         }
-        coin.indicators=ind;
-        coin.gemScore=scoreGem(coin,ind);
-      } catch(e) { coin.gemScore=scoreGem(coin,null); }
+        coin.indicators = ind;
+        coin.gemScore   = scoreGem(coin, ind);
+      } catch(e) { coin.gemScore = scoreGem(coin, null); }
     }));
-    if (i+BATCH<coins.length) await sleep(300);
+    if (i+BATCH < coins.length) await sleep(300);
   }
 }
 
@@ -1777,13 +1779,23 @@ function scoreGem(coin, ind) {
     return {score,breakdown,signal:getSignal(score)};
   }
 
-  // 2. Vol Spike (20 pts max)
+  // 2. Vol Spike — 15m+1h+4h combined (20 pts max)
   if (ind.volSpike!=null) {
-    if (ind.volSpike>=3)        {score+=20;breakdown.push({label:`Vol ${ind.volSpike.toFixed(1)}x 🚀`,pts:20,hit:true});}
-    else if (ind.volSpike>=2)   {score+=15;breakdown.push({label:`Vol ${ind.volSpike.toFixed(1)}x`,pts:15,hit:true});}
-    else if (ind.volSpike>=1.5) {score+=10;breakdown.push({label:`Vol ${ind.volSpike.toFixed(1)}x`,pts:10,hit:true});}
-    else {breakdown.push({label:`Vol ${ind.volSpike.toFixed(1)}x`,pts:0,hit:false});}
-  } else {breakdown.push({label:'Vol Spike',pts:'N/A',hit:null});}
+    if (ind.volSpike>=3)        {score+=20;breakdown.push({label:`Vol ${ind.volSpike.toFixed(1)}x 🚀 (3TF)`,pts:20,hit:true});}
+    else if (ind.volSpike>=2)   {score+=15;breakdown.push({label:`Vol ${ind.volSpike.toFixed(1)}x (3TF)`,pts:15,hit:true});}
+    else if (ind.volSpike>=1.5) {score+=10;breakdown.push({label:`Vol ${ind.volSpike.toFixed(1)}x (3TF)`,pts:10,hit:true});}
+    else {breakdown.push({label:`Vol ${ind.volSpike.toFixed(1)}x (3TF)`,pts:0,hit:false});}
+  } else {breakdown.push({label:'Vol Spike (3TF)',pts:'N/A',hit:null});}
+
+  // 2b. Price Change — 15m+1h+4h combined (10 pts max, built into vol section)
+  if (ind.priceChange!=null) {
+    const pc = ind.priceChange;
+    if (pc>=5)       {score+=10;breakdown.push({label:`PriceChg +${pc.toFixed(1)}% 🔥 (3TF)`,pts:10,hit:true});}
+    else if (pc>=3)  {score+=7; breakdown.push({label:`PriceChg +${pc.toFixed(1)}% (3TF)`,pts:7,hit:true});}
+    else if (pc>=1)  {score+=4; breakdown.push({label:`PriceChg +${pc.toFixed(1)}% (3TF)`,pts:4,hit:true});}
+    else if (pc>=0)  {score+=1; breakdown.push({label:`PriceChg +${pc.toFixed(1)}% (3TF)`,pts:1,hit:true});}
+    else             {breakdown.push({label:`PriceChg ${pc.toFixed(1)}% (3TF)`,pts:0,hit:false});}
+  } else {breakdown.push({label:'PriceChg (3TF)',pts:'N/A',hit:null});}
 
   // 3. OI Change (20 pts max)
   if (ind.oiChange!=null) {
@@ -1858,8 +1870,8 @@ function scoreGem(coin, ind) {
     }
   } else {breakdown.push({label:'Funding Rate',pts:'N/A',hit:null});}
 
-  // Max 120
-  score=Math.min(score,120);
+  // Max 130 (added 10pts for PriceChange 3TF)
+  score=Math.min(score,130);
   return {score,breakdown,signal:getSignal(score)};
 }
 
@@ -1895,6 +1907,11 @@ function indicatorPills(coin) {
   if (ind.volSpike!=null) {
     const c=ind.volSpike>=2?'#00ff88':ind.volSpike>=1.5?'#ffa040':'var(--muted)';
     pills.push(`<span style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;padding:0.15rem 0.45rem;border-radius:3px;border:1px solid ${c}20;color:${c};background:${c}10;">Vol ${ind.volSpike.toFixed(1)}x</span>`);
+  }
+  if (ind.priceChange!=null) {
+    const pc=ind.priceChange;
+    const c=pc>=3?'#00ff88':pc>=1?'#ffa040':pc>=0?'var(--muted)':'#ff5555';
+    pills.push(`<span style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;padding:0.15rem 0.45rem;border-radius:3px;border:1px solid ${c}20;color:${c};background:${c}10;">Chg ${pc>=0?'+':''}${pc.toFixed(1)}%</span>`);
   }
   if (ind.macd!=null) {
     const c=ind.macd.bullish?'#00ff88':'#ff5555';
