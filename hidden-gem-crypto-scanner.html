@@ -1108,7 +1108,7 @@ async function fetchExchangeSymbols(key) {
         return new Set((d.data || []).filter(s => s.quoteCoin === 'USDT' && s.status === 'online').map(s => s.baseCoin.toUpperCase()));
       }
       case 'huobi': {
-        // Huobi CORS blocked on desktop — skip
+        // HTX/Huobi CORS blocked on desktop — skip
         return new Set();
       }
       case 'coinbase': {
@@ -1120,12 +1120,8 @@ async function fetchExchangeSymbols(key) {
         } catch(e) { return new Set(); }
       }
       case 'kraken': {
-        try {
-          const r = await fetch(`${CMC_WORKER_URL}/exchange?name=kraken`, );
-          if (!r.ok) return new Set();
-          const d = await r.json();
-          return new Set(d.symbols || []);
-        } catch(e) { return new Set(); }
+        // Kraken CORS blocked on desktop — skip
+        return new Set();
       }
       default: return new Set();
     }
