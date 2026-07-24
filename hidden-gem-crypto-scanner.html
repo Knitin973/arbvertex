@@ -1108,10 +1108,8 @@ async function fetchExchangeSymbols(key) {
         return new Set((d.data || []).filter(s => s.quoteCoin === 'USDT' && s.status === 'online').map(s => s.baseCoin.toUpperCase()));
       }
       case 'huobi': {
-        const r = await fetch('https://api.huobi.pro/market/tickers', );
-        if (!r.ok) return new Set();
-        const d = await r.json();
-        return new Set((d.data || []).filter(s => s.symbol && s.symbol.endsWith('usdt')).map(s => s.symbol.replace('usdt','').toUpperCase()));
+        // Huobi CORS blocked on desktop — skip
+        return new Set();
       }
       case 'coinbase': {
         try {
@@ -1624,10 +1622,8 @@ async function fetchBinanceOI(symbol) {
 
 async function fetchBTCTrend() {
   try {
-    const url = IS_MOBILE
-      ? `${FAPI_BASE}/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=6`
-      : `${BINANCE_PROXY}/binance/btc?tf=1h`;
-    const r = await fetch(url, {signal:AbortSignal.timeout(10000)});
+    // BTC direct fapi — no 418 issue for BTC, Worker /binance/btc is broken
+    const r = await fetch(`${FAPI_BASE}/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=6`, {signal:AbortSignal.timeout(10000)});
     if (!r.ok) return null;
     const d = await r.json();
     if (!d || d.length < 2) return null;
