@@ -1474,19 +1474,34 @@ async function runMcapScan() {
 
 // ── BINANCE FUTURES SYMBOL LIST ──
 async function fetchBinanceFuturesSymbols() {
-  try {
-    const r = await fetch('https://fapi.binance.com/fapi/v1/exchangeInfo', {signal:AbortSignal.timeout(15000)});
-    if (!r.ok) return new Set();
-    const d = await r.json();
+  const parse = (d) => {
     const syms = (d.symbols || [])
       .filter(s => s.quoteAsset === 'USDT' && s.status === 'TRADING' && s.contractType === 'PERPETUAL')
       .map(s => s.baseAsset.toUpperCase());
-    console.log('Futures symbols loaded: ' + syms.length);
-    return syms.length > 0 ? new Set(syms) : new Set();
-  } catch(e) {
-    console.warn('fetchBinanceFuturesSymbols failed:', e.message);
-    return new Set();
-  }
+    return syms.length > 0 ? new Set(syms) : null;
+  };
+  // Try Worker first
+  try {
+    const r = await fetch(`${BINANCE_PROXY}/binance/exchangeinfo`, {signal:AbortSignal.timeout(12000)});
+    if (r.ok) {
+      const d = await r.json();
+      const result = parse(d);
+      if (result && result.size > 100) {
+        console.log('Futures via Worker: ' + result.size);
+        return result;
+      }
+    }
+  } catch(e) { console.warn('Worker exchangeinfo failed:', e.message); }
+  // Fallback: direct fapi
+  try {
+    const r = await fetch('https://fapi.binance.com/fapi/v1/exchangeInfo', {signal:AbortSignal.timeout(12000)});
+    if (r.ok) {
+      const d = await r.json();
+      const result = parse(d);
+      if (result) { console.log('Futures via direct fapi: ' + result.size); return result; }
+    }
+  } catch(e) { console.warn('Direct fapi failed:', e.message); }
+  return new Set();
 }
 
 // ── MODE 3: GEM SCORE SCAN ──
@@ -1588,11 +1603,11 @@ async function runGemScoreScan() {
 
 // ── BINANCE INDICATORS (unchanged from original) ──
 // ── PROXY URL ──
-// ── DIRECT BINANCE FAPI — No proxy needed ──
+const BINANCE_PROXY = 'https://arbvertex-proxy.knitin973.workers.dev';
 
 async function fetchBinanceCandles(symbol, interval='15m', limit=210) {
   try {
-    const r = await fetch(`https://fapi.binance.com/fapi/v1/klines?symbol=${symbol}USDT&interval=${interval}&limit=${limit}`, {signal:AbortSignal.timeout(10000)});
+    const r = await fetch(`${BINANCE_PROXY}/binance/candles?symbol=${symbol}&interval=${interval}&limit=${limit}`);
     if (!r.ok) return null;
     return await r.json();
   } catch(e) { return null; }
@@ -1600,8 +1615,7 @@ async function fetchBinanceCandles(symbol, interval='15m', limit=210) {
 
 async function fetchBinanceOI(symbol) {
   try {
-    // openInterestHist: period=15m, limit=5
-    const r = await fetch(`https://fapi.binance.com/futures/data/openInterestHist?symbol=${symbol}USDT&period=15m&limit=5`, {signal:AbortSignal.timeout(8000)});
+    const r = await fetch(`${BINANCE_PROXY}/binance/oi?symbol=${symbol}&period=15m&limit=5`, {signal:AbortSignal.timeout(8000)});
     if (!r.ok) return null;
     const d = await r.json();
     if (!Array.isArray(d) || d.length < 2) return null;
@@ -1611,54 +1625,60 @@ async function fetchBinanceOI(symbol) {
 
 async function fetchBTCTrend() {
   try {
-    const r = await fetch('https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=6', {signal:AbortSignal.timeout(8000)});
+    const r = await fetch(`${BINANCE_PROXY}/binance/btc?tf=1h`);
     if (!r.ok) return null;
     const d = await r.json();
-    if (!d || d.length < 2) return null;
-    const closes = d.map(c => parseFloat(c[4]));
-    const change = (closes[closes.length-1] - closes[0]) / closes[0] * 100;
-    if (change > 1.5) return { label:'Strong Bull ↑↑', pts:10 };
-    if (change > 0.5) return { label:'Bull ↑', pts:7 };
-    if (change > 0)   return { label:'Flat →', pts:3 };
-    return { label:'Bear ↓', pts:0 };
+    if (!d||d.length<2) return null;
+    const closes = d.map(c=>parseFloat(c[4]));
+    const change = (closes[closes.length-1]-closes[0])/closes[0]*100;
+    if (change>1.5) return 'strong';
+    else if (change>0.5) return 'pump';
+    else if (change>0) return 'same';
+    else return 'down';
   } catch(e) { return null; }
 }
 
 async function fetchLiquidation(symbol) {
+  // Worker /binance/liq returns takerlongshortRatio (not allForceOrders)
+  // We use long/short ratio as liquidation pressure signal
   try {
-    const r = await fetch(`https://fapi.binance.com/fapi/v1/allForceOrders?symbol=${symbol}USDT&limit=20`, {signal:AbortSignal.timeout(8000)});
+    const r = await fetch(`${BINANCE_PROXY}/binance/liq?symbol=${symbol}`, {signal:AbortSignal.timeout(8000)});
     if (!r.ok) return null;
     const d = await r.json();
     if (!Array.isArray(d) || d.length === 0) return null;
-    let longLiq = 0, shortLiq = 0;
-    d.forEach(o => {
-      const qty = parseFloat(o.origQty) * parseFloat(o.price);
-      if (o.side === 'SELL') longLiq += qty;
-      else shortLiq += qty;
-    });
-    const total = longLiq + shortLiq;
-    if (total === 0) return null;
-    // Short liq dominant = bullish squeeze signal
-    const dominant = shortLiq > longLiq ? 'short_squeeze' : 'long_heavy';
-    return { value: total, type: dominant };
+    const latest = d[0];
+    const ratio = parseFloat(latest.buySellRatio || latest.longShortRatio || 0);
+    // ratio > 1 means more longs than shorts (potential long squeeze)
+    // ratio < 0.8 means shorts dominating (potential short squeeze = bullish)
+    if (ratio > 0 && ratio < 0.8) {
+      // Short squeeze pressure — bullish signal
+      return { value: 500000, type: 'short_squeeze', ratio };
+    } else if (ratio > 1.5) {
+      // Heavy long dominance — potential long liquidation
+      return { value: 200000, type: 'long_heavy', ratio };
+    }
+    return null;
   } catch(e) { return null; }
 }
 
 async function fetchBinanceFundingRate(symbol) {
+  // Worker /binance/funding uses fundingRate endpoint — returns array
+  // [{symbol, fundingRate, fundingTime, markPrice}]
   try {
-    const r = await fetch(`https://fapi.binance.com/fapi/v1/fundingRate?symbol=${symbol}USDT&limit=1`, {signal:AbortSignal.timeout(8000)});
+    const r = await fetch(`${BINANCE_PROXY}/binance/funding?symbol=${symbol}`, {signal:AbortSignal.timeout(8000)});
     if (!r.ok) return { rate:null, interval:null };
     const d = await r.json();
+    // fundingRate endpoint returns array
     const item = Array.isArray(d) ? d[0] : d;
     if (!item) return { rate:null, interval:null };
-    const rate = parseFloat(item.fundingRate ?? 0);
+    const rate = parseFloat(item.fundingRate ?? item.lastFundingRate ?? 0);
     return { rate: isNaN(rate) ? null : rate, interval: 8 };
   } catch(e) { return { rate:null, interval:null }; }
 }
 
 async function fetchBinanceFuturesTicker(symbol) {
   try {
-    const r = await fetch(`https://fapi.binance.com/fapi/v1/ticker/24hr?symbol=${symbol}USDT`, {signal:AbortSignal.timeout(8000)});
+    const r = await fetch(`${BINANCE_PROXY}/binance/ticker?symbol=${symbol}`);
     if (!r.ok) return null;
     return await r.json();
   } catch(e) { return null; }
