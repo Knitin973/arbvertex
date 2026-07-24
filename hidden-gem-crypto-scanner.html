@@ -1467,10 +1467,16 @@ async function runMcapScan() {
 
 
 // ── BINANCE FUTURES SYMBOL LIST ──
+// Includes ALL live USDT perpetuals: crypto (PERPETUAL) + stocks/commodities (TRADIFI_PERPETUAL).
+// Statuses: TRADING + PENDING_TRADING. SETTLING (delisting) excluded — no longer trades.
 async function fetchBinanceFuturesSymbols() {
   const parse = (d) => {
+    const okStatus   = new Set(['TRADING', 'PENDING_TRADING']);
+    const okContract = new Set(['PERPETUAL', 'TRADIFI_PERPETUAL']);
     const syms = (d.symbols || [])
-      .filter(s => s.quoteAsset === 'USDT' && s.status === 'TRADING' && s.contractType === 'PERPETUAL')
+      .filter(s => s.quoteAsset === 'USDT'
+                && okStatus.has(s.status)
+                && okContract.has(s.contractType))
       .map(s => s.baseAsset.toUpperCase());
     return syms.length > 0 ? new Set(syms) : null;
   };
@@ -1539,12 +1545,14 @@ async function runGemScoreScan() {
     setStatus(`Fetching CMC market data for ${allSymbols.length} coins...`, 'loading');
     const marketData = await fetchMarketDataCMC(allSymbols);
 
-    // STEP 5: Build coin objects
+    // STEP 5: Build coin objects — keep ALL Binance perps.
+    // Coins missing from CMC still show up (market_cap=0) so user sees the full perp list.
     const coins = allSymbols.map(sym => {
-      const m = marketData[sym];
-      if (!m) return null;
+      const m = marketData[sym] || {};
       return {
-        id: m.id, name: m.name, symbol: sym,
+        id: m.id || sym,
+        name: m.name || sym,
+        symbol: sym,
         market_cap: m.market_cap || 0,
         current_price: m.current_price || 0,
         total_volume: m.total_volume || 0,
@@ -1553,7 +1561,7 @@ async function runGemScoreScan() {
         exchangeCount: (symbolExchangeMap[sym] || []).length,
         futuresVolume: null, gemScore: null, indicators: null,
       };
-    }).filter(Boolean);
+    });
 
     // STEP 6: Calculate initial scores + fetch indicators
     coins.forEach(c => { c.gemScore = scoreGem(c, null); });
