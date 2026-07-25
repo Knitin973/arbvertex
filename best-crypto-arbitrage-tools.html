@@ -308,6 +308,16 @@ footer p{color:var(--muted);font-size:0.82rem;}
 .nb-primary:hover{opacity:0.85;}
 .nb-outline{border:1px solid var(--border);color:var(--text);padding:0.65rem 1.4rem;border-radius:4px;font-weight:500;font-size:0.88rem;text-decoration:none;transition:border-color .2s,color .2s;display:inline-block;}
 .nb-outline:hover{border-color:var(--accent);color:var(--accent);}
+
+.nb-wrap{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border);align-items:center;}
+.nb-back{display:inline-flex;align-items:center;gap:0.4rem;color:var(--muted);text-decoration:none;font-size:0.85rem;border:1px solid var(--border);padding:0.55rem 1rem;border-radius:4px;transition:all .2s;white-space:nowrap;}
+.nb-back:hover{border-color:var(--accent);color:var(--accent);}
+.nb-prev{display:inline-flex;align-items:center;gap:0.4rem;color:var(--text);text-decoration:none;font-size:0.85rem;border:1px solid var(--border);padding:0.55rem 1.1rem;border-radius:4px;transition:all .2s;white-space:nowrap;}
+.nb-prev:hover{border-color:var(--accent);color:var(--accent);}
+.nb-next{display:inline-flex;align-items:center;gap:0.4rem;background:var(--accent);color:var(--bg);text-decoration:none;font-size:0.85rem;font-weight:700;padding:0.55rem 1.1rem;border-radius:4px;transition:opacity .2s;white-space:nowrap;margin-left:auto;}
+.nb-next:hover{opacity:0.85;}
+.nb-step{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--muted);margin-left:0.5rem;}
+
 </style>
 <style>
 /* ══════════════════════════════════════════════════
@@ -422,7 +432,7 @@ footer p{color:var(--muted);font-size:0.82rem;}
 <a class="av-mega-link" href="what-is-crypto-futures-arbitrage.html"><span class="av-icon">📘</span><span>What is Arbitrage<span class="av-desc">Core concept explained</span></span></a>
 <a class="av-mega-link" href="how-crypto-arbitrage-signals-work.html"><span class="av-icon">⚙️</span><span>How It Works<span class="av-desc">Step-by-step process</span></span></a>
 <a class="av-mega-link" href="how-to-generate-profit-crypto-arbitrage.html"><span class="av-icon">💰</span><span>Generate Profit<span class="av-desc">Ways arbitrage earns</span></span></a>
-<a class="av-mega-link" href="crypto-arbitrage-risks-precautions.html"><span class="av-icon">⚠️</span><span>Risks &amp; Safety<span class="av-desc">What to watch for</span></span></a>
+<a class="av-mega-link" href="crypto-arbitrage-risks.html"><span class="av-icon">⚠️</span><span>Risks &amp; Safety<span class="av-desc">What to watch for</span></span></a>
 <a class="av-mega-link" href="delisting-arbitrage-crypto-arbitrage-risks-precautions.html"><span class="av-icon">🚨</span><span>Delisting Risks<span class="av-desc">Avoid this trap</span></span></a>
 <a class="av-mega-link" href="rethink-traditional-trading.html"><span class="av-icon">🔄</span><span>Rethink Trading<span class="av-desc">Why arbitrage wins</span></span></a>
 <a class="av-mega-link" href="arbitrage-portfolio-growth.html"><span class="av-icon">📈</span><span>Portfolio Growth<span class="av-desc">Long-term strategy</span></span></a>
@@ -681,16 +691,19 @@ footer p{color:var(--muted);font-size:0.82rem;}
 <a class="btn-primary" href="crypto-arbitrage-signals-pricing.html" style="text-decoration:none;">View Plans &amp; Subscribe →</a>
 </div>
 <div class="tools-nav">
-<a class="tools-btn tools-btn-ghost" href="blog.html">☰ Back to Blog</a>
+<a class="tools-btn tools-btn-ghost" href="crypto-arbitrage-blog.html">☰ Back to Blog</a>
 <a class="tools-btn tools-btn-outline" href="arbitrage-trading-fees-explained.html">← Prev: Trading Fees</a>
 <a class="tools-btn tools-btn-primary" href="delisting-arbitrage-risks.html">Next: Delisting Risks →</a>
 </div>
 </div>
-<div class="nav-btns">
-<a class="nb-outline" href="crypto-arbitrage-blog.html">☰ Back to Blog</a>
-<a class="nb-outline" href="how-to-track-funding-rates-free.html">← Prev: Track Funding Rates Free</a>
-<a class="nb-primary" href="arbitrage-trading-fees-explained.html">Next: Trading Fees Explained →</a>
-</div></div>
+</div>
+<div class="nb-wrap">
+<a class="nb-back" href="crypto-arbitrage-blog.html#exchange">☰ Back to Blog</a>
+<a class="nb-prev" href="how-to-track-funding-rates-free.html">← How to Track Crypto Funding Rates for Free</a>
+<span class="nb-step">Step 6/7</span>
+<a class="nb-next" href="arbitrage-trading-fees-explained.html">Arbitrage Trading Fees Explained →</a>
+</div>
+
 <footer><p>© 2026 ArbVertex</p><div class="footer-links"><a onclick="showPage('blog')">Blog</a><a onclick="showPage('home')">Home</a><a onclick="showPage('contact')">Contact</a></div><p style="font-size:0.75rem;">Not financial advice.</p></footer>
 </div>
 <script>
@@ -713,7 +726,7 @@ const PAGE_URL_MAP = {
  'what-is': 'what-is-crypto-futures-arbitrage.html',
  'how-it-works': 'how-crypto-arbitrage-signals-work.html',
  'profit': 'how-to-generate-profit-crypto-arbitrage.html',
- 'risks': 'crypto-arbitrage-risks-precautions.html',
+ 'risks': 'crypto-arbitrage-risks.html',
  'pricing': 'crypto-arbitrage-signals-pricing.html',
  'telegram': 'crypto-arbitrage-telegram-signals.html',
  'about': 'about-arbvertex-crypto-signals.html',
@@ -729,7 +742,7 @@ const PAGE_URL_MAP = {
  'article-5': 'best-crypto-arbitrage-exchanges.html',
  'article-6': 'cross-exchange-arbitrage-guide.html',
  'article-7': 'crypto-arbitrage-risks.html',
- 'article-8': 'arbitrage-profit-calculator-guide.html',
+ 'article-8': 'arbitrage-calculator-guide.html',
  'article-9': 'arbitrage-trading-fees-explained.html',
  'article-10': 'best-crypto-arbitrage-tools.html',
  'article-11': 'delisting-arbitrage-risks.html',
@@ -741,13 +754,13 @@ const PAGE_URL_MAP = {
  'delisting-risks': 'delisting-arbitrage-risks.html',
  'rethink-trading': 'rethink-traditional-trading.html',
  'portfolio-growth': 'arbitrage-portfolio-growth.html',
- 'when-to-avoid': 'when-to-avoid-arbitrage-delisting.html',
- 'why-choose': 'why-choose-arbvertex.html',
+ 'when-to-avoid': 'delisting-arbitrage-risks.html',
+ 'why-choose': 'why-choose-arbvertex-over-other-arbitrage-platforms.html',
  'how-to-start': 'how-to-start-crypto-futures-arbitrage.html',
- 'triangular-crypto': 'triangular-arbitrage-crypto.html',
+ 'triangular-crypto': 'triangular-arbitrage-explained.html',
  'calculator-guide': 'arbitrage-calculator-guide.html',
  'funding-guide': 'funding-rate-arbitrage-guide.html',
- 'arbitrage-risks-delisting': 'arbitrage-risks-delisting-events.html'
+ 'arbitrage-risks-delisting': 'delisting-arbitrage-risks.html'
 };
 // ── NAV ──
 function showPage(name) {

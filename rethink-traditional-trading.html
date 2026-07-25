@@ -228,6 +228,16 @@
 .nb-primary:hover{opacity:0.85;}
 .nb-outline{border:1px solid var(--border);color:var(--text);padding:0.65rem 1.4rem;border-radius:4px;font-weight:500;font-size:0.88rem;text-decoration:none;transition:border-color .2s,color .2s;display:inline-block;}
 .nb-outline:hover{border-color:var(--accent);color:var(--accent);}
+
+.nb-wrap{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border);align-items:center;}
+.nb-back{display:inline-flex;align-items:center;gap:0.4rem;color:var(--muted);text-decoration:none;font-size:0.85rem;border:1px solid var(--border);padding:0.55rem 1rem;border-radius:4px;transition:all .2s;white-space:nowrap;}
+.nb-back:hover{border-color:var(--accent);color:var(--accent);}
+.nb-prev{display:inline-flex;align-items:center;gap:0.4rem;color:var(--text);text-decoration:none;font-size:0.85rem;border:1px solid var(--border);padding:0.55rem 1.1rem;border-radius:4px;transition:all .2s;white-space:nowrap;}
+.nb-prev:hover{border-color:var(--accent);color:var(--accent);}
+.nb-next{display:inline-flex;align-items:center;gap:0.4rem;background:var(--accent);color:var(--bg);text-decoration:none;font-size:0.85rem;font-weight:700;padding:0.55rem 1.1rem;border-radius:4px;transition:opacity .2s;white-space:nowrap;margin-left:auto;}
+.nb-next:hover{opacity:0.85;}
+.nb-step{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--muted);margin-left:0.5rem;}
+
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
 <meta content="Why predicting market direction fails most traders — and how crypto arbitrage offers a lower-risk, signal-based alternative to speculation." name="description"/>
@@ -268,7 +278,7 @@
 <a class="av-mega-link" href="what-is-crypto-futures-arbitrage.html"><span class="av-icon">📘</span><span>What is Arbitrage<span class="av-desc">Core concept explained</span></span></a>
 <a class="av-mega-link" href="how-crypto-arbitrage-signals-work.html"><span class="av-icon">⚙️</span><span>How It Works<span class="av-desc">Step-by-step process</span></span></a>
 <a class="av-mega-link" href="how-to-generate-profit-crypto-arbitrage.html"><span class="av-icon">💰</span><span>Generate Profit<span class="av-desc">Ways arbitrage earns</span></span></a>
-<a class="av-mega-link" href="crypto-arbitrage-risks-precautions.html"><span class="av-icon">⚠️</span><span>Risks &amp; Safety<span class="av-desc">What to watch for</span></span></a>
+<a class="av-mega-link" href="crypto-arbitrage-risks.html"><span class="av-icon">⚠️</span><span>Risks &amp; Safety<span class="av-desc">What to watch for</span></span></a>
 <a class="av-mega-link" href="delisting-arbitrage-crypto-arbitrage-risks-precautions.html"><span class="av-icon">🚨</span><span>Delisting Risks<span class="av-desc">Avoid this trap</span></span></a>
 <a class="av-mega-link" href="rethink-traditional-trading.html"><span class="av-icon">🔄</span><span>Rethink Trading<span class="av-desc">Why arbitrage wins</span></span></a>
 <a class="av-mega-link" href="arbitrage-portfolio-growth.html"><span class="av-icon">📈</span><span>Portfolio Growth<span class="av-desc">Long-term strategy</span></span></a>
@@ -404,16 +414,19 @@
 <p><strong>Final Thoughts:</strong> If traditional trading has been costing you money, it may be time to stop relying entirely on market predictions and start exploring smarter alternatives. Focus on opportunities backed by data, research, and real market inefficiencies. Develop a disciplined approach, protect your capital, and commit to continuous improvement. Smart trading is not about taking bigger risks — it's about making smarter decisions. And smarter decisions can lead to stronger portfolio growth, greater confidence, and a clearer path toward your financial goals.</p>
 </div>
 <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border);">
-<a href="blog.html" style="border:1px solid var(--border);color:var(--muted);padding:0.7rem 1.5rem;border-radius:4px;font-weight:500;font-size:0.9rem;text-decoration:none;background:none;transition:border-color .2s,color .2s;">☰ Back to Blog</a>
+<a href="crypto-arbitrage-blog.html" style="border:1px solid var(--border);color:var(--muted);padding:0.7rem 1.5rem;border-radius:4px;font-weight:500;font-size:0.9rem;text-decoration:none;background:none;transition:border-color .2s,color .2s;">☰ Back to Blog</a>
 <a href="arbitrage-portfolio-growth.html" style="border:1px solid var(--border);color:var(--text);padding:0.7rem 1.5rem;border-radius:4px;font-weight:500;font-size:0.9rem;text-decoration:none;background:none;transition:border-color .2s,color .2s;">← Prev: Portfolio Growth</a>
 <a href="crypto-arbitrage-trading-consistent-income.html" style="background:var(--accent);color:var(--bg);padding:0.7rem 1.5rem;border-radius:4px;font-weight:700;font-size:0.9rem;text-decoration:none;transition:opacity .2s;">Next: Consistent Income →</a>
 </div>
 </main>
-<div class="nav-btns">
-<a class="nb-outline" href="crypto-arbitrage-blog.html">☰ Back to Blog</a>
-<a class="nb-outline" href="why-choose-arbvertex-over-other-arbitrage-platforms.html">← Prev: Why ArbVertex?</a>
-<span class="nb-outline" style="opacity:0.35;cursor:default;">Last in Category →</span>
-</div><footer>
+<div class="nb-wrap">
+<a class="nb-back" href="crypto-arbitrage-blog.html#beginner">☰ Back to Blog</a>
+<a class="nb-prev" href="crypto-arbitrage-passive-income.html">← Crypto Arbitrage as Passive Income</a>
+<span class="nb-step">Step 9/12</span>
+<a class="nb-next" href="crypto-arbitrage-trading-consistent-income.html">Building Consistent Income from Arbitrage →</a>
+</div>
+
+<footer>
  © 2026 ArbVertex — Educational content. Not financial advice.
 </footer>
 </body>

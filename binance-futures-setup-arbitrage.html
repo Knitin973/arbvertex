@@ -205,6 +205,16 @@
 .nb-primary,.btn-primary{background:var(--accent,#00e5ff);color:#050a0f;padding:0.65rem 1.4rem;border-radius:4px;font-weight:700;font-size:0.85rem;text-decoration:none;display:inline-block;transition:opacity .2s;white-space:nowrap;}
 .nb-primary:hover,.btn-primary:hover{opacity:0.85;}
 @media(max-width:600px){.nav-btns{flex-direction:column;}}
+
+.nb-wrap{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border);align-items:center;}
+.nb-back{display:inline-flex;align-items:center;gap:0.4rem;color:var(--muted);text-decoration:none;font-size:0.85rem;border:1px solid var(--border);padding:0.55rem 1rem;border-radius:4px;transition:all .2s;white-space:nowrap;}
+.nb-back:hover{border-color:var(--accent);color:var(--accent);}
+.nb-prev{display:inline-flex;align-items:center;gap:0.4rem;color:var(--text);text-decoration:none;font-size:0.85rem;border:1px solid var(--border);padding:0.55rem 1.1rem;border-radius:4px;transition:all .2s;white-space:nowrap;}
+.nb-prev:hover{border-color:var(--accent);color:var(--accent);}
+.nb-next{display:inline-flex;align-items:center;gap:0.4rem;background:var(--accent);color:var(--bg);text-decoration:none;font-size:0.85rem;font-weight:700;padding:0.55rem 1.1rem;border-radius:4px;transition:opacity .2s;white-space:nowrap;margin-left:auto;}
+.nb-next:hover{opacity:0.85;}
+.nb-step{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--muted);margin-left:0.5rem;}
+
 </style>
 </head>
 <body>
@@ -530,11 +540,14 @@
 </div>
 </main>
 <!-- ── FOOTER ── -->
-<div class="nav-btns">
-<a class="nb-outline" href="crypto-arbitrage-blog.html">☰ Back to Blog</a>
-<a class="nb-outline" href="best-crypto-arbitrage-exchanges.html">← Prev: Best Arbitrage Exchanges</a>
-<a class="nb-primary" href="bybit-setup-for-arbitrage.html">Next: Bybit Setup for Arbitrage →</a>
-</div><footer>
+<div class="nb-wrap">
+<a class="nb-back" href="crypto-arbitrage-blog.html#exchange">☰ Back to Blog</a>
+<a class="nb-prev" href="best-crypto-arbitrage-exchanges.html">← Best Crypto Arbitrage Exchanges</a>
+<span class="nb-step">Step 2/7</span>
+<a class="nb-next" href="bybit-setup-for-arbitrage.html">Bybit Setup for Crypto Arbitrage →</a>
+</div>
+
+<footer>
 <p>© 2026 ArbVertex · All rights reserved</p>
 <div class="footer-links">
 <a href="https://arbvertex.com/index.html">Home</a>

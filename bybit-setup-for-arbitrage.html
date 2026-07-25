@@ -241,6 +241,16 @@ footer p{color:var(--muted);font-size:0.82rem;}
 .nb-primary,.btn-primary{background:var(--accent,#00e5ff);color:#050a0f;padding:0.65rem 1.4rem;border-radius:4px;font-weight:700;font-size:0.85rem;text-decoration:none;display:inline-block;transition:opacity .2s;white-space:nowrap;}
 .nb-primary:hover,.btn-primary:hover{opacity:0.85;}
 @media(max-width:600px){.nav-btns{flex-direction:column;}}
+
+.nb-wrap{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border);align-items:center;}
+.nb-back{display:inline-flex;align-items:center;gap:0.4rem;color:var(--muted);text-decoration:none;font-size:0.85rem;border:1px solid var(--border);padding:0.55rem 1rem;border-radius:4px;transition:all .2s;white-space:nowrap;}
+.nb-back:hover{border-color:var(--accent);color:var(--accent);}
+.nb-prev{display:inline-flex;align-items:center;gap:0.4rem;color:var(--text);text-decoration:none;font-size:0.85rem;border:1px solid var(--border);padding:0.55rem 1.1rem;border-radius:4px;transition:all .2s;white-space:nowrap;}
+.nb-prev:hover{border-color:var(--accent);color:var(--accent);}
+.nb-next{display:inline-flex;align-items:center;gap:0.4rem;background:var(--accent);color:var(--bg);text-decoration:none;font-size:0.85rem;font-weight:700;padding:0.55rem 1.1rem;border-radius:4px;transition:opacity .2s;white-space:nowrap;margin-left:auto;}
+.nb-next:hover{opacity:0.85;}
+.nb-step{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--muted);margin-left:0.5rem;}
+
 </style>
 </head>
 <body>
@@ -256,7 +266,7 @@ footer p{color:var(--muted);font-size:0.82rem;}
 <a class="av-mega-link" href="what-is-crypto-futures-arbitrage.html"><span class="av-icon">📘</span><span>What is Arbitrage<span class="av-desc">Core concept explained</span></span></a>
 <a class="av-mega-link" href="how-crypto-arbitrage-signals-work.html"><span class="av-icon">⚙️</span><span>How It Works<span class="av-desc">Step-by-step process</span></span></a>
 <a class="av-mega-link" href="how-to-generate-profit-crypto-arbitrage.html"><span class="av-icon">💰</span><span>Generate Profit<span class="av-desc">Ways arbitrage earns</span></span></a>
-<a class="av-mega-link" href="crypto-arbitrage-risks-precautions.html"><span class="av-icon">⚠️</span><span>Risks &amp; Safety<span class="av-desc">What to watch for</span></span></a>
+<a class="av-mega-link" href="crypto-arbitrage-risks.html"><span class="av-icon">⚠️</span><span>Risks &amp; Safety<span class="av-desc">What to watch for</span></span></a>
 <a class="av-mega-link" href="rethink-traditional-trading.html"><span class="av-icon">🔄</span><span>Rethink Trading<span class="av-desc">Why arbitrage wins</span></span></a>
 <a class="av-mega-link" href="arbitrage-portfolio-growth.html"><span class="av-icon">📈</span><span>Portfolio Growth<span class="av-desc">Long-term strategy</span></span></a>
 </div>
@@ -706,11 +716,14 @@ footer p{color:var(--muted);font-size:0.82rem;}
 </nav>
 </main>
 <!-- FOOTER -->
-<div class="nav-btns">
-<a class="nb-outline" href="crypto-arbitrage-blog.html">☰ Back to Blog</a>
-<a class="nb-outline" href="binance-futures-setup-arbitrage.html">← Prev: Binance Futures Setup</a>
-<a class="nb-primary" href="okx-arbitrage-guide.html">Next: OKX Arbitrage Guide →</a>
-</div><footer>
+<div class="nb-wrap">
+<a class="nb-back" href="crypto-arbitrage-blog.html#exchange">☰ Back to Blog</a>
+<a class="nb-prev" href="binance-futures-setup-arbitrage.html">← Binance Futures Setup for Arbitrage</a>
+<span class="nb-step">Step 3/7</span>
+<a class="nb-next" href="okx-arbitrage-guide.html">OKX Arbitrage Guide →</a>
+</div>
+
+<footer>
 <p>© 2026 ArbVertex — All rights reserved</p>
 <div class="footer-links">
 <a href="crypto-arbitrage-blog.html">Blog</a>
