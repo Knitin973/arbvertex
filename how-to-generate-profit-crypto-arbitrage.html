@@ -6,14 +6,14 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>How to Generate Profit With Crypto Arbitrage | 4 Proven Market-Neutral Strategies</title>
 <meta content="Discover 4 market-neutral crypto arbitrage strategies used by ArbVertex — funding rate arb, cash-and-carry, triangular, and cross-exchange. Real examples, risk-adjusted returns, and step-by-step clarity." name="description"/>
-<meta content="crypto futures arbitrage signals, bitcoin 2026arbitrage telegram, crypto arbitrage bot, funding rate arbitrage, cross exchange arbitrage, bybit binance arbitrage, crypto signals telegram, arbitrage trading signals" name="keywords"/>
+<meta content="crypto futures arbitrage signals, bitcoin arbitrage telegram, crypto arbitrage bot, funding rate arbitrage, cross exchange arbitrage, bybit binance arbitrage, crypto signals telegram, arbitrage trading signals" name="keywords"/>
 <meta content="index, follow" name="robots"/>
 <link href="https://arbvertex.com/how-to-generate-profit-crypto-arbitrage.html" rel="canonical"/>
 <!-- Open Graph -->
 <meta content="4 Proven Strategies to Generate Profit With Crypto Arbitrage | ArbVertex" property="og:title"/>
 <meta content="4 market-neutral crypto arbitrage strategies — funding rate arb, cash-and-carry, triangular arb, and more. No price prediction needed. Consistent, structured returns." property="og:description"/>
 <meta content="website" property="og:type"/>
-<meta content="how-to-generate-profit-crypto-arbitrage.html" property="og:url"/>
+<meta content="https://arbvertex.com/how-to-generate-profit-crypto-arbitrage.html" property="og:url"/>
 <meta content="https://arbvertex.com/og-image.png" property="og:image"/>
 <!-- Twitter Card -->
 <meta content="summary_large_image" name="twitter:card"/>
@@ -508,53 +508,325 @@ footer p{color:var(--muted);font-size:0.82rem;}
 </div>
 </div>
 <div class="page active" id="page-profit">
-<h1 class="article-title">How to Generate Profit With Crypto Arbitrage</h1>
-<div class="inner-page">
-<button class="back-btn" onclick="showPage('home')">← Back to Home</button>
-<div class="section-tag">// STRATEGIES</div>
-<h2>4 Proven Strategies to Generate Profit — No Price Prediction Needed</h2>
-<p class="page-desc">We use 4 market-neutral strategies — each targeting a different type of price inefficiency. You don't need to predict price direction for any of them.</p>
-<div class="profit-grid">
-<div class="profit-card">
-<div class="icon">⚡</div>
-<div class="tag">PASSIVE INCOME</div>
-<h3>Funding Rate Arbitrage</h3>
-<p>Perpetual futures pay funding every 8 hours. When funding is positive and high, short the perp and hold spot — collect funding fees as income while your position stays hedged.</p>
-</div>
-<div class="profit-card">
-<div class="icon">📈</div>
-<div class="tag">15–40% APR</div>
-<h3>Cash-and-Carry Trade</h3>
-<p>Buy spot, short quarterly futures at a premium. At expiry, both prices converge. The premium becomes your yield — predictable, structured, and market-neutral.</p>
-</div>
-<div class="profit-card">
-<div class="icon">🔄</div>
-<div class="tag">SINGLE EXCHANGE</div>
-<h3>Triangular Arbitrage</h3>
-<p>Exploit mispricing across three pairs on one exchange. BTC → ETH → USDT → BTC — if the loop returns more than you started with, it's profit. No cross-exchange transfer needed.</p>
-</div>
-<div class="profit-card">
-<div class="icon">🌐</div>
-<div class="tag">CROSS-EXCHANGE</div>
-<h3>Spot-Futures Basis Trade</h3>
-<p>Same asset, different prices across exchanges. Buy on the cheaper leg, sell on the expensive leg simultaneously. Profit is locked the moment both orders fill.</p>
-</div>
-</div>
-<div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.5rem;max-width:600px;">
-<p style="color:var(--muted);font-size:0.9rem;line-height:1.7;"><strong style="color:var(--accent);">⚠️ Important:</strong> These strategies carry real risks — especially funding rate reversals. Always read our <span onclick="showPage('risks')" style="color:var(--accent);cursor:pointer;">Risks &amp; Precautions page</span> before trading.</p>
-</div>
-<div style="margin-top:2rem;">
-<button class="btn-primary" onclick="showPage('pricing')">Subscribe for $5/month →</button>
-</div>
-</div>
-<div class="nb-wrap">
-<a class="nb-back" href="crypto-arbitrage-blog.html#beginner">☰ Back to Blog</a>
-<a class="nb-prev" href="how-to-start-crypto-futures-arbitrage.html">← How to Start Crypto Futures Arbitrage</a>
-<span class="nb-step">Step 7/12</span>
-<a class="nb-next" href="crypto-arbitrage-passive-income.html">Crypto Arbitrage as Passive Income →</a>
+
+<style>
+.profit-wrap{max-width:860px;margin:0 auto;padding:80px 5% 60px;}
+.profit-hero-tag{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--accent2);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.8rem;}
+.profit-hero-title{font-size:clamp(1.7rem,3.5vw,2.3rem);font-weight:800;line-height:1.2;letter-spacing:-0.02em;margin-bottom:1rem;}
+.profit-lead{color:var(--muted);font-size:1rem;line-height:1.85;margin-bottom:2.5rem;border-left:3px solid var(--accent2);padding-left:1.2rem;}
+
+/* Strategy Cards Grid */
+.strat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:1.2rem;margin-bottom:2.5rem;}
+.strat-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.6rem;transition:border-color .25s,transform .25s;text-decoration:none;display:flex;flex-direction:column;gap:0.7rem;}
+.strat-card:hover{border-color:var(--accent2);transform:translateY(-3px);}
+.strat-card-top{display:flex;align-items:center;justify-content:space-between;gap:0.5rem;flex-wrap:wrap;}
+.strat-icon-title{display:flex;align-items:center;gap:0.6rem;}
+.strat-icon{font-size:1.4rem;line-height:1;}
+.strat-name{font-size:0.97rem;font-weight:700;color:var(--text);}
+.strat-badge{font-family:'JetBrains Mono',monospace;font-size:0.63rem;padding:0.18rem 0.6rem;border-radius:20px;letter-spacing:0.05em;white-space:nowrap;font-weight:700;}
+.badge-green{background:rgba(0,255,136,0.1);color:var(--accent2);border:1px solid rgba(0,255,136,0.25);}
+.badge-blue{background:rgba(0,229,255,0.1);color:var(--accent);border:1px solid rgba(0,229,255,0.2);}
+.badge-orange{background:rgba(255,160,64,0.1);color:#ffa040;border:1px solid rgba(255,160,64,0.25);}
+.badge-red{background:rgba(255,85,85,0.1);color:#ff7070;border:1px solid rgba(255,85,85,0.25);}
+.strat-desc{color:var(--muted);font-size:0.88rem;line-height:1.75;flex:1;}
+.strat-meta{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;margin-top:0.3rem;}
+.strat-stats{display:flex;gap:0.8rem;flex-wrap:wrap;}
+.strat-stat{font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);}
+.strat-stat span{color:var(--accent2);font-weight:700;}
+.strat-link{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent);font-weight:600;white-space:nowrap;}
+.strat-card:hover .strat-link{color:var(--accent2);}
+
+/* Difficulty bar */
+.diff-bar{display:flex;gap:3px;align-items:center;}
+.diff-dot{width:7px;height:7px;border-radius:50%;}
+.diff-dot.on-green{background:var(--accent2);}
+.diff-dot.on-blue{background:var(--accent);}
+.diff-dot.on-orange{background:#ffa040);}
+.diff-dot.off{background:var(--border);}
+
+/* Quick comparison table */
+.compare-section{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.8rem;margin-bottom:2rem;}
+.compare-section h3{font-size:1rem;font-weight:700;margin-bottom:1.2rem;display:flex;align-items:center;gap:0.5rem;}
+.comp-table{width:100%;border-collapse:collapse;font-size:0.83rem;}
+.comp-table th{font-family:'JetBrains Mono',monospace;font-size:0.67rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;padding:0.55rem 0.8rem;border-bottom:1px solid var(--border);text-align:left;}
+.comp-table td{padding:0.6rem 0.8rem;border-bottom:1px solid rgba(26,58,82,0.4);vertical-align:middle;font-size:0.83rem;color:var(--muted);}
+.comp-table tr:last-child td{border-bottom:none;}
+.comp-table .tname{color:var(--text);font-weight:600;}
+.comp-table a{color:var(--accent);text-decoration:none;font-size:0.78rem;}
+.comp-table a:hover{color:var(--accent2);}
+
+/* CTA */
+.cta-box{background:linear-gradient(135deg,rgba(0,229,255,0.05),rgba(0,255,136,0.05));border:1px solid rgba(0,255,136,0.2);border-radius:12px;padding:2rem;text-align:center;margin-bottom:2rem;}
+.cta-box h3{font-size:1.05rem;font-weight:700;margin-bottom:0.5rem;}
+.cta-box p{color:var(--muted);font-size:0.9rem;margin-bottom:1.3rem;line-height:1.7;}
+.cta-btn{background:var(--accent2);color:var(--bg);padding:0.8rem 1.8rem;border-radius:5px;font-weight:700;font-size:0.9rem;text-decoration:none;display:inline-block;transition:opacity .2s;}
+.cta-btn:hover{opacity:0.85;}
+
+/* Nav */
+.profit-nav{display:flex;gap:1rem;flex-wrap:wrap;padding-top:1.8rem;border-top:1px solid var(--border);}
+.pnb{padding:0.65rem 1.3rem;border-radius:5px;font-weight:500;font-size:0.87rem;text-decoration:none;transition:all .2s;}
+.pnb-back{border:1px solid var(--border);color:var(--muted);background:none;}
+.pnb-back:hover{border-color:var(--accent2);color:var(--accent2);}
+.pnb-prev{border:1px solid var(--border);color:var(--text);background:none;}
+.pnb-prev:hover{border-color:var(--accent);color:var(--accent);}
+.pnb-next{background:var(--accent2);color:var(--bg);font-weight:700;}
+.pnb-next:hover{opacity:0.88;}
+@media(max-width:640px){
+  .strat-grid{grid-template-columns:1fr;}
+  .comp-table{font-size:0.76rem;}
+  .comp-table th,.comp-table td{padding:0.45rem 0.5rem;}
+  .profit-nav{flex-direction:column;}
+}
+</style>
+
+<div class="profit-wrap">
+
+  <a class="back-btn" href="crypto-arbitrage-blog.html">← Back to Blog</a>
+
+  <div class="profit-hero-tag">💰 Strategy Guide</div>
+  <h1 class="profit-hero-title">How to Generate Profit With Crypto Futures Arbitrage</h1>
+  <p class="profit-lead">8 market-neutral strategies that generate returns without predicting price direction. Each exploits a different type of inefficiency — choose the one that fits your capital, risk appetite, and execution speed.</p>
+
+  <!-- STRATEGY CARDS -->
+  <div class="strat-grid">
+
+    <!-- 1. Funding Rate -->
+    <a class="strat-card" href="funding-rate-arbitrage.html">
+      <div class="strat-card-top">
+        <div class="strat-icon-title"><span class="strat-icon">⚡</span><span class="strat-name">Funding Rate Arbitrage</span></div>
+        <span class="strat-badge badge-green">PASSIVE INCOME</span>
+      </div>
+      <p class="strat-desc">Hold spot long + short perpetual futures. Collect the funding fee paid every 8 hours as passive income — zero directional exposure. Best when funding is above 0.05% per 8h.</p>
+      <div class="strat-meta">
+        <div class="strat-stats">
+          <span class="strat-stat">Return: <span>30–100%+ APR</span></span>
+          <span class="strat-stat">Risk: <span>Medium</span></span>
+          <span class="strat-stat">Speed: <span>Slow (hold)</span></span>
+        </div>
+        <span class="strat-link">Full Guide →</span>
+      </div>
+    </a>
+
+    <!-- 2. Negative Funding -->
+    <a class="strat-card" href="negative-funding-rate-strategy.html">
+      <div class="strat-card-top">
+        <div class="strat-icon-title"><span class="strat-icon">🔻</span><span class="strat-name">Negative Funding Rate Arb</span></div>
+        <span class="strat-badge badge-blue">BEARISH MARKET</span>
+      </div>
+      <p class="strat-desc">When funding goes negative, shorts pay longs. Flip the position — short spot + long perpetual futures — and collect funding from the short side. Works best in bear markets and after sharp drops.</p>
+      <div class="strat-meta">
+        <div class="strat-stats">
+          <span class="strat-stat">Return: <span>20–60% APR</span></span>
+          <span class="strat-stat">Risk: <span>Medium</span></span>
+          <span class="strat-stat">Speed: <span>Slow (hold)</span></span>
+        </div>
+        <span class="strat-link">Full Guide →</span>
+      </div>
+    </a>
+
+    <!-- 3. Cross-Exchange Price Gap -->
+    <a class="strat-card" href="cross-exchange-arbitrage-guide.html">
+      <div class="strat-card-top">
+        <div class="strat-icon-title"><span class="strat-icon">🌐</span><span class="strat-name">Cross-Exchange Price Gap</span></div>
+        <span class="strat-badge badge-orange">2%+ GAPS</span>
+      </div>
+      <p class="strat-desc">Same coin trades at different prices on different exchanges. Buy on the cheaper exchange, sell on the expensive one simultaneously. Profit is locked the moment both legs fill. ArbVertex signals 2%+ net gaps daily.</p>
+      <div class="strat-meta">
+        <div class="strat-stats">
+          <span class="strat-stat">Return: <span>2–5% per trade</span></span>
+          <span class="strat-stat">Risk: <span>Medium</span></span>
+          <span class="strat-stat">Speed: <span>Fast (seconds)</span></span>
+        </div>
+        <span class="strat-link">Full Guide →</span>
+      </div>
+    </a>
+
+    <!-- 4. Spot-Futures Gap -->
+    <a class="strat-card" href="spot-vs-futures-arbitrage.html">
+      <div class="strat-card-top">
+        <div class="strat-icon-title"><span class="strat-icon">📊</span><span class="strat-name">Spot-Futures Price Gap</span></div>
+        <span class="strat-badge badge-blue">SAME EXCHANGE</span>
+      </div>
+      <p class="strat-desc">On the same exchange, spot price and perpetual futures price diverge during high volatility. Buy spot and short futures when futures trade at a large premium — or reverse when futures trade at a discount. No transfer needed.</p>
+      <div class="strat-meta">
+        <div class="strat-stats">
+          <span class="strat-stat">Return: <span>1–3% per trade</span></span>
+          <span class="strat-stat">Risk: <span>Low-Medium</span></span>
+          <span class="strat-stat">Speed: <span>Fast (minutes)</span></span>
+        </div>
+        <span class="strat-link">Full Guide →</span>
+      </div>
+    </a>
+
+    <!-- 5. Cash and Carry -->
+    <a class="strat-card" href="cash-and-carry-trade-crypto.html">
+      <div class="strat-card-top">
+        <div class="strat-icon-title"><span class="strat-icon">📈</span><span class="strat-name">Cash-and-Carry Trade</span></div>
+        <span class="strat-badge badge-green">15–40% APR</span>
+      </div>
+      <p class="strat-desc">Buy spot, short quarterly futures at a premium. At expiry, both prices converge to the same value — the premium you captured at entry becomes guaranteed yield. Return is locked in from day one, no price prediction needed.</p>
+      <div class="strat-meta">
+        <div class="strat-stats">
+          <span class="strat-stat">Return: <span>15–40% APR</span></span>
+          <span class="strat-stat">Risk: <span>Low</span></span>
+          <span class="strat-stat">Speed: <span>Slow (weeks)</span></span>
+        </div>
+        <span class="strat-link">Full Guide →</span>
+      </div>
+    </a>
+
+    <!-- 6. Basis Trading -->
+    <a class="strat-card" href="basis-trading-crypto-explained.html">
+      <div class="strat-card-top">
+        <div class="strat-icon-title"><span class="strat-icon">📉</span><span class="strat-name">Basis Trading</span></div>
+        <span class="strat-badge badge-blue">ADVANCED</span>
+      </div>
+      <p class="strat-desc">Trade the spread between spot and futures as a market in itself. Go long basis when futures trade at a discount (contango reversal) or short basis when futures trade at extreme premium. Profit from mean reversion of the spread.</p>
+      <div class="strat-meta">
+        <div class="strat-stats">
+          <span class="strat-stat">Return: <span>Variable</span></span>
+          <span class="strat-stat">Risk: <span>Medium</span></span>
+          <span class="strat-stat">Speed: <span>Medium (days)</span></span>
+        </div>
+        <span class="strat-link">Full Guide →</span>
+      </div>
+    </a>
+
+    <!-- 7. CEX-DEX -->
+    <a class="strat-card" href="cex-dex-futures-arbitrage.html">
+      <div class="strat-card-top">
+        <div class="strat-icon-title"><span class="strat-icon">🔗</span><span class="strat-name">CEX-DEX Arbitrage</span></div>
+        <span class="strat-badge badge-red">ADVANCED</span>
+      </div>
+      <p class="strat-desc">Price gaps between centralised exchanges (Binance, Bybit) and decentralised on-chain perpetuals (dYdX, Hyperliquid, GMX). DEX prices lag CEX during fast moves — exploit the gap before it closes on-chain.</p>
+      <div class="strat-meta">
+        <div class="strat-stats">
+          <span class="strat-stat">Return: <span>1–4% per trade</span></span>
+          <span class="strat-stat">Risk: <span>High</span></span>
+          <span class="strat-stat">Speed: <span>Very fast</span></span>
+        </div>
+        <span class="strat-link">Full Guide →</span>
+      </div>
+    </a>
+
+    <!-- 8. Triangular -->
+    <a class="strat-card" href="triangular-arbitrage-explained.html">
+      <div class="strat-card-top">
+        <div class="strat-icon-title"><span class="strat-icon">🔄</span><span class="strat-name">Triangular Arbitrage</span></div>
+        <span class="strat-badge badge-red">AUTOMATED</span>
+      </div>
+      <p class="strat-desc">Three pairs on one exchange are momentarily mispriced relative to each other. Route BTC → ETH → USDT → BTC — if the loop returns more than you started with after fees, the difference is profit. No transfer needed, but gaps close in milliseconds.</p>
+      <div class="strat-meta">
+        <div class="strat-stats">
+          <span class="strat-stat">Return: <span>1–3% per loop</span></span>
+          <span class="strat-stat">Risk: <span>High</span></span>
+          <span class="strat-stat">Speed: <span>Milliseconds</span></span>
+        </div>
+        <span class="strat-link">Full Guide →</span>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- QUICK COMPARISON TABLE -->
+  <div class="compare-section">
+    <h3>📊 Quick Comparison — Which Strategy Fits You?</h3>
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>Strategy</th>
+          <th>Return</th>
+          <th>Risk</th>
+          <th>Capital Needed</th>
+          <th>Beginner Friendly</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="tname"><a href="funding-rate-arbitrage.html">Funding Rate Arb</a></td>
+          <td style="color:var(--accent2);">30–100%+ APR</td>
+          <td style="color:#ffa040;">Medium</td>
+          <td>$500+</td>
+          <td style="color:var(--accent2);">✅ Yes</td>
+        </tr>
+        <tr>
+          <td class="tname"><a href="negative-funding-rate-strategy.html">Negative Funding Arb</a></td>
+          <td style="color:var(--accent2);">20–60% APR</td>
+          <td style="color:#ffa040;">Medium</td>
+          <td>$500+</td>
+          <td style="color:var(--accent2);">✅ Yes</td>
+        </tr>
+        <tr>
+          <td class="tname"><a href="cross-exchange-arbitrage-guide.html">Cross-Exchange Gap</a></td>
+          <td style="color:var(--accent2);">2–5% per trade</td>
+          <td style="color:#ffa040;">Medium</td>
+          <td>$1,000+</td>
+          <td style="color:var(--accent2);">✅ Yes (with signals)</td>
+        </tr>
+        <tr>
+          <td class="tname"><a href="spot-vs-futures-arbitrage.html">Spot-Futures Gap</a></td>
+          <td style="color:var(--accent2);">1–3% per trade</td>
+          <td style="color:var(--accent2);">Low-Med</td>
+          <td>$500+</td>
+          <td style="color:var(--accent2);">✅ Yes</td>
+        </tr>
+        <tr>
+          <td class="tname"><a href="cash-and-carry-trade-crypto.html">Cash-and-Carry</a></td>
+          <td style="color:var(--accent2);">15–40% APR</td>
+          <td style="color:var(--accent2);">Low</td>
+          <td>$2,000+</td>
+          <td style="color:#ffa040;">⚠️ Some learning</td>
+        </tr>
+        <tr>
+          <td class="tname"><a href="basis-trading-crypto-explained.html">Basis Trading</a></td>
+          <td style="color:var(--accent2);">Variable</td>
+          <td style="color:#ffa040;">Medium</td>
+          <td>$2,000+</td>
+          <td style="color:#ffa040;">⚠️ Intermediate</td>
+        </tr>
+        <tr>
+          <td class="tname"><a href="cex-dex-futures-arbitrage.html">CEX-DEX Arb</a></td>
+          <td style="color:var(--accent2);">1–4% per trade</td>
+          <td style="color:#ff7070;">High</td>
+          <td>$5,000+</td>
+          <td style="color:#ff7070;">❌ Advanced</td>
+        </tr>
+        <tr>
+          <td class="tname"><a href="triangular-arbitrage-explained.html">Triangular Arb</a></td>
+          <td style="color:var(--accent2);">1–3% per loop</td>
+          <td style="color:#ff7070;">High</td>
+          <td>Any</td>
+          <td style="color:#ff7070;">❌ Needs automation</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-box">
+    <h3>Start with Cross-Exchange Gaps — ArbVertex finds them for you.</h3>
+    <p>Every day, ArbVertex scans 10 exchanges for 2%+ net price gaps and high funding rates. You get the exact coin, exchange pair, entry price, and execution window — delivered instantly to Telegram. No scanning, no guessing.</p>
+    <a href="crypto-arbitrage-signals-pricing.html" class="cta-btn">Get Signals — $5/month →</a>
+  </div>
+
+  <!-- NAV -->
+  <div class="profit-nav">
+    <a href="crypto-arbitrage-blog.html" class="pnb pnb-back">☰ Back to Blog</a>
+    <a href="how-to-start-crypto-futures-arbitrage.html" class="pnb pnb-prev">← How to Start</a>
+    <a href="crypto-arbitrage-passive-income.html" class="pnb pnb-next">Passive Income →</a>
+  </div>
+
 </div>
 
-<footer><p>© 2026 ArbVertex</p><div class="footer-links"><a onclick="showPage('home')">Home</a><a onclick="showPage('contact')">Contact</a></div><p style="font-size:0.75rem;">Not financial advice.</p></footer>
+<footer>
+  <p>© 2025 ArbVertex</p>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="crypto-arbitrage-blog.html">Blog</a>
+    <a href="contact-arbvertex.html">Contact</a>
+  </div>
+  <p style="font-size:0.75rem;">Not financial advice.</p>
+</footer>
 </div>
 <script>
 // ── CONTACT FORM ──
@@ -576,7 +848,7 @@ const PAGE_URL_MAP = {
  'what-is': 'what-is-crypto-futures-arbitrage.html',
  'how-it-works': 'how-crypto-arbitrage-signals-work.html',
  'profit': 'how-to-generate-profit-crypto-arbitrage.html',
- 'risks': 'crypto-arbitrage-risks-precautions.html',
+ 'risks': 'crypto-arbitrage-risks.html',
  'pricing': 'crypto-arbitrage-signals-pricing.html',
  'telegram': 'crypto-arbitrage-telegram-signals.html',
  'about': 'about-arbvertex-crypto-signals.html',
@@ -591,7 +863,7 @@ const PAGE_URL_MAP = {
  'article-4': 'triangular-arbitrage-explained.html',
  'article-5': 'best-crypto-arbitrage-exchanges.html',
  'article-6': 'cross-exchange-arbitrage-guide.html',
- 'article-7': 'crypto-arbitrage-risks-precautions.html',
+ 'article-7': 'crypto-arbitrage-risks.html',
  'article-8': 'arbitrage-calculator-guide.html',
  'article-9': 'arbitrage-trading-fees-explained.html',
  'article-10': 'best-crypto-arbitrage-tools.html',
@@ -848,7 +1120,7 @@ async function fetchAllPrices() {
  dot.style.animation = 'none';
 
  if (PAIRS.length === 0) {
- status.textContent = 'Loading full coin 2026list (700+)...';
+ status.textContent = 'Loading full coin list (700+)...';
  await loadAllPairs();
  }
 
