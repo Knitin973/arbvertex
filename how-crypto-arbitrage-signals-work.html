@@ -420,9 +420,6 @@ footer p{color:var(--muted);font-size:0.82rem;}
  .av-cta{display:block;text-align:center;margin-top:0.6rem;}
  .av-hamburger{display:flex;}
 }
- .av-cta{ display:block; text-align:center; margin-top:0.6rem; }
- .av-hamburger{ display:flex; }
-}
 </style>
 </head>
 <body data-page="how-it-works">
@@ -437,7 +434,7 @@ footer p{color:var(--muted);font-size:0.82rem;}
 <a class="av-mega-link" href="what-is-crypto-futures-arbitrage.html"><span class="av-icon">📘</span><span>What is Arbitrage<span class="av-desc">Core concept explained</span></span></a>
 <a class="av-mega-link" href="how-crypto-arbitrage-signals-work.html"><span class="av-icon">⚙️</span><span>How It Works<span class="av-desc">Step-by-step process</span></span></a>
 <a class="av-mega-link" href="how-to-generate-profit-crypto-arbitrage.html"><span class="av-icon">💰</span><span>Generate Profit<span class="av-desc">Ways arbitrage earns</span></span></a>
-<a class="av-mega-link" href="crypto-arbitrage-risks-precautions.html"><span class="av-icon">⚠️</span><span>Risks &amp; Safety<span class="av-desc">What to watch for</span></span></a>
+<a class="av-mega-link" href="crypto-arbitrage-risks.html"><span class="av-icon">⚠️</span><span>Risks &amp; Safety<span class="av-desc">What to watch for</span></span></a>
 <a class="av-mega-link" href="delisting-arbitrage-crypto-arbitrage-risks-precautions.html"><span class="av-icon">🚨</span><span>Delisting Risks<span class="av-desc">Avoid this trap</span></span></a>
 <a class="av-mega-link" href="rethink-traditional-trading.html"><span class="av-icon">🔄</span><span>Rethink Trading<span class="av-desc">Why arbitrage wins</span></span></a>
 <a class="av-mega-link" href="arbitrage-portfolio-growth.html"><span class="av-icon">📈</span><span>Portfolio Growth<span class="av-desc">Long-term strategy</span></span></a>
@@ -498,63 +495,307 @@ footer p{color:var(--muted);font-size:0.82rem;}
 <div class="page active" id="page-how-it-works">
 <h1 class="article-title">How ArbVertex Crypto Arbitrage Signals Work</h1>
 <div class="inner-page">
-<a class="back-btn" href="index.html">← Back to Home</a>
-<div class="section-tag">// PROCESS</div>
-<h2>How Does It Work?</h2>
-<p class="page-desc">From detecting the opportunity to delivering the signal to your Telegram — here's the full process.</p>
-<div class="steps">
-<div class="step">
-<div class="step-num-box">01</div>
-<div class="step-body">
-<h3>Scan 10+ Exchanges Simultaneously</h3>
-<p>Our system monitors price feeds on Binance, Bybit, MEXC, Gate.io, KuCoin, Bitget, and more — in real time. We track 200+ trading pairs for spot-futures basis gaps and cross-exchange spreads.</p>
-</div>
-</div>
-<div class="step-connector"></div>
-<div class="step">
-<div class="step-num-box">02</div>
-<div class="step-body">
-<h3>Validate the Opportunity</h3>
-<p>Raw gaps don't mean profit. We filter for trading fees, withdrawal costs, slippage, and liquidity. Only opportunities where net profit exceeds <strong style="color:var(--accent2);">2%</strong> after all fees pass through — quality over quantity.</p>
-</div>
-</div>
-<div class="step-connector"></div>
-<div class="step">
-<div class="step-num-box">03</div>
-<div class="step-body">
-<h3>Risk Assessment</h3>
-<p>We assign a risk level (Low / Medium / High) based on funding rate stability, exchange liquidity, and execution complexity. High-risk signals are clearly labeled.</p>
-</div>
-</div>
-<div class="step-connector"></div>
-<div class="step">
-<div class="step-num-box">04</div>
-<div class="step-body">
-<h3>Signal Sent to Telegram</h3>
-<p>A formatted signal is instantly sent to our Telegram channel — with entry price, target, stop loss, leverage (if applicable), and funding rate data.</p>
-</div>
-</div>
-<div class="step-connector"></div>
-<div class="step">
-<div class="step-num-box">05</div>
-<div class="step-body">
-<h3>Close &amp; Collect</h3>
-<p>When the spread converges, we send a close signal. You exit both legs and realize the profit. The cycle repeats — multiple signals per day.</p>
-</div>
-</div>
-</div>
-<div style="margin-top:3rem;">
-<a class="btn-primary" href="how-to-generate-profit-crypto-arbitrage.html">View Profit Strategies →</a>
-</div>
-</div>
-<div class="nb-wrap">
-<a class="nb-back" href="crypto-arbitrage-blog.html#beginner">☰ Back to Blog</a>
-<a class="nb-prev" href="spot-vs-futures-arbitrage.html">← Spot vs Futures Arbitrage</a>
-<span class="nb-step">Step 4/12</span>
-<a class="nb-next" href="how-to-start-arbitrage-with-no-experience.html">How to Start Arbitrage With No Experience →</a>
+<style>
+.sig-wrap{max-width:840px;margin:0 auto;}
+.sig-meta{display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.6rem;}
+.sig-tag{font-family:'JetBrains Mono',monospace;font-size:0.65rem;padding:0.22rem 0.65rem;border-radius:4px;letter-spacing:0.07em;font-weight:600;text-transform:uppercase;}
+.sig-tag-blue{background:rgba(0,229,255,0.08);color:var(--accent);border:1px solid rgba(0,229,255,0.15);}
+.sig-tag-green{background:rgba(0,255,136,0.08);color:var(--accent2);border:1px solid rgba(0,255,136,0.15);}
+.sig-tag-time{font-size:0.72rem;color:var(--muted);font-family:'JetBrains Mono',monospace;padding:0.22rem 0.65rem;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:4px;}
+.sig-hero-title{font-size:clamp(1.7rem,3.8vw,2.4rem);font-weight:800;line-height:1.22;letter-spacing:-0.03em;margin-bottom:1rem;}
+.sig-lead{color:var(--muted);font-size:1rem;line-height:1.9;margin-bottom:2.5rem;border-left:3px solid var(--accent2);padding-left:1.3rem;background:rgba(0,255,136,0.02);border-radius:0 6px 6px 0;padding-top:0.8rem;padding-bottom:0.8rem;padding-right:1rem;}
+.sig-toc{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.5rem 1.8rem;margin-bottom:2.5rem;position:relative;}
+.sig-toc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2),transparent);border-radius:12px 12px 0 0;}
+.sig-toc h4{font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--accent);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1rem;}
+.sig-toc ul{list-style:none;display:flex;flex-direction:column;gap:0.35rem;}
+.sig-toc li{font-size:0.88rem;display:flex;align-items:center;gap:0.7rem;}
+.sig-toc .n{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--border);min-width:20px;font-weight:600;}
+.sig-toc a{color:var(--muted);text-decoration:none;transition:color .2s;font-weight:500;}.sig-toc a:hover{color:var(--accent);}
+.sig-section{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:2.2rem;margin-bottom:1.2rem;position:relative;}
+.sig-section::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(180deg,var(--accent),transparent);border-radius:3px 0 0 3px;}
+.sig-section h3{font-size:1.08rem;font-weight:700;margin-bottom:1.2rem;display:flex;align-items:center;gap:0.65rem;}
+.sig-section p{color:var(--muted);font-size:0.93rem;line-height:1.9;margin-bottom:0.9rem;}.sig-section p:last-child{margin-bottom:0;}
+.sig-section strong{color:var(--text);font-weight:600;}
+.sig-example{background:var(--bg);border:1px solid var(--accent2);border-radius:10px;padding:1.5rem 1.8rem;font-family:'JetBrains Mono',monospace;font-size:0.82rem;line-height:2;color:var(--muted);margin:1.2rem 0;}
+.sig-example .ex-header{color:var(--accent2);font-weight:700;font-size:0.9rem;margin-bottom:0.8rem;display:block;}
+.sig-example strong{color:var(--accent2);}
+.sig-example .green{color:var(--accent2);}
+.sig-example .blue{color:var(--accent);}
+.sig-example .orange{color:#ffa040;}
+.steps-list{display:flex;flex-direction:column;gap:0;margin:1.2rem 0;}
+.step-item{display:flex;gap:1.2rem;align-items:flex-start;position:relative;}
+.step-item:not(:last-child)::after{content:'';position:absolute;left:19px;top:40px;bottom:-12px;width:2px;background:linear-gradient(180deg,var(--border),transparent);}
+.step-num{width:40px;height:40px;background:var(--surface);border:1px solid var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:0.85rem;font-weight:700;color:var(--accent);flex-shrink:0;}
+.step-body{padding-bottom:1.5rem;flex:1;}
+.step-body h4{font-size:0.92rem;font-weight:700;margin-bottom:0.4rem;color:var(--text);}
+.step-body p{font-size:0.88rem;color:var(--muted);line-height:1.75;}
+.types-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.2rem 0;}
+.type-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:1.4rem;position:relative;overflow:hidden;}
+.type-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.type-card:nth-child(1)::before{background:linear-gradient(90deg,var(--accent2),transparent);}
+.type-card:nth-child(2)::before{background:linear-gradient(90deg,var(--accent),transparent);}
+.type-card:nth-child(3)::before{background:linear-gradient(90deg,#ffa040,transparent);}
+.type-card:nth-child(4)::before{background:linear-gradient(90deg,#a78bfa,transparent);}
+.type-card h4{font-size:0.88rem;font-weight:700;margin-bottom:0.6rem;}
+.type-card p{font-size:0.82rem;color:var(--muted);line-height:1.7;margin:0;}
+.risk-chips{display:flex;gap:0.5rem;flex-wrap:wrap;margin:1rem 0;}
+.risk-chip{font-family:'JetBrains Mono',monospace;font-size:0.75rem;padding:0.3rem 0.8rem;border-radius:20px;font-weight:600;}
+.chip-low{background:rgba(0,255,136,0.1);color:var(--accent2);border:1px solid rgba(0,255,136,0.25);}
+.chip-med{background:rgba(255,160,64,0.1);color:#ffa040;border:1px solid rgba(255,160,64,0.25);}
+.chip-high{background:rgba(255,85,85,0.1);color:#ff7070;border:1px solid rgba(255,85,85,0.25);}
+.sig-faq{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:2.2rem;margin-bottom:1.5rem;position:relative;}
+.sig-faq::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),transparent);border-radius:14px 14px 0 0;}
+.sig-faq h3{font-size:1.08rem;font-weight:700;margin-bottom:1.4rem;color:var(--accent);display:flex;align-items:center;gap:0.65rem;}
+.sig-faq-item{border-bottom:1px solid var(--border);padding:1.1rem 0;}.sig-faq-item:last-child{border-bottom:none;padding-bottom:0;}
+.sig-faq-q{font-size:0.93rem;font-weight:700;color:var(--text);margin-bottom:0.5rem;}
+.sig-faq-a{font-size:0.89rem;color:var(--muted);line-height:1.8;}
+.sig-cta{background:linear-gradient(135deg,rgba(0,255,136,0.04),rgba(0,229,255,0.03));border:1px solid rgba(0,255,136,0.2);border-radius:14px;padding:2.2rem;text-align:center;margin-bottom:1.5rem;position:relative;}
+.sig-cta::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent2),var(--accent));border-radius:14px 14px 0 0;}
+.sig-cta p{color:var(--muted);font-size:0.97rem;margin-bottom:1.4rem;line-height:1.8;}
+.btn-primary-sig{background:var(--accent);color:#050a0f;padding:0.8rem 2rem;border-radius:8px;font-weight:700;text-decoration:none;display:inline-block;font-size:0.95rem;}
+.sig-nav{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2.5rem;padding-top:1.8rem;border-top:1px solid var(--border);}
+.sig-btn{padding:0.75rem 1.5rem;border-radius:5px;font-weight:500;font-size:0.88rem;text-decoration:none;transition:all .2s;display:inline-flex;align-items:center;}
+.sig-btn-ghost{border:1px solid var(--border);color:var(--muted);background:none;}.sig-btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+.sig-btn-outline{border:1px solid var(--border);color:var(--text);background:none;}.sig-btn-outline:hover{border-color:var(--accent);color:var(--accent);}
+.sig-btn-primary{background:var(--accent);color:#050a0f;font-weight:700;border:none;}.sig-btn-primary:hover{opacity:0.88;}
+@media(max-width:640px){
+  .types-grid{grid-template-columns:1fr;}
+  .sig-section,.sig-faq,.sig-cta{padding:1.5rem;}
+  .sig-example{padding:1rem;}
+}
+</style>
+
+<nav class="breadcrumb">
+ <a href="index.html">Home</a> / <a href="crypto-arbitrage-blog.html">Blog</a> / <span style="color:var(--accent);">Beginner</span>
+</nav>
+
+<div class="sig-wrap">
+
+<div class="sig-meta">
+ <span class="sig-tag sig-tag-blue">📘 BEGINNER</span>
+ <span class="sig-tag sig-tag-green">STEP 4 OF 9</span>
+ <span class="sig-tag-time">⏱ 6 min read</span>
 </div>
 
-<footer><p>© 2026 ArbVertex</p><div class="footer-links"><a href="index.html">Home</a><a href="contact-arbvertex.html">Contact</a></div><p style="font-size:0.75rem;">Not financial advice.</p></footer>
+<h1 class="sig-hero-title">How ArbVertex Crypto Arbitrage Signals Work</h1>
+<p class="sig-lead">From detecting the opportunity to delivering the signal to your Telegram — here is the full process. Understanding how signals are generated helps you act on them faster and with more confidence.</p>
+
+<div class="sig-toc">
+ <h4>// In this article</h4>
+ <ul>
+  <li><span class="n">01</span><a href="#sig-monitor">How We Monitor Markets</a></li>
+  <li><span class="n">02</span><a href="#sig-detect">Signal Detection Process</a></li>
+  <li><span class="n">03</span><a href="#sig-validate">Signal Validation</a></li>
+  <li><span class="n">04</span><a href="#sig-format">What a Signal Looks Like</a></li>
+  <li><span class="n">05</span><a href="#sig-types">Signal Types</a></li>
+  <li><span class="n">06</span><a href="#sig-act">How to Act on a Signal</a></li>
+  <li><span class="n">07</span><a href="#sig-faq">FAQ</a></li>
+ </ul>
+</div>
+
+<!-- 1. MONITOR -->
+<div class="sig-section" id="sig-monitor">
+ <h3><span>📡</span><span style="color:var(--accent);">How We Monitor Markets</span></h3>
+ <p>ArbVertex monitors live price feeds and funding rates across <strong>7 major exchanges simultaneously</strong> — Binance, Bybit, MEXC, Gate.io, KuCoin, Bitget, and OKX. Every USDT trading pair is tracked in real time, 24 hours a day, 7 days a week.</p>
+ <p>The system compares prices across all exchange pairs every few seconds. When a gap appears between the price of the same coin on two different exchanges — or when a funding rate crosses a profitable threshold — the detection engine flags it for validation.</p>
+ <p>Over <strong>700+ USDT pairs</strong> are monitored simultaneously. Most gaps are too small, too short-lived, or too risky to signal. Only opportunities that pass all validation checks reach your Telegram.</p>
+</div>
+
+<!-- 2. DETECT -->
+<div class="sig-section" id="sig-detect">
+ <h3><span>🔍</span><span style="color:var(--accent);">Signal Detection Process</span></h3>
+ <p>Two types of opportunities are detected and checked before a signal is sent:</p>
+ <div class="steps-list">
+  <div class="step-item">
+   <div class="step-num">01</div>
+   <div class="step-body">
+    <h4>Price Gap Detection</h4>
+    <p>When the same coin is priced differently on two exchanges, the system calculates the gross gap percentage. A gap of 0.5% is common — but after fees, it yields near zero. The system looks for gaps of <strong>2%+</strong> to ensure net profit after all costs.</p>
+   </div>
+  </div>
+  <div class="step-item">
+   <div class="step-num">02</div>
+   <div class="step-body">
+    <h4>Funding Rate Opportunity</h4>
+    <p>When a perpetual futures funding rate exceeds <strong>0.03% per 8 hours</strong> and has been stable for multiple consecutive periods, the system flags it as a cash-and-carry opportunity. The funding rate is cross-checked across all exchanges to identify the best short leg placement.</p>
+   </div>
+  </div>
+  <div class="step-item">
+   <div class="step-num">03</div>
+   <div class="step-body">
+    <h4>Fee Calculation</h4>
+    <p>The system calculates exact fees for both legs — maker/taker fees on spot and futures, withdrawal fees where applicable, and estimated slippage based on order book depth. Only opportunities with <strong>net profit above 1%</strong> after all fees proceed to validation.</p>
+   </div>
+  </div>
+ </div>
+</div>
+
+<!-- 3. VALIDATE -->
+<div class="sig-section" id="sig-validate">
+ <h3><span>✅</span><span style="color:var(--accent2);">Signal Validation</span></h3>
+ <p>Most detected opportunities are filtered out at this stage. Validation checks confirm the opportunity is real, executable, and safe before a signal is sent.</p>
+ <div class="steps-list">
+  <div class="step-item">
+   <div class="step-num">01</div>
+   <div class="step-body">
+    <h4>Liquidity Check</h4>
+    <p>The order book depth on both exchanges is checked. If the available liquidity at the target price is insufficient to fill a standard position without moving the price, the signal is discarded. Low liquidity = high slippage = false opportunity.</p>
+   </div>
+  </div>
+  <div class="step-item">
+   <div class="step-num">02</div>
+   <div class="step-body">
+    <h4>Persistence Check</h4>
+    <p>The gap must persist for a minimum threshold before signalling. A gap that appears for 2 seconds and closes is not actionable for manual traders. Signals are only sent when the gap has been <strong>stable for at least 15–30 seconds</strong>.</p>
+   </div>
+  </div>
+  <div class="step-item">
+   <div class="step-num">03</div>
+   <div class="step-body">
+    <h4>Risk Assessment</h4>
+    <p>Each signal is assigned a risk level based on funding rate stability, exchange liquidity depth, coin volatility, and withdrawal reliability. Risk levels — Low, Medium, High — are included in every signal so you can size positions accordingly.</p>
+   </div>
+  </div>
+  <div class="step-item">
+   <div class="step-num">04</div>
+   <div class="step-body">
+    <h4>Duplicate Filter</h4>
+    <p>If a signal for the same pair and exchange combination was sent recently, it is suppressed to prevent alert fatigue. Each unique opportunity is signalled only once per window.</p>
+   </div>
+  </div>
+ </div>
+</div>
+
+<!-- 4. FORMAT -->
+<div class="sig-section" id="sig-format">
+ <h3><span>📨</span><span style="color:var(--accent);">What a Signal Looks Like</span></h3>
+ <p>Every signal delivered to your Telegram contains all the information you need to execute — no manual research required.</p>
+ <div class="sig-example">
+  <span class="ex-header">🚨 ARBITRAGE SIGNAL — ArbVertex</span>
+  <span class="green">Coin:</span>          SOL/USDT
+  <span class="green">Buy on:</span>        Gate.io  →  <strong>$142.30</strong>
+  <span class="green">Sell on:</span>       Binance  →  <strong>$145.18</strong>
+  <span class="green">Gross Gap:</span>     <strong>+2.02%</strong>
+  <span class="green">Est. Net Profit:</span> <strong>+1.41%</strong> (after fees)
+  <span class="green">Type:</span>          Cross-Exchange Spot
+  <span class="orange">Risk Level:</span>   🟡 MEDIUM
+  <span class="blue">Funding Rate:</span>  +0.067%/8h (Binance Futures)
+  <span class="blue">Signal Age:</span>    Fresh — detected 12 seconds ago
+  ──────────────────────────
+  <span style="color:var(--muted);font-size:0.75rem;">Not financial advice. Always verify before executing.</span>
+ </div>
+ <p>Signal age is critical — the older a signal, the higher the chance the gap has already narrowed. Always check the signal age before executing.</p>
+</div>
+
+<!-- 5. TYPES -->
+<div class="sig-section" id="sig-types">
+ <h3><span>⚡</span><span style="color:var(--accent2);">Signal Types</span></h3>
+ <p>ArbVertex delivers four types of signals — each suited to different capital levels and execution styles:</p>
+ <div class="types-grid">
+  <div class="type-card">
+   <h4 style="color:var(--accent2);">🟢 Funding Rate Arb</h4>
+   <p>Long spot + short perpetual futures. Collect funding payments every 8 hours. Zero price exposure. Best for passive income — hold for days or weeks.</p>
+  </div>
+  <div class="type-card">
+   <h4 style="color:var(--accent);">🔵 Cross-Exchange Spot</h4>
+   <p>Buy on cheaper exchange, sell on more expensive one. Requires fast execution. Best for BTC, ETH, SOL with high liquidity and 2%+ gap.</p>
+  </div>
+  <div class="type-card">
+   <h4 style="color:#ffa040;">🟠 Basis Trade</h4>
+   <p>Profit from the spread between spot and quarterly futures at expiry. Longer hold (weeks to months). More predictable but lower annualised return.</p>
+  </div>
+  <div class="type-card">
+   <h4 style="color:#a78bfa;">🟣 Negative Funding</h4>
+   <p>When funding turns negative — shorts pay longs. Reverse position (short spot + long perp) to collect the fee. Advanced strategy for experienced traders.</p>
+  </div>
+ </div>
+ <p style="margin-top:0.8rem;">Risk levels across all signals:</p>
+ <div class="risk-chips">
+  <span class="risk-chip chip-low">🟢 LOW — Stable funding, high liquidity pairs</span>
+  <span class="risk-chip chip-med">🟡 MEDIUM — Moderate gap, standard liquidity</span>
+  <span class="risk-chip chip-high">🔴 HIGH — Large gap but lower liquidity or volatile pair</span>
+ </div>
+</div>
+
+<!-- 6. ACT -->
+<div class="sig-section" id="sig-act">
+ <h3><span>🎯</span><span style="color:var(--accent);">How to Act on a Signal</span></h3>
+ <p>Speed matters for spot arbitrage signals. Funding rate signals are less time-sensitive — the opportunity persists for hours or days. Here is the execution flow for both:</p>
+ <div class="steps-list">
+  <div class="step-item">
+   <div class="step-num">01</div>
+   <div class="step-body">
+    <h4>Check signal age</h4>
+    <p>If the signal is older than 2 minutes for a spot arb, verify the gap still exists before executing. Open both exchange order books and confirm the price difference is still present.</p>
+   </div>
+  </div>
+  <div class="step-item">
+   <div class="step-num">02</div>
+   <div class="step-body">
+    <h4>Confirm your position size</h4>
+    <p>Use the <a href="arbitrage-calculator.html" style="color:var(--accent);text-decoration:none;">ArbVertex Calculator</a> to confirm net profit after fees at your capital size. Never execute without knowing the exact net figure.</p>
+   </div>
+  </div>
+  <div class="step-item">
+   <div class="step-num">03</div>
+   <div class="step-body">
+    <h4>Execute both legs simultaneously</h4>
+    <p>Open both exchange tabs in advance. Execute the buy and sell as close together as possible — ideally within 10–20 seconds. For funding rate arb, open spot buy first, then futures short.</p>
+   </div>
+  </div>
+  <div class="step-item">
+   <div class="step-num">04</div>
+   <div class="step-body">
+    <h4>Monitor and exit</h4>
+    <p>For spot arb — close both legs as soon as fills are confirmed. For funding rate arb — monitor the funding rate before each 8-hour settlement. Exit if rate drops below +0.01%.</p>
+   </div>
+  </div>
+ </div>
+</div>
+
+<!-- FAQ -->
+<div class="sig-faq" id="sig-faq">
+ <h3><span>❓</span> Frequently Asked Questions</h3>
+ <div class="sig-faq-item">
+  <div class="sig-faq-q">How many signals are sent per day?</div>
+  <div class="sig-faq-a">It depends on market conditions. In high-volatility periods, 5–15 signals per day are common. In quiet markets, 2–5 signals. We only send signals that pass all validation checks — quality over quantity.</div>
+ </div>
+ <div class="sig-faq-item">
+  <div class="sig-faq-q">How fast do I need to act on a signal?</div>
+  <div class="sig-faq-a">For cross-exchange spot signals — within 1–2 minutes ideally. For funding rate signals — no urgency, the opportunity persists for hours or days. Signal age is always shown so you can judge immediately.</div>
+ </div>
+ <div class="sig-faq-item">
+  <div class="sig-faq-q">Do I need to be online all day?</div>
+  <div class="sig-faq-a">No. Funding rate signals require no immediate action — you can check once per day before the 08:00 UTC settlement window. Spot arb signals require faster action, but you choose which signals to act on.</div>
+ </div>
+ <div class="sig-faq-item">
+  <div class="sig-faq-q">What exchanges do I need accounts on?</div>
+  <div class="sig-faq-a">Binance and Bybit cover the majority of signals. Having accounts on Gate.io and OKX as well gives you access to nearly all signals. KuCoin, MEXC, and Bitget are optional — they appear less frequently but occasionally offer the best rates.</div>
+ </div>
+ <div class="sig-faq-item">
+  <div class="sig-faq-q">Are the net profit figures guaranteed?</div>
+  <div class="sig-faq-a">No — net profit estimates are based on standard taker fees and estimated slippage at the time of detection. Actual results may vary slightly depending on your fee tier, execution speed, and market movement during execution. Always treat estimates as indicative.</div>
+ </div>
+ <div class="sig-faq-item">
+  <div class="sig-faq-q">What is the minimum capital to use the signals?</div>
+  <div class="sig-faq-a">$200–$500 is a good starting point. Below $200, fees become a proportionally large share of profits. Most signals are sized for $500–$5,000 positions, though they scale to any amount.</div>
+ </div>
+</div>
+
+<!-- CTA -->
+<div class="sig-cta">
+ <p>Ready to receive live signals directly to your Telegram? Join ArbVertex and start acting on pre-validated arbitrage opportunities today.</p>
+ <a href="crypto-arbitrage-signals-pricing.html" class="btn-primary-sig">View Plans → Join for $5/month</a>
+</div>
+
+<div class="sig-nav">
+ <a href="crypto-arbitrage-blog.html" class="sig-btn sig-btn-ghost">← Back to Blog</a>
+ <a href="spot-vs-futures-arbitrage.html" class="sig-btn sig-btn-outline">← Prev: Spot vs Futures</a>
+ <a href="how-to-start-arbitrage-with-no-experience.html" class="sig-btn sig-btn-primary">Next: Start with No Experience →</a>
+</div>
+
+</div>
+</div>
 </div>
 <script>
 // ── CONTACT FORM ──
@@ -576,7 +817,7 @@ const PAGE_URL_MAP = {
  'what-is': 'what-is-crypto-futures-arbitrage.html',
  'how-it-works': 'how-crypto-arbitrage-signals-work.html',
  'profit': 'how-to-generate-profit-crypto-arbitrage.html',
- 'risks': 'crypto-arbitrage-risks-precautions.html',
+ 'risks': 'crypto-arbitrage-risks.html',
  'pricing': 'crypto-arbitrage-signals-pricing.html',
  'telegram': 'crypto-arbitrage-telegram-signals.html',
  'about': 'about-arbvertex-crypto-signals.html',
@@ -591,7 +832,7 @@ const PAGE_URL_MAP = {
  'article-4': 'triangular-arbitrage-explained.html',
  'article-5': 'best-crypto-arbitrage-exchanges.html',
  'article-6': 'cross-exchange-arbitrage-guide.html',
- 'article-7': 'crypto-arbitrage-risks-precautions.html',
+ 'article-7': 'crypto-arbitrage-risks.html',
  'article-8': 'arbitrage-calculator-guide.html',
  'article-9': 'arbitrage-trading-fees-explained.html',
  'article-10': 'best-crypto-arbitrage-tools.html',
