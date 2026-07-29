@@ -367,9 +367,9 @@ footer{background:#020810;border-top:1px solid var(--border);padding:0;}
 .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:0.5rem;}
 .footer-col ul li a{color:var(--muted);text-decoration:none;font-size:0.82rem;transition:color .2s;}
 .footer-col ul li a:hover{color:var(--accent);}
-.footer-bottom{border-top:1px solid var(--border);padding:16px 24px;}
-.footer-bottom-inner{max-width:900px;margin:0 auto;}
-.footer-bottom p{color:var(--muted);font-size:0.75rem;}
+..footer-bottom{border-top:1px solid var(--border);padding:24px;text-align:center;}
+.footer-bottom-inner{max-width:900px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:8px;}
+.footer-bottom p{color:var(--muted);font-size:0.75rem;text-align:center;margin:0;}
 .footer-disclaimer{max-width:900px;margin:0 auto;padding:0 24px 20px;color:var(--muted);font-size:0.72rem;line-height:1.6;opacity:0.7;}
 footer{
  text-align:center;
@@ -892,13 +892,11 @@ footer{
       </ul>
     </div>
   </div>
-  <div class="footer-disclaimer">
-    ⚠️ ArbVertex content is for educational purposes only. Cryptocurrency trading involves significant risk of loss. Past performance of signals does not guarantee future results. Always do your own research before making any financial decisions.
-  </div>
-  <div class="footer-bottom" style="text-align:center;">
-    <div class="footer-bottom-inner" style="text-align:center;display:block;">
-     
-      <p style="text-align:center;margin-top:8px;">© 2026 ArbVertex. All rights reserved.</p>
+  
+  <div class="footer-bottom">
+    <div class="footer-bottom-inner">
+      <p>⚠️ ArbVertex content is for educational purposes only. Cryptocurrency trading involves significant risk of loss. Past performance of signals does not guarantee future results. Always do your own research before making any financial decisions.</p>
+      <p>© 2026 ArbVertex. All rights reserved.</p>
     </div>
   </div>
 </footer><script>(function(){
