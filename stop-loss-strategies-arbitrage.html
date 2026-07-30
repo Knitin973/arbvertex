@@ -178,7 +178,13 @@ h1{font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:800;line-height:1.25;letter-
 .cta-box p{color:var(--muted);font-size:0.9rem;margin-bottom:1rem;}
 .cta-btn{background:var(--accent);color:var(--bg);padding:0.7rem 1.8rem;border-radius:4px;font-weight:700;text-decoration:none;display:inline-block;transition:opacity .2s;}
 .cta-btn:hover{opacity:0.85;}
-.nav-btns{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border);}
+.nav-btns{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border,#1a3a52);justify-content:center;}
+.nb-outline,.btn-outline{border:1px solid var(--border,#1a3a52);color:var(--text,#e8f4f8);padding:0.65rem 1.4rem;border-radius:4px;font-weight:500;font-size:0.85rem;text-decoration:none;transition:border-color .2s,color .2s;display:inline-block;white-space:nowrap;}
+.nb-outline:hover,.btn-outline:hover{border-color:var(--accent,#00e5ff);color:var(--accent,#00e5ff);}
+.nb-primary,.btn-primary{background:var(--accent,#00e5ff);color:#050a0f;padding:0.65rem 1.4rem;border-radius:4px;font-weight:700;font-size:0.85rem;text-decoration:none;display:inline-block;transition:opacity .2s;white-space:nowrap;}
+.nb-primary:hover,.btn-primary:hover{opacity:0.85;}
+.nb-step{font-size:0.78rem;color:var(--muted);font-family:'JetBrains Mono',monospace;padding:0.4rem 0;}
+@media(max-width:600px){.nav-btns{flex-direction:column;align-items:center;}}
 .btn-outline{border:1px solid var(--border);color:var(--text);padding:0.65rem 1.4rem;border-radius:4px;font-weight:500;font-size:0.88rem;text-decoration:none;transition:border-color .2s;display:inline-block;}
 .btn-outline:hover{border-color:var(--accent);color:var(--accent);}
 .btn-primary{background:var(--accent);color:var(--bg);padding:0.65rem 1.4rem;border-radius:4px;font-weight:700;font-size:0.88rem;text-decoration:none;display:inline-block;transition:opacity .2s;}
@@ -240,15 +246,11 @@ footer p{color:var(--muted);font-size:0.82rem;}
 <div class="av-mega-panel av-blog-panel">
 <div class="av-blog-col">
 <div class="av-blog-col-header">📖 Beginner</div>
-<a class="av-mega-link" href="crypto-arbitrage-blog.html#beginner"><span class="av-icon">🐣</span><span>Beginner Guides<span class="av-desc">Start from zero — concepts &amp; first steps</span></span></a>
 <div class="av-blog-col-header" style="margin-top:0.5rem;">💡 Strategy</div>
-<a class="av-mega-link" href="crypto-arbitrage-blog.html#strategy"><span class="av-icon">🎯</span><span>Strategy Guides<span class="av-desc">Funding rate, basis trading, advanced tactics</span></span></a>
 </div>
 <div class="av-blog-col">
 <div class="av-blog-col-header">🔄 Exchange Guides</div>
-<a class="av-mega-link" href="crypto-arbitrage-blog.html#exchange"><span class="av-icon">🏦</span><span>Exchange Guides<span class="av-desc">Binance, Bybit, OKX setup &amp; comparison</span></span></a>
 <div class="av-blog-col-header" style="margin-top:0.5rem;">🛡️ Risk &amp; Tools</div>
-<a class="av-mega-link" href="crypto-arbitrage-blog.html#risk"><span class="av-icon">👥</span><span>Risk &amp; Tools<span class="av-desc">Position sizing, stop loss, glossary</span></span></a>
 </div>
 </div>
 </li>
@@ -278,13 +280,8 @@ footer p{color:var(--muted);font-size:0.82rem;}
 <!-- END NAV -->
 <!-- ARTICLE -->
 <div class="inner-page">
-<nav class="breadcrumb">
-<a href="index.html">Home</a> / <a href="crypto-arbitrage-blog.html">Blog</a> / <span style="color:var(--accent);">Risk &amp; Strategy</span>
-</nav>
-<div class="article-meta">
-<span class="meta-tag">📘 RISK &amp; STRATEGY</span>
-<span class="meta-tag" style="background:rgba(0,229,255,0.08);color:var(--accent);">ArbVertex Blog</span>
-</div>
+<div class="breadcrumb"><a href="index.html">Home</a><span>/</span><a href="crypto-arbitrage-blog.html">Blog</a><span>/</span><span style="color:var(--accent,#00e5ff);">Risk &amp; Tools</span></div>
+
 <h1>Stop Loss Strategies for Crypto Arbitrage: When and How to Use Them</h1>
 <p class="article-intro">Stop losses work differently in arbitrage than in directional trading. A hedged position eliminates price risk — but that doesn't mean you're risk-free. This guide covers every exit trigger you actually need: funding rate rules, margin alerts, time-based stops for cross-exchange arb, and how to respond when an exchange itself becomes the threat.</p>
 <div class="toc-box">
@@ -405,14 +402,62 @@ footer p{color:var(--muted);font-size:0.82rem;}
 <a class="nb-next" href="how-to-avoid-exchange-risk-arbitrage.html">How to Avoid Exchange Risk in Arbitrage →</a>
 </div>
 
-<footer>
-<p>© 2026 ArbVertex — Not financial advice.</p>
-<div class="footer-links">
-<a href="index.html">Home</a>
-<a href="crypto-arbitrage-blog.html">Blog</a>
-<a href="crypto-arbitrage-signals-pricing.html">Pricing</a>
+<div class="nav-btns">
+<a class="nb-outline" href="crypto-arbitrage-position-sizing.html">← Position Sizing</a><span class="nb-step">Step 3 of 5 · Risk &amp; Tools</span><a class="nb-primary" href="how-to-avoid-exchange-risk-arbitrage.html">Avoid Exchange Risk →</a>
 </div>
-<p style="font-size:0.75rem;">Educational content only. Always do your own research.</p>
+<footer>
+<div class="footer-main" style="max-width:960px;margin:0 auto;padding:48px 28px 36px;display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:2.5rem;">
+  <div class="footer-brand">
+    <a class="footer-logo" href="index.html" style="font-family:'JetBrains Mono',monospace;font-size:1.1rem;font-weight:700;text-decoration:none;display:inline-block;margin-bottom:0.7rem;"><span style="color:#00e5ff;">Arb</span><span style="color:#00ff88;">Vertex</span></a>
+    <p style="color:var(--muted,#6a8fa8);font-size:0.82rem;line-height:1.7;margin-bottom:1rem;max-width:220px;">Real-time crypto arbitrage signals, funding rate tools, and strategy guides for serious traders.</p>
+    <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
+      <a href="crypto-arbitrage-telegram-signals.html" style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.4rem 0.75rem;border:1px solid var(--border,#1a3a52);border-radius:5px;color:var(--muted,#6a8fa8);text-decoration:none;font-size:0.78rem;transition:all .2s;">✈️ Telegram</a>
+      <a href="futures-signal-bot.html" style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.4rem 0.75rem;border:1px solid var(--border,#1a3a52);border-radius:5px;color:var(--muted,#6a8fa8);text-decoration:none;font-size:0.78rem;transition:all .2s;">🤖 Signal Bot</a>
+      <a href="contact-arbvertex.html" style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.4rem 0.75rem;border:1px solid var(--border,#1a3a52);border-radius:5px;color:var(--muted,#6a8fa8);text-decoration:none;font-size:0.78rem;transition:all .2s;">✉️ Contact</a>
+    </div>
+  </div>
+  <div>
+    <h4 style="font-size:0.78rem;font-weight:700;color:var(--text,#e8f4f8);margin-bottom:0.9rem;text-transform:uppercase;letter-spacing:.06em;">Quick Links</h4>
+    <ul style="list-style:none;display:flex;flex-direction:column;gap:0.5rem;">
+      <li><a href="index.html" style="color:var(--muted,#6a8fa8);text-decoration:none;font-size:0.82rem;transition:color .2s;">Home</a></li>
+      <li><a href="live-crypto-arbitrage-scanner.html" style="color:var(--muted,#6a8fa8);text-decoration:none;font-size:0.82rem;transition:color .2s;">Live Scanner</a></li>
+      <li><a href="arbitrage-calculator.html" style="color:var(--muted,#6a8fa8);text-decoration:none;font-size:0.82rem;transition:color .2s;">Profit Calculator</a></li>
+      <li><a href="crypto-arbitrage-signals-pricing.html" style="color:var(--muted,#6a8fa8);text-decoration:none;font-size:0.82rem;transition:color .2s;">Pricing</a></li>
+      <li><a href="about-arbvertex-crypto-signals.html" style="color:var(--muted,#6a8fa8);text-decoration:none;font-size:0.82rem;transition:color .2s;">About Us</a></li>
+      <li><a href="contact-arbvertex.html" style="color:var(--muted,#6a8fa8);text-decoration:none;font-size:0.82rem;transition:color .2s;">Contact</a></li>
+    </ul>
+  </div>
+  <div>
+    <h4 style="font-size:0.78rem;font-weight:700;color:var(--text,#e8f4f8);margin-bottom:0.9rem;text-transform:uppercase;letter-spacing:.06em;">Learn</h4>
+    <ul style="list-style:none;display:flex;flex-direction:column;gap:0.5rem;">
+      <li><a href="what-is-crypto-arbitrage.html" style="color:var(--muted,#6a8fa8);text-decoration:none;font-size:0.82rem;transition:color .2s;">What is Arbitrage?</a></li>
+      <li><a href="what-is-crypto-futures-arbitrage.html" style="color:var(--muted,#6a8fa8);text-decoration:none;font-size:0.82rem;transition:color .2s;">Futures Arbitrage</a></li>
+      <li><a href="funding-rate-arbitrage-binance-bybit.html" style="color:var(--muted,#6a8fa8);text-decoration:none;font-size:0.82rem;transition:color .2s;">Funding Rate Guide</a></li>
+      <li><a href="cross-exchange-arbitrage-guide.html" style="color:var(--muted,#6a8fa8);text-decoration:none;font-size:0.82rem;transition:color .2s;">Cross-Exchange Arb</a></li>
+      <li><a href="crypto-arbitrage-risks-precautions.html" style="color:var(--muted,#6a8fa8);text-decoration:none;font-size:0.82rem;transition:color .2s;">Risks & Safety</a></li>
+      <li><a href="crypto-arbitrage-blog.html" style="color:var(--muted,#6a8fa8);text-decoration:none;font-size:0.82rem;transition:color .2s;">Full Blog</a></li>
+    </ul>
+  </div>
+  <div>
+    <h4 style="font-size:0.78rem;font-weight:700;color:var(--text,#e8f4f8);margin-bottom:0.9rem;text-transform:uppercase;letter-spacing:.06em;">Tools & Signals</h4>
+    <ul style="list-style:none;display:flex;flex-direction:column;gap:0.5rem;">
+      <li><a href="live-funding-gap-scanner.html" style="color:var(--muted,#6a8fa8);text-decoration:none;font-size:0.82rem;transition:color .2s;">Funding Gap Scanner</a></li>
+      <li><a href="live-crypto-arbitrage-scanner.html" style="color:var(--muted,#6a8fa8);text-decoration:none;font-size:0.82rem;transition:color .2s;">Price Gap Scanner</a></li>
+      <li><a href="arbitrage-calculator.html" style="color:var(--muted,#6a8fa8);text-decoration:none;font-size:0.82rem;transition:color .2s;">Fee Calculator</a></li>
+      <li><a href="crypto-arbitrage-signals-pricing.html" style="color:var(--muted,#6a8fa8);text-decoration:none;font-size:0.82rem;transition:color .2s;">Signal Plans</a></li>
+      <li><a href="crypto-arbitrage-telegram-signals.html" style="color:var(--muted,#6a8fa8);text-decoration:none;font-size:0.82rem;transition:color .2s;">Telegram Signals</a></li>
+      <li><a href="futures-signal-bot.html" style="color:var(--muted,#6a8fa8);text-decoration:none;font-size:0.82rem;transition:color .2s;">Signal Bot</a></li>
+    </ul>
+  </div>
+</div>
+<div style="border-top:1px solid var(--border,#1a3a52);padding:14px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;max-width:960px;margin:0 auto;width:100%;">
+  <span style="color:var(--muted,#6a8fa8);font-size:0.78rem;">© 2026 ArbVertex — Not financial advice.</span>
+  <span style="display:flex;gap:16px;">
+    <a href="privacy-policy.html" style="color:var(--muted,#6a8fa8);font-size:0.78rem;text-decoration:none;">Privacy</a>
+    <a href="terms-of-service.html" style="color:var(--muted,#6a8fa8);font-size:0.78rem;text-decoration:none;">Terms</a>
+    <a href="contact-arbvertex.html" style="color:var(--muted,#6a8fa8);font-size:0.78rem;text-decoration:none;">Contact</a>
+  </span>
+</div>
 </footer>
 <script>
 (function(){
