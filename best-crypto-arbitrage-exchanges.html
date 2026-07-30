@@ -249,6 +249,31 @@ footer{flex-direction:column;text-align:center;}
 .nb-step{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--muted);margin-left:0.5rem;}
 
 </style>
+<style>
+footer{background:#020810;border-top:1px solid var(--border);padding:0;}
+.footer-main{max-width:900px;margin:0 auto;padding:48px 24px 36px;display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:2.5rem;}
+.footer-brand .footer-logo{font-family:'JetBrains Mono',monospace;font-size:1.1rem;font-weight:700;color:var(--accent);text-decoration:none;letter-spacing:-0.02em;display:inline-block;margin-bottom:0.7rem;}
+.footer-brand .footer-logo span{color:var(--accent2);}
+.footer-brand p{color:var(--muted);font-size:0.82rem;line-height:1.7;margin-bottom:1rem;max-width:220px;}
+.footer-socials{display:flex;gap:0.6rem;flex-wrap:wrap;}
+.footer-social-btn{display:inline-flex;align-items:center;gap:0.4rem;padding:0.4rem 0.75rem;border:1px solid var(--border);border-radius:5px;color:var(--muted);text-decoration:none;font-size:0.78rem;transition:all .2s;}
+.footer-social-btn:hover{border-color:var(--accent);color:var(--accent);}
+.footer-col h4{font-size:0.72rem;font-family:'JetBrains Mono',monospace;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text);margin-bottom:0.9rem;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:0.5rem;}
+.footer-col ul li a{color:var(--muted);text-decoration:none;font-size:0.82rem;transition:color .2s;}
+.footer-col ul li a:hover{color:var(--accent);}
+.footer-bottom{border-top:1px solid var(--border);padding:16px 24px;}
+.footer-bottom-inner{max-width:900px;margin:0 auto;}
+.footer-bottom-inner p{color:var(--muted);font-size:0.75rem;}
+.footer-disclaimer{max-width:900px;margin:0 auto;padding:0 24px 20px;color:var(--muted);font-size:0.72rem;line-height:1.6;opacity:0.7;}
+@media(max-width:768px){.footer-main{grid-template-columns:1fr 1fr;gap:2rem;}.footer-brand{grid-column:1/-1;}.footer-bottom-inner{text-align:center;}}
+.breadcrumb{display:inline-flex;align-items:center;gap:0.3rem;font-size:0.78rem;color:var(--muted);font-family:'JetBrains Mono',monospace;padding:16px 0 8px;}
+.breadcrumb a{color:var(--muted);text-decoration:none;transition:color .2s;}
+.breadcrumb a:hover{color:var(--accent);}
+.breadcrumb .sep{color:var(--border);}
+.breadcrumb .current{color:var(--accent);}
+.nb-wrap{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border);align-items:center;justify-content:center;}
+</style>
 </head>
 <body>
 <!-- MEGA NAV -->
@@ -634,20 +659,63 @@ footer{flex-direction:column;text-align:center;}
 </div>
 </div>
 <div class="nb-wrap">
-<a class="nb-back" href="crypto-arbitrage-blog.html#exchange">☰ Back to Blog</a>
+
 <span class="nb-prev" style="opacity:0.35;cursor:default;">← First in Exchange</span>
 <span class="nb-step">Step 1/7</span>
 <a class="nb-next" href="binance-futures-setup-arbitrage.html">Binance Futures Setup for Arbitrage →</a>
 </div>
 
 <footer>
-<p>© 2026 ArbVertex — Not financial advice.</p>
-<div class="footer-links">
-<a href="crypto-arbitrage-blog.html">Blog</a>
-<a href="index.html">Home</a>
-<a href="contact-arbvertex.html">Contact</a>
-</div>
-<p style="font-size:0.75rem;color:#3a6a8a;">Referral links may earn commission at no cost to you.</p>
+  <div class="footer-main">
+    <div class="footer-brand">
+      <a class="footer-logo" href="index.html"><span style="color:#00e5ff;">Arb</span><span style="color:#00ff88;">Vertex</span></a>
+      <p>Real-time crypto arbitrage signals, funding rate tools, and strategy guides for serious traders.</p>
+      <div class="footer-socials">
+        <a class="footer-social-btn" href="crypto-arbitrage-telegram-signals.html">✈️ Telegram</a>
+        <a class="footer-social-btn" href="#">f Facebook</a>
+        <a class="footer-social-btn" href="futures-signal-bot.html">🤖 Signal Bot</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="live-crypto-arbitrage-scanner.html">Live Scanner</a></li>
+        <li><a href="arbitrage-calculator.html">Profit Calculator</a></li>
+        <li><a href="crypto-arbitrage-signals-pricing.html">Pricing</a></li>
+        <li><a href="about-arbvertex-crypto-signals.html">About Us</a></li>
+        <li><a href="contact-arbvertex.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Learn</h4>
+      <ul>
+        <li><a href="what-is-crypto-futures-arbitrage.html">What is Arbitrage</a></li>
+        <li><a href="funding-rate-arbitrage-binance-bybit.html">Funding Rate Guide</a></li>
+        <li><a href="negative-funding-rate-strategy.html">Negative Funding</a></li>
+        <li><a href="best-coins-funding-rate-arbitrage.html">Best Coins</a></li>
+        <li><a href="crypto-arbitrage-risks.html">Risk Management</a></li>
+        <li><a href="crypto-arbitrage-blog.html">All Guides</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+        <li><a href="terms-of-service.html">Terms of Service</a></li>
+        <li><a href="refund-policy.html">Refund Policy</a></li>
+        <li><a href="disclaimer.html">Disclaimer</a></li>
+        <li><a href="contact-arbvertex.html">Support</a></li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer-bottom">
+    <div class="footer-bottom-inner">
+      <p>⚠️ ArbVertex content is for educational purposes only. Cryptocurrency trading involves significant risk of loss. Past performance of signals does not guarantee future results. Always do your own research before making any financial decisions.</p>
+      <p>© 2026 ArbVertex. All rights reserved.</p>
+    </div>
+  </div>
 </footer>
 <script>
 (function(){
