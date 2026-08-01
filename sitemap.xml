@@ -1,51 +1,315 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-<url><loc>https://arbvertex.com/</loc></url>
-<url><loc>https://arbvertex.com/about-arbvertex-crypto-signals.html</loc></url>
-<url><loc>https://arbvertex.com/crypto-arbitrage-blog.html</loc></url>
-<url><loc>https://arbvertex.com/contact-arbvertex.html</loc></url>
-<url><loc>https://arbvertex.com/how-crypto-arbitrage-signals-work.html</loc></url>
-<url><loc>https://arbvertex.com/live-crypto-arbitrage-scanner.html</loc></url>
-<url><loc>https://arbvertex.com/crypto-arbitrage-signals-pricing.html</loc></url>
-<url><loc>https://arbvertex.com/crypto-arbitrage-risks-precautions.html</loc></url>
-<url><loc>https://arbvertex.com/what-is-crypto-futures-arbitrage.html</loc></url>
-<url><loc>https://arbvertex.com/arbitrage-calculator.html</loc></url>
-<url><loc>https://arbvertex.com/arbitrage-portfolio-growth.html</loc></url>
-<url><loc>https://arbvertex.com/how-to-generate-profit-crypto-arbitrage.html</loc></url>
-<url><loc>https://arbvertex.com/delisting-arbitrage-risks.html</loc></url>
-<url><loc>https://arbvertex.com/rethink-traditional-trading.html</loc></url>
-<url><loc>https://arbvertex.com/crypto-arbitrage-telegram-signals.html</loc></url>
-<url><loc>https://arbvertex.com/what-is-crypto-arbitrage.html</loc></url>
-<url><loc>https://arbvertex.com/spot-vs-futures-arbitrage.html</loc></url>
-<url><loc>https://arbvertex.com/funding-rate-arbitrage.html</loc></url>
-<url><loc>https://arbvertex.com/triangular-arbitrage-explained.html</loc></url>
-<url><loc>https://arbvertex.com/best-crypto-arbitrage-exchanges.html</loc></url>
-<url><loc>https://arbvertex.com/cross-exchange-arbitrage-guide.html</loc></url>
-<url><loc>https://arbvertex.com/crypto-arbitrage-risks-precautions.html</loc></url>
-<url><loc>https://arbvertex.com/arbitrage-profit-calculator-guide.html</loc></url>
-<url><loc>https://arbvertex.com/arbitrage-trading-fees-explained.html</loc></url>
-<url><loc>https://arbvertex.com/best-crypto-arbitrage-tools.html</loc></url>
-<url><loc>https://arbvertex.com/arbitrage-risks-delisting-events.html</loc></url>
-<url><loc>https://arbvertex.com/arbitrage-portfolio-growth.html</loc></url>
-<url><loc>https://arbvertex.com/crypto-arbitrage-trading-consistent-income.html</loc></url>
-<url><loc>https://arbvertex.com/why-choose-arbvertex-over-other-arbitrage-platforms.html</loc></url>
-<url><loc>https://arbvertex.com/why-choose-arbvertex.html</loc></url>
-<url><loc>https://arbvertex.com/when-to-avoid-arbitrage-delisting.html</loc></url>
-<url><loc>https://arbvertex.com/how-to-start-crypto-futures-arbitrage.html</loc></url>
-<url><loc>https://arbvertex.com/triangular-arbitrage-crypto.html</loc></url>
-<url><loc>https://arbvertex.com/arbitrage-calculator-guide.html</loc></url>
-<url><loc>https://arbvertex.com/funding-rate-arbitrage-guide.html</loc></url>
-
   <url>
-    <loc>https://arbvertex.com/futures-signal-bot.html</loc>
-    <lastmod>2026-07-09</lastmod>
+    <loc>https://arbvertex.com/</loc>
+    <lastmod>2026-08-01</lastmod>
     <changefreq>daily</changefreq>
-    <priority>0.8</priority>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/crypto-arbitrage-blog.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/crypto-arbitrage-signals-pricing.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/live-crypto-arbitrage-scanner.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/live-funding-gap-scanner.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
     <loc>https://arbvertex.com/advanced-arb-scanner.html</loc>
+    <lastmod>2026-08-01</lastmod>
     <changefreq>daily</changefreq>
-    <priority>0.9</priority>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/futures-signal-bot.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/hidden-gem-crypto-scanner.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/arbitrage-calculator.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/what-is-crypto-arbitrage.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/what-is-crypto-futures-arbitrage.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/spot-vs-futures-arbitrage.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/how-crypto-arbitrage-signals-work.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/how-to-start-arbitrage-with-no-experience.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/how-to-start-crypto-futures-arbitrage.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/how-to-generate-profit-crypto-arbitrage.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/crypto-arbitrage-passive-income.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/crypto-arbitrage-glossary.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/funding-rate-arbitrage.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/funding-rate-arbitrage-binance-bybit.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/negative-funding-rate-strategy.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/best-coins-funding-rate-arbitrage.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/perpetual-futures-arbitrage-guide.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/basis-trading-crypto-explained.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/cash-and-carry-trade-crypto.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/cross-exchange-arbitrage-guide.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/cex-dex-futures-arbitrage.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/triangular-arbitrage-explained.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/crypto-arbitrage-without-transferring-coins.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/best-crypto-arbitrage-exchanges.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/binance-futures-setup-arbitrage.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/bybit-setup-for-arbitrage.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/okx-arbitrage-guide.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/how-to-track-funding-rates-free.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/best-crypto-arbitrage-tools.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/arbitrage-trading-fees-explained.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/crypto-arbitrage-risks-precautions.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/stop-loss-strategies-arbitrage.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/how-to-avoid-exchange-risk-arbitrage.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/delisting-arbitrage-risks.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/arbitrage-portfolio-growth.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/crypto-arbitrage-position-sizing.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/crypto-arbitrage-trading-consistent-income.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/why-choose-arbvertex-over-other-arbitrage-platforms.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/rethink-traditional-trading.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/about-arbvertex-crypto-signals.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/contact-arbvertex.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/crypto-arbitrage-telegram-signals.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/privacy-policy.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/terms-of-service.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/refund-policy.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://arbvertex.com/disclaimer.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
   </url>
 </urlset>
