@@ -220,7 +220,48 @@ footer{background:#020810;border-top:1px solid var(--border);padding:0;}
 .breadcrumb .sep{color:var(--border);}
 .breadcrumb .current{color:var(--accent);}
 .nb-wrap{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border);align-items:center;justify-content:center;}
+
+/* ── FAQ STYLED ── */
+.faq-section-wrap { margin: 2.5rem 0; }
+.faq-section-title {
+  font-size: 1.25rem; font-weight: 700; color: var(--text);
+  margin-bottom: 1.2rem; letter-spacing: -0.015em;
+}
+.faq-block {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 0.75rem;
+  overflow: hidden;
+  transition: border-color .2s;
+}
+.faq-block:hover { border-color: var(--accent); }
+.faq-q {
+  font-size: 0.95rem; font-weight: 600; color: var(--text);
+  padding: 1.1rem 1.3rem;
+  display: flex; justify-content: space-between; align-items: center;
+  cursor: pointer; gap: 1rem;
+}
+.faq-q::after {
+  content: '+';
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.1rem; color: var(--accent);
+  flex-shrink: 0; font-weight: 400;
+}
+.faq-block.open .faq-q::after { content: '−'; }
+.faq-a {
+  color: var(--muted); font-size: 0.88rem; line-height: 1.75;
+  padding: 0 1.3rem 1.1rem;
+  border-top: 1px solid var(--border);
+  display: none;
+}
+.faq-block.open .faq-a { display: block; }
+/* Default open state for all (no JS needed) */
+.faq-a { display: block; }
+.faq-q::after { content: '−'; color: var(--accent); }
 </style>
+  <link rel="canonical" href="https://arbvertex.com/funding-rate-arbitrage-binance-bybit.html">
+  <meta name="description" content="Funding rate arbitrage on Binance and Bybit — step-by-step guide with real trade examples and expected returns.">
 </head>
 <body>
 <!-- ── Mega Nav ── -->
@@ -235,8 +276,8 @@ footer{background:#020810;border-top:1px solid var(--border);padding:0;}
 <a class="av-mega-link" href="what-is-crypto-futures-arbitrage.html"><span class="av-icon">📘</span><span>What is Arbitrage<span class="av-desc">Core concept explained</span></span></a>
 <a class="av-mega-link" href="how-crypto-arbitrage-signals-work.html"><span class="av-icon">⚙️</span><span>How It Works<span class="av-desc">Step-by-step process</span></span></a>
 <a class="av-mega-link" href="how-to-generate-profit-crypto-arbitrage.html"><span class="av-icon">💰</span><span>Generate Profit<span class="av-desc">Ways arbitrage earns</span></span></a>
-<a class="av-mega-link" href="crypto-arbitrage-risks.html"><span class="av-icon">⚠️</span><span>Risks &amp; Safety<span class="av-desc">What to watch for</span></span></a>
-<a class="av-mega-link" href="delisting-arbitrage-crypto-arbitrage-risks-precautions.html"><span class="av-icon">🚨</span><span>Delisting Risks<span class="av-desc">Avoid this trap</span></span></a>
+<a class="av-mega-link" href="crypto-arbitrage-risks-precautions.html"><span class="av-icon">⚠️</span><span>Risks &amp; Safety<span class="av-desc">What to watch for</span></span></a>
+<a class="av-mega-link" href="delisting-arbitrage-risks.html"><span class="av-icon">🚨</span><span>Delisting Risks<span class="av-desc">Avoid this trap</span></span></a>
 <a class="av-mega-link" href="rethink-traditional-trading.html"><span class="av-icon">🔄</span><span>Rethink Trading<span class="av-desc">Why arbitrage wins</span></span></a>
 <a class="av-mega-link" href="arbitrage-portfolio-growth.html"><span class="av-icon">📈</span><span>Portfolio Growth<span class="av-desc">Long-term strategy</span></span></a>
 </div>
@@ -296,12 +337,13 @@ footer{background:#020810;border-top:1px solid var(--border);padding:0;}
 
 <header>
 
+<nav class="breadcrumb"><a href="index.html">Home</a><span class="sep"> / </span><a href="crypto-arbitrage-blog.html">Blog</a><span class="sep"> / </span><span class="current">Strategy</span></nav>
+
 <h1>Funding Rate Arbitrage on Binance + Bybit</h1>
 <p class="lead">The most profitable combination for funding rate arbitrage — Binance's deep spot liquidity paired with Bybit's lowest futures fees. This guide covers everything from account setup to exit strategy.</p>
 
 </header>
 <main>
-<nav class="breadcrumb"><a href="index.html">Home</a><span class="sep"> / </span><a href="crypto-arbitrage-blog.html">Blog</a><span class="sep"> / </span><span class="current">Strategy</span></nav>
 
 <!-- Why Binance + Bybit -->
 <section class="content-section">
@@ -527,13 +569,14 @@ Deposit via <strong style="color:var(--text);">TRC-20 USDT</strong> — cheapest
 </div>
 
 <!-- Nav buttons -->
-<div class="nb-wrap">
 
-<a class="nb-prev" href="funding-rate-arbitrage.html">← Funding Rate Arbitrage Guide</a>
 
-<a class="nb-next" href="negative-funding-rate-strategy.html">Negative Funding Rate Strategy →</a>
+
+<div class="nav-btns">
+  <a class="nb-outline" href="crypto-arbitrage-blog.html">&#9776; Back to Blog</a>
+  <a class="nb-outline" href="funding-rate-arbitrage.html">&#8592; Prev: Funding Rate Arb Guide</a>
+  <a class="nb-primary" href="negative-funding-rate-strategy.html">Next: Negative Funding Rate &#8594;</a>
 </div>
-
 </main>
 
 <footer>
@@ -565,7 +608,7 @@ Deposit via <strong style="color:var(--text);">TRC-20 USDT</strong> — cheapest
         <li><a href="funding-rate-arbitrage-binance-bybit.html">Funding Rate Guide</a></li>
         <li><a href="negative-funding-rate-strategy.html">Negative Funding</a></li>
         <li><a href="best-coins-funding-rate-arbitrage.html">Best Coins</a></li>
-        <li><a href="crypto-arbitrage-risks.html">Risk Management</a></li>
+        <li><a href="crypto-arbitrage-risks-precautions.html">Risk Management</a></li>
         <li><a href="crypto-arbitrage-blog.html">All Guides</a></li>
       </ul>
     </div>
