@@ -142,7 +142,7 @@ body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-ser
 .breadcrumb a:hover{color:var(--accent);}
 .article-meta{display:flex;align-items:center;gap:0.6rem;margin-bottom:1rem;flex-wrap:wrap;}
 .meta-tag{font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.25rem 0.6rem;border-radius:3px;background:rgba(255,160,64,0.1);color:var(--orange);}
-h1{font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:800;line-height:1.25;letter-spacing:-0.02em;margin-bottom:0.8rem;}
+h1{font-size:clamp(1.8rem,3.5vw,2.4rem);font-weight:700;line-height:1.2;letter-spacing:-0.03em;margin-bottom:1rem;color:var(--text);font-family:"Space Grotesk","Inter",sans-serif;}
 .article-intro{color:var(--muted);font-size:0.97rem;line-height:1.8;margin-bottom:2rem;border-left:3px solid var(--accent);padding-left:1rem;}
 .section-title{font-size:1.2rem;font-weight:700;margin:2.2rem 0 0.8rem;color:var(--text);}
 .body-text{color:var(--muted);font-size:0.93rem;line-height:1.85;margin-bottom:0.75rem;}
@@ -205,13 +205,21 @@ footer p{color:var(--muted);font-size:0.82rem;}
 @media(max-width:768px){.nav-btns{flex-direction:column;}footer{flex-direction:column;text-align:center;}}
 
 .nb-wrap{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border);align-items:center;}
-.nb-back{display:inline-flex;align-items:center;gap:0.4rem;color:var(--muted);text-decoration:none;font-size:0.85rem;border:1px solid var(--border);padding:0.55rem 1rem;border-radius:4px;transition:all .2s;white-space:nowrap;}
+.nb-back{display:inline-flex;align-items:center;gap:0.4rem;color:var(--accent);text-decoration:none;font-size:0.85rem;border:1px solid var(--accent);background:rgba(0,229,255,0.05);padding:0.55rem 1rem;border-radius:4px;transition:all .2s;white-space:nowrap;}
 .nb-back:hover{border-color:var(--accent);color:var(--accent);}
 .nb-prev{display:inline-flex;align-items:center;gap:0.4rem;color:var(--text);text-decoration:none;font-size:0.85rem;border:1px solid var(--border);padding:0.55rem 1.1rem;border-radius:4px;transition:all .2s;white-space:nowrap;}
 .nb-prev:hover{border-color:var(--accent);color:var(--accent);}
-.nb-next{display:inline-flex;align-items:center;gap:0.4rem;background:var(--accent);color:var(--bg);text-decoration:none;font-size:0.85rem;font-weight:700;padding:0.55rem 1.1rem;border-radius:4px;transition:opacity .2s;white-space:nowrap;margin-left:auto;}
+.nb-next{display:inline-flex;align-items:center;gap:0.4rem;background:var(--accent);color:var(--bg);text-decoration:none;font-size:0.85rem;font-weight:700;padding:0.55rem 1.1rem;border-radius:4px;transition:opacity .2s;white-space:nowrap;}
 .nb-next:hover{opacity:0.85;}
 .nb-step{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--muted);margin-left:0.5rem;}
+
+
+.av-blog-cat-label{font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;color:var(--muted);font-weight:700;padding:0.3rem 0.5rem;display:block;}
+.av-blog-cat-link{display:block;padding:0.5rem 0.5rem 0.6rem;border-radius:6px;text-decoration:none;transition:background .2s;margin-bottom:0.2rem;}
+.av-blog-cat-link:hover{background:rgba(0,229,255,0.06);}
+.av-blog-cat-title{color:var(--text);font-weight:700;font-size:0.9rem;margin-bottom:0.2rem;display:flex;align-items:center;gap:0.4rem;}
+.av-blog-cat-title::before{content:'→';color:var(--accent);font-size:0.85rem;}
+.av-blog-cat-desc{color:var(--muted);font-size:0.78rem;line-height:1.4;padding-left:1.1rem;}
 
 </style>
 </head>
@@ -250,12 +258,28 @@ footer p{color:var(--muted);font-size:0.82rem;}
 <button class="av-top-link av-drop-trigger" type="button">Blog <span class="av-caret">▾</span></button>
 <div class="av-mega-panel av-blog-panel">
 <div class="av-blog-col">
-<div class="av-blog-col-header">📖 Beginner</div>
-<div class="av-blog-col-header" style="margin-top:0.5rem;">💡 Strategy</div>
+<div class="av-blog-cat-label">📘 BEGINNER</div>
+<a class="av-blog-cat-link" href="crypto-arbitrage-blog.html#beginner">
+<div class="av-blog-cat-title">Beginner Guides</div>
+<div class="av-blog-cat-desc">Start from zero — concepts &amp; first steps</div>
+</a>
+<div class="av-blog-cat-label" style="margin-top:1rem;">💡 STRATEGY</div>
+<a class="av-blog-cat-link" href="crypto-arbitrage-blog.html#strategy">
+<div class="av-blog-cat-title">Strategy Guides</div>
+<div class="av-blog-cat-desc">Funding rate, basis trading, advanced tactics</div>
+</a>
 </div>
 <div class="av-blog-col">
-<div class="av-blog-col-header">🔄 Exchange Guides</div>
-<div class="av-blog-col-header" style="margin-top:0.5rem;">🛡️ Risk &amp; Tools</div>
+<div class="av-blog-cat-label">🔄 EXCHANGE GUIDES</div>
+<a class="av-blog-cat-link" href="crypto-arbitrage-blog.html#exchange">
+<div class="av-blog-cat-title">Exchange Guides</div>
+<div class="av-blog-cat-desc">Binance, Bybit, OKX setup &amp; comparison</div>
+</a>
+<div class="av-blog-cat-label" style="margin-top:1rem;">🛡️ RISK &amp; TOOLS</div>
+<a class="av-blog-cat-link" href="crypto-arbitrage-blog.html#risk">
+<div class="av-blog-cat-title">Risk &amp; Tools</div>
+<div class="av-blog-cat-desc">Position sizing, stop loss, glossary</div>
+</a>
 </div>
 </div>
 </li>
