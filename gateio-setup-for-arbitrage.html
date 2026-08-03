@@ -79,7 +79,7 @@
 
     /* ── BREADCRUMB ── */
     .breadcrumb-bar{background:var(--surface2);border-bottom:1px solid var(--border);padding:10px 5%;}
-    .breadcrumb{display:flex;align-items:center;gap:8px;font-size:0.78rem;color:var(--muted);flex-wrap:wrap;}
+    .breadcrumb{display:inline-flex;align-items:center;gap:0.3rem;font-size:0.78rem;color:var(--muted);font-family:'JetBrains Mono',monospace;padding:0;}
     .breadcrumb a{color:var(--muted);}
     .breadcrumb a:hover{color:var(--accent);}
     .breadcrumb .sep{color:var(--border);}
@@ -234,7 +234,7 @@ footer{background:#020810;border-top:1px solid var(--border);padding:0;}
 .footer-bottom-inner p{color:var(--muted);font-size:0.75rem;}
 .footer-disclaimer{max-width:900px;margin:0 auto;padding:0 24px 20px;color:var(--muted);font-size:0.72rem;line-height:1.6;opacity:0.7;}
 @media(max-width:768px){.footer-main{grid-template-columns:1fr 1fr;gap:2rem;}.footer-brand{grid-column:1/-1;}.footer-bottom-inner{text-align:center;}}
-.breadcrumb{display:inline-flex;align-items:center;gap:0.3rem;font-size:0.78rem;color:var(--muted);font-family:'JetBrains Mono',monospace;padding:16px 0 8px;}
+.breadcrumb{display:inline-flex;align-items:center;gap:0.3rem;font-size:0.78rem;color:var(--muted);font-family:'JetBrains Mono',monospace;padding:0;}
 .breadcrumb a{color:var(--muted);text-decoration:none;transition:color .2s;}
 .breadcrumb a:hover{color:var(--accent);}
 .breadcrumb .sep{color:var(--border);}
@@ -310,7 +310,7 @@ footer{background:#020810;border-top:1px solid var(--border);padding:0;}
 </nav>
 </header>
 
-<div class="breadcrumb-bar">
+<div class="breadcrumb-bar" style="max-width:860px;margin:0 auto;padding:20px 5% 0;">
 <nav class="breadcrumb"><a href="index.html">Home</a><span class="sep"> / </span><a href="crypto-arbitrage-blog.html">Blog</a><span class="sep"> / </span><span class="current">Exchange Guides</span></nav>
 </div>
 
