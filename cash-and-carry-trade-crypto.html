@@ -196,6 +196,17 @@ footer p{color:var(--muted);font-size:0.82rem;}
 .nb-next:hover{opacity:0.85;}
 .nb-step{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--muted);margin-left:0.5rem;}
 
+
+.faq-section{margin:2.5rem 0;}
+.faq-section h2{font-size:1.25rem;font-weight:700;margin-bottom:1.2rem;color:var(--text);}
+.faq-list{display:flex;flex-direction:column;gap:0;}
+.faq-item{border-bottom:1px solid var(--border);padding:1.1rem 0;}
+.faq-item:first-child{border-top:1px solid var(--border);}
+.faq-q{font-size:0.93rem;font-weight:600;color:var(--text);margin-bottom:0.45rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;}
+.faq-q::after{content:'＋';font-size:1rem;color:var(--accent);flex-shrink:0;transition:transform .2s;}
+.faq-item.open .faq-q::after{content:'－';}
+.faq-a{color:var(--muted);font-size:0.88rem;line-height:1.7;display:none;padding-top:0.35rem;}
+.faq-item.open .faq-a{display:block;}
 </style>
 <style>
 footer{background:#020810;border-top:1px solid var(--border);padding:0;}
@@ -298,15 +309,15 @@ footer{background:#020810;border-top:1px solid var(--border);padding:0;}
 
 <!-- ── Header ── -->
 <header>
-<div class="art-tag">💡 Strategy — Step 7</div>
+
+<nav class="breadcrumb"><a href="index.html">Home</a><span class="sep"> / </span><a href="crypto-arbitrage-blog.html">Blog</a><span class="sep"> / </span><span class="current">Strategy</span></nav>
 <h1>Cash and Carry Trade in Crypto: Step-by-Step Guide</h1>
 <p class="lead">Cash and carry is one of the most reliable market-neutral strategies in crypto — buy spot, short futures simultaneously, and lock in profit from the price gap regardless of where the market moves. This guide covers exactly how it works, a real ETHUSDT example with numbers, entry/exit rules, and key risks to watch.</p>
-<span class="read-time">⏱ 7 min read</span>
+
 </header>
 <main>
-<nav class="breadcrumb"><a href="index.html">Home</a><span class="sep"> / </span><a href="crypto-arbitrage-blog.html">Blog</a><span class="sep"> / </span><span class="current">Strategy</span></nav>
 
-<a class="back-link" href="crypto-arbitrage-blog.html#strategy">← Back to Blog</a>
+
 
 <!-- QUICK SUMMARY -->
 <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.3rem 1.5rem;margin-bottom:2rem;">
@@ -492,6 +503,7 @@ footer{background:#020810;border-top:1px solid var(--border);padding:0;}
 
 <div class="faq-section">
 <h2>Frequently Asked Questions</h2>
+<div class="faq-list">
 <div class="faq-item">
   <div class="faq-q">How much capital do I need to start cash and carry?</div>
   <div class="faq-a">You can start with as little as $500 total ($250 on each exchange). With $500, you earn ~$21/month at 0.05% funding rate. Larger capital earns proportionally more &#8212; the percentage return stays the same regardless of size.</div>
@@ -513,22 +525,21 @@ footer{background:#020810;border-top:1px solid var(--border);padding:0;}
   <div class="faq-a">Positive funding rate cash and carry works best in bull markets when longs dominate. In bear markets, funding often goes negative &#8212; at which point you&#8217;d do a reverse cash and carry (short spot + long futures) to collect negative funding instead.</div>
 </div>
 </div>
+</div>
 <div class="cta-box">
 <p>Ready to start earning from crypto arbitrage? Get pre-validated 2%+ signals delivered directly on Telegram.</p>
 <a class="cta-btn" href="crypto-arbitrage-signals-pricing.html">View Plans → Join for $5/month</a>
 </div>
 <div class="nav-btns">
-<a class="nb-outline" href="crypto-arbitrage-blog.html">☰ Back to Blog</a>
-<a class="nb-outline" href="basis-trading-crypto-explained.html">← Prev: Basis Trading Explained</a>
-<a class="nb-primary" href="cross-exchange-arbitrage-guide.html">Next: Cross-Exchange Arbitrage →</a>
-</div>
+  
+  <a class="nb-outline" href="crypto-arbitrage-blog.html">☰ Back to Blog</a>
+  
+  <a class="nb-prev" href="basis-trading-crypto-explained.html">← Basis Trading in Crypto</a>
 
-<div class="nb-wrap">
-
-<a class="nb-prev" href="basis-trading-crypto-explained.html">← Basis Trading in Crypto</a>
-<span class="nb-step">Step 7/12</span>
 <a class="nb-next" href="cross-exchange-arbitrage-guide.html">Cross-Exchange Arbitrage Guide →</a>
+
 </div>
+
 
 </main>
 
@@ -607,6 +618,17 @@ footer{background:#020810;border-top:1px solid var(--border);padding:0;}
  }
  });
 })();
+</script>
+
+<script>
+document.querySelectorAll('.faq-q').forEach(function(q){
+  q.addEventListener('click', function(){
+    var item = this.closest('.faq-item');
+    var isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(function(el){ el.classList.remove('open'); });
+    if(!isOpen) item.classList.add('open');
+  });
+});
 </script>
 </body>
 </html>
