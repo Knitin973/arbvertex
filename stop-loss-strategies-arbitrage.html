@@ -204,7 +204,7 @@ footer p{color:var(--muted);font-size:0.82rem;}
 
 @media(max-width:768px){.nav-btns{flex-direction:column;}footer{flex-direction:column;text-align:center;}}
 
-.nb-wrap{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border);align-items:center;}
+.nb-wrap{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border);align-items:center;justify-content:center;}
 .nb-back{display:inline-flex;align-items:center;gap:0.4rem;color:var(--accent);text-decoration:none;font-size:0.85rem;border:1px solid var(--accent);background:rgba(0,229,255,0.05);padding:0.55rem 1rem;border-radius:4px;transition:all .2s;white-space:nowrap;}
 .nb-back:hover{border-color:var(--accent);color:var(--accent);}
 .nb-prev{display:inline-flex;align-items:center;gap:0.4rem;color:var(--text);text-decoration:none;font-size:0.85rem;border:1px solid var(--border);padding:0.55rem 1.1rem;border-radius:4px;transition:all .2s;white-space:nowrap;}
@@ -426,11 +426,12 @@ footer p{color:var(--muted);font-size:0.82rem;}
 </div>
 <!-- END ARTICLE -->
 
-  <div class="article-nav-btns">
-<a class="nb-back" href="crypto-arbitrage-blog.html#risk">☰ Back to Blog</a>
+<div class="nb-wrap">
+  <div class="nav-btns">
+<a class="nb-outline" href="crypto-arbitrage-blog.html">☰ Back to Blog</a>
 <a class="nb-prev" href="crypto-arbitrage-position-sizing.html">← Position Sizing for Crypto Arbitrage</a>
-
 <a class="nb-next" href="how-to-avoid-exchange-risk-arbitrage.html">How to Avoid Exchange Risk in Arbitrage →</a>
+</div>
 </div>
 
 
@@ -544,7 +545,7 @@ nav{display:flex;align-items:center;justify-content:space-between;height:64px;}
 .badge{display:inline-flex;align-items:center;gap:0.5rem;background:var(--surface);border:1px solid var(--border);color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:0.75rem;padding:0.35rem 0.8rem;border-radius:2px;margin-bottom:1.5rem;letter-spacing:0.08em;}
 .badge::before{content:'';width:6px;height:6px;background:var(--accent2);border-radius:50%;animation:pulse 2s infinite;}
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
-h1{font-size:clamp(2.2rem,5vw,3.8rem);font-weight:700;line-height:1.1;letter-spacing:-0.02em;margin-bottom:1.2rem;}
+
 h1 .c1{color:var(--accent);}
 h1 .c2{color:var(--accent2);}
 .hero-sub{font-size:1.05rem;color:var(--muted);max-width:520px;margin-bottom:2.2rem;line-height:1.7;}
@@ -700,7 +701,7 @@ footer p{color:var(--muted);font-size:0.82rem;}
  .single-plan{padding:2rem 1.5rem;}
 }
 
-.nav-btns{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border,#1a3a52);}
+.nav-btns{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border,#1a3a52);justify-content:center;}
 .nb-outline,.btn-outline{border:1px solid var(--border,#1a3a52);color:var(--text,#e8f4f8);padding:0.65rem 1.4rem;border-radius:4px;font-weight:500;font-size:0.85rem;text-decoration:none;transition:border-color .2s,color .2s;display:inline-block;white-space:nowrap;}
 .nb-outline:hover,.btn-outline:hover{border-color:var(--accent,#00e5ff);color:var(--accent,#00e5ff);}
 .nb-primary,.btn-primary{background:var(--accent,#00e5ff);color:#050a0f;padding:0.65rem 1.4rem;border-radius:4px;font-weight:700;font-size:0.85rem;text-decoration:none;display:inline-block;transition:opacity .2s;white-space:nowrap;}
