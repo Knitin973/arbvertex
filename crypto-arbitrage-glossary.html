@@ -170,7 +170,7 @@ h1{font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:800;line-height:1.25;letter-
 .cta-box p{color:var(--muted);font-size:0.9rem;margin-bottom:1rem;}
 .cta-btn{background:var(--accent);color:var(--bg);padding:0.7rem 1.8rem;border-radius:4px;font-weight:700;text-decoration:none;display:inline-block;transition:opacity .2s;}.cta-btn:hover{opacity:0.85;}
 .nav-btns{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border);}
-.btn-outline{border:1px solid var(--border);color:var(--text);padding:0.65rem 1.4rem;border-radius:4px;font-weight:500;font-size:0.88rem;text-decoration:none;transition:border-color .2s;display:inline-block;}.btn-outline:hover{border-color:var(--accent);color:var(--accent);}
+.nb-outline,.btn-outline{border:1px solid var(--border,#1a3a52);color:var(--text,#e8f4f8);padding:0.65rem 1.4rem;border-radius:4px;font-weight:500;font-size:0.85rem;text-decoration:none;transition:border-color .2s,color .2s;display:inline-block;white-space:nowrap;}.nb-outline:hover,.btn-outline:hover{border-color:var(--accent,#00e5ff);color:var(--accent,#00e5ff);}
 .btn-primary{background:var(--accent);color:var(--bg);padding:0.65rem 1.4rem;border-radius:4px;font-weight:700;font-size:0.88rem;text-decoration:none;display:inline-block;transition:opacity .2s;}.btn-primary:hover{opacity:0.85;}
 footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
 footer p{color:var(--muted);font-size:0.82rem;}
@@ -182,7 +182,7 @@ footer p{color:var(--muted);font-size:0.82rem;}
 .av-blog-col{display:flex;flex-direction:column;gap:0.05rem;}
 @media(max-width:980px){.av-blog-panel{min-width:0;grid-template-columns:1fr!important;}.av-blog-col-header{display:none;}}
 
-.nb-wrap{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border);align-items:center;}
+.nb-wrap{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border);align-items:center;justify-content:center;}
 .nb-back{display:inline-flex;align-items:center;gap:0.4rem;color:var(--muted);text-decoration:none;font-size:0.85rem;border:1px solid var(--border);padding:0.55rem 1rem;border-radius:4px;transition:all .2s;white-space:nowrap;}
 .nb-back:hover{border-color:var(--accent);color:var(--accent);}
 .nb-prev{display:inline-flex;align-items:center;gap:0.4rem;color:var(--text);text-decoration:none;font-size:0.85rem;border:1px solid var(--border);padding:0.55rem 1.1rem;border-radius:4px;transition:all .2s;white-space:nowrap;}
@@ -612,7 +612,8 @@ footer{background:#020810;border-top:1px solid var(--border);padding:0;}
 </div>
   
 </div>
-<div class="sig-nav">
+<div class="nb-wrap">
+  <div class="nav-btns">
 <a class="nb-outline" href="crypto-arbitrage-blog.html">☰ Back to Blog</a>
 <a class="nb-prev" href="crypto-arbitrage-trading-consistent-income.html">← Building Consistent Income</a>
 <a class="nb-next" href="why-choose-arbvertex-over-other-arbitrage-platforms.html">Why Choose ArbVertex Over? →</a>
